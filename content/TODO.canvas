@@ -1,0 +1,25 @@
+{
+	"nodes":[
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
+		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
+		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 重构文字\n3. 重构实验设计。\n4. 编写实验代码","x":-1040,"y":-535,"width":250,"height":160,"color":"1"},
+		{
+			"id":"c8c2d69bf70431fc",
+			"type":"text",
+			"text":"微信个人认证",
+			"styleAttributes":{},
+			"x":-1350,
+			"y":-60,
+			"width":260,
+			"height":60
+		}
+	],
+	"edges":[
+		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"}
+	],
+	"metadata":{
+		"version":"1.0-1.0",
+		"frontmatter":{},
+		"startNode":"db6fa6c7d1c050d8"
+	}
+}
