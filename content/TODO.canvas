@@ -4,12 +4,12 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 重构文字\n3. 重构实验设计。\n4. 编写实验代码","x":-1040,"y":-535,"width":250,"height":160,"color":"1"},
 		{
-			"id":"c8c2d69bf70431fc",
+			"id":"a5834f1c72b18ab2",
 			"type":"text",
-			"text":"微信个人认证",
+			"text":"alien 开启产品线",
 			"styleAttributes":{},
-			"x":-1350,
-			"y":-60,
+			"x":-1040,
+			"y":-280,
 			"width":260,
 			"height":60
 		}
