@@ -22,6 +22,16 @@
 			"y":-280,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"9f204aea9b173618",
+			"type":"text",
+			"text":"paper 容器转 主机",
+			"styleAttributes":{},
+			"x":-730,
+			"y":-280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
