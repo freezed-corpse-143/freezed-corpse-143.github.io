@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -907.5,
-                  "y": -377.5,
+                  "y": -366.5,
                   "zoom": 0
                 }
               },
@@ -217,16 +217,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "2b6d2123debc073c",
   "lastOpenFiles": [
+    "windows.md",
+    "Prompt.md",
+    "TODO.canvas",
     "环境配置.md",
     "index.md",
-    "TODO.canvas",
     "我的项目.md",
     "软件使用.md",
     "我的项目.md.tmp.29192.3b9b1a433815",
-    "Prompt.md",
-    "windows.md",
     "编程语言.md",
     "实习.md",
     "Drawing 2026-05-21 19.23.21.excalidraw.md",
