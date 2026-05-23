@@ -32,6 +32,16 @@
 			"y":-200,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"e7f625854f626a8f",
+			"type":"text",
+			"text":"在 deepseek网页端，将项目注入网页端",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-200,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
