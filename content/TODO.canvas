@@ -3,16 +3,6 @@
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{
-			"id":"866e4599ba02b09d",
-			"type":"text",
-			"text":"GRAPH RAG 的学习使用",
-			"styleAttributes":{},
-			"x":-1345,
-			"y":-280,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"3df6094934bf3983",
 			"type":"text",
 			"text":"如何分析 CPU 与 GPU 的流水线气泡分析图",
@@ -49,7 +39,7 @@
 			"text":"从专门的写作技能书与镜头预言书，总结为 harness 工具",
 			"styleAttributes":{},
 			"x":-1340,
-			"y":-200,
+			"y":-280,
 			"width":260,
 			"height":60
 		}
