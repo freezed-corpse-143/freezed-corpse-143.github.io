@@ -52,8 +52,7 @@
               "title": "环境配置"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -85,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "llama-server",
+                "query": "rust",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -218,10 +217,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2b6d2123debc073c",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "环境配置.md",
     "TODO.canvas",
+    "环境配置.md",
     "软件使用.md",
     "服务使用.md",
     "windows.md",
