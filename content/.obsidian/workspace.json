@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ssh-key",
+                "query": "openkb",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -106,8 +106,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -221,9 +220,9 @@
   "active": "a085d3c9c188367e",
   "lastOpenFiles": [
     "服务使用.md",
-    "TODO.canvas",
-    "环境配置.md",
     "软件使用.md",
+    "环境配置.md",
+    "TODO.canvas",
     "windows.md",
     "Prompt.md",
     "index.md",
