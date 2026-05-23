@@ -14,26 +14,6 @@
 		},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"e7f625854f626a8f",
-			"type":"text",
-			"text":"在 deepseek网页端，将项目注入网页端",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-200,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"147c2b70cd47b3cc",
-			"type":"text",
-			"text":"数据同步",
-			"styleAttributes":{},
-			"x":-730,
-			"y":-280,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"cce5d94760c67ff2",
 			"type":"text",
 			"text":"从专门的写作技能书与镜头预言书，总结为 harness 工具",
