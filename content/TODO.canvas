@@ -24,16 +24,6 @@
 		},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"b7f10df7f53784e9",
-			"type":"text",
-			"text":"openkb 的学习使用",
-			"styleAttributes":{},
-			"x":-1340,
-			"y":-200,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"e7f625854f626a8f",
 			"type":"text",
 			"text":"在 deepseek网页端，将项目注入网页端",
