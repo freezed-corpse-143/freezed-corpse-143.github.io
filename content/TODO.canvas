@@ -42,6 +42,16 @@
 			"y":-200,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"147c2b70cd47b3cc",
+			"type":"text",
+			"text":"笔记同步",
+			"styleAttributes":{},
+			"x":-730,
+			"y":-280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
