@@ -32,6 +32,16 @@
 			"y":-280,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"dd4bbfad6879d757",
+			"type":"text",
+			"text":"clawcode 安装和使用",
+			"styleAttributes":{},
+			"x":-1180,
+			"y":-80,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
