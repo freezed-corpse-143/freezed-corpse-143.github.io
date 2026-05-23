@@ -42,6 +42,16 @@
 			"y":-280,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"cce5d94760c67ff2",
+			"type":"text",
+			"text":"从专门的写作技能书与镜头预言书，总结为 harness 工具",
+			"styleAttributes":{},
+			"x":-1140,
+			"y":-80,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
