@@ -28,7 +28,27 @@
 			"type":"text",
 			"text":"修复 deepseek 兼容 claude code 的 websearch 问题。",
 			"styleAttributes":{},
-			"x":-1160,
+			"x":-1350,
+			"y":-120,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"feb65810bf84ff5d",
+			"type":"text",
+			"text":"obscure 浏览器",
+			"styleAttributes":{},
+			"x":-1045,
+			"y":-120,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1db3a73c608faca9",
+			"type":"text",
+			"text":"实验多次统计有误差",
+			"styleAttributes":{},
+			"x":-720,
 			"y":-120,
 			"width":260,
 			"height":60
