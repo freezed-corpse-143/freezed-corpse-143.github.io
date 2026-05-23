@@ -24,16 +24,6 @@
 		},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"feb65810bf84ff5d",
-			"type":"text",
-			"text":"obscure 浏览器",
-			"styleAttributes":{},
-			"x":-1045,
-			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"1db3a73c608faca9",
 			"type":"text",
 			"text":"实验多次统计有误差",
