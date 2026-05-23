@@ -52,7 +52,8 @@
               "title": "环境配置"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -216,7 +217,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0084ff5e660c9078",
+  "active": "a085d3c9c188367e",
   "lastOpenFiles": [
     "TODO.canvas",
     "环境配置.md",
