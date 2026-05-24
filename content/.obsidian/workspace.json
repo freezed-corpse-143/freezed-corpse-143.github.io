@@ -67,7 +67,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -231,14 +231,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ebae55c5189e33dc",
+  "active": "2b6d2123debc073c",
   "lastOpenFiles": [
+    "经验之谈.md",
     "网上资源.md",
     "软件使用.md",
     "环境配置.md",
     "TODO.canvas",
     "服务使用.md",
-    "经验之谈.md",
     "windows.md",
     "Prompt.md",
     "index.md",
