@@ -12,17 +12,7 @@
 			"width":260,
 			"height":60
 		},
-		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
-		{
-			"id":"cce5d94760c67ff2",
-			"type":"text",
-			"text":"1. 任务分解：小说编写、剧本编写。\n2. 任务规范：有参考信息源、有实际项目、有成功、有测试可评估。",
-			"styleAttributes":{},
-			"x":-1340,
-			"y":-280,
-			"width":260,
-			"height":160
-		}
+		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"}
 	],
 	"edges":[
 		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"}
