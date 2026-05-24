@@ -2,26 +2,26 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
+		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
 			"id":"3df6094934bf3983",
 			"type":"text",
 			"text":"如何分析 CPU 与 GPU 的流水线气泡分析图",
 			"styleAttributes":{},
-			"x":-1040,
+			"x":-1340,
 			"y":-280,
 			"width":260,
 			"height":60
 		},
-		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
 			"id":"5627f33e8912676a",
 			"type":"text",
-			"text":"论文 harness 系统",
+			"text":"论文 harness 系统：\n1. 三个解耦层：理论设计、格式约束、逻辑设计、MVP 原型验证、实验设计",
 			"styleAttributes":{},
-			"x":-720,
+			"x":-1040,
 			"y":-280,
 			"width":260,
-			"height":60
+			"height":140
 		}
 	],
 	"edges":[
