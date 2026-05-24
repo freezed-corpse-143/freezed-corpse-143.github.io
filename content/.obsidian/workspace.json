@@ -25,14 +25,17 @@
             "id": "2b6d2123debc073c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "经验之谈.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -905,
+                  "y": -361.5,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "经验之谈"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -230,11 +233,11 @@
   },
   "active": "2b6d2123debc073c",
   "lastOpenFiles": [
+    "经验之谈.md",
     "windows.md",
     "TODO.canvas",
     "环境配置.md",
     "软件使用.md",
-    "经验之谈.md",
     "网上资源.md",
     "服务使用.md",
     "Prompt.md",
