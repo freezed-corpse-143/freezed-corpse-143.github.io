@@ -4,11 +4,11 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"3df6094934bf3983",
+			"id":"58cf7003582b3b16",
 			"type":"text",
-			"text":"如何分析 CPU 与 GPU 的流水线气泡分析图",
+			"text":"锁屏的瀑布粒子流动画",
 			"styleAttributes":{},
-			"x":-1340,
+			"x":-700,
 			"y":-280,
 			"width":260,
 			"height":60
@@ -18,20 +18,10 @@
 			"type":"text",
 			"text":"论文 harness 系统：\n1. 三个解耦层：理论设计、格式约束、逻辑设计、MVP 原型验证、实验设计",
 			"styleAttributes":{},
-			"x":-1040,
-			"y":-280,
+			"x":-1300,
+			"y":-350,
 			"width":260,
 			"height":140
-		},
-		{
-			"id":"58cf7003582b3b16",
-			"type":"text",
-			"text":"锁屏的瀑布粒子流动画",
-			"styleAttributes":{},
-			"x":-700,
-			"y":-280,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
