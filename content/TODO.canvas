@@ -22,16 +22,6 @@
 			"y":-280,
 			"width":260,
 			"height":160
-		},
-		{
-			"id":"e88ab87add0b228f",
-			"type":"text",
-			"text":"cc-haha",
-			"styleAttributes":{},
-			"x":-730,
-			"y":-280,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
