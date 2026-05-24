@@ -22,6 +22,16 @@
 			"y":-280,
 			"width":260,
 			"height":140
+		},
+		{
+			"id":"58cf7003582b3b16",
+			"type":"text",
+			"text":"锁屏的瀑布粒子流动画",
+			"styleAttributes":{},
+			"x":-700,
+			"y":-280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
