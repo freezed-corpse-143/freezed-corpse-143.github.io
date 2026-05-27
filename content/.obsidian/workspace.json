@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -905,
-                  "y": -454.5,
+                  "y": -547.5,
                   "zoom": 0
                 }
               },
@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "huggingface",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -220,14 +220,14 @@
   },
   "active": "ebae55c5189e33dc",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "服务使用.md",
     "经验之谈.md",
     "windows.md",
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
     "环境配置.md.tmp.29076.504e06044194",
-    "服务使用.md",
-    "TODO.canvas",
     "软件使用.md",
     "环境配置.md",
     "Prompt.md",
