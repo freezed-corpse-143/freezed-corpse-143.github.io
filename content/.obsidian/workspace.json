@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件使用.md",
+                "file": "windows.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "软件使用"
+              "title": "windows"
             }
           },
           {
@@ -44,12 +44,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件使用.md",
+                "file": "服务使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "软件使用"
+              "title": "服务使用"
             }
           }
         ],
@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "yazi",
+                "query": "hfd.",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -220,11 +220,11 @@
   },
   "active": "ebae55c5189e33dc",
   "lastOpenFiles": [
+    "服务使用.md",
     "软件使用.md",
     "TODO.canvas",
     "windows.md",
     "环境配置.md",
-    "服务使用.md",
     "经验之谈.md",
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",

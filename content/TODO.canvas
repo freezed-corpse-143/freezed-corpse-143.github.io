@@ -4,16 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"59767c1ad64b6d90",
-			"type":"text",
-			"text":"agent 本地通信功能",
-			"styleAttributes":{},
-			"x":-1400,
-			"y":-290,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"be49d7b219e793cf",
 			"type":"text",
 			"text":"WSL 与本机通过 实现 Agent 通信。",
@@ -21,7 +11,8 @@
 			"x":-1040,
 			"y":-290,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"a06fbcb8a8295955",
@@ -36,15 +27,6 @@
 	],
 	"edges":[
 		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"},
-		{
-			"id":"d93702d95e6ea8ae",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"59767c1ad64b6d90",
-			"fromSide":"right",
-			"toNode":"be49d7b219e793cf",
-			"toSide":"left"
-		},
 		{
 			"id":"cade5926093ab32d",
 			"styleAttributes":{},
