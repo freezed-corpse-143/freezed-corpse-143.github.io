@@ -52,6 +52,16 @@
 			"y":-180,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f118007fede87166",
+			"type":"text",
+			"text":"git 项目可视化",
+			"styleAttributes":{},
+			"x":-680,
+			"y":-320,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
