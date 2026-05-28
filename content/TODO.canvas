@@ -4,6 +4,16 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
+			"id":"a06fbcb8a8295955",
+			"type":"text",
+			"text":"论文技术的调研",
+			"styleAttributes":{},
+			"x":-720,
+			"y":-290,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"be49d7b219e793cf",
 			"type":"text",
 			"text":"WSL 与本机通过 messager 工具实现 Agent 通信。",
@@ -13,16 +23,6 @@
 			"width":260,
 			"height":60,
 			"color":"1"
-		},
-		{
-			"id":"a06fbcb8a8295955",
-			"type":"text",
-			"text":"论文技术的调研",
-			"styleAttributes":{},
-			"x":-680,
-			"y":-290,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
