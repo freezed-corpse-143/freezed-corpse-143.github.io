@@ -52,6 +52,16 @@
 			"y":-320,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f47d28f3de892a17",
+			"type":"text",
+			"text":"claude code 的对抗式辩论。",
+			"styleAttributes":{},
+			"x":-720,
+			"y":-170,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
