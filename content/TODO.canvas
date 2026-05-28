@@ -24,12 +24,12 @@
 			"height":60
 		},
 		{
-			"id":"f47d28f3de892a17",
+			"id":"59767c1ad64b6d90",
 			"type":"text",
-			"text":"claude code 的对抗式辩论。",
+			"text":"agent 本地通信功能",
 			"styleAttributes":{},
 			"x":-1040,
-			"y":-180,
+			"y":-320,
 			"width":260,
 			"height":60
 		},
@@ -39,16 +39,6 @@
 			"text":"论文技术的调研",
 			"styleAttributes":{},
 			"x":-720,
-			"y":-180,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"59767c1ad64b6d90",
-			"type":"text",
-			"text":"agent 本地通信功能",
-			"styleAttributes":{},
-			"x":-1040,
 			"y":-320,
 			"width":260,
 			"height":60
