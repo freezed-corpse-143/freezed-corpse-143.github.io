@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "hfd.",
+                "query": "blob",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -218,14 +218,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ebae55c5189e33dc",
+  "active": "56089809872480d3",
   "lastOpenFiles": [
-    "服务使用.md",
-    "软件使用.md",
-    "TODO.canvas",
-    "windows.md",
     "环境配置.md",
     "经验之谈.md",
+    "我的项目.md",
+    "服务使用.md",
+    "TODO.canvas",
+    "软件使用.md",
+    "windows.md",
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
@@ -233,7 +234,6 @@
     "Prompt.md",
     "index.md",
     "网上资源.md",
-    "我的项目.md",
     "我的项目.md.tmp.29192.3b9b1a433815",
     "编程语言.md",
     "实习.md",
