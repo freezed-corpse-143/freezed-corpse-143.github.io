@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -905,
-                  "y": -547.5,
+                  "y": -361.5,
                   "zoom": 0
                 }
               },
@@ -44,16 +44,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows.md",
+                "file": "软件使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "windows"
+              "title": "软件使用"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -85,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "pwsh.exe",
+                "query": "powershell",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -106,7 +105,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -217,11 +217,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "56089809872480d3",
+  "active": "0084ff5e660c9078",
   "lastOpenFiles": [
     "软件使用.md",
-    "环境配置.md",
     "windows.md",
+    "环境配置.md",
     "服务使用.md",
     "经验之谈.md",
     "TODO.canvas",

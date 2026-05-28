@@ -914,4 +914,7 @@ function Import-MSVCEnv {
 Import-MSVCEnv
 ```
 
-# 默认
+# cmd 默认进入 pwsh
+
+1. `win+r` 输入 `regedit`，进入注册表
+2. `HKEY_CURRENT_USER\Software\Microsoft\Command Processor` 下新建 字符串值，键为 `AutoRun`，值为 `@<pwsh_file>`
