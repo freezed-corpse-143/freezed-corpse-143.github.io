@@ -34,16 +34,6 @@
 			"height":60
 		},
 		{
-			"id":"a16f50976ad5a6cd",
-			"type":"text",
-			"text":"git+vibe+动画框架+remotion/hyperframes+vl=动画",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-180,
-			"width":260,
-			"height":80
-		},
-		{
 			"id":"a06fbcb8a8295955",
 			"type":"text",
 			"text":"论文技术的调研",
@@ -58,8 +48,8 @@
 			"type":"text",
 			"text":"claude code 的对抗式辩论。",
 			"styleAttributes":{},
-			"x":-720,
-			"y":-170,
+			"x":-1040,
+			"y":-180,
 			"width":260,
 			"height":60
 		}
