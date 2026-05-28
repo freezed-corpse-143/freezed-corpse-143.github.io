@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -880,
-                  "y": -130.5,
+                  "y": -223.5,
                   "zoom": 0
                 }
               },
@@ -218,7 +218,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "56089809872480d3",
   "lastOpenFiles": [
     "TODO.canvas",
     "软件使用.md",
