@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "powershell",
+                "query": "yazi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -106,7 +106,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -217,12 +218,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ebae55c5189e33dc",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
+    "TODO.canvas",
     "windows.md",
     "软件使用.md",
     "环境配置.md",
-    "TODO.canvas",
     "服务使用.md",
     "经验之谈.md",
     "软件使用.md.tmp.29076.e75c659617ff",
