@@ -6,9 +6,49 @@
 		{
 			"id":"fa6a6af3b489f3a3",
 			"type":"text",
-			"text":"",
+			"text":"claude workflow 功能",
 			"styleAttributes":{},
-			"x":-1300,
+			"x":-1340,
+			"y":-320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"59767c1ad64b6d90",
+			"type":"text",
+			"text":"agent 本地通信功能",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"be49d7b219e793cf",
+			"type":"text",
+			"text":"WSL 与本机通过 实现 Agent 通信。",
+			"styleAttributes":{},
+			"x":-1340,
+			"y":-180,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"a16f50976ad5a6cd",
+			"type":"text",
+			"text":"git+vibe+动画框架+remotion/hyperframes+vl=动画",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-180,
+			"width":260,
+			"height":80
+		},
+		{
+			"id":"a06fbcb8a8295955",
+			"type":"text",
+			"text":"论文技术的调研",
+			"styleAttributes":{},
+			"x":-725,
 			"y":-320,
 			"width":260,
 			"height":60
