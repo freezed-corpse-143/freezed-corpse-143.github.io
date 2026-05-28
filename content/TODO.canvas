@@ -42,6 +42,16 @@
 			"y":-320,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"853171ae51241c26",
+			"type":"text",
+			"text":"agent-team-ai",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-180,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
