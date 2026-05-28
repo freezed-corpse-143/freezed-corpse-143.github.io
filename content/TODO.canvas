@@ -44,16 +44,6 @@
 			"height":60
 		},
 		{
-			"id":"2d6a8da95924f07c",
-			"type":"text",
-			"text":"通过相似度比较，同时调度 agent 解码顺序和辩论顺序，减少数据重复的 profile 和 decoding 和搬运。",
-			"styleAttributes":{},
-			"x":-720,
-			"y":-396,
-			"width":260,
-			"height":106
-		},
-		{
 			"id":"a06fbcb8a8295955",
 			"type":"text",
 			"text":"论文技术的调研",

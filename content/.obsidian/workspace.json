@@ -105,8 +105,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -217,7 +216,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0084ff5e660c9078",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
     "软件使用.md",
     "windows.md",
