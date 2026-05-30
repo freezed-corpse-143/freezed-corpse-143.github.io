@@ -44,12 +44,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "windows.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
+              "title": "windows"
             }
           }
         ],
@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "router",
+                "query": "CMD.",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -220,8 +220,8 @@
   },
   "active": "ebae55c5189e33dc",
   "lastOpenFiles": [
-    "环境配置.md",
     "windows.md",
+    "环境配置.md",
     "TODO.canvas",
     "软件使用.md",
     "服务使用.md",
