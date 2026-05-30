@@ -28,8 +28,8 @@
 			"type":"text",
 			"text":"openKB 与 llm wiki",
 			"styleAttributes":{},
-			"x":-1040,
-			"y":-220,
+			"x":-1020,
+			"y":-340,
 			"width":260,
 			"height":60
 		}
