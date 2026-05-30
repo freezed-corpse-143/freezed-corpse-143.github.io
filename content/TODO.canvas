@@ -26,7 +26,7 @@
 		{
 			"id":"bef48698745f5d1b",
 			"type":"text",
-			"text":"hermes agent 安装",
+			"text":"hermes agent 更新",
 			"styleAttributes":{},
 			"x":-730,
 			"y":-340,
@@ -41,7 +41,17 @@
 			"x":-1350,
 			"y":-220,
 			"width":260,
-			"height":120
+			"height":180
+		},
+		{
+			"id":"f4d1dcde05304702",
+			"type":"text",
+			"text":"论文调研思考。",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-220,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
