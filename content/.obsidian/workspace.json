@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -905,
+                  "x": -900,
                   "y": -336.5,
-                  "zoom": 0
+                  "zoom": -0.9245098004157367
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "msvc",
+                "query": "\"# vllm",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -106,8 +106,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -221,8 +220,8 @@
   "active": "ebae55c5189e33dc",
   "lastOpenFiles": [
     "软件使用.md",
-    "TODO.canvas",
     "windows.md",
+    "TODO.canvas",
     "报错.md",
     "环境配置.md",
     "服务使用.md",

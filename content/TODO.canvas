@@ -22,6 +22,26 @@
 			"y":-340,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"125c2c0b6d00283c",
+			"type":"text",
+			"text":"codex 修复",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-220,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d647730060ebe65a",
+			"type":"text",
+			"text":"logseq 使用",
+			"styleAttributes":{},
+			"x":-720,
+			"y":-340,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
