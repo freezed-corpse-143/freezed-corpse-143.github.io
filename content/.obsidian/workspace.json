@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "软件使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
+              "title": "软件使用"
             }
           },
           {
@@ -52,8 +52,7 @@
               "title": "windows"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -85,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "nsys",
+                "query": "history",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -218,11 +217,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ebae55c5189e33dc",
+  "active": "0084ff5e660c9078",
   "lastOpenFiles": [
     "环境配置.md",
-    "软件使用.md",
     "TODO.canvas",
+    "软件使用.md",
     "windows.md",
     "报错.md",
     "服务使用.md",
