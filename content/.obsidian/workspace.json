@@ -25,17 +25,14 @@
             "id": "ebae55c5189e33dc",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -452.0830549189915,
-                  "y": -17.898218833728833,
-                  "zoom": -0.5911764670824033
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           },
           {
@@ -85,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"# vllm",
+                "query": "haha",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -106,7 +103,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -219,9 +217,9 @@
   },
   "active": "ebae55c5189e33dc",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件使用.md",
     "windows.md",
-    "TODO.canvas",
     "报错.md",
     "环境配置.md",
     "服务使用.md",
