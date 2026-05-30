@@ -24,16 +24,6 @@
 			"height":60
 		},
 		{
-			"id":"bef48698745f5d1b",
-			"type":"text",
-			"text":"hermes agent 更新",
-			"styleAttributes":{},
-			"x":-730,
-			"y":-340,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"f90dd832c52a8af7",
 			"type":"text",
 			"text":"cuda 快速学习：\n1. 内存布局\n2. 通信逻辑\n3. 时序逻辑与时钟周期。\n4. 并发操作。",
