@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "报错.md",
+                "file": "软件使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "报错"
+              "title": "软件使用"
             }
           },
           {
@@ -84,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "CMD.",
+                "query": "\"# powershell",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -105,7 +105,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -218,9 +219,10 @@
   },
   "active": "0084ff5e660c9078",
   "lastOpenFiles": [
+    "windows.md",
+    "报错.md",
     "环境配置.md",
     "TODO.canvas",
-    "windows.md",
     "软件使用.md",
     "服务使用.md",
     "经验之谈.md",
@@ -237,7 +239,6 @@
     "实习.md",
     "Drawing 2026-05-21 19.23.21.excalidraw.md",
     "index.md.tmp.24064.bd9ad9a42ce6",
-    "报错.md",
     "环境配置.md.tmp.24064.6640726cfa95",
     "环境配置.md.tmp.24064.535856d4c8b4",
     "服务使用.md.tmp.24064.2d608cbf50d2"
