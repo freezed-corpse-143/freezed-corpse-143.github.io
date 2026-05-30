@@ -4,26 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"dc484691e54ea745",
-			"type":"text",
-			"text":"vllm win 版安装",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-340,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"f4d1dcde05304702",
-			"type":"text",
-			"text":"论文调研思考。",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-220,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"f90dd832c52a8af7",
 			"type":"text",
 			"text":"cuda 快速学习：\n1. 内存布局\n2. 通信逻辑\n3. 时序逻辑与时钟周期。\n4. 并发操作。",
@@ -32,6 +12,16 @@
 			"y":-340,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"f4d1dcde05304702",
+			"type":"text",
+			"text":"论文调研思考。",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-340,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

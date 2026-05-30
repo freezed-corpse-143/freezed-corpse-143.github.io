@@ -52,7 +52,8 @@
               "title": "windows"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -217,11 +218,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "ebae55c5189e33dc",
   "lastOpenFiles": [
+    "软件使用.md",
     "TODO.canvas",
     "windows.md",
-    "软件使用.md",
     "报错.md",
     "环境配置.md",
     "服务使用.md",
