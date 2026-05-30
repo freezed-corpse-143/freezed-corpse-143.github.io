@@ -29,8 +29,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -900,
-                  "y": -371.5,
+                  "x": -905,
+                  "y": -336.5,
                   "zoom": 0
                 }
               },
@@ -52,8 +52,7 @@
               "title": "windows"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -85,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"# powershell",
+                "query": "msvc",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -218,11 +217,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ebae55c5189e33dc",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "软件使用.md",
     "TODO.canvas",
     "windows.md",
+    "软件使用.md",
     "报错.md",
     "环境配置.md",
     "服务使用.md",
