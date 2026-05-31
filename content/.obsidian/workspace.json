@@ -11,17 +11,14 @@
             "id": "0084ff5e660c9078",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -905,
-                  "y": -454.5,
-                  "zoom": -0.9080216776271679
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           },
           {
@@ -71,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "codex",
+                "query": "telegram",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -206,16 +203,16 @@
   },
   "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "编程语言.md",
-    "TODO.canvas",
+    "服务使用.md",
     "软件使用.md",
-    "ss.md",
+    "我的项目.md",
+    "TODO.canvas",
     "环境配置.md",
+    "编程语言.md",
+    "ss.md",
     "windows.md",
     "报错.md",
-    "服务使用.md",
     "经验之谈.md",
-    "我的项目.md",
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
