@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -203,12 +202,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8813f411ccbee865",
+  "active": "0084ff5e660c9078",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件使用.md",
     "ss.md",
     "环境配置.md",
-    "TODO.canvas",
     "windows.md",
     "报错.md",
     "服务使用.md",
