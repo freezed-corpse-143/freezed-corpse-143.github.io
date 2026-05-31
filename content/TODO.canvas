@@ -14,16 +14,6 @@
 			"height":60
 		},
 		{
-			"id":"d986f11c7ceebf35",
-			"type":"text",
-			"text":"早会的白板内容",
-			"styleAttributes":{},
-			"x":-1050,
-			"y":-200,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"438b335846e6ee33",
 			"type":"text",
 			"text":"lean 4 项目的 tree-sitter 和 readmap",
