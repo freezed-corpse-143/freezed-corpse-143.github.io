@@ -22,16 +22,6 @@
 			"y":-340,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"25596052b2ae5ffc",
-			"type":"text",
-			"text":"9 router",
-			"styleAttributes":{},
-			"x":-1020,
-			"y":-220,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
