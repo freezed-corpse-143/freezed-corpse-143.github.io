@@ -2,17 +2,7 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
-		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
-		{
-			"id":"f90dd832c52a8af7",
-			"type":"text",
-			"text":"cuda 快速学习：\n1. 内存布局\n2. 通信逻辑\n3. 时序逻辑与时钟周期。\n4. 并发操作。",
-			"styleAttributes":{},
-			"x":-1340,
-			"y":-340,
-			"width":260,
-			"height":180
-		}
+		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"}
 	],
 	"edges":[
 		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"}
