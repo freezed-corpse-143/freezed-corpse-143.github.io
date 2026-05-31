@@ -48,8 +48,8 @@
 			"type":"text",
 			"text":"早会的白板内容",
 			"styleAttributes":{},
-			"x":-940,
-			"y":-140,
+			"x":-1050,
+			"y":-230,
 			"width":260,
 			"height":60
 		}
