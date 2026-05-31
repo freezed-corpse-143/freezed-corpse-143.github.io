@@ -12,16 +12,6 @@
 			"y":-340,
 			"width":260,
 			"height":180
-		},
-		{
-			"id":"4c79bb6b54b85d6d",
-			"type":"text",
-			"text":"openKB 与 llm wiki",
-			"styleAttributes":{},
-			"x":-1020,
-			"y":-340,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
