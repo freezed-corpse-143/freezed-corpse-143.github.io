@@ -4,27 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"b7dcc39f5c2e65f6",
-			"type":"text",
-			"text":"论文调研",
-			"styleAttributes":{},
-			"x":-720,
-			"y":-300,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"12e764d6f28b6136",
-			"type":"text",
-			"text":"hermes 安装",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-300,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"438b335846e6ee33",
 			"type":"text",
 			"text":"lean 4 项目的 tree-sitter 和 readmap",
@@ -33,19 +12,20 @@
 			"y":-180,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"b7dcc39f5c2e65f6",
+			"type":"text",
+			"text":"论文调研",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
-		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"},
-		{
-			"id":"c54407ed1cf70ba5",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"12e764d6f28b6136",
-			"fromSide":"right",
-			"toNode":"b7dcc39f5c2e65f6",
-			"toSide":"left"
-		}
+		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"}
 	],
 	"metadata":{
 		"version":"1.0-1.0",
