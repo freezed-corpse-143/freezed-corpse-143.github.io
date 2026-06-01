@@ -35,21 +35,31 @@
 			"height":60
 		},
 		{
-			"id":"12e764d6f28b6136",
-			"type":"text",
-			"text":"hermes 安装",
-			"styleAttributes":{},
-			"x":-1020,
-			"y":-160,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"90ad80caa27d99a1",
 			"type":"text",
 			"text":"claude code 配置多租户通道",
 			"styleAttributes":{},
 			"x":-1440,
+			"y":-160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b7dcc39f5c2e65f6",
+			"type":"text",
+			"text":"论文调研",
+			"styleAttributes":{},
+			"x":-700,
+			"y":-160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"12e764d6f28b6136",
+			"type":"text",
+			"text":"hermes 安装",
+			"styleAttributes":{},
+			"x":-1045,
 			"y":-160,
 			"width":260,
 			"height":60
