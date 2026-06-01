@@ -11,7 +11,8 @@
 			"x":-1050,
 			"y":-300,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"438b335846e6ee33",
@@ -20,6 +21,36 @@
 			"styleAttributes":{},
 			"x":-720,
 			"y":-300,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"57c1540b764a56af",
+			"type":"text",
+			"text":"telegram 配置群机器人",
+			"styleAttributes":{},
+			"x":-1440,
+			"y":-300,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"12e764d6f28b6136",
+			"type":"text",
+			"text":"hermes 安装",
+			"styleAttributes":{},
+			"x":-1020,
+			"y":-160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"90ad80caa27d99a1",
+			"type":"text",
+			"text":"claude code 配置多租户通道",
+			"styleAttributes":{},
+			"x":-1440,
+			"y":-160,
 			"width":260,
 			"height":60
 		}
