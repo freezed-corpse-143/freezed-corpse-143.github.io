@@ -8,18 +8,8 @@
 			"type":"text",
 			"text":"lean 4 项目的 tree-sitter 和 readmap",
 			"styleAttributes":{},
-			"x":-1040,
-			"y":-180,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"b7dcc39f5c2e65f6",
-			"type":"text",
-			"text":"论文调研",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-280,
+			"x":-1045,
+			"y":-320,
 			"width":260,
 			"height":60
 		}
