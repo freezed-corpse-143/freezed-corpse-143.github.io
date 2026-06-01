@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -892.0645399181036,
-                  "y": -175.48203524391363,
-                  "zoom": -0.3333333333333333
+                  "x": -922.5,
+                  "y": -246.5,
+                  "zoom": 0
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"claude code",
+                "query": "pdfcpu",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -92,8 +92,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -206,9 +205,9 @@
   },
   "active": "8813f411ccbee865",
   "lastOpenFiles": [
-    "环境配置.md",
     "软件使用.md",
     "TODO.canvas",
+    "环境配置.md",
     "服务使用.md",
     "我的项目.md",
     "编程语言.md",
