@@ -25,17 +25,14 @@
             "id": "8813f411ccbee865",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -900,
-                  "y": -246.5,
-                  "zoom": 0
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           }
         ],
@@ -71,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"# telegram",
+                "query": "api_key",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -92,7 +89,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -203,10 +201,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8813f411ccbee865",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "环境配置.md",
     "TODO.canvas",
+    "环境配置.md",
     "软件使用.md",
     "服务使用.md",
     "我的项目.md",
