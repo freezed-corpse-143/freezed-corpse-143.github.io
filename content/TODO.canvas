@@ -13,6 +13,36 @@
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"55b08a06651d9455",
+			"type":"text",
+			"text":"oh-my-pi",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"632172827ebc3d5d",
+			"type":"text",
+			"text":"数学文件怎么建立知识图谱",
+			"styleAttributes":{},
+			"x":-720,
+			"y":-320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d45835ebd7f8b8ca",
+			"type":"text",
+			"text":"数学文件怎么分块",
+			"styleAttributes":{},
+			"x":-720,
+			"y":-220,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
