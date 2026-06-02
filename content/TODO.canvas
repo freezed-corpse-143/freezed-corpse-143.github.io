@@ -4,17 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"438b335846e6ee33",
-			"type":"text",
-			"text":"lean 4 项目的 tree-sitter 和 readmap",
-			"styleAttributes":{},
-			"x":-1045,
-			"y":-320,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"1fd205509c1b2c81",
 			"type":"text",
 			"text":"论文调研",
