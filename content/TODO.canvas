@@ -4,16 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"55b08a06651d9455",
-			"type":"text",
-			"text":"oh-my-pi",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-320,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"52e5c5a1d98d93f3",
 			"type":"text",
 			"text":"cpr_experiments 提交为 github 进行管理",
