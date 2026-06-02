@@ -30,12 +30,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "服务使用.md",
+                "file": "环境配置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "服务使用"
+              "title": "环境配置"
             }
           }
         ],
@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "mineru",
+                "query": "openkb",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -206,11 +206,11 @@
   },
   "active": "8813f411ccbee865",
   "lastOpenFiles": [
+    "服务使用.md",
+    "TODO.canvas",
     "我的项目.md",
     "软件使用.md",
-    "TODO.canvas",
     "环境配置.md",
-    "服务使用.md",
     "编程语言.md",
     "ss.md",
     "windows.md",

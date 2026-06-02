@@ -4,17 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码","x":-1040,"y":-513,"width":250,"height":117,"color":"1"},
 		{
-			"id":"1fd205509c1b2c81",
-			"type":"text",
-			"text":"论文调研",
-			"styleAttributes":{},
-			"x":-1350,
-			"y":-320,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"55b08a06651d9455",
 			"type":"text",
 			"text":"oh-my-pi",
@@ -25,22 +14,12 @@
 			"height":60
 		},
 		{
-			"id":"632172827ebc3d5d",
+			"id":"52e5c5a1d98d93f3",
 			"type":"text",
-			"text":"数学文件怎么建立知识图谱",
+			"text":"cpr_experiments 提交为 github 进行管理",
 			"styleAttributes":{},
-			"x":-720,
+			"x":-1340,
 			"y":-320,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"d45835ebd7f8b8ca",
-			"type":"text",
-			"text":"数学文件怎么分块",
-			"styleAttributes":{},
-			"x":-720,
-			"y":-220,
 			"width":260,
 			"height":60
 		}
