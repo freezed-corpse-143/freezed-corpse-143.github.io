@@ -45,17 +45,6 @@
 			"height":60
 		},
 		{
-			"id":"4f3d680d0d5cc217",
-			"type":"text",
-			"text":"不同文档构造为 openKB",
-			"styleAttributes":{},
-			"x":-1345,
-			"y":-200,
-			"width":185,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"727672a32e971132",
 			"type":"text",
 			"text":"迭代论文思路",
@@ -144,15 +133,6 @@
 			"fromNode":"d14565e725b01f4f",
 			"fromSide":"right",
 			"toNode":"9e9e1bd62d1db47b",
-			"toSide":"left"
-		},
-		{
-			"id":"f92f46b7aa63c45d",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"4f3d680d0d5cc217",
-			"fromSide":"right",
-			"toNode":"727672a32e971132",
 			"toSide":"left"
 		},
 		{

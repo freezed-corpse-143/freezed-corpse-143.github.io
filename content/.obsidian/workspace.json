@@ -70,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "openkb",
+                "query": "telegram",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
