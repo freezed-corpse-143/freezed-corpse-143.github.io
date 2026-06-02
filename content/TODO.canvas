@@ -12,6 +12,16 @@
 			"y":-300,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"9e9e1bd62d1db47b",
+			"type":"text",
+			"text":"tailscale+ agent 通信",
+			"styleAttributes":{},
+			"x":-1040,
+			"y":-300,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

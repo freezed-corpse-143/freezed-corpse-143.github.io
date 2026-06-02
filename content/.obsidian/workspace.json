@@ -70,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "github",
+                "query": "openkb",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -91,7 +91,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -205,8 +206,8 @@
   "active": "0084ff5e660c9078",
   "lastOpenFiles": [
     "环境配置.md",
-    "服务使用.md",
     "TODO.canvas",
+    "服务使用.md",
     "软件使用.md",
     "我的项目.md",
     "编程语言.md",
