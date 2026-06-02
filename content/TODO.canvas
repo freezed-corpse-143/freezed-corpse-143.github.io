@@ -4,17 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1040,"y":-513,"width":250,"height":133,"color":"1"},
 		{
-			"id":"ff7f4f9e293ae448",
-			"type":"text",
-			"text":"agent 架构涉及（交给 chatgpt）",
-			"styleAttributes":{},
-			"x":-1350,
-			"y":-330,
-			"width":190,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"3fe2dece0b4a6117",
 			"type":"text",
 			"text":"本地 telegram 插件魔改",
@@ -22,7 +11,8 @@
 			"x":-1090,
 			"y":-330,
 			"width":220,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"2378c733a0b90735",
@@ -129,15 +119,6 @@
 	],
 	"edges":[
 		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"},
-		{
-			"id":"bc645e02256b3270",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"ff7f4f9e293ae448",
-			"fromSide":"right",
-			"toNode":"3fe2dece0b4a6117",
-			"toSide":"left"
-		},
 		{
 			"id":"63412ffbebe06d4f",
 			"styleAttributes":{},
