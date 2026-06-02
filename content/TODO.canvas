@@ -11,7 +11,8 @@
 			"x":-1350,
 			"y":-330,
 			"width":190,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"3fe2dece0b4a6117",
@@ -61,7 +62,8 @@
 			"x":-1345,
 			"y":-200,
 			"width":185,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"727672a32e971132",
@@ -76,11 +78,52 @@
 		{
 			"id":"f78fd0842dba4b14",
 			"type":"text",
-			"text":"给 highdimprob 提",
+			"text":"给 highdimprob 提 PR，将 knowledge graph 合并进主线",
 			"styleAttributes":{},
 			"x":-1345,
 			"y":-80,
-			"width":260,
+			"width":270,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"4e6ed577f9ad6333",
+			"type":"text",
+			"text":"开始根据理论知识图谱，进行拓扑排序",
+			"styleAttributes":{},
+			"x":-1020,
+			"y":-80,
+			"width":270,
+			"height":60
+		},
+		{
+			"id":"d8eee1cb236b1d5b",
+			"type":"text",
+			"text":"编排多智能体",
+			"styleAttributes":{},
+			"x":-700,
+			"y":-80,
+			"width":180,
+			"height":60
+		},
+		{
+			"id":"4c5e5fcc04c0d201",
+			"type":"text",
+			"text":"绘制状态机转写图",
+			"styleAttributes":{},
+			"x":-1340,
+			"y":80,
+			"width":180,
+			"height":60
+		},
+		{
+			"id":"e9689cd277d5accf",
+			"type":"text",
+			"text":"手动编写 TODO tasks，发给合作者",
+			"styleAttributes":{},
+			"x":-1020,
+			"y":80,
+			"width":180,
 			"height":60
 		}
 	],
@@ -129,6 +172,42 @@
 			"fromNode":"4f3d680d0d5cc217",
 			"fromSide":"right",
 			"toNode":"727672a32e971132",
+			"toSide":"left"
+		},
+		{
+			"id":"e10e63192b73043f",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"f78fd0842dba4b14",
+			"fromSide":"right",
+			"toNode":"4e6ed577f9ad6333",
+			"toSide":"left"
+		},
+		{
+			"id":"88e29a5cdd22af15",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"4e6ed577f9ad6333",
+			"fromSide":"right",
+			"toNode":"d8eee1cb236b1d5b",
+			"toSide":"left"
+		},
+		{
+			"id":"b7163c11136f8a2d",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"d8eee1cb236b1d5b",
+			"fromSide":"right",
+			"toNode":"4c5e5fcc04c0d201",
+			"toSide":"left"
+		},
+		{
+			"id":"a06f4e5a095a146f",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"4c5e5fcc04c0d201",
+			"fromSide":"right",
+			"toNode":"e9689cd277d5accf",
 			"toSide":"left"
 		}
 	],
