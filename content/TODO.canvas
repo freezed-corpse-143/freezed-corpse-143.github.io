@@ -2,36 +2,46 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
+		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
 			"id":"727672a32e971132",
 			"type":"text",
 			"text":"迭代论文思路",
 			"styleAttributes":{},
-			"x":-1075,
-			"y":-200,
+			"x":-1055,
+			"y":-100,
 			"width":190,
 			"height":60,
 			"color":"1"
 		},
-		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
 			"id":"d14565e725b01f4f",
 			"type":"text",
 			"text":"SSH 组网",
 			"styleAttributes":{},
-			"x":-1070,
-			"y":-330,
+			"x":-1275,
+			"y":-300,
 			"width":120,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"ab04238486194d6d",
+			"type":"text",
+			"text":"telegram 多租户通信",
+			"styleAttributes":{},
+			"x":-1065,
+			"y":-300,
+			"width":200,
+			"height":60
 		},
 		{
 			"id":"9e9e1bd62d1db47b",
 			"type":"text",
 			"text":"tailscale+ agent 通信",
 			"styleAttributes":{},
-			"x":-840,
-			"y":-330,
+			"x":-760,
+			"y":-300,
 			"width":220,
 			"height":60
 		}
@@ -43,6 +53,15 @@
 			"styleAttributes":{},
 			"toFloating":false,
 			"fromNode":"d14565e725b01f4f",
+			"fromSide":"right",
+			"toNode":"ab04238486194d6d",
+			"toSide":"left"
+		},
+		{
+			"id":"b8a0d57c3bab7923",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"ab04238486194d6d",
 			"fromSide":"right",
 			"toNode":"9e9e1bd62d1db47b",
 			"toSide":"left"
