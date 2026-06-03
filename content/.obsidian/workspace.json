@@ -30,12 +30,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "服务使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
+              "title": "服务使用"
             }
           }
         ]
@@ -70,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "obscura",
+                "query": "\"# github",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -205,9 +205,9 @@
   },
   "active": "0084ff5e660c9078",
   "lastOpenFiles": [
+    "服务使用.md",
     "环境配置.md",
     "TODO.canvas",
-    "服务使用.md",
     "软件使用.md",
     "我的项目.md",
     "编程语言.md",

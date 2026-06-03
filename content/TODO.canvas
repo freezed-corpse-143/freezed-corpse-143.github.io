@@ -3,17 +3,6 @@
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{
-			"id":"2378c733a0b90735",
-			"type":"text",
-			"text":"本地 agent 通信",
-			"styleAttributes":{},
-			"x":-805,
-			"y":-330,
-			"width":170,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"d14565e725b01f4f",
 			"type":"text",
 			"text":"SSH 组网",
@@ -99,15 +88,6 @@
 	],
 	"edges":[
 		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"},
-		{
-			"id":"0eba7614086b74a1",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"2378c733a0b90735",
-			"fromSide":"right",
-			"toNode":"d14565e725b01f4f",
-			"toSide":"left"
-		},
 		{
 			"id":"390aaa4d8b6dbd39",
 			"styleAttributes":{},
