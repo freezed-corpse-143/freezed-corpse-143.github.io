@@ -55,21 +55,11 @@
 		},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
-			"id":"4e6ed577f9ad6333",
-			"type":"text",
-			"text":"开始根据理论知识图谱，进行拓扑排序",
-			"styleAttributes":{},
-			"x":-1340,
-			"y":-80,
-			"width":270,
-			"height":60
-		},
-		{
 			"id":"d8eee1cb236b1d5b",
 			"type":"text",
 			"text":"编排多智能体",
 			"styleAttributes":{},
-			"x":-985,
+			"x":-1305,
 			"y":-80,
 			"width":180,
 			"height":60
@@ -84,15 +74,6 @@
 			"fromNode":"d14565e725b01f4f",
 			"fromSide":"right",
 			"toNode":"9e9e1bd62d1db47b",
-			"toSide":"left"
-		},
-		{
-			"id":"88e29a5cdd22af15",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"4e6ed577f9ad6333",
-			"fromSide":"right",
-			"toNode":"d8eee1cb236b1d5b",
 			"toSide":"left"
 		},
 		{
