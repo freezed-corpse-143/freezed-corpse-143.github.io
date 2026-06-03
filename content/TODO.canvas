@@ -34,37 +34,6 @@
 			"color":"1"
 		},
 		{
-			"id":"f78fd0842dba4b14",
-			"type":"text",
-			"text":"给 highdimprob 提 PR，将 knowledge graph 合并进主线",
-			"styleAttributes":{},
-			"x":-1345,
-			"y":-80,
-			"width":270,
-			"height":60,
-			"color":"1"
-		},
-		{
-			"id":"4e6ed577f9ad6333",
-			"type":"text",
-			"text":"开始根据理论知识图谱，进行拓扑排序",
-			"styleAttributes":{},
-			"x":-1020,
-			"y":-80,
-			"width":270,
-			"height":60
-		},
-		{
-			"id":"d8eee1cb236b1d5b",
-			"type":"text",
-			"text":"编排多智能体",
-			"styleAttributes":{},
-			"x":-700,
-			"y":-80,
-			"width":180,
-			"height":60
-		},
-		{
 			"id":"4c5e5fcc04c0d201",
 			"type":"text",
 			"text":"绘制状态机转写图",
@@ -84,7 +53,27 @@
 			"width":180,
 			"height":60
 		},
-		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"}
+		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
+		{
+			"id":"4e6ed577f9ad6333",
+			"type":"text",
+			"text":"开始根据理论知识图谱，进行拓扑排序",
+			"styleAttributes":{},
+			"x":-1340,
+			"y":-80,
+			"width":270,
+			"height":60
+		},
+		{
+			"id":"d8eee1cb236b1d5b",
+			"type":"text",
+			"text":"编排多智能体",
+			"styleAttributes":{},
+			"x":-985,
+			"y":-80,
+			"width":180,
+			"height":60
+		}
 	],
 	"edges":[
 		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"},
@@ -95,15 +84,6 @@
 			"fromNode":"d14565e725b01f4f",
 			"fromSide":"right",
 			"toNode":"9e9e1bd62d1db47b",
-			"toSide":"left"
-		},
-		{
-			"id":"e10e63192b73043f",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"f78fd0842dba4b14",
-			"fromSide":"right",
-			"toNode":"4e6ed577f9ad6333",
 			"toSide":"left"
 		},
 		{
