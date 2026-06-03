@@ -3,26 +3,6 @@
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{
-			"id":"d14565e725b01f4f",
-			"type":"text",
-			"text":"SSH 组网",
-			"styleAttributes":{},
-			"x":-560,
-			"y":-330,
-			"width":120,
-			"height":60
-		},
-		{
-			"id":"9e9e1bd62d1db47b",
-			"type":"text",
-			"text":"tailscale+ agent 通信",
-			"styleAttributes":{},
-			"x":-360,
-			"y":-330,
-			"width":220,
-			"height":60
-		},
-		{
 			"id":"727672a32e971132",
 			"type":"text",
 			"text":"迭代论文思路",
@@ -33,35 +13,36 @@
 			"height":60,
 			"color":"1"
 		},
-		{
-			"id":"4c5e5fcc04c0d201",
-			"type":"text",
-			"text":"绘制状态机转写图",
-			"styleAttributes":{},
-			"x":-1340,
-			"y":80,
-			"width":180,
-			"height":60
-		},
+		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
 			"id":"e9689cd277d5accf",
 			"type":"text",
 			"text":"手动编写 TODO tasks，发给合作者",
 			"styleAttributes":{},
-			"x":-1020,
-			"y":80,
-			"width":180,
-			"height":60
-		},
-		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
-		{
-			"id":"d8eee1cb236b1d5b",
-			"type":"text",
-			"text":"编排多智能体",
-			"styleAttributes":{},
-			"x":-1305,
+			"x":-1070,
 			"y":-80,
 			"width":180,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"d14565e725b01f4f",
+			"type":"text",
+			"text":"SSH 组网",
+			"styleAttributes":{},
+			"x":-1070,
+			"y":-330,
+			"width":120,
+			"height":60
+		},
+		{
+			"id":"9e9e1bd62d1db47b",
+			"type":"text",
+			"text":"tailscale+ agent 通信",
+			"styleAttributes":{},
+			"x":-840,
+			"y":-330,
+			"width":220,
 			"height":60
 		}
 	],
@@ -74,24 +55,6 @@
 			"fromNode":"d14565e725b01f4f",
 			"fromSide":"right",
 			"toNode":"9e9e1bd62d1db47b",
-			"toSide":"left"
-		},
-		{
-			"id":"b7163c11136f8a2d",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"d8eee1cb236b1d5b",
-			"fromSide":"right",
-			"toNode":"4c5e5fcc04c0d201",
-			"toSide":"left"
-		},
-		{
-			"id":"a06f4e5a095a146f",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"4c5e5fcc04c0d201",
-			"fromSide":"right",
-			"toNode":"e9689cd277d5accf",
 			"toSide":"left"
 		}
 	],
