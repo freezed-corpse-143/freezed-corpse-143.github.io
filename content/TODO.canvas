@@ -22,7 +22,8 @@
 			"x":-1070,
 			"y":-330,
 			"width":120,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"9e9e1bd62d1db47b",

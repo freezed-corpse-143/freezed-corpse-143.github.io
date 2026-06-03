@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -745,
-                  "y": -186.5,
+                  "x": -905,
+                  "y": -330.5,
                   "zoom": 0
                 }
               },
@@ -70,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"# github",
+                "query": "\"# wa",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -91,8 +91,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -205,10 +204,10 @@
   },
   "active": "0084ff5e660c9078",
   "lastOpenFiles": [
+    "软件使用.md",
+    "TODO.canvas",
     "服务使用.md",
     "环境配置.md",
-    "TODO.canvas",
-    "软件使用.md",
     "我的项目.md",
     "编程语言.md",
     "ss.md",
