@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"nul",
+                "query": "\"pi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -92,7 +92,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -205,9 +206,9 @@
   },
   "active": "8813f411ccbee865",
   "lastOpenFiles": [
-    "windows.md",
     "TODO.canvas",
     "环境配置.md",
+    "windows.md",
     "服务使用.md",
     "软件使用.md",
     "我的项目.md",
