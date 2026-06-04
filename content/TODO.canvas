@@ -12,16 +12,6 @@
 			"y":-240,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"5d4e53e59d554431",
-			"type":"text",
-			"text":"迁移到 pi ",
-			"styleAttributes":{},
-			"x":-1220,
-			"y":-140,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
