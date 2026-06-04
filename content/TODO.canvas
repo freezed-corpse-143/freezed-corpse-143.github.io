@@ -14,16 +14,6 @@
 			"height":60
 		},
 		{
-			"id":"9e9e1bd62d1db47b",
-			"type":"text",
-			"text":"tailscale+ agent 通信",
-			"styleAttributes":{},
-			"x":-760,
-			"y":-300,
-			"width":220,
-			"height":60
-		},
-		{
 			"id":"664dfcc75748be62",
 			"type":"text",
 			"text":"claude code 迁移到 Pi",
@@ -35,16 +25,7 @@
 		}
 	],
 	"edges":[
-		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"},
-		{
-			"id":"b8a0d57c3bab7923",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"ab04238486194d6d",
-			"fromSide":"right",
-			"toNode":"9e9e1bd62d1db47b",
-			"toSide":"left"
-		}
+		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"}
 	],
 	"metadata":{
 		"version":"1.0-1.0",
