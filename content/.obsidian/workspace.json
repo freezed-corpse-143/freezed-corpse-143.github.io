@@ -11,17 +11,14 @@
             "id": "0084ff5e660c9078",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -905,
-                  "y": -8.5,
-                  "zoom": 0
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           },
           {
@@ -38,7 +35,8 @@
               "title": "环境配置"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -70,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"pi",
+                "query": "\"claude code",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -203,10 +201,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0084ff5e660c9078",
+  "active": "8813f411ccbee865",
   "lastOpenFiles": [
-    "环境配置.md",
     "TODO.canvas",
+    "环境配置.md",
     "windows.md",
     "服务使用.md",
     "软件使用.md",
