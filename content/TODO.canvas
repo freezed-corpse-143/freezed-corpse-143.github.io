@@ -4,17 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
-			"id":"d14565e725b01f4f",
-			"type":"text",
-			"text":"SSH 组网",
-			"styleAttributes":{},
-			"x":-1275,
-			"y":-300,
-			"width":120,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"ab04238486194d6d",
 			"type":"text",
 			"text":"telegram 多租户通信",
@@ -47,15 +36,6 @@
 	],
 	"edges":[
 		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"},
-		{
-			"id":"390aaa4d8b6dbd39",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"d14565e725b01f4f",
-			"fromSide":"right",
-			"toNode":"ab04238486194d6d",
-			"toSide":"left"
-		},
 		{
 			"id":"b8a0d57c3bab7923",
 			"styleAttributes":{},
