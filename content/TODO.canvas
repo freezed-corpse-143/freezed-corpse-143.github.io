@@ -12,6 +12,16 @@
 			"y":-240,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"c0566c69c6495b73",
+			"type":"text",
+			"text":"nullshell 使用",
+			"styleAttributes":{},
+			"x":-1220,
+			"y":-140,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
