@@ -4,12 +4,22 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
+			"id":"06f60ae1d77990fe",
+			"type":"text",
+			"text":"调研 pi 的生态",
+			"styleAttributes":{},
+			"x":-1220,
+			"y":-240,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"5d4e53e59d554431",
 			"type":"text",
-			"text":"迁移到 pi 生态",
+			"text":"迁移到 pi ",
 			"styleAttributes":{},
-			"x":-1340,
-			"y":-160,
+			"x":-1220,
+			"y":-140,
 			"width":260,
 			"height":60
 		}
