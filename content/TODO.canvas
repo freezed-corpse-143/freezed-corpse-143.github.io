@@ -4,22 +4,12 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
-			"id":"ab04238486194d6d",
-			"type":"text",
-			"text":"telegram 多租户通信",
-			"styleAttributes":{},
-			"x":-1065,
-			"y":-300,
-			"width":200,
-			"height":60
-		},
-		{
 			"id":"664dfcc75748be62",
 			"type":"text",
 			"text":"claude code 迁移到 Pi",
 			"styleAttributes":{},
-			"x":-1275,
-			"y":-100,
+			"x":-1360,
+			"y":-220,
 			"width":220,
 			"height":60
 		}
