@@ -33,6 +33,16 @@
 			"y":-300,
 			"width":220,
 			"height":60
+		},
+		{
+			"id":"664dfcc75748be62",
+			"type":"text",
+			"text":"claude code 迁移到 Pi",
+			"styleAttributes":{},
+			"x":-1260,
+			"y":-100,
+			"width":220,
+			"height":60
 		}
 	],
 	"edges":[

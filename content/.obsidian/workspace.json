@@ -11,14 +11,17 @@
             "id": "0084ff5e660c9078",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "环境配置.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -905,
+                  "y": -8.5,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "环境配置"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -88,8 +91,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -202,10 +204,10 @@
   },
   "active": "0084ff5e660c9078",
   "lastOpenFiles": [
+    "环境配置.md",
     "TODO.canvas",
     "软件使用.md",
     "服务使用.md",
-    "环境配置.md",
     "我的项目.md",
     "编程语言.md",
     "ss.md",
