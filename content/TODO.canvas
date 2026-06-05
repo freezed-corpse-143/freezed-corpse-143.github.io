@@ -4,16 +4,6 @@
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
 		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 绘图\n2. 编写实验代码\n3. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
-			"id":"0004629f20beabc0",
-			"type":"text",
-			"text":"配置 flash-attn",
-			"styleAttributes":{},
-			"x":-1315,
-			"y":-320,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"2fcaf66616ec3314",
 			"type":"text",
 			"text":"autodl 的应用广场提供各种工作流，开机查看即可。",
