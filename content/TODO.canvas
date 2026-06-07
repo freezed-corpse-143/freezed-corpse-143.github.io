@@ -57,8 +57,8 @@
 			"type":"text",
 			"text":"开始编写 highdimprob 分支",
 			"styleAttributes":{},
-			"x":-960,
-			"y":-100,
+			"x":-1020,
+			"y":-120,
 			"width":260,
 			"height":60
 		}
