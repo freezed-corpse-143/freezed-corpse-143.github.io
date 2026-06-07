@@ -1,8 +1,6 @@
 {
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
-		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-720,"y":-485,"width":250,"height":60},
-		{"id":"4ac986ee4d3f4d0a","type":"text","text":"论文修改\n1. 编写实验代码\n2. 完善论文 harness 状态机","x":-1055,"y":-521,"width":250,"height":133,"color":"1"},
 		{
 			"id":"44eba7f00cfe7169",
 			"type":"text",
@@ -12,10 +10,57 @@
 			"y":-320,
 			"width":180,
 			"height":60
-		}
+		},
+		{
+			"id":"25aa1abe749a3e86",
+			"type":"text",
+			"text":"编写实验代码",
+			"styleAttributes":{},
+			"x":-1345,
+			"y":-220,
+			"width":185,
+			"height":60
+		},
+		{
+			"id":"47e87c4f6ab6836a",
+			"type":"text",
+			"text":"论文 harness 状态机+编写论文",
+			"styleAttributes":{},
+			"x":-1090,
+			"y":-280,
+			"width":260,
+			"height":60
+		},
+		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-740,"y":-280,"width":250,"height":60}
 	],
 	"edges":[
-		{"id":"acde740b0266fcbd","toFloating":false,"fromNode":"4ac986ee4d3f4d0a","fromSide":"right","toNode":"96cb89299ff10010","toSide":"left"}
+		{
+			"id":"8c7c0ae0a228fb5b",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"44eba7f00cfe7169",
+			"fromSide":"right",
+			"toNode":"47e87c4f6ab6836a",
+			"toSide":"left"
+		},
+		{
+			"id":"b4277b481e82c007",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"25aa1abe749a3e86",
+			"fromSide":"right",
+			"toNode":"47e87c4f6ab6836a",
+			"toSide":"left"
+		},
+		{
+			"id":"6c7d92cb59b3f188",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"47e87c4f6ab6836a",
+			"fromSide":"right",
+			"toNode":"96cb89299ff10010",
+			"toSide":"left"
+		}
 	],
 	"metadata":{
 		"version":"1.0-1.0",
