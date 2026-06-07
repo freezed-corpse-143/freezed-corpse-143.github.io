@@ -2,16 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
 		{
-			"id":"44eba7f00cfe7169",
-			"type":"text",
-			"text":"代码绘图",
-			"styleAttributes":{},
-			"x":-1340,
-			"y":-320,
-			"width":180,
-			"height":60
-		},
-		{
 			"id":"25aa1abe749a3e86",
 			"type":"text",
 			"text":"编写实验代码",
@@ -21,17 +11,37 @@
 			"width":185,
 			"height":60
 		},
+		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-740,"y":-280,"width":250,"height":60},
+		{
+			"id":"1f6f726b0f3a4ee9",
+			"type":"text",
+			"text":"编译 openstarbound",
+			"styleAttributes":{},
+			"x":-1020,
+			"y":-480,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"44eba7f00cfe7169",
+			"type":"text",
+			"text":"代码绘图",
+			"styleAttributes":{},
+			"x":-1345,
+			"y":-310,
+			"width":180,
+			"height":60
+		},
 		{
 			"id":"47e87c4f6ab6836a",
 			"type":"text",
 			"text":"论文 harness 状态机+编写论文",
 			"styleAttributes":{},
-			"x":-1090,
+			"x":-1060,
 			"y":-280,
 			"width":260,
 			"height":60
-		},
-		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-740,"y":-280,"width":250,"height":60}
+		}
 	],
 	"edges":[
 		{
