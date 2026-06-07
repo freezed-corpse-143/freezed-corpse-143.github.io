@@ -41,6 +41,26 @@
 			"y":-280,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"8c78802636ea4a1a",
+			"type":"text",
+			"text":"claude code 使用 omx",
+			"styleAttributes":{},
+			"x":-1345,
+			"y":-120,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"cae32d2904c3732b",
+			"type":"text",
+			"text":"开始编写 highdimprob 分支",
+			"styleAttributes":{},
+			"x":-960,
+			"y":-100,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
