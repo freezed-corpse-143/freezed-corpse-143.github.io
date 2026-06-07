@@ -13,16 +13,6 @@
 		},
 		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-740,"y":-280,"width":250,"height":60},
 		{
-			"id":"1f6f726b0f3a4ee9",
-			"type":"text",
-			"text":"编译 openstarbound",
-			"styleAttributes":{},
-			"x":-1020,
-			"y":-480,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"44eba7f00cfe7169",
 			"type":"text",
 			"text":"代码绘图",
