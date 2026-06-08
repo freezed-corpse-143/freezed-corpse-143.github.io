@@ -71,16 +71,6 @@
 			"y":0,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"f25a51f96b4a8fa2",
-			"type":"text",
-			"text":"openclaw 更换模型",
-			"styleAttributes":{},
-			"x":-700,
-			"y":-120,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
