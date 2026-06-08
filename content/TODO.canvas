@@ -51,6 +51,16 @@
 			"y":-120,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"2dfdb935c91588e5",
+			"type":"text",
+			"text":"openstarbound 替换",
+			"styleAttributes":{},
+			"x":-960,
+			"y":-480,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
