@@ -61,6 +61,36 @@
 			"y":-480,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"d49dfcf514712681",
+			"type":"text",
+			"text":"system-design-primer",
+			"styleAttributes":{},
+			"x":-1345,
+			"y":0,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b2e2f8dbfccfe684",
+			"type":"text",
+			"text":"oh-my-pi",
+			"styleAttributes":{},
+			"x":-1020,
+			"y":0,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"f25a51f96b4a8fa2",
+			"type":"text",
+			"text":"openclaw 更换模型",
+			"styleAttributes":{},
+			"x":-700,
+			"y":-120,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Vsdev",
+                "query": "arch=",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -206,11 +206,11 @@
   },
   "active": "56176bb4bde23504",
   "lastOpenFiles": [
-    "TODO.canvas",
-    "windows.md",
     "环境配置.md",
-    "服务使用.md",
+    "TODO.canvas",
     "软件使用.md",
+    "windows.md",
+    "服务使用.md",
     "编程语言.md",
     "经验之谈.md",
     "我的项目.md",
