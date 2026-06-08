@@ -841,7 +841,7 @@ end
 4. 命令行运行：
 
 ```cmd
-call "C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\Common7\Tools\VsDevCmd.bat"
+call "C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\Common7\Tools\VsDevCmd.bat" -arch=x64
 ```
 
 # msvc 变量注入
