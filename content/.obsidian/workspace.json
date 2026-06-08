@@ -52,7 +52,8 @@
               "title": "环境配置"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -217,11 +218,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8813f411ccbee865",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "TODO.canvas",
     "环境配置.md",
     "windows.md",
-    "TODO.canvas",
     "软件使用.md",
     "服务使用.md",
     "编程语言.md",
