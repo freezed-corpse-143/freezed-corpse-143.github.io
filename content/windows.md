@@ -918,3 +918,1834 @@ Import-MSVCEnv
 
 1. `win+r` 输入 `regedit`，进入注册表
 2. `HKEY_CURRENT_USER\Software\Microsoft\Command Processor` 下新建 字符串值，键为 `AutoRun`，值为 `@<pwsh_file>`
+
+# 配置 msvc 开发环境
+
+```powershell
+<#
+.SYNOPSIS
+    Optimized VsDevCmd.ps1 — with built-in profiling and incremental fixes.
+    Run with -Profile to see per-phase timings; compare against original.
+#>
+
+[CmdletBinding()]
+param(
+    [ValidateSet('x86', 'amd64', 'arm', 'arm64')]
+    [string]$Arch,
+
+    [ValidateSet('x86', 'amd64', 'arm', 'arm64')]
+    [string]$HostArch,
+
+    [string]$WinSdk,
+    [ValidateSet('Desktop', 'UWP')]
+    [string]$AppPlatform = 'Desktop',
+
+    [switch]$NoExt,
+    [switch]$NoLogo,
+    [string]$StartDir,
+    [string]$VcVarsVer,
+    [ValidateSet('spectre')]
+    [string]$VcVarsSpectreLibs,
+    [switch]$CleanEnv,
+    [switch]$Test,
+    [switch]$Help,
+
+    [switch]$Profile,
+
+    [switch]$RefreshCache   # Skip cache, re-probe all registry keys, save fresh cache
+)
+
+# ============================================================================
+# Profiling infrastructure (zero overhead when -Profile not set)
+# ============================================================================
+$script:_ProfileData = [System.Collections.Generic.List[object]]::new()
+$script:_ProfileStack = [System.Collections.Generic.Stack[object]]::new()
+
+function Enter-Phase { param([string]$Name)
+    if (-not $Profile) { return }
+    $timer = [System.Diagnostics.Stopwatch]::StartNew()
+    $script:_ProfileStack.Push(@{ Name = $Name; Timer = $timer })
+}
+
+function Exit-Phase {
+    if (-not $Profile) { return }
+    $entry = $script:_ProfileStack.Pop()
+    $entry.Timer.Stop()
+    [void]$script:_ProfileData.Add(@{
+        Phase = $entry.Name
+        ElapsedMs = $entry.Timer.ElapsedMilliseconds
+        Ticks = $entry.Timer.ElapsedTicks
+        RegReads = $script:_RegReads
+        ExtProcs = $script:_ExtProcs
+        FsEnums = $script:_FsEnums
+    })
+}
+
+function Show-Profile {
+    if (-not $Profile) { return }
+    Write-Host "`n========== Profile Report ==========" -ForegroundColor Cyan
+    $fmt = "{0,-45} {1,8} ms"
+    Write-Host ($fmt -f "Phase", "Time")
+    Write-Host ("-" * 58)
+    $total = 0
+    foreach ($p in $script:_ProfileData) {
+        Write-Host ($fmt -f $p.Phase, $p.ElapsedMs)
+        $total += $p.ElapsedMs
+    }
+    Write-Host ("-" * 58)
+    Write-Host ($fmt -f "TOTAL", $total)
+    Write-Host "`nCounters:" -ForegroundColor DarkYellow
+    Write-Host "  Registry probes : $script:_RegReads  (from cache: $script:_CacheLoaded)"
+    Write-Host "  External procs  : $script:_ExtProcs"
+    Write-Host "  FS enumerations : $script:_FsEnums"
+    Write-Host ("  Cache file      : {0}" -f $script:_CacheFile)
+    Write-Host "====================================`n" -ForegroundColor Cyan
+}
+
+$script:_RegReads = 0
+$script:_ExtProcs = 0
+$script:_FsEnums  = 0
+$script:_CacheLoaded = 0  # entries loaded from persistent cache file
+$script:_CacheFile  ="$PSScriptRoot\regcache.json"
+
+# ============================================================================
+# OPT #0: Persistent registry probe cache
+# Saves all probe results to a JSON file. Subsequent runs skip probing
+# entirely for cached keys. Invalidated when VS installation path changes.
+# ============================================================================
+function Load-RegCache {
+    param([string]$VsPath)
+    if ($RefreshCache) { Write-Dbg 1 "Cache: refresh forced, skipping load"; return @{} }
+    if (-not (Test-Path $script:_CacheFile)) { Write-Dbg 1 "Cache: no cache file found"; return @{} }
+    try {
+        $data = Get-Content $script:_CacheFile -Raw | ConvertFrom-Json
+        if ($data.version -ne 1) { Write-Dbg 1 "Cache: wrong version"; return @{} }
+        if ($data.vsPath -ne $VsPath) { Write-Dbg 1 "Cache: VS path changed ($($data.vsPath) -> $VsPath)"; return @{} }
+        $cache = @{}
+        foreach ($prop in $data.entries.PSObject.Properties) {
+            $v = $prop.Value
+            $cache[$prop.Name] = if ($v -is [string]) { $v } else { $null }
+        }
+        Write-Dbg 1 "Cache: loaded $($cache.Count) entries for $VsPath"
+        $script:_CacheLoaded = $cache.Count
+        return $cache
+    } catch { Write-Dbg 1 "Cache: load error: $_"; return @{} }
+}
+
+function Save-RegCache {
+    param([string]$VsPath)
+    try {
+        $dir = Split-Path $script:_CacheFile -Parent
+        if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+        # Only persist non-null lookups and explicit nulls (skip transient entries)
+        $entries = @{}
+        foreach ($kv in $script:_RegCache.GetEnumerator()) {
+            $entries[$kv.Key] = $kv.Value
+        }
+        $data = @{ version = 1; vsPath = $VsPath; created = (Get-Date -Format 'o'); entries = $entries }
+        $data | ConvertTo-Json -Depth 3 -Compress | Set-Content $script:_CacheFile -Encoding UTF8
+        Write-Dbg 1 "Cache: saved $($entries.Count) entries"
+    } catch { Write-Dbg 1 "Cache: save error: $_" }
+}
+
+# ============================================================================
+# OPT #1: Registry reads with Test-Path guard + persistent cache
+# Test-Path miss = ~22ms | Get-ItemProperty on existing key = ~8ms
+# Cache hit = ~0ms (in-memory dictionary lookup)
+# vs. Get-ItemProperty + throw/catch on miss = ~112ms
+# ============================================================================
+# Cache is loaded AFTER VS detection (we need the VS path for validation)
+$script:_RegCache = @{}
+
+function Get-RegValue {
+    param([string]$Path, [string]$Name, [string]$DefaultValue)
+    $ckey = "$Path|$Name"
+    if ($script:_RegCache.ContainsKey($ckey)) {
+        return $script:_RegCache[$ckey]
+    }
+    $script:_RegReads++
+    # Guard: Test-Path avoids the 112ms exception path on missing keys
+    if (-not (Test-Path $Path)) {
+        $script:_RegCache[$ckey] = $DefaultValue
+        return $DefaultValue
+    }
+    try {
+        $val = (Get-ItemProperty -Path $Path -Name $Name -ErrorAction Stop).$Name
+        $script:_RegCache[$ckey] = $val
+        return $val
+    } catch {
+        # Key exists but specific value doesn't — rare, but handle gracefully
+        $script:_RegCache[$ckey] = $DefaultValue
+        return $DefaultValue
+    }
+}
+
+function Get-RegValuesAll {
+    param([string]$Path)
+    if ($script:_RegCache.ContainsKey("__BULK__$Path")) {
+        return $script:_RegCache["__BULK__$Path"]
+    }
+    $script:_RegReads++
+    if (-not (Test-Path $Path)) {
+        $script:_RegCache["__BULK__$Path"] = @{}
+        return @{}
+    }
+    $result = @{}
+    try {
+        $all = Get-ItemProperty -Path $Path -ErrorAction Stop
+        foreach ($prop in $all.PSObject.Properties) {
+            $n = $prop.Name
+            if ($n -in @('PSPath','PSParentPath','PSChildName','PSDrive','PSProvider')) { continue }
+            $v = $prop.Value
+            $result[$n] = $v
+            $script:_RegCache["$Path|$n"] = $v
+        }
+    } catch { }
+    $script:_RegCache["__BULK__$Path"] = $result
+    return $result
+}
+
+# ============================================================================
+# Shared helpers (unchanged core logic, Test-Path on the hot path is OK)
+# ============================================================================
+function Write-Dbg { param([int]$Level, [string]$Message)
+    $d = try { [int]$env:VSCMD_DEBUG } catch { 0 }
+    if ($d -ge $Level) { Write-Host "[DEBUG:VsDevCmd.ps1] $Message" -ForegroundColor Gray }
+}
+
+function AddTo-Path { param([string]$Dir)
+    if (-not $Dir) { return }
+    if (-not (Test-Path $Dir -ErrorAction SilentlyContinue)) { return }
+    Write-Dbg 2 "PATH += $Dir"
+    $env:PATH = "$Dir;$env:PATH"
+}
+
+function AddTo-Lib { param([string]$Dir)
+    if (-not $Dir) { return }
+    if (-not (Test-Path $Dir -ErrorAction SilentlyContinue)) { return }
+    Write-Dbg 2 "LIB += $Dir"
+    $env:LIB = "$Dir;$env:LIB"
+}
+
+function AddTo-LibPath { param([string]$Dir)
+    if (-not $Dir) { return }
+    if (-not (Test-Path $Dir -ErrorAction SilentlyContinue)) { return }
+    Write-Dbg 2 "LIBPATH += $Dir"
+    $env:LIBPATH = "$Dir;$env:LIBPATH"
+}
+
+function AddTo-Var {
+    param([string]$VarName, [string]$Dir)
+    if (-not $Dir) { return }
+    if (-not (Test-Path $Dir -ErrorAction SilentlyContinue)) { return }
+    Write-Dbg 2 "$VarName += $Dir"
+    $cur = Get-Variable -Name $VarName -ValueOnly -Scope Script -ErrorAction SilentlyContinue
+    if ($cur) { Set-Variable -Name $VarName -Value "$Dir;$cur" -Scope Script }
+    else       { Set-Variable -Name $VarName -Value $Dir -Scope Script }
+}
+
+function Normalize-PathVar {
+    param([string]$Name)
+    $v = [Environment]::GetEnvironmentVariable($Name, 'Process')
+    if ($v -and $v.EndsWith(';')) {
+        [Environment]::SetEnvironmentVariable($Name, $v.TrimEnd(';'), 'Process')
+    }
+}
+
+# ============================================================================
+# Architecture resolution
+# ============================================================================
+$currentArch = if ([Environment]::Is64BitProcess) { 'x64' } else { 'x86' }
+$script:TgtArch = if ($Arch -eq 'amd64') { 'x64' } elseif ($Arch) { $Arch } else { $currentArch }
+$script:HostArchE = if ($HostArch -eq 'amd64') { 'x64' } elseif ($HostArch) { $HostArch } else { $script:TgtArch }
+
+if ($Help) {
+@"
+** Visual Studio 2026 Developer PowerShell v18.0 (Optimized) **
+
+Syntax: . .\VsDevCmd.Optimized.ps1 [options]
+
+Options:
+  -Arch=arch          Target architecture
+  -HostArch=arch      Host compiler arch
+  -WinSdk=version     Windows SDK version
+  -AppPlatform=plat   Desktop (default) or UWP
+  -NoExt              Skip extension scripts
+  -NoLogo             Suppress banner
+  -VcVarsVer=version  VC++ Toolset version override
+  -VcVarsSpectreLibs=spectre  Use spectre-mitigated libraries
+  -CleanEnv           Restore pre-init environment
+  -Test               Run smoke tests
+  -Help               Show this help
+  -Profile            Show per-phase timing breakdown
+  -RefreshCache       Skip cache, re-probe all registry keys, save fresh cache
+"@
+    return
+}
+
+# ============================================================================
+# Save pre-init environment
+# ============================================================================
+$script:_preInitPath      = $env:PATH
+$script:_preInitInclude   = $env:INCLUDE
+$script:_preInitLib       = $env:LIB
+$script:_preInitLibPath   = $env:LIBPATH
+$script:_preInitExtInc    = $env:EXTERNAL_INCLUDE
+$script:_preInitVS180Tools = $env:VS180COMNTOOLS
+$script:_errCount = 0
+
+# ============================================================================
+# Locate VS Installation
+# ============================================================================
+function Find-VSInstallation {
+    # OPT #2: Single vswhere call gets both path AND version
+    # Original made 2 separate vswhere calls (lines 197 + 334); we do 1.
+
+    # 1) VS180COMNTOOLS
+    if ($env:VS180COMNTOOLS) {
+        $candidate = $env:VS180COMNTOOLS.TrimEnd('\')
+        if (Test-Path "$candidate\VsDevCmd.bat") {
+            Write-Dbg 1 "Using VS180COMNTOOLS: $candidate"
+            $vsDir = (Split-Path (Split-Path $candidate -Parent) -Parent)
+            return @{
+                ToolsDir  = "$candidate\"
+                VSInstall = "$vsDir\"
+                SemVer    = $null
+            }
+        }
+    }
+
+    # 2) Single vswhere call — OPT #2: get both installationPath + version at once
+    $vswherePath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+    if (Test-Path $vswherePath) {
+        try {
+            $script:_ExtProcs++
+            $raw = & $vswherePath -latest -products '*' -property installationPath catalog_productSemanticVersion -format json 2>$null
+            if ($raw) {
+                $parsed = $raw | ConvertFrom-Json
+                $vsPath = ($parsed | Select-Object -First 1).installationPath
+                $semVer = ($parsed | Select-Object -First 1).catalog_productSemanticVersion
+                if ($vsPath) {
+                    $vsPath = $vsPath.Trim()
+                    $toolsDir = "$vsPath\Common7\Tools\"
+                    if (Test-Path "$toolsDir\VsDevCmd.bat") {
+                        Write-Dbg 1 "Found via vswhere: $vsPath"
+                        return @{
+                            ToolsDir  = $toolsDir
+                            VSInstall = "$vsPath\"
+                            SemVer    = if ($semVer) { ($semVer -split '\+')[0] } else { $null }
+                        }
+                    }
+                }
+            }
+        } catch { Write-Dbg 1 "vswhere failed: $_" }
+    }
+
+    # 3) Registry — OPT #1: use cached helper
+    $vsDir = Get-RegValue 'HKLM:\SOFTWARE\Microsoft\VisualStudio\SxS\VS7' '18.0'
+    if ($vsDir) {
+        $toolsDir = "$vsDir\Common7\Tools\"
+        if (Test-Path "$toolsDir\VsDevCmd.bat") {
+            Write-Dbg 1 "Found via registry: $vsDir"
+            return @{
+                ToolsDir  = $toolsDir
+                VSInstall = $vsDir.TrimEnd('\') + '\'
+                SemVer    = $null
+            }
+        }
+    }
+
+    # 4) Known paths
+    foreach ($known in @(
+        "${env:ProgramFiles(x86)}\Microsoft Visual Studio\18\BuildTools\Common7\Tools",
+        "${env:ProgramFiles}\Microsoft Visual Studio\18\Enterprise\Common7\Tools",
+        "${env:ProgramFiles}\Microsoft Visual Studio\18\Professional\Common7\Tools",
+        "${env:ProgramFiles}\Microsoft Visual Studio\18\Community\Common7\Tools"
+    )) {
+        if (Test-Path "$known\VsDevCmd.bat") {
+            Write-Dbg 1 "Found via known path: $known"
+            $vsDir = Split-Path (Split-Path $known -Parent) -Parent
+            return @{
+                ToolsDir  = "$known\"
+                VSInstall = "$vsDir\"
+                SemVer    = $null
+            }
+        }
+    }
+    return $null
+}
+
+Enter-Phase "Find-VSInstallation"
+$vsInfo = Find-VSInstallation
+Exit-Phase
+
+if (-not $vsInfo) {
+    Write-Host "[ERROR:VsDevCmd.ps1] Cannot locate Visual Studio installation."
+    exit 1
+}
+
+$script:ToolsDir  = $vsInfo.ToolsDir
+$script:VSInstall = $vsInfo.VSInstall.TrimEnd('\') + '\'
+$script:DevEnv    = if (Test-Path "$($script:VSInstall)Common7\IDE") { "$($script:VSInstall)Common7\IDE\" } else { $null }
+
+# Load persistent cache now that we know the VS path
+$script:_RegCache = Load-RegCache $script:VSInstall
+
+# ============================================================================
+# Clean Environment Mode
+# ============================================================================
+if ($CleanEnv) {
+    Write-Dbg 1 "Cleaning environment"
+    $vars = @('DevEnvDir','VSINSTALLDIR','VSCMD_VER','VisualStudioVersion','VCINSTALLDIR',
+        'VCToolsInstallDir','VCToolsRedistDir','VCIDEInstallDir','Platform',
+        'CommandPromptType','PreferredToolArchitecture','VCTargetsUnderVCInstall',
+        'ExtensionSdkDir','VCToolsVersion','IFCPATH','VSCMD_ARG_VCVARS_VER',
+        'VSCMD_ARG_VCVARS_SPECTRE','WindowsSdkDir','WindowsSDKVersion',
+        'WindowsSDKLibVersion','WindowsSdkBinPath','WindowsSdkVerBinPath',
+        'WindowsLibPath','UCRTVersion','UniversalCRTSdkDir','NETFXSDKDir')
+    foreach ($v in $vars) { [Environment]::SetEnvironmentVariable($v, $null, 'Process') }
+    if ($script:_preInitPath)    { $env:PATH = $script:_preInitPath }    else { $env:PATH = $null }
+    if ($script:_preInitInclude) { $env:INCLUDE = $script:_preInitInclude } else { $env:INCLUDE = $null }
+    if ($script:_preInitLib)     { $env:LIB = $script:_preInitLib }       else { $env:LIB = $null }
+    if ($script:_preInitLibPath) { $env:LIBPATH = $script:_preInitLibPath } else { $env:LIBPATH = $null }
+    if ($script:_preInitExtInc)  { $env:EXTERNAL_INCLUDE = $script:_preInitExtInc } else { $env:EXTERNAL_INCLUDE = $null }
+    if ($script:_preInitVS180Tools) { $env:VS180COMNTOOLS = $script:_preInitVS180Tools } else { $env:VS180COMNTOOLS = $null }
+    return
+}
+
+# ============================================================================
+# Test Mode
+# ============================================================================
+if ($Test) {
+    Write-Dbg 1 "Test mode - environment not modified"
+    $fail = 0
+    foreach ($t in @('cl.exe','msbuild.exe','ilasm.exe')) {
+        Write-Host "[TEST:VsDevCmd.ps1] Checking for $t..."
+        if (-not (Get-Command $t -ErrorAction SilentlyContinue)) {
+            Write-Host "[ERROR:VsDevCmd.ps1] '$t' not found in PATH"
+            $fail++
+        }
+    }
+    if ($fail -gt 0) { Write-Host "[ERROR:VsDevCmd.ps1] $fail test(s) failed"; exit 1 }
+    Write-Host "[TEST:VsDevCmd.ps1] All tests passed"
+    return
+}
+
+# ============================================================================
+# Version & Banner — OPT #2: vswhere result reused from Find-VSInstallation
+# ============================================================================
+Enter-Phase "Version+Banner"
+
+$env:VisualStudioVersion = '18.0'
+$script:VSCMD_VER = if ($vsInfo.SemVer) { $vsInfo.SemVer } else { '18.0' }
+$env:VSCMD_VER = $script:VSCMD_VER
+
+if (-not $NoLogo) {
+    Write-Host "**********************************************************************"
+    Write-Host "** Visual Studio 2026 Developer PowerShell v$script:VSCMD_VER"
+    Write-Host "** Copyright (c) 2026 Microsoft Corporation"
+    Write-Host "**********************************************************************"
+}
+Exit-Phase
+
+# ============================================================================
+# Root environment variables
+# ============================================================================
+$env:VS180COMNTOOLS = $script:ToolsDir
+$env:VSINSTALLDIR   = $script:VSInstall
+AddTo-Path $script:ToolsDir
+if ($script:DevEnv) {
+    $env:DevEnvDir = $script:DevEnv
+    AddTo-Path $script:DevEnv
+}
+
+# ============================================================================
+# CORE: .NET Framework — OPT #3: batch registry reads
+# ============================================================================
+function Invoke-CoreDotNet {
+    Write-Dbg 2 "Core: .NET Framework"
+
+    $add32 = ($script:TgtArch -eq 'x86') -or ($script:HostArchE -eq 'x86')
+    $add64 = ($script:TgtArch -eq 'x64') -or ($script:HostArchE -in @('x64', 'arm64'))
+    $prefBitness = if ($script:HostArchE -eq 'x86') { '32' } else { '64' }
+
+    # OPT #3: Check only the primary registry key. If missing (e.g. BuildTools
+    # SKU), skip all fallback probing — each Test-Path on a non-existent key
+    # costs 30-100ms. Defaults are already correct for BuildTools.
+    $fwDir32 = 'C:\Windows\Microsoft.NET\Framework\'
+    $fwDir64 = 'C:\Windows\Microsoft.NET\Framework64\'
+    $fwVer32 = 'v4.0.30319'
+    $fwVer64 = 'v4.0.30319'
+
+    $primaryKey = 'HKLM:\SOFTWARE\Microsoft\VisualStudio\SxS\VC7'
+    # Get-RegValuesAll caches both hits AND misses — warm runs skip Test-Path entirely
+    $bulk = Get-RegValuesAll $primaryKey
+    if ($bulk.Count -gt 0) {
+        if ($bulk['FrameworkDir32']) { $fwDir32 = $bulk['FrameworkDir32'] }
+        if ($bulk['FrameworkDir64']) { $fwDir64 = $bulk['FrameworkDir64'] }
+        if ($bulk['FrameworkVer32']) { $fwVer32 = $bulk['FrameworkVer32'] }
+        if ($bulk['FrameworkVer64']) { $fwVer64 = $bulk['FrameworkVer64'] }
+    }
+
+    $fwDir = if ($prefBitness -eq '64') { $fwDir64 } else { $fwDir32 }
+    $fwVer = if ($prefBitness -eq '64') { $fwVer64 } else { $fwVer32 }
+
+    if ($fwDir) {
+        if (-not $fwDir.EndsWith('\')) { $fwDir += '\' }
+        foreach ($v in @($fwVer, 'v4.0' | Select-Object -Unique)) {
+            AddTo-Path    "$fwDir$v"
+            AddTo-LibPath "$fwDir$v"
+        }
+    }
+}
+
+# ============================================================================
+# CORE: MSBuild
+# ============================================================================
+function Invoke-CoreMSBuild {
+    Write-Dbg 2 "Core: MSBuild"
+    $sub = if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64') { 'arm64' } else { 'amd64' }
+    AddTo-Path "$script:VSInstall\MSBuild\Current\Bin\$sub"
+}
+
+# ============================================================================
+# CORE: VS Bundled Build Tools (CMake, Ninja, vcpkg)
+# Prepend so VS tools take priority over MinGW/system equivalents.
+# ============================================================================
+function Invoke-CoreBuildTools {
+    Write-Dbg 2 "Core: VS Build Tools"
+
+    # CMake
+    $cmakeBin = "$script:VSInstall\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin"
+    if (Test-Path $cmakeBin) {
+        AddTo-Path $cmakeBin
+        Write-Dbg 1 "CMake: $cmakeBin"
+    }
+
+    # Ninja
+    $ninjaDir = "$script:VSInstall\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja"
+    if (Test-Path $ninjaDir) {
+        AddTo-Path $ninjaDir
+        Write-Dbg 1 "Ninja: $ninjaDir"
+    }
+
+    # vcpkg (bundled in VC)
+    $vcpkgDir = "$script:VSInstall\VC\vcpkg"
+    if (Test-Path "$vcpkgDir\vcpkg.exe") {
+        AddTo-Path $vcpkgDir
+        Write-Dbg 1 "vcpkg: $vcpkgDir"
+    }
+}
+
+# ============================================================================
+# CORE: Windows SDK
+# ============================================================================
+function Invoke-CoreWinSdk {
+    Write-Dbg 2 "Core: Windows SDK"
+
+    if ($WinSdk -eq 'none') { Write-Dbg 1 "WinSdk=none, skipping"; return }
+
+    $script:WinSdkDir     = $null
+    $script:WinSdkVersion = $null
+    $script:WinSdkBinPath = $null
+    $script:WinSdkVerBin  = $null
+    $script:WinLibPath    = $null
+    $script:WinSdkLibVer  = 'winv6.3\'
+    $script:UCRTVer       = $null
+    $script:UCRTSdkDir    = $null
+
+    # ----- Windows 10 SDK -----
+    function Find-Win10Sdk {
+        $regBases = @(
+            'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v10.0',
+            'HKCU:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v10.0',
+            'HKLM:\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v10.0',
+            'HKCU:\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v10.0'
+        )
+        foreach ($base in $regBases) {
+            $instDir = Get-RegValue $base 'InstallationFolder'
+            if (-not $instDir) { continue }
+            $instDir = $instDir.TrimEnd('\')
+
+            $checkFile = if ($AppPlatform -eq 'UWP') { 'Windows.h' } else { 'winsdkver.h' }
+            $incDir = "$instDir\include"
+            if (-not (Test-Path $incDir)) { continue }
+
+            # OPT #4: avoid version-cast sort — use natural string sort, faster
+            $script:_FsEnums++
+            $dirs = Get-ChildItem $incDir -Directory -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -match '^10\.\d+\.\d+\.\d+$' }
+
+            # Sort by splitting version parts as ints (faster than [version] cast)
+            $sorted = $dirs | Sort-Object {
+                $parts = $_.Name -split '\.'
+                [int]$parts[0] * 1000000000 + [int]$parts[1] * 1000000 + [int]$parts[2] * 1000 + [int]$parts[3]
+            } -Descending
+
+            $found = $null
+            foreach ($v in $sorted) {
+                if (Test-Path "$incDir\$($v.Name)\um\$checkFile") {
+                    $found = $v.Name
+                    if ($WinSdk -and $v.Name -eq $WinSdk) { $found = $v.Name; break }
+                    if (-not $WinSdk) { break }
+                }
+            }
+
+            if ($WinSdk -and $found -ne $WinSdk) {
+                Write-Dbg 1 "Specified WinSdk $WinSdk not found; using $WinSdk anyway"
+                $found = $WinSdk
+            }
+
+            if ($found) {
+                $script:WinSdkDir     = $instDir
+                $script:WinSdkVersion = "$found\"
+                $script:WinSdkLibVer  = "$found\"
+                $script:WinSdkBinPath = "$instDir\bin\"
+                if (Test-Path "$instDir\bin\$found\") {
+                    $script:WinSdkVerBin = "$instDir\bin\$found"
+                }
+                if (Test-Path "$instDir\UnionMetadata\$found") {
+                    $script:WinLibPath = "$instDir\UnionMetadata\$found;$instDir\References\$found"
+                } else {
+                    $script:WinLibPath = "$instDir\UnionMetadata;$instDir\References"
+                }
+                return $true
+            }
+        }
+        return $false
+    }
+
+    # ----- Windows 8.1 SDK -----
+    function Find-Win81Sdk {
+        foreach ($base in @(
+            'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1',
+            'HKCU:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1',
+            'HKLM:\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1',
+            'HKCU:\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1'
+        )) {
+            $instDir = Get-RegValue $base 'InstallationFolder'
+            if ($instDir) {
+                $instDir = $instDir.TrimEnd('\')
+                $script:WinSdkDir     = $instDir
+                $script:WinSdkLibVer  = 'winv6.3\'
+                $script:WinSdkBinPath = "$instDir\bin\"
+                $script:WinLibPath    = "$instDir\References\CommonConfiguration\Neutral"
+                return $true
+            }
+        }
+        return $false
+    }
+
+    # ----- Universal CRT -----
+    function Find-UCRT {
+        foreach ($base in @(
+            'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows Kits\Installed Roots',
+            'HKCU:\SOFTWARE\Wow6432Node\Microsoft\Windows Kits\Installed Roots',
+            'HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots',
+            'HKCU:\SOFTWARE\Microsoft\Windows Kits\Installed Roots'
+        )) {
+            $root = Get-RegValue $base 'KitsRoot10'
+            if ($root) {
+                $root = $root.TrimEnd('\')
+                $script:UCRTSdkDir = $root
+                $libDir = "$root\Lib"
+                if (Test-Path $libDir) {
+                    $script:_FsEnums++
+                    $ucrtVers = Get-ChildItem $libDir -Directory -ErrorAction SilentlyContinue |
+                        Where-Object { $_.Name -match '^10\.' }
+                    # OPT #4: int comparison sort, same pattern
+                    $sortedUCRT = $ucrtVers | Sort-Object {
+                        $p = $_.Name -split '\.'
+                        [int]$p[0] * 1000000000 + [int]$p[1] * 1000000 + [int]$p[2] * 1000 + [int]$p[3]
+                    } -Descending
+                    foreach ($uv in $sortedUCRT) {
+                        if (Test-Path "$libDir\$($uv.Name)\ucrt\$script:TgtArch\ucrt.lib") {
+                            $script:UCRTVer = $uv.Name
+                            break
+                        }
+                    }
+                }
+                return
+            }
+        }
+    }
+
+    # ----- Export Phase -----
+    $found = $false
+    if ($WinSdk -eq '8.1') {
+        if (-not (Find-Win81Sdk)) {
+            Write-Host "[ERROR:VsDevCmd.ps1] Windows SDK 8.1 not found"
+            $script:_errCount++; return
+        }
+        $found = $true
+    } elseif ($WinSdk) {
+        if (-not (Find-Win10Sdk)) {
+            Write-Host "[ERROR:VsDevCmd.ps1] Windows SDK $WinSdk not found"
+            $script:_errCount++; return
+        }
+        $found = $true
+    } else {
+        $found = Find-Win10Sdk
+        if (-not $found) { $found = Find-Win81Sdk }
+    }
+
+    Find-UCRT | Out-Null
+
+    if ($script:WinSdkBinPath) { AddTo-Path "$($script:WinSdkBinPath)$script:HostArchE" }
+    if ($script:WinSdkVerBin)  { AddTo-Path "$($script:WinSdkVerBin)\$script:HostArchE" }
+    if ($script:WinSdkDir -and $script:WinSdkLibVer) {
+        AddTo-Lib "$($script:WinSdkDir)\lib\$($script:WinSdkLibVer)um\$script:TgtArch"
+    }
+    if ($script:WinSdkDir -and $script:WinSdkVersion) {
+        $sd = $script:WinSdkDir; $sv = $script:WinSdkVersion
+        AddTo-Var '_WINSDK_INC' "$sd\include\$sv\um"
+        AddTo-Var '_WINSDK_INC' "$sd\include\$sv\shared"
+        AddTo-Var '_WINSDK_INC' "$sd\include\$sv\winrt"
+        AddTo-Var '_WINSDK_INC' "$sd\include\$sv\cppwinrt"
+    }
+    if ($script:WinLibPath) {
+        foreach ($p in ($script:WinLibPath -split ';')) { if ($p) { AddTo-LibPath $p } }
+    }
+    if ($script:UCRTVer -and $script:UCRTSdkDir) {
+        Write-Dbg 2 "UCRT: adding include and lib"
+        AddTo-Var '_WINSDK_INC' "$($script:UCRTSdkDir)\include\$($script:UCRTVer)\ucrt"
+        AddTo-Lib "$($script:UCRTSdkDir)\lib\$($script:UCRTVer)\ucrt\$script:TgtArch"
+    }
+
+    $env:WindowsSdkDir        = $script:WinSdkDir
+    $env:WindowsSDKVersion    = $script:WinSdkVersion
+    $env:WindowsSDKLibVersion = $script:WinSdkLibVer
+    $env:WindowsSdkBinPath    = $script:WinSdkBinPath
+    $env:WindowsSdkVerBinPath = $script:WinSdkVerBin
+    $env:WindowsLibPath       = $script:WinLibPath
+    $env:UCRTVersion          = $script:UCRTVer
+    $env:UniversalCRTSdkDir   = $script:UCRTSdkDir
+}
+
+# ============================================================================
+# Run Core — with profiling
+# ============================================================================
+Enter-Phase "Core: .NET Framework"
+Invoke-CoreDotNet
+Exit-Phase
+
+Enter-Phase "Core: MSBuild"
+Invoke-CoreMSBuild
+Exit-Phase
+
+Enter-Phase "Core: VS Build Tools"
+Invoke-CoreBuildTools
+Exit-Phase
+
+Enter-Phase "Core: Windows SDK"
+Invoke-CoreWinSdk
+Exit-Phase
+
+# ============================================================================
+# EXT: VCVars (C++ Toolset)
+# ============================================================================
+function Invoke-ExtVCVars {
+    if ($NoExt) { Write-Dbg 1 "Skipping ext (no_ext)"; return }
+    Write-Dbg 2 "Ext: VCVars"
+
+    $vcDir = "$script:VSInstall\VC\"
+    if (-not (Test-Path $vcDir)) { Write-Dbg 1 "VC directory not found: $vcDir"; return }
+
+    $env:VCINSTALLDIR    = $vcDir
+    $env:VCIDEInstallDir = "$script:VSInstall\Common7\IDE\VC\"
+
+    # ----- Resolve toolset version (unchanged from original — already efficient) -----
+    $vcVer = $VcVarsVer
+    if (-not $vcVer) { $vcVer = $env:VCToolsVersion }
+
+    if (-not $vcVer) {
+        $buildDir = "$vcDir\Auxiliary\Build"
+        $propsPath = "$buildDir\Microsoft.VCToolsVersion.v145.default.props"
+        $shortVer = $null
+        if (Test-Path $propsPath) {
+            try {
+                [xml]$props = Get-Content $propsPath
+                $ns = New-Object Xml.XmlNamespaceManager $props.NameTable
+                $ns.AddNamespace('msb', 'http://schemas.microsoft.com/developer/msbuild/2003')
+                $node = $props.SelectSingleNode('//msb:VCToolsVersionLatest', $ns)
+                if ($node) { $shortVer = $node.InnerText.Trim() }
+            } catch { Write-Dbg 1 "Failed to parse v145 props" }
+        }
+
+        if ($shortVer) {
+            foreach ($f in @(
+                "$buildDir\$shortVer\Microsoft.VCToolsVersion.$shortVer.txt",
+                "$buildDir\v145\Microsoft.VCToolsVersion.VC.$shortVer.txt"
+            )) {
+                if (Test-Path $f) { $vcVer = (Get-Content $f).Trim(); break }
+            }
+        }
+
+        if (-not $vcVer) {
+            foreach ($f in @(
+                "$buildDir\Microsoft.VCToolsVersion.v145.default.txt",
+                "$buildDir\Microsoft.VCToolsVersion.default.txt"
+            )) {
+                if (Test-Path $f) { $vcVer = (Get-Content $f).Trim(); break }
+            }
+        }
+    }
+
+    if (-not $vcVer) { Write-Dbg 1 "Could not determine VC++ toolset version"; return }
+    Write-Dbg 2 "VC++ Toolset: $vcVer"
+
+    $vcToolsDir = "$vcDir\Tools\MSVC\$vcVer\"
+    if (-not (Test-Path $vcToolsDir)) { Write-Dbg 1 "VC++ tools not found: $vcToolsDir"; return }
+
+    $env:VCToolsInstallDir = $vcToolsDir
+    $env:VCToolsVersion     = $vcVer
+
+    $redistFile = "$vcDir\Auxiliary\Build\Microsoft.VCRedistVersion.default.txt"
+    if (Test-Path $redistFile) {
+        $rv = (Get-Content $redistFile).Trim()
+        $rd = "$vcDir\Redist\MSVC\$rv\"
+        if (Test-Path $rd) { $env:VCToolsRedistDir = $rd }
+    }
+
+    $hostMap = @{
+        'x86'   = @{ Bin = '\HostX86';   Native = '\x86' }
+        'x64'   = @{ Bin = '\HostX64';   Native = '\x64' }
+        'arm'   = @{ Bin = '\HostARM';   Native = '\arm' }
+        'arm64' = @{ Bin = '\HostARM64'; Native = '\arm64' }
+    }
+    $tgtMap  = @{ 'x86' = '\x86'; 'x64' = '\x64'; 'arm' = '\ARM'; 'arm64' = '\ARM64' }
+
+    $hInfo   = $hostMap[$script:HostArchE]
+    $tgtDir  = $tgtMap[$script:TgtArch]
+    $specDir = if ($VcVarsSpectreLibs -eq 'spectre') { '\spectre' } else { '' }
+
+    if (-not $hInfo -or -not $tgtDir) {
+        Write-Host "[ERROR:VsDevCmd.ps1] Unsupported host=$script:HostArchE / target=$script:TgtArch"
+        $script:_errCount++; return
+    }
+
+    $binDir    = "$($hInfo.Bin)$tgtDir"
+    $nativeBin = "$($hInfo.Bin)$($hInfo.Native)"
+
+    $env:Platform = $script:TgtArch
+    if ($script:HostArchE -ne $script:TgtArch) {
+        $env:CommandPromptType = 'Cross'
+        $env:PreferredToolArchitecture = if ($script:HostArchE -eq 'x64') { 'x64' } else { $null }
+    } else {
+        $env:CommandPromptType = 'Native'
+        $env:PreferredToolArchitecture = $null
+    }
+
+    $extSdk = "${env:ProgramFiles}\Microsoft SDKs\Windows Kits\10\ExtensionSDKs"
+    if (-not (Test-Path $extSdk)) {
+        $extSdk = "${env:ProgramFiles(x86)}\Microsoft SDKs\Windows Kits\10\ExtensionSDKs"
+    }
+    if (Test-Path $extSdk) { $env:ExtensionSdkDir = $extSdk }
+
+    AddTo-Path "$script:VSInstall\Common7\IDE\VC\VCPackages"
+
+    if ($env:CommandPromptType -eq 'Cross') {
+        AddTo-Path "$vcToolsDir\bin$nativeBin"
+    }
+    AddTo-Path "$vcToolsDir\bin$binDir"
+
+    AddTo-Var '_VCVARS_INC' "$script:VSInstall\VC\Auxiliary\VS\include"
+    AddTo-Var '_VCVARS_INC' "$vcToolsDir\ATLMFC\include"
+    AddTo-Var '_VCVARS_INC' "$vcToolsDir\include"
+
+    AddTo-LibPath "$vcToolsDir\lib\x86\store\references"
+
+    if ($AppPlatform -eq 'Desktop') {
+        $vcLib  = "$vcToolsDir\lib$specDir$tgtDir"
+        $atlLib = "$vcToolsDir\ATLMFC\lib$specDir$tgtDir"
+        AddTo-Lib     $vcLib
+        AddTo-Lib     $atlLib
+        AddTo-LibPath $vcLib
+        AddTo-LibPath $atlLib
+    }
+
+    if ($AppPlatform -eq 'UWP' -and $script:WinSdkDir -and ($script:WinSdkDir -notmatch '8\.1')) {
+        AddTo-Lib "$vcToolsDir\lib$tgtDir\store\"
+        if ($env:ExtensionSdkDir) {
+            AddTo-LibPath "$($env:ExtensionSdkDir)\Microsoft.VCLibs\14.0\References\CommonConfiguration\neutral"
+        }
+    }
+
+    $ifcPath = "$vcToolsDir\ifc$tgtDir"
+    if ((-not $env:IFCPATH) -and (Test-Path $ifcPath)) { $env:IFCPATH = $ifcPath }
+}
+
+# ============================================================================
+# EXT: .NET FX SDK — OPT #5: reduce version fallback chain, use cache
+# ============================================================================
+function Invoke-ExtNetFxSdk {
+    if ($NoExt) { return }
+    Write-Dbg 2 "Ext: .NET Framework SDK"
+
+    $archKey = if ([Environment]::Is64BitProcess) { 'X64' } else { 'X86' }
+    $script:NFX_SdkDir = $null
+    $script:NFX_ExeX86 = $null
+    $script:NFX_ExeX64 = $null
+
+    # OPT #5: Aggressive early-exit. Each Test-Path on a missing registry key
+    # costs ~78ms. Original probed 4 bases × 8 versions = 32 keys per run.
+    # BuildTools has zero .NETFX SDK keys → 32 × 78ms = 2.5s wasted.
+    # Strategy: probe only the 2 most recent versions on the primary base.
+    # If the primary base has no keys, skip all others (not a full VS install).
+
+    # Primary base only (HKLM Wow6432Node for x64, HKLM native for x86)
+    $primaryBase = if ($archKey -eq 'X86') {
+        'HKLM:\SOFTWARE\Microsoft\Microsoft SDKs\NETFXSDK'
+    } else {
+        'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\NETFXSDK'
+    }
+
+    # Only probe the 2 most common versions; if neither exists, this isn't a
+    # full VS install and no NETFX SDK keys will exist anywhere.
+    foreach ($v in @('4.8.1', '4.8')) {
+        $all = Get-RegValuesAll "$primaryBase\$v"
+        if ($all.Count -eq 0) { continue }
+        if ($all['KitsInstallationFolder']) {
+            $script:NFX_SdkDir = $all['KitsInstallationFolder']
+        }
+        $script:NFX_ExeX86 = Get-RegValue "$primaryBase\$v\WinSDK-NetFx40Tools-x86" 'InstallationFolder'
+        $script:NFX_ExeX64 = Get-RegValue "$primaryBase\$v\WinSDK-NetFx40Tools-x64" 'InstallationFolder'
+        if ($script:NFX_SdkDir) { break }
+    }
+
+    # BuildTools / non-full-VS: skip the exhaustive fallback chain.
+    # If primary base had nothing, HKCU and other paths won't either.
+    # Only probe fallback (Win 8.1A SDK) if x86/x64 tools still missing.
+    if (-not $script:NFX_ExeX86 -and -not $script:NFX_ExeX64) {
+        $fbKey = if ($archKey -eq 'X86') {
+            'HKLM:\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1A'
+        } else {
+            'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A'
+        }
+        $script:NFX_ExeX86 = Get-RegValue "$fbKey\WinSDK-NetFx40Tools-x86" 'InstallationFolder'
+        $script:NFX_ExeX64 = Get-RegValue "$fbKey\WinSDK-NetFx40Tools-x64" 'InstallationFolder'
+    }
+
+    $env:NETFXSDKDir = $script:NFX_SdkDir
+
+    $nfxTgt = switch ($script:TgtArch) {
+        'x86' { '\x86' }; 'x64' { '\x64' }; 'arm' { '\arm' }; 'arm64' { '\arm64' }
+    }
+
+    if ($script:NFX_SdkDir) {
+        if (Test-Path "$($script:NFX_SdkDir)include\um") {
+            AddTo-Var '_NETFX_INC' "$($script:NFX_SdkDir)include\um"
+        }
+        if ($nfxTgt -and (Test-Path "$($script:NFX_SdkDir)lib\um$nfxTgt")) {
+            AddTo-Lib "$($script:NFX_SdkDir)lib\um$nfxTgt"
+        }
+    }
+
+    if ($script:HostArchE -eq 'x86' -and $script:NFX_ExeX86) {
+        AddTo-Path $script:NFX_ExeX86
+    } elseif ($script:HostArchE -in @('x64', 'arm64') -and $script:NFX_ExeX64) {
+        AddTo-Path $script:NFX_ExeX64
+    }
+}
+
+# ============================================================================
+# EXT: Roslyn
+# ============================================================================
+function Invoke-ExtRoslyn {
+    if ($NoExt) { return }
+    Write-Dbg 2 "Ext: Roslyn"
+    AddTo-Path "$script:VSInstall\MSBuild\Current\bin\Roslyn"
+}
+
+# ============================================================================
+# Run Extensions — with profiling
+# ============================================================================
+Enter-Phase "Ext: .NET Framework SDK"
+Invoke-ExtNetFxSdk
+Exit-Phase
+
+Enter-Phase "Ext: Roslyn"
+Invoke-ExtRoslyn
+Exit-Phase
+
+Enter-Phase "Ext: VCVars"
+Invoke-ExtVCVars
+Exit-Phase
+
+# ============================================================================
+# Final Environment Assembly — OPT #6: direct variable read, no pipeline
+# ============================================================================
+Enter-Phase "Final assembly"
+
+$vcInc    = Get-Variable -Name '_VCVARS_INC' -ValueOnly -Scope Script -ErrorAction SilentlyContinue
+$wsInc    = Get-Variable -Name '_WINSDK_INC' -ValueOnly -Scope Script -ErrorAction SilentlyContinue
+$nfxInc   = Get-Variable -Name '_NETFX_INC'  -ValueOnly -Scope Script -ErrorAction SilentlyContinue
+$parts = @()
+if ($vcInc)  { $parts += $vcInc }
+if ($wsInc)  { $parts += $wsInc }
+if ($nfxInc) { $parts += $nfxInc }
+$incStr = $parts -join ';'
+if ($incStr) {
+    $env:INCLUDE          = "$incStr;$env:INCLUDE"
+    $env:EXTERNAL_INCLUDE = "$incStr;$env:EXTERNAL_INCLUDE"
+}
+
+Remove-Variable -Name '_VCVARS_INC' -Scope Script -ErrorAction SilentlyContinue
+Remove-Variable -Name '_WINSDK_INC' -Scope Script -ErrorAction SilentlyContinue
+Remove-Variable -Name '_NETFX_INC'  -Scope Script -ErrorAction SilentlyContinue
+
+# OPT #6: foreach instead of pipeline ForEach-Object
+foreach ($v in @('PATH','INCLUDE','LIB','LIBPATH','EXTERNAL_INCLUDE')) {
+    Normalize-PathVar $v
+}
+
+Exit-Phase
+
+# ============================================================================
+# Start Directory
+# ============================================================================
+if ($StartDir -eq 'none') {
+    # stay put
+} elseif ($StartDir -eq 'auto') {
+    if ($env:VSCMD_START_DIR -and (Test-Path $env:VSCMD_START_DIR)) {
+        Set-Location $env:VSCMD_START_DIR
+    } elseif (Test-Path "$env:USERPROFILE\Source") {
+        Set-Location "$env:USERPROFILE\Source"
+    }
+} elseif ($StartDir) {
+    if (Test-Path $StartDir) { Set-Location $StartDir }
+} elseif ($env:VSCMD_START_DIR) {
+    Set-Location $env:VSCMD_START_DIR
+}
+
+# ============================================================================
+# Result
+# ============================================================================
+if ($script:_errCount -gt 0) {
+    Write-Host "[ERROR:VsDevCmd.ps1] *** $($script:_errCount) error(s). Environment may be incomplete. ***"
+    Write-Host "[ERROR:VsDevCmd.ps1] Set `$env:VSCMD_DEBUG=1/2/3 and re-run for details."
+    Show-Profile
+    exit 1
+} else {
+    Write-Dbg 1 "VsDevCmd.ps1 completed successfully."
+    Save-RegCache $script:VSInstall
+    Show-Profile
+}
+
+```
+
+Cmd 版
+
+```cmd
+@echo off
+REM ============================================================================
+REM VsDevCmd.cmd — MSVC development environment initialization
+REM
+REM Automatically detects Visual Studio installation, Windows SDK, VC++ toolset,
+REM .NET Framework SDK, and Roslyn, then sets up PATH, INCLUDE, LIB, LIBPATH,
+REM and all relevant environment variables for command-line C/C++ development.
+REM
+REM Inspired by VsDevCmd.ps1, optimized for batch speed.
+REM
+REM Usage: call VsDevCmd.cmd [arch] [hostarch] [winsdk] [/noext] [/nologo]
+REM
+REM   arch      Target architecture: x86 | x64 | arm | arm64   (default = native)
+REM   hostarch  Host architecture                               (default = arch)
+REM   winsdk    Windows SDK version, "8.1", or "none"           (default = latest)
+REM   /noext    Skip optional extensions (VCVars, .NET SDK, Roslyn)
+REM   /nologo   Suppress banner
+REM   /cleanenv Start from clean environment
+REM   /test     Validate configuration and exit
+REM
+REM Examples:
+REM   call VsDevCmd.cmd                        (native development)
+REM   call VsDevCmd.cmd x64                    (x64 target, x64 host)
+REM   call VsDevCmd.cmd x64 x86                (x64 target, x86 host — cross)
+REM   call VsDevCmd.cmd arm64                  (ARM64 native)
+REM ============================================================================
+REM NOTE: No SETLOCAL at top level — all variable changes persist in caller.
+REM Subroutines use SETLOCAL/ENDLOCAL only when needed.
+REM ============================================================================
+
+set "__ERR=0"
+set "__NOEXT=0"
+set "__NOLOGO=0"
+set "__CLEAN_ENV=0"
+set "__TEST_MODE=0"
+set "__HELP=0"
+set "__WINSDK_VER="
+set "__APP_PLATFORM=Desktop"
+set "__VCVARS_VER="
+set "__SPECTRE="
+
+REM === Argument Parsing ===
+set "__TGT_ARCH="
+set "__HOST_ARCH="
+
+:parse_args
+if "%~1"=="" goto :parse_done
+
+for %%a in (x86 amd64 x64 arm arm64) do if /i "%~1"=="%%a" (
+    if not defined __TGT_ARCH (
+        set "__TGT_ARCH=%%a" & shift & goto :parse_args
+    )
+    if not defined __HOST_ARCH (
+        set "__HOST_ARCH=%%a" & shift & goto :parse_args
+    )
+    shift & goto :parse_args
+)
+
+if /i "%~1"=="/noext"       set "__NOEXT=1"      & shift & goto :parse_args
+if /i "%~1"=="/nologo"      set "__NOLOGO=1"      & shift & goto :parse_args
+if /i "%~1"=="/cleanenv"    set "__CLEAN_ENV=1"   & shift & goto :parse_args
+if /i "%~1"=="/test"        set "__TEST_MODE=1"   & shift & goto :parse_args
+if /i "%~1"=="/?"           set "__HELP=1"        & shift & goto :parse_args
+if /i "%~1"=="/help"        set "__HELP=1"        & shift & goto :parse_args
+if /i "%~1"=="-?"           set "__HELP=1"        & shift & goto :parse_args
+if not defined __WINSDK_VER  set "__WINSDK_VER=%~1" & shift & goto :parse_args
+shift & goto :parse_args
+:parse_done
+
+if "%__HELP%"=="1" (
+    echo VsDevCmd.cmd - MSVC development environment initialization
+    echo.
+    echo Usage: call VsDevCmd.cmd [arch] [hostarch] [winsdk] [/noext] [/nologo]
+    echo.
+    echo   arch      Target architecture: x86 ^| x64 ^| arm ^| arm64   (default = native^)
+    echo   hostarch  Host architecture                                 (default = arch^)
+    echo   winsdk    Windows SDK version or "8.1" / "none"             (default = latest^)
+    echo   /noext    Skip optional extensions
+    echo   /nologo   Suppress banner
+    echo   /cleanenv Start from clean environment
+    echo   /test     Validate configuration and exit
+    goto :eof
+)
+
+REM Normalize arch aliases
+if /i "%__TGT_ARCH%"=="amd64" set "__TGT_ARCH=x64"
+if /i "%__HOST_ARCH%"=="amd64" set "__HOST_ARCH=x64"
+
+REM Detect current process architecture
+set "__CURRENT_ARCH=x86"
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64"  set "__CURRENT_ARCH=x64"
+if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64"  set "__CURRENT_ARCH=arm64"
+if defined PROCESSOR_ARCHITEW6432 if /i "%PROCESSOR_ARCHITEW6432%"=="AMD64" set "__CURRENT_ARCH=x64"
+
+if not defined __TGT_ARCH set "__TGT_ARCH=%__CURRENT_ARCH%"
+if not defined __HOST_ARCH (
+    set "__HOST_ARCH=%__TGT_ARCH%"
+    if /i "%__HOST_ARCH%"=="amd64" set "__HOST_ARCH=x64"
+)
+
+REM Validate architectures
+set "__VALID=0"
+for %%v in (x86 x64 arm arm64) do if /i "%__TGT_ARCH%"=="%%v" set "__VALID=1"
+if "%__VALID%"=="0" (echo [ERROR] Unknown target arch: %__TGT_ARCH% & set "__ERR=1" & goto :finish)
+
+set "__VALID=0"
+for %%v in (x86 x64 arm arm64) do if /i "%__HOST_ARCH%"=="%%v" set "__VALID=1"
+if "%__VALID%"=="0" (echo [ERROR] Unknown host arch: %__HOST_ARCH% & set "__ERR=1" & goto :finish)
+
+if /i "%__HOST_ARCH%"=="arm64" if /i "%__TGT_ARCH%"=="x86" (
+    echo [ERROR] arm64 host cannot target x86
+    set "__ERR=1" & goto :finish
+)
+
+call :find_vs
+if "%__ERR%"=="1" goto :finish
+
+if "%__CLEAN_ENV%"=="1" call :clean_env
+if "%__TEST_MODE%"=="1" call :run_test & goto :finish
+if "%__NOLOGO%"=="0"   call :print_banner
+
+call :set_root_vars
+call :core_dotnet
+call :core_msbuild
+call :core_build_tools
+call :core_winsdk
+if "%__NOEXT%"=="0" (
+    call :ext_netfxsdk
+    call :ext_roslyn
+    call :ext_vcvars
+)
+call :assemble_include
+call :normalize_paths
+goto :finish
+
+
+REM ============================================================================
+REM Subroutines
+REM ============================================================================
+
+
+:find_vs
+set "__VS_TOOLSDIR="
+set "__VS_INSTALL="
+set "__VS_SEMVER="
+
+REM 1) VS180COMNTOOLS env var
+if defined VS180COMNTOOLS (
+    set "__CAND=%VS180COMNTOOLS%"
+    call set "_LAST=%%__CAND:~-1%%"
+    if "%_LAST%"=="\" set "__CAND=%__CAND:~0,-1%"
+    if exist "%__CAND%\VsDevCmd.bat" (
+        for %%p in ("%__CAND%\..\..") do set "__VS_INSTALL=%%~fp\"
+        set "__VS_TOOLSDIR=%__CAND%\"
+        goto :vs_found
+    )
+)
+
+REM 2) vswhere
+set "__VSW=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+if exist "%__VSW%" (
+    for /f "usebackq tokens=*" %%a in (`"%__VSW%" -latest -products * -property installationPath 2^>nul`) do set "__VP=%%a"
+    if defined __VP (
+        for /f "usebackq tokens=*" %%a in (`"%__VSW%" -latest -products * -property catalog_productSemanticVersion 2^>nul`) do set "__VS_SEMVER=%%a"
+        if exist "%__VP%\Common7\Tools\VsDevCmd.bat" (
+            set "__VS_TOOLSDIR=%__VP%\Common7\Tools\"
+            set "__VS_INSTALL=%__VP%\"
+            goto :vs_found
+        )
+    )
+)
+
+REM 3) Registry — try both 32/64 bit views
+set "__VP="
+for %%r in (
+    "HKLM\SOFTWARE\Microsoft\VisualStudio\SxS\VS7"
+    "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\SxS\VS7"
+) do if not defined __VP (
+    for /f "skip=2 tokens=2,*" %%a in ('reg query "%%~r" /v "18.0" 2^>nul ^| findstr /i "REG_SZ"') do set "__VP=%%b"
+)
+if defined __VP (
+    call set "_LAST=%%__VP:~-1%%"
+    if "%_LAST%"=="\" set "__VP=%__VP:~0,-1%"
+    if exist "%__VP%\Common7\Tools\VsDevCmd.bat" (
+        set "__VS_TOOLSDIR=%__VP%\Common7\Tools\"
+        set "__VS_INSTALL=%__VP%\"
+        goto :vs_found
+    )
+)
+
+REM 4) Known paths
+for %%d in (
+    "%ProgramFiles(x86)%\Microsoft Visual Studio\18\BuildTools\Common7\Tools"
+    "%ProgramFiles%\Microsoft Visual Studio\18\Enterprise\Common7\Tools"
+    "%ProgramFiles%\Microsoft Visual Studio\18\Professional\Common7\Tools"
+    "%ProgramFiles%\Microsoft Visual Studio\18\Community\Common7\Tools"
+) do if exist "%%~d\VsDevCmd.bat" for %%p in ("%%~d\..\..") do (
+    set "__VS_INSTALL=%%~fp\"
+    set "__VS_TOOLSDIR=%%~d\"
+    goto :vs_found
+)
+
+REM 5) VS160COMNTOOLS (VS 2019 fallback)
+if defined VS160COMNTOOLS (
+    set "__CAND=%VS160COMNTOOLS%"
+    call set "_LAST=%%__CAND:~-1%%"
+    if "%_LAST%"=="\" set "__CAND=%__CAND:~0,-1%"
+    if exist "%__CAND%\VsDevCmd.bat" (
+        for %%p in ("%__CAND%\..\..") do set "__VS_INSTALL=%%~fp\"
+        set "__VS_TOOLSDIR=%__CAND%\"
+        goto :vs_found
+    )
+)
+
+echo [ERROR] Cannot locate Visual Studio installation.
+echo         Install Visual Studio 2022 (or 2019) with "Desktop development with C++" workload.
+set "__ERR=1"
+goto :eof
+
+:vs_found
+echo [OK] Visual Studio: %__VS_INSTALL%
+goto :eof
+
+
+:clean_env
+set "PATH="
+set "INCLUDE="
+set "LIB="
+set "LIBPATH="
+set "EXTERNAL_INCLUDE="
+goto :eof
+
+
+:run_test
+setlocal enabledelayedexpansion
+echo VsDevCmd.cmd — Configuration Test
+echo =================================
+echo Target arch:  %__TGT_ARCH%
+echo Host arch:    %__HOST_ARCH%
+echo VS install:   %__VS_INSTALL%
+echo VS tools:     %__VS_TOOLSDIR%
+if defined __VS_SEMVER echo VS version:  %__VS_SEMVER%
+echo.
+echo Variables set by this script:
+set VS 2>nul | findstr /b "VS"
+set VSCMD 2>nul | findstr /b "VSCMD"
+set WindowsSdk 2>nul | findstr /b "WindowsSdk"
+set WindowsSDK 2>nul | findstr /b "WindowsSDK"
+set UCRT 2>nul | findstr /b "UCRT"
+echo.
+echo PATH = %%PATH%%
+endlocal
+goto :eof
+
+
+:print_banner
+echo.
+echo **********************************************************************
+echo ** Visual Studio 2022 Developer Command Prompt
+if defined __VS_SEMVER echo ** Version %__VS_SEMVER%
+echo ** Target: %__TGT_ARCH%, Host: %__HOST_ARCH%
+echo **********************************************************************
+echo.
+goto :eof
+
+
+:set_root_vars
+set "VS180COMNTOOLS=%__VS_TOOLSDIR%"
+set "VSINSTALLDIR=%__VS_INSTALL%"
+set "PATH=%__VS_TOOLSDIR%;%PATH%"
+
+set "__DEVENV=%__VS_INSTALL%Common7\IDE\"
+if exist "%__DEVENV%" (
+    set "DevEnvDir=%__DEVENV%"
+    set "PATH=%__DEVENV%;%PATH%"
+)
+set "VisualStudioVersion=18.0"
+if defined __VS_SEMVER (
+    set "VSCMD_VER=%__VS_SEMVER%"
+) else (
+    set "VSCMD_VER=18.0"
+)
+goto :eof
+
+
+:core_dotnet
+set "__FW_PREF=64"
+if /i "%__HOST_ARCH%"=="x86" set "__FW_PREF=32"
+
+set "__FW_DIR32=C:\Windows\Microsoft.NET\Framework"
+set "__FW_DIR64=C:\Windows\Microsoft.NET\Framework64"
+set "__FW_VER32=v4.0.30319"
+set "__FW_VER64=v4.0.30319"
+
+REM Try registry overrides from VS
+for %%r in (
+    "HKLM\SOFTWARE\Microsoft\VisualStudio\SxS\VC7"
+    "HKLM\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\SxS\VC7"
+) do for %%a in (FrameworkDir32 FrameworkDir64 FrameworkVer32 FrameworkVer64) do (
+    for /f "skip=2 tokens=2,*" %%x in ('reg query "%%~r" /v "%%a" 2^>nul ^| findstr /i "REG_SZ"') do (
+        if "%%a"=="FrameworkDir32" set "__FW_DIR32=%%y"
+        if "%%a"=="FrameworkDir64" set "__FW_DIR64=%%y"
+        if "%%a"=="FrameworkVer32" set "__FW_VER32=%%y"
+        if "%%a"=="FrameworkVer64" set "__FW_VER64=%%y"
+    )
+)
+
+if "%__FW_PREF%"=="64" (set "__FD=%__FW_DIR64%" & set "__FV=%__FW_VER64%") else (set "__FD=%__FW_DIR32%" & set "__FV=%__FW_VER32%")
+
+if not defined __FD goto :eof
+call set "_LAST=%%__FD:~-1%%"
+if "%_LAST%"=="\" set "__FD=%__FD:~0,-1%"
+set "PATH=%__FD%\%__FV%;%PATH%"
+set "LIBPATH=%__FD%\%__FV%;%LIBPATH%"
+goto :eof
+
+
+:core_msbuild
+set "__MSB_SUB=amd64"
+if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "__MSB_SUB=arm64"
+if exist "%__VS_INSTALL%MSBuild\Current\Bin\%__MSB_SUB%\" (
+    set "PATH=%__VS_INSTALL%MSBuild\Current\Bin\%__MSB_SUB%;%PATH%"
+)
+goto :eof
+
+
+:core_build_tools
+if exist "%__VS_INSTALL%Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\" (
+    set "PATH=%__VS_INSTALL%Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;%PATH%"
+)
+if exist "%__VS_INSTALL%Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja\" (
+    set "PATH=%__VS_INSTALL%Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;%PATH%"
+)
+if exist "%__VS_INSTALL%VC\vcpkg\vcpkg.exe" (
+    set "PATH=%__VS_INSTALL%VC\vcpkg;%PATH%"
+)
+goto :eof
+
+
+:core_winsdk
+if /i "%__WINSDK_VER%"=="none" goto :eof
+
+set "__WSDK_DIR="
+set "__WSDK_VERSION="
+set "__WSDK_BIN="
+set "__WSDK_VERBIN="
+set "__WSDK_LIBVER=winv6.3\"
+set "__WSDK_LIBPATH="
+set "__WINSDK_INC="
+set "__UCRT_DIR="
+set "__UCRT_VER="
+
+REM Find Windows 10 SDK
+set "__FOUND=0"
+for %%b in (
+    "HKLM\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v10.0"
+    "HKCU\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v10.0"
+    "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v10.0"
+    "HKCU\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v10.0"
+) do if "%__FOUND%"=="0" (
+    set "__SD="
+    if defined __SD (
+        call :_trim_trailing_backslash __SD
+        if exist "%__SD%\include" (
+            for /f "delims=" %%v in ('dir /b /ad "%__SD%\include" 2^>nul ^| findstr /r "^10\.[0-9]*\.[0-9]*\.[0-9]*$"') do (
+                call :_check_winsdk "%__SD%" "%%v"
+            )
+        )
+    )
+)
+
+if "%__FOUND%"=="0" call :find_win81sdk
+
+REM Fallback: probe known SDK paths when registry has no record
+if "%__FOUND%"=="0" call :find_winsdk_fallback
+
+REM Find Universal CRT
+for %%b in (
+    "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows Kits\Installed Roots"
+    "HKCU\SOFTWARE\Wow6432Node\Microsoft\Windows Kits\Installed Roots"
+    "HKLM\SOFTWARE\Microsoft\Windows Kits\Installed Roots"
+    "HKCU\SOFTWARE\Microsoft\Windows Kits\Installed Roots"
+) do if not defined __UCRT_DIR (
+    set "__UK="
+    for /f "skip=2 tokens=2,*" %%x in ('reg query "%%~b" /v "KitsRoot10" 2^>nul ^| findstr /i "REG_SZ"') do set "__UK=%%y"
+    if defined __UK (
+        call :_trim_trailing_backslash __UK
+        if exist "%__UK%\Lib" (
+            set "__UCRT_DIR=%__UK%"
+            for /f "delims=" %%v in ('dir /b /ad "%__UK%\Lib" 2^>nul ^| findstr /r "^10\."') do (
+                if exist "%__UK%\Lib\%%v\ucrt\%__TGT_ARCH%\ucrt.lib" set "__UCRT_VER=%%v"
+            )
+        )
+    )
+)
+
+REM Fallback: probe known UCRT paths
+if not defined __UCRT_DIR call :find_ucrt_fallback
+
+REM Export Windows SDK
+if defined __WSDK_BIN (
+    set "PATH=%__WSDK_BIN%%__HOST_ARCH%;%PATH%"
+)
+if defined __WSDK_VERBIN (
+    set "PATH=%__WSDK_VERBIN%\%__HOST_ARCH%;%PATH%"
+)
+if defined __WSDK_DIR if defined __WSDK_LIBVER (
+    set "LIB=%__WSDK_DIR%\lib\%__WSDK_LIBVER%um\%__TGT_ARCH%;%LIB%"
+)
+call :_append_winsdk_inc
+if defined __WSDK_LIBPATH (
+    set "LIBPATH=%__WSDK_LIBPATH%;%LIBPATH%"
+)
+if defined __UCRT_VER if defined __UCRT_DIR (
+    set "__WINSDK_INC=%__WINSDK_INC%;%__UCRT_DIR%\include\%__UCRT_VER%\ucrt"
+    set "LIB=%__UCRT_DIR%\lib\%__UCRT_VER%\ucrt\%__TGT_ARCH%;%LIB%"
+)
+
+set "WindowsSdkDir=%__WSDK_DIR%"
+set "WindowsSDKVersion=%__WSDK_VERSION%"
+set "WindowsSDKLibVersion=%__WSDK_LIBVER%"
+set "WindowsSdkBinPath=%__WSDK_BIN%"
+if defined __WSDK_VERBIN set "WindowsSdkVerBinPath=%__WSDK_VERBIN%"
+if defined __WSDK_LIBPATH set "WindowsLibPath=%__WSDK_LIBPATH%"
+set "UCRTVersion=%__UCRT_VER%"
+set "UniversalCRTSdkDir=%__UCRT_DIR%"
+goto :eof
+
+
+:_append_winsdk_inc
+if not defined __WSDK_DIR goto :eof
+if not defined __WSDK_VERSION goto :eof
+set "__WINSDK_INC=%__WSDK_DIR%\include\%__WSDK_VERSION%um"
+set "__WINSDK_INC=%__WINSDK_INC%;%__WSDK_DIR%\include\%__WSDK_VERSION%shared"
+set "__WINSDK_INC=%__WINSDK_INC%;%__WSDK_DIR%\include\%__WSDK_VERSION%winrt"
+set "__WINSDK_INC=%__WINSDK_INC%;%__WSDK_DIR%\include\%__WSDK_VERSION%cppwinrt"
+goto :eof
+
+
+:_check_winsdk
+set "__SD=%~1"
+set "__WV=%~2"
+set "__CHECK=winsdkver.h"
+if /i "%__APP_PLATFORM%"=="UWP" set "__CHECK=Windows.h"
+if exist "%__SD%\include\%__WV%\um\%__CHECK%" (
+    set "__WSDK_DIR=%__SD%"
+    set "__WSDK_VERSION=%__WV%\"
+    set "__WSDK_LIBVER=%__WV%\"
+    set "__WSDK_BIN=%__SD%\bin\"
+    if exist "%__SD%\bin\%__WV%\" set "__WSDK_VERBIN=%__SD%\bin\%__WV%"
+    if exist "%__SD%\UnionMetadata\%__WV%" (
+        set "__WSDK_LIBPATH=%__SD%\UnionMetadata\%__WV%;%__SD%\References\%__WV%"
+    ) else (
+        set "__WSDK_LIBPATH=%__SD%\UnionMetadata;%__SD%\References"
+    )
+    set "__FOUND=1"
+)
+goto :eof
+:_trim_trailing_backslash
+set "__VAR=%~1"
+call set "__VAL=%%%__VAR%%%"
+if not defined __VAL goto :eof
+call set "_LAST=%%__VAL:~-1%%"
+if "%_LAST%"=="\" call set "%__VAR%=%%__VAL:~0,-1%%"
+goto :eof
+
+
+:find_win81sdk
+for %%b in (
+    "HKLM\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1"
+    "HKCU\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1"
+    "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1"
+    "HKCU\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1"
+) do if not defined __WSDK_DIR (
+    set "__SD="
+    for /f "skip=2 tokens=2,*" %%x in ('reg query "%%~b" /v "InstallationFolder" 2^>nul ^| findstr /i "REG_SZ"') do set "__SD=%%y"
+    if defined __SD (
+        call :_trim_trailing_backslash __SD
+        set "__WSDK_DIR=%__SD%"
+        set "__WSDK_LIBVER=winv6.3\"
+        set "__WSDK_BIN=%__SD%\bin\"
+        set "__WSDK_LIBPATH=%__SD%\References\CommonConfiguration\Neutral"
+    )
+)
+goto :eof
+
+
+:find_winsdk_fallback
+REM Check known SDK paths directly (when registry has no record)
+if "%__FOUND%"=="1" goto :eof
+for %%p in (
+    "%ProgramFiles(x86)%\Windows Kits\10"
+    "%ProgramFiles%\Windows Kits\10"
+    "C:\Program Files (x86)\Windows Kits\10"
+    "C:\Program Files\Windows Kits\10"
+) do if "%__FOUND%"=="0" (
+    if exist "%%~p\include" (
+        for /f "delims=" %%v in ('dir /b /ad "%%~p\include" 2^>nul ^| findstr /r "^10\.[0-9]*\.[0-9]*\.[0-9]*$"') do (
+            call :_check_winsdk "%%~p" "%%v"
+        )
+    )
+)
+goto :eof
+
+
+:find_ucrt_fallback
+for %%p in (
+    "%ProgramFiles(x86)%\Windows Kits\10"
+    "%ProgramFiles%\Windows Kits\10"
+    "C:\Program Files (x86)\Windows Kits\10"
+    "C:\Program Files\Windows Kits\10"
+) do if not defined __UCRT_DIR (
+    set "__UK=%%~p"
+    if exist "%%~p\Lib" (
+        set "__UCRT_DIR=%%~p"
+        for /f "delims=" %%v in ('dir /b /ad "%%~p\Lib" 2^>nul ^| findstr /r "^10\."') do (
+            if exist "%%~p\Lib\%%v\ucrt\%__TGT_ARCH%\ucrt.lib" set "__UCRT_VER=%%v"
+        )
+    )
+)
+goto :eof
+
+
+:ext_netfxsdk
+set "__NFX_DIR="
+set "__NFX_X86="
+set "__NFX_X64="
+
+for %%v in (4.8.1 4.8) do if not defined __NFX_DIR (
+    for %%r in (
+        "HKLM\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\NETFXSDK\%%v"
+        "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\NETFXSDK\%%v"
+    ) do if not defined __NFX_DIR (
+        set "__NK="
+        for /f "skip=2 tokens=2,*" %%a in ('reg query "%%~r" /v "KitsInstallationFolder" 2^>nul ^| findstr /i "REG_SZ"') do set "__NK=%%b"
+        if defined __NK (
+            call set "_LAST=%%__NK:~-1%%"
+            if "%_LAST%"=="\" set "__NK=%__NK:~0,-1%"
+            set "__NFX_DIR=%__NK%"
+        )
+        for /f "skip=2 tokens=2,*" %%a in ('reg query "%%~r\WinSDK-NetFx40Tools-x86" /v "InstallationFolder" 2^>nul ^| findstr /i "REG_SZ"') do set "__NFX_X86=%%b"
+        for /f "skip=2 tokens=2,*" %%a in ('reg query "%%~r\WinSDK-NetFx40Tools-x64" /v "InstallationFolder" 2^>nul ^| findstr /i "REG_SZ"') do set "__NFX_X64=%%b"
+    )
+)
+
+REM Fallback: Windows 8.1A SDK tools
+if not defined __NFX_X86 if not defined __NFX_X64 (
+    for %%r in (
+        "HKLM\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v8.1A"
+        "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v8.1A"
+    ) do (
+        for /f "skip=2 tokens=2,*" %%a in ('reg query "%%~r\WinSDK-NetFx40Tools-x86" /v "InstallationFolder" 2^>nul ^| findstr /i "REG_SZ"') do set "__NFX_X86=%%b"
+        for /f "skip=2 tokens=2,*" %%a in ('reg query "%%~r\WinSDK-NetFx40Tools-x64" /v "InstallationFolder" 2^>nul ^| findstr /i "REG_SZ"') do set "__NFX_X64=%%b"
+    )
+)
+
+set "NETFXSDKDir=%__NFX_DIR%"
+
+set "__NFX_TGT="
+if /i "%__TGT_ARCH%"=="x86"   set "__NFX_TGT=\x86"
+if /i "%__TGT_ARCH%"=="x64"   set "__NFX_TGT=\x64"
+if /i "%__TGT_ARCH%"=="arm"   set "__NFX_TGT=\arm"
+if /i "%__TGT_ARCH%"=="arm64" set "__NFX_TGT=\arm64"
+
+if defined __NFX_DIR (
+    if exist "%__NFX_DIR%include\um" (
+        set "__NETFX_INC=%__NFX_DIR%include\um"
+    )
+    if defined __NFX_TGT if exist "%__NFX_DIR%lib\um%__NFX_TGT%" (
+        set "LIB=%__NFX_DIR%lib\um%__NFX_TGT%;%LIB%"
+    )
+)
+
+if /i "%__HOST_ARCH%"=="x86" (
+    if defined __NFX_X86 set "PATH=%__NFX_X86%;%PATH%"
+) else (
+    if defined __NFX_X64 set "PATH=%__NFX_X64%;%PATH%"
+)
+goto :eof
+
+
+:ext_roslyn
+if exist "%__VS_INSTALL%MSBuild\Current\bin\Roslyn\" (
+    set "PATH=%__VS_INSTALL%MSBuild\Current\bin\Roslyn;%PATH%"
+)
+goto :eof
+
+
+:ext_vcvars
+set "__VC_DIR=%__VS_INSTALL%VC\"
+if not exist "%__VC_DIR%" goto :eof
+
+set "VCINSTALLDIR=%__VC_DIR%"
+set "VCIDEInstallDir=%__VS_INSTALL%Common7\IDE\VC\"
+
+REM Resolve toolset version
+set "__VC_VER=%__VCVARS_VER%"
+if not defined __VC_VER if defined VCToolsVersion set "__VC_VER=%VCToolsVersion%"
+
+if not defined __VC_VER set "__BUILD_DIR=%__VC_DIR%Auxiliary\Build"
+if not defined __VC_VER if exist "%__BUILD_DIR%\Microsoft.VCToolsVersion.v145.default.txt" (
+    for /f "usebackq delims=" %%a in ("%__BUILD_DIR%\Microsoft.VCToolsVersion.v145.default.txt") do set "__VC_VER=%%a"
+)
+if not defined __VC_VER if exist "%__BUILD_DIR%\Microsoft.VCToolsVersion.default.txt" (
+    for /f "usebackq delims=" %%a in ("%__BUILD_DIR%\Microsoft.VCToolsVersion.default.txt") do set "__VC_VER=%%a"
+)
+
+if not defined __VC_VER goto :eof
+set "__VC_TOOLS=%__VC_DIR%Tools\MSVC\%__VC_VER%\"
+if not exist "%__VC_TOOLS%" goto :eof
+
+set "VCToolsInstallDir=%__VC_TOOLS%"
+set "VCToolsVersion=%__VC_VER%"
+
+REM Redist version
+if exist "%__VC_DIR%Auxiliary\Build\Microsoft.VCRedistVersion.default.txt" (
+    for /f "usebackq delims=" %%a in ("%__VC_DIR%Auxiliary\Build\Microsoft.VCRedistVersion.default.txt") do set "__RV=%%a"
+    if defined __RV if exist "%__VC_DIR%Redist\MSVC\%__RV%\" (
+        set "VCToolsRedistDir=%__VC_DIR%Redist\MSVC\%__RV%\"
+    )
+)
+
+REM Architecture maps
+set "__HOST_BIN="
+set "__HOST_NATIVE="
+set "__TGT_DIR="
+if /i "%__HOST_ARCH%"=="x86"   set "__HOST_BIN=\HostX86"   & set "__HOST_NATIVE=\x86"
+if /i "%__HOST_ARCH%"=="x64"   set "__HOST_BIN=\HostX64"   & set "__HOST_NATIVE=\x64"
+if /i "%__HOST_ARCH%"=="arm"   set "__HOST_BIN=\HostARM"   & set "__HOST_NATIVE=\arm"
+if /i "%__HOST_ARCH%"=="arm64" set "__HOST_BIN=\HostARM64" & set "__HOST_NATIVE=\arm64"
+if /i "%__TGT_ARCH%"=="x86"   set "__TGT_DIR=\x86"
+if /i "%__TGT_ARCH%"=="x64"   set "__TGT_DIR=\x64"
+if /i "%__TGT_ARCH%"=="arm"   set "__TGT_DIR=\ARM"
+if /i "%__TGT_ARCH%"=="arm64" set "__TGT_DIR=\ARM64"
+
+if not defined __HOST_BIN goto :eof
+if not defined __TGT_DIR goto :eof
+
+set "__SPECTRE_DIR="
+if /i "%__SPECTRE%"=="spectre" set "__SPECTRE_DIR=\spectre"
+
+REM Platform variables
+set "Platform=%__TGT_ARCH%"
+if /i not "%__HOST_ARCH%"=="%__TGT_ARCH%" (
+    set "CommandPromptType=Cross"
+    if /i "%__HOST_ARCH%"=="x64" (set "PreferredToolArchitecture=x64") else (set "PreferredToolArchitecture=")
+) else (
+    set "CommandPromptType=Native"
+    set "PreferredToolArchitecture="
+)
+
+REM Extension SDK dir
+set "__EXT_SDK=%ProgramFiles%\Microsoft SDKs\Windows Kits\10\ExtensionSDKs"
+if not exist "%__EXT_SDK%\" (
+    set "__EXT_SDK=%ProgramFiles(x86)%\Microsoft SDKs\Windows Kits\10\ExtensionSDKs"
+)
+if exist "%__EXT_SDK%\" set "ExtensionSdkDir=%__EXT_SDK%"
+
+REM VCPackages
+if exist "%__VS_INSTALL%Common7\IDE\VC\VCPackages\" (
+    set "PATH=%__VS_INSTALL%Common7\IDE\VC\VCPackages;%PATH%"
+)
+
+REM Bin directories
+if "%CommandPromptType%"=="Cross" (
+    set "PATH=%__VC_TOOLS%bin%__HOST_NATIVE%;%PATH%"
+)
+set "PATH=%__VC_TOOLS%bin%__HOST_BIN%%__TGT_DIR%;%PATH%"
+
+REM Includes
+set "__VCVARS_INC=%__VS_INSTALL%VC\Auxiliary\VS\include"
+set "__VCVARS_INC=%__VCVARS_INC%;%__VC_TOOLS%ATLMFC\include"
+set "__VCVARS_INC=%__VCVARS_INC%;%__VC_TOOLS%include"
+
+REM LIBPATH
+set "LIBPATH=%__VC_TOOLS%lib\x86\store\references;%LIBPATH%"
+
+REM LIB
+if /i "%__APP_PLATFORM%"=="Desktop" (
+    set "LIB=%__VC_TOOLS%lib%__SPECTRE_DIR%%__TGT_DIR%;%__VC_TOOLS%ATLMFC\lib%__SPECTRE_DIR%%__TGT_DIR%;%LIB%"
+    set "LIBPATH=%__VC_TOOLS%lib%__SPECTRE_DIR%%__TGT_DIR%;%__VC_TOOLS%ATLMFC\lib%__SPECTRE_DIR%%__TGT_DIR%;%LIBPATH%"
+)
+
+REM IFC path
+set "__IFC=%__VC_TOOLS%ifc%__TGT_DIR%"
+if not defined IFCPATH if exist "%__IFC%" set "IFCPATH=%__IFC%"
+goto :eof
+
+:assemble_include
+set "INCLUDE=%__VCVARS_INC%"
+if defined __WINSDK_INC set "INCLUDE=%INCLUDE%;%__WINSDK_INC%"
+if defined __NETFX_INC set "INCLUDE=%INCLUDE%;%__NETFX_INC%"
+goto :eof
+
+
+:normalize_paths
+REM Skip PATH dedup (too long, duplicates harmless). Only dedup short vars.
+for %%v in (INCLUDE LIB LIBPATH EXTERNAL_INCLUDE) do call :dedup_path %%v
+goto :eof
+
+
+:dedup_path
+set "__V=%~1"
+call set "__P=%%%__V%%%"
+if not defined __P goto :eof
+
+:dedup_loop
+set "__O=%__P%"
+set "__P=%__P:;;=;%"
+if "%__P%"=="%__O%" goto :dedup_check_end
+goto :dedup_loop
+
+:dedup_check_end
+REM Remove trailing ;
+call set "_LAST_P=%%__P:~-1%%"
+if "%_LAST_P%"==";" set "__P=%__P:~0,-1%"
+REM Remove leading ;
+call set "_FIRST_P=%%__P:~0,1%%"
+if "%_FIRST_P%"==";" set "__P=%__P:~1%"
+if not "%_LAST_P%"==";" if not "%_FIRST_P%"==";" goto :dedup_apply
+
+:dedup_collapse
+set "__O=%__P%"
+set "__P=%__P:;;=;%"
+if not "%__P%"=="%__O%" goto :dedup_collapse
+call set "_LAST_P2=%%__P:~-1%%"
+call set "_FIRST_P2=%%__P:~0,1%%"
+if "%_LAST_P2%"==";" set "__P=%__P:~0,-1%"
+if "%_FIRST_P2%"==";" set "__P=%__P:~1%"
+
+:dedup_apply
+call set "%__V%=%__P%"
+goto :eof
+
+
+:finish
+set "__TMPF=%TEMP%\_vsdevcmd_export.bat"
+if exist "%__TMPF%" del "%__TMPF%" 2>nul
+
+REM Write each variable individually — avoids 8191-char block limit
+> "%__TMPF%" echo @echo off
+>> "%__TMPF%" echo set "PATH=%PATH%"
+>> "%__TMPF%" echo set "INCLUDE=%INCLUDE%"
+>> "%__TMPF%" echo set "LIB=%LIB%"
+>> "%__TMPF%" echo set "LIBPATH=%LIBPATH%"
+if defined EXTERNAL_INCLUDE >> "%__TMPF%" echo set "EXTERNAL_INCLUDE=%EXTERNAL_INCLUDE%"
+if defined VS180COMNTOOLS >> "%__TMPF%" echo set "VS180COMNTOOLS=%VS180COMNTOOLS%"
+if defined VSINSTALLDIR >> "%__TMPF%" echo set "VSINSTALLDIR=%VSINSTALLDIR%"
+if defined DevEnvDir >> "%__TMPF%" echo set "DevEnvDir=%DevEnvDir%"
+if defined VisualStudioVersion >> "%__TMPF%" echo set "VisualStudioVersion=%VisualStudioVersion%"
+if defined VSCMD_VER >> "%__TMPF%" echo set "VSCMD_VER=%VSCMD_VER%"
+if defined VCINSTALLDIR >> "%__TMPF%" echo set "VCINSTALLDIR=%VCINSTALLDIR%"
+if defined VCIDEInstallDir >> "%__TMPF%" echo set "VCIDEInstallDir=%VCIDEInstallDir%"
+if defined VCToolsInstallDir >> "%__TMPF%" echo set "VCToolsInstallDir=%VCToolsInstallDir%"
+if defined VCToolsVersion >> "%__TMPF%" echo set "VCToolsVersion=%VCToolsVersion%"
+if defined VCToolsRedistDir >> "%__TMPF%" echo set "VCToolsRedistDir=%VCToolsRedistDir%"
+if defined Platform >> "%__TMPF%" echo set "Platform=%Platform%"
+if defined CommandPromptType >> "%__TMPF%" echo set "CommandPromptType=%CommandPromptType%"
+if defined PreferredToolArchitecture >> "%__TMPF%" echo set "PreferredToolArchitecture=%PreferredToolArchitecture%"
+if defined WindowsSdkDir >> "%__TMPF%" echo set "WindowsSdkDir=%WindowsSdkDir%"
+if defined WindowsSDKVersion >> "%__TMPF%" echo set "WindowsSDKVersion=%WindowsSDKVersion%"
+if defined WindowsSDKLibVersion >> "%__TMPF%" echo set "WindowsSDKLibVersion=%WindowsSDKLibVersion%"
+if defined WindowsSdkBinPath >> "%__TMPF%" echo set "WindowsSdkBinPath=%WindowsSdkBinPath%"
+if defined WindowsSdkVerBinPath >> "%__TMPF%" echo set "WindowsSdkVerBinPath=%WindowsSdkVerBinPath%"
+if defined WindowsLibPath >> "%__TMPF%" echo set "WindowsLibPath=%WindowsLibPath%"
+if defined UCRTVersion >> "%__TMPF%" echo set "UCRTVersion=%UCRTVersion%"
+if defined UniversalCRTSdkDir >> "%__TMPF%" echo set "UniversalCRTSdkDir=%UniversalCRTSdkDir%"
+if defined ExtensionSdkDir >> "%__TMPF%" echo set "ExtensionSdkDir=%ExtensionSdkDir%"
+if defined IFCPATH >> "%__TMPF%" echo set "IFCPATH=%IFCPATH%"
+if defined NETFXSDKDir >> "%__TMPF%" echo set "NETFXSDKDir=%NETFXSDKDir%"
+
+endlocal
+
+call "%TEMP%\_vsdevcmd_export.bat" 2>nul
+del "%TEMP%\_vsdevcmd_export.bat" 2>nul
+
+REM Clean up internal vars (prefix __)
+for /f "delims==" %%v in ('set __ 2^>nul') do set "%%v="
+goto :eof
+
+```
+
+# windows powershell → pwsh
+
+修改 `$USERPROFILE\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
+
+```powershell
+$pwshDir = "$env:USERPROFILE\Applications\PowerShell7"
+$pwshExe = "$pwshDir\pwsh.exe"
+
+if (Test-Path -LiteralPath $pwshExe) {
+    # Inject into PATH so future pwsh calls work within the session
+    $currentPath = [Environment]::GetEnvironmentVariable("PATH", "Process")
+    if ($currentPath -notlike "*$pwshDir*") {
+        [Environment]::SetEnvironmentVariable("PATH", "$pwshDir;$currentPath", "Process")
+    }
+
+    $host.UI.RawUI.WindowTitle = "PowerShell 7 (pwsh)"
+    # Capture launch directory: prefer -WorkingDirectory from right-click
+    # since Get-Location doesn't respect it on some systems
+    $cmdArgs = [Environment]::GetCommandLineArgs()
+    $wdIdx = [array]::IndexOf($cmdArgs, '-WorkingDirectory')
+    if ($wdIdx -ge 0 -and $wdIdx -lt $cmdArgs.Length - 1) {
+        $currentDir = $cmdArgs[$wdIdx + 1]
+    } else {
+        $currentDir = (Get-Location).Path
+    }
+    & $pwshExe -NoLogo -NoExit -WorkingDirectory $currentDir
+    exit
+}
+
+```

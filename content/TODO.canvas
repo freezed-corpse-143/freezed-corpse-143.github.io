@@ -1,97 +1,28 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：408、行测、编程、项目","x":-1340,"y":-480,"width":250,"height":60,"color":"1"},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1620,"y":-420,"width":250,"height":160,"color":"1"},
 		{
-			"id":"25aa1abe749a3e86",
+			"id":"45ff53f6bfde89e0",
 			"type":"text",
-			"text":"编写实验代码",
+			"text":"论文重构：\n- [ ] 逐步迭代重构文本\n\t- [ ] 方法\n\t- [ ] 实验\n\t- [ ] 图表\n- [ ] 重新绘制主图\n- [ ] 编写实验代码",
 			"styleAttributes":{},
-			"x":-1345,
-			"y":-220,
-			"width":185,
-			"height":60
-		},
-		{"id":"96cb89299ff10010","type":"text","text":"补充实验","x":-740,"y":-280,"width":250,"height":60},
-		{
-			"id":"44eba7f00cfe7169",
-			"type":"text",
-			"text":"代码绘图",
-			"styleAttributes":{},
-			"x":-1345,
-			"y":-310,
-			"width":180,
-			"height":60
-		},
-		{
-			"id":"47e87c4f6ab6836a",
-			"type":"text",
-			"text":"论文 harness 状态机+编写论文",
-			"styleAttributes":{},
-			"x":-1060,
-			"y":-280,
+			"x":-1300,
+			"y":-420,
 			"width":260,
-			"height":60
+			"height":240
 		},
 		{
-			"id":"8c78802636ea4a1a",
+			"id":"3d9b29b117dbb7dc",
 			"type":"text",
-			"text":"claude code 使用 omx",
+			"text":"重构 aaai 2027 项目：\n- [ ] table 进入管道、\n- [ ] pdf 进入管道\n- [ ] 将论文中的所有数字也改为管道分析的形式\n- [ ] 自动检查图表中的文字大小，对图表进行归一化，和文字对齐\n- [ ] 检查并固定所有位置、大小。",
 			"styleAttributes":{},
-			"x":-1345,
-			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"cae32d2904c3732b",
-			"type":"text",
-			"text":"开始编写 highdimprob 分支",
-			"styleAttributes":{},
-			"x":-1020,
-			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"b2e2f8dbfccfe684",
-			"type":"text",
-			"text":"oh-my-pi",
-			"styleAttributes":{},
-			"x":-1020,
-			"y":0,
-			"width":260,
-			"height":60
+			"x":-1620,
+			"y":-240,
+			"width":290,
+			"height":380
 		}
 	],
-	"edges":[
-		{
-			"id":"8c7c0ae0a228fb5b",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"44eba7f00cfe7169",
-			"fromSide":"right",
-			"toNode":"47e87c4f6ab6836a",
-			"toSide":"left"
-		},
-		{
-			"id":"b4277b481e82c007",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"25aa1abe749a3e86",
-			"fromSide":"right",
-			"toNode":"47e87c4f6ab6836a",
-			"toSide":"left"
-		},
-		{
-			"id":"6c7d92cb59b3f188",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"47e87c4f6ab6836a",
-			"fromSide":"right",
-			"toNode":"96cb89299ff10010",
-			"toSide":"left"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
