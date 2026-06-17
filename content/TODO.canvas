@@ -10,6 +10,16 @@
 			"y":-420,
 			"width":260,
 			"height":280
+		},
+		{
+			"id":"01b4f87fcc2ffca6",
+			"type":"text",
+			"text":"学习 codex 和 oh-my-codex 的功能。",
+			"styleAttributes":{},
+			"x":-1520,
+			"y":-120,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
