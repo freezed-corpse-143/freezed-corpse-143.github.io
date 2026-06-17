@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"# bun",
+                "query": "comfyui",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -218,8 +218,8 @@
   "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
     "软件使用.md",
-    "经验之谈.md",
     "环境配置.md",
+    "经验之谈.md",
     "报错.md",
     "TODO.canvas",
     "网上资源.md",
