@@ -20,6 +20,16 @@
 			"y":-240,
 			"width":290,
 			"height":380
+		},
+		{
+			"id":"674bdf1f4b031720",
+			"type":"text",
+			"text":"outlook",
+			"styleAttributes":{},
+			"x":-1160,
+			"y":-40,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
