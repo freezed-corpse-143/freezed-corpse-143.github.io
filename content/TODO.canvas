@@ -10,16 +10,6 @@
 			"y":-420,
 			"width":260,
 			"height":280
-		},
-		{
-			"id":"3d9b29b117dbb7dc",
-			"type":"text",
-			"text":"重构 aaai 2027 项目：\n- [ ] 固定所有段落的位置、长度并检查。",
-			"styleAttributes":{},
-			"x":-1620,
-			"y":-240,
-			"width":290,
-			"height":380
 		}
 	],
 	"edges":[],
