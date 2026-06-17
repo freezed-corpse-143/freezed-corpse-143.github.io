@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -1330,
-                  "y": -140,
+                  "x": -1350,
+                  "y": -60,
                   "zoom": 0
                 }
               },
@@ -91,8 +91,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -216,11 +215,11 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "TODO.canvas",
     "环境配置.md",
     "软件使用.md",
     "经验之谈.md",
     "报错.md",
-    "TODO.canvas",
     "网上资源.md",
     "windows.md",
     "Prompt.md",
