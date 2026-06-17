@@ -38,8 +38,7 @@
               "title": "报错"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -215,11 +214,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "报错.md",
     "环境配置.md",
     "TODO.canvas",
-    "报错.md",
     "经验之谈.md",
     "网上资源.md",
     "windows.md",
