@@ -11,14 +11,17 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "软件使用.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -1470,
+                  "y": -150,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "软件使用"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -88,8 +91,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -211,11 +213,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "软件使用.md",
     "经验之谈.md",
     "TODO.canvas",
-    "软件使用.md",
     "环境配置.md",
     "我的项目.md",
     "报错.md",
