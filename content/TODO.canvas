@@ -41,6 +41,16 @@
 			"y":-80,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"da7edf3ac83c85e3",
+			"type":"text",
+			"text":"uv 虚拟环境可打包",
+			"styleAttributes":{},
+			"x":-1520,
+			"y":0,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
