@@ -11,17 +11,14 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -1470,
-                  "y": -90,
-                  "zoom": 0
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           },
           {
@@ -70,7 +67,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"# typora",
+                "query": "\"# uv",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -91,12 +88,12 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -214,13 +211,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "63c27cfd26d5c0d2",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "软件使用.md",
+    "经验之谈.md",
     "TODO.canvas",
+    "软件使用.md",
     "环境配置.md",
     "我的项目.md",
-    "经验之谈.md",
     "报错.md",
     "网上资源.md",
     "windows.md",
