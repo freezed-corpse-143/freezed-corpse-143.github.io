@@ -38,8 +38,7 @@
               "title": "软件使用"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -215,10 +214,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8914a4b1066ad10d",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "TODO.canvas",
     "软件使用.md",
+    "TODO.canvas",
     "环境配置.md",
     "我的项目.md",
     "经验之谈.md",
