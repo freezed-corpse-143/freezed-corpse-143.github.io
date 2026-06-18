@@ -12,36 +12,36 @@
 			"height":280
 		},
 		{
-			"id":"050bd02d2f904d47",
+			"id":"54e6f3588e5e3d0f",
 			"type":"text",
-			"text":"开始更新 highprobdim",
+			"text":"更新工作流：\n- [ ] 使用两个模型 codex、deepseek，防止分布收敛。\n- [ ] 先定目标，再重写\n- [ ] 先建立知识图谱再写。\n- [ ] 先规划，再编写",
 			"styleAttributes":{},
-			"x":-1300,
-			"y":-60,
+			"x":-1880,
+			"y":-120,
 			"width":260,
-			"height":60,
-			"color":"1"
+			"height":240
 		},
 		{
 			"id":"e7115d9615544da0",
 			"type":"text",
 			"text":"更新 win 10 环境",
 			"styleAttributes":{},
-			"x":-1660,
-			"y":-200,
+			"x":-1900,
+			"y":-420,
 			"width":260,
 			"height":60,
 			"color":"1"
 		},
 		{
-			"id":"54e6f3588e5e3d0f",
+			"id":"050bd02d2f904d47",
 			"type":"text",
-			"text":"更新工作流：\n- [ ] 使用两个模型 codex、deepseek，防止分布收敛。\n- [ ] 先定目标，再重写\n- [ ] 先建立知识图谱再写。\n- [ ] 先规划，再编写",
+			"text":"开始更新 highprobdim",
 			"styleAttributes":{},
-			"x":-1660,
+			"x":-1480,
 			"y":-120,
 			"width":260,
-			"height":240
+			"height":60,
+			"color":"1"
 		}
 	],
 	"edges":[],
