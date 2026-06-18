@@ -11,17 +11,14 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -1470,
-                  "y": -150,
-                  "zoom": 0
-                }
+                "file": "经验之谈.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "经验之谈"
             }
           },
           {
@@ -215,9 +212,9 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件使用.md",
     "经验之谈.md",
-    "TODO.canvas",
     "环境配置.md",
     "我的项目.md",
     "报错.md",
