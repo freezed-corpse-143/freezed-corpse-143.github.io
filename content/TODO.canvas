@@ -51,16 +51,6 @@
 			"y":0,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"45b75eef61e3d31a",
-			"type":"text",
-			"text":"windows coreutils 入文档",
-			"styleAttributes":{},
-			"x":-1500,
-			"y":120,
-			"width":260,
-			"height":80
 		}
 	],
 	"edges":[],
