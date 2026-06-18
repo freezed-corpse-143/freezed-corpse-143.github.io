@@ -43,12 +43,12 @@
 			"height":60
 		},
 		{
-			"id":"098eba84dcb4f2c8",
+			"id":"bc969e022fd4a486",
 			"type":"text",
-			"text":"wsl 3",
+			"text":"学习 oh-my-pi",
 			"styleAttributes":{},
-			"x":-1120,
-			"y":0,
+			"x":-1500,
+			"y":180,
 			"width":260,
 			"height":60
 		}
