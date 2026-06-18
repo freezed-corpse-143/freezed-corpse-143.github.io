@@ -33,15 +33,34 @@
 			"color":"1"
 		},
 		{
-			"id":"050bd02d2f904d47",
+			"id":"c357925ba6ecfe04",
 			"type":"text",
-			"text":"开始更新 highprobdim",
+			"text":"codex 充值",
 			"styleAttributes":{},
 			"x":-1480,
-			"y":-120,
+			"y":0,
 			"width":260,
-			"height":60,
-			"color":"1"
+			"height":60
+		},
+		{
+			"id":"098eba84dcb4f2c8",
+			"type":"text",
+			"text":"wsl 3",
+			"styleAttributes":{},
+			"x":-1120,
+			"y":0,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"45b75eef61e3d31a",
+			"type":"text",
+			"text":"windows coreutils 入文档",
+			"styleAttributes":{},
+			"x":-1500,
+			"y":120,
+			"width":260,
+			"height":80
 		}
 	],
 	"edges":[],
