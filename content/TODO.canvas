@@ -12,16 +12,6 @@
 			"height":280
 		},
 		{
-			"id":"54e6f3588e5e3d0f",
-			"type":"text",
-			"text":"更新工作流：\n- [ ] 写备份、人验证，通过再替换。",
-			"styleAttributes":{},
-			"x":-1880,
-			"y":-120,
-			"width":360,
-			"height":240
-		},
-		{
 			"id":"e7115d9615544da0",
 			"type":"text",
 			"text":"更新 win 10 环境",
