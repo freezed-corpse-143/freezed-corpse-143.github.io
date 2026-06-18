@@ -33,22 +33,12 @@
 			"color":"1"
 		},
 		{
-			"id":"c357925ba6ecfe04",
-			"type":"text",
-			"text":"codex 充值",
-			"styleAttributes":{},
-			"x":-1480,
-			"y":0,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"bc969e022fd4a486",
 			"type":"text",
 			"text":"学习 oh-my-pi",
 			"styleAttributes":{},
-			"x":-1500,
-			"y":180,
+			"x":-1520,
+			"y":-80,
 			"width":260,
 			"height":60
 		}
