@@ -10,17 +10,6 @@
 			"y":-420,
 			"width":260,
 			"height":280
-		},
-		{
-			"id":"e7115d9615544da0",
-			"type":"text",
-			"text":"更新 win 10 环境",
-			"styleAttributes":{},
-			"x":-1900,
-			"y":-420,
-			"width":260,
-			"height":60,
-			"color":"1"
 		}
 	],
 	"edges":[],
