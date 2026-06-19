@@ -2,14 +2,34 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1620,"y":-420,"width":250,"height":160,"color":"1"},
 		{
+			"id":"03434bdb108a8a2a",
+			"type":"text",
+			"text":"实验部分怎么改？\n1. 确定正文放置哪些图和表？\n2. 先确定数据形式\n3. 再确定展示形式\n4. 构造数据管道\n5. 再修改正文\n",
+			"styleAttributes":{},
+			"x":-1630,
+			"y":-200,
+			"width":260,
+			"height":240
+		},
+		{
 			"id":"45ff53f6bfde89e0",
 			"type":"text",
 			"text":"论文重构：\n- [ ] 逐步迭代重构文本\n\t- [ ] 实验\n\t- [ ] 图表\n- [ ] 重新绘制主图\n- [ ] 编写实验代码\n- [ ] 最后建立数据管道",
 			"styleAttributes":{},
-			"x":-1300,
-			"y":-420,
+			"x":-1240,
+			"y":-540,
 			"width":260,
 			"height":280
+		},
+		{
+			"id":"10dda70cce2dc9c9",
+			"type":"text",
+			"text":"",
+			"styleAttributes":{},
+			"x":-1200,
+			"y":-180,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],

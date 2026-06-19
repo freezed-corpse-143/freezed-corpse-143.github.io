@@ -11,14 +11,17 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "报错.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -1330,
+                  "y": -280,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "报错"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -170,13 +173,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "报错.md",
+                "file": "TODO.canvas",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "报错 的大纲"
+              "title": "TODO 的大纲"
             }
           },
           {
@@ -194,7 +197,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5
+    "width": 422.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -209,8 +213,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "77ea8098b5033f12",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "报错.md",
     "备份.md",
     "TODO.canvas",
     "软件使用.md",
@@ -218,7 +223,6 @@
     "环境配置.md",
     "服务使用.md",
     "我的项目.md",
-    "报错.md",
     "网上资源.md",
     "windows.md",
     "Prompt.md",
