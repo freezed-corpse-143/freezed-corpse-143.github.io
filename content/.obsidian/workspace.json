@@ -11,17 +11,14 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -1470,
-                  "y": -280,
-                  "zoom": 0
-                }
+                "file": "报错.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "报错"
             }
           },
           {
@@ -91,8 +88,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -174,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "报错.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "TODO 的大纲"
+              "title": "报错 的大纲"
             }
           },
           {
@@ -194,12 +190,11 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 422.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -214,10 +209,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "77ea8098b5033f12",
   "lastOpenFiles": [
-    "软件使用.md",
+    "备份.md",
     "TODO.canvas",
+    "软件使用.md",
     "经验之谈.md",
     "环境配置.md",
     "服务使用.md",
@@ -226,7 +222,6 @@
     "网上资源.md",
     "windows.md",
     "Prompt.md",
-    "备份.md",
     "Excalidraw/Drawing 2026-06-10 14.20.21.excalidraw.md",
     "绘图.md",
     "Pasted image 20260610145938.png",
