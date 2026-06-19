@@ -20,16 +20,6 @@
 			"y":-540,
 			"width":260,
 			"height":280
-		},
-		{
-			"id":"10dda70cce2dc9c9",
-			"type":"text",
-			"text":"",
-			"styleAttributes":{},
-			"x":-1200,
-			"y":-180,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
