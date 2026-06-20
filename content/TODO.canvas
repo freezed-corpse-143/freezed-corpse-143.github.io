@@ -24,7 +24,7 @@
 		{
 			"id":"1ee211e3965bda97",
 			"type":"text",
-			"text":"- [ ] 先做主表\n\t- [ ] 设置入口脚本\n\t- [ ] 融入 compile 脚本\n- [ ] ",
+			"text":"",
 			"styleAttributes":{},
 			"x":-1500,
 			"y":-310,
