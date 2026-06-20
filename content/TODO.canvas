@@ -14,22 +14,12 @@
 		{
 			"id":"03434bdb108a8a2a",
 			"type":"text",
-			"text":"实验部分怎么改？\n1. 构造数据管道\n2. 构造实例\n3. 再修改实验部分正文\n",
+			"text":"实验部分怎么改？\n1. 构造实例\n\t1. \n2. 再修改实验部分正文\n",
 			"styleAttributes":{},
 			"x":-1860,
 			"y":-320,
 			"width":260,
 			"height":240
-		},
-		{
-			"id":"1ee211e3965bda97",
-			"type":"text",
-			"text":"",
-			"styleAttributes":{},
-			"x":-1500,
-			"y":-310,
-			"width":360,
-			"height":220
 		}
 	],
 	"edges":[],
