@@ -1,15 +1,5 @@
 {
 	"nodes":[
-		{
-			"id":"0782f51dcdd00238",
-			"type":"text",
-			"text":"修复 powershell 运行问题",
-			"styleAttributes":{},
-			"x":-1040,
-			"y":-180,
-			"width":260,
-			"height":60
-		},
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1880,"y":-640,"width":250,"height":160,"color":"1"},
 		{
 			"id":"45ff53f6bfde89e0",
