@@ -30,6 +30,16 @@
 			"y":-280,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"5673717282d78d75",
+			"type":"text",
+			"text":"token-level 和 b) Labeled prefix-commitment 分离",
+			"styleAttributes":{},
+			"x":-1480,
+			"y":-140,
+			"width":260,
+			"height":160
 		}
 	],
 	"edges":[],
