@@ -30,15 +30,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经验之谈.md",
+                "file": "报错.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "经验之谈"
+              "title": "报错"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -95,7 +96,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -213,13 +215,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "63c27cfd26d5c0d2",
+  "active": "8914a4b1066ad10d",
   "lastOpenFiles": [
+    "经验之谈.md",
+    "TODO.canvas",
     "报错.md",
     "备份.md",
-    "TODO.canvas",
     "软件使用.md",
-    "经验之谈.md",
     "环境配置.md",
     "服务使用.md",
     "我的项目.md",
