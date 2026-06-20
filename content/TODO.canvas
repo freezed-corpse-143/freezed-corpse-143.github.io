@@ -34,7 +34,7 @@
 		{
 			"id":"1ee211e3965bda97",
 			"type":"text",
-			"text":"- [ ] 先做主表\n\t- [ ] 提取数据为 excel 表格\n\t- [ ] 构造模板\n\t- [ ] 读取 excel 与模板，构造 latex\n\t- [ ] 将嵌入式 latex 改为分离式\n- [ ] ",
+			"text":"- [ ] 先做主表\n\t- [ ] 构造模板\n\t- [ ] 读取 excel 与模板，构造 latex\n\t- [ ] 将嵌入式 latex 改为分离式\n- [ ] ",
 			"styleAttributes":{},
 			"x":-1500,
 			"y":-310,
