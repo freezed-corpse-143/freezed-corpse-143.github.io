@@ -4,7 +4,7 @@
 		{
 			"id":"45ff53f6bfde89e0",
 			"type":"text",
-			"text":"论文重构：\n- [ ] 逐步迭代重构文本\n\t- [ ] 实验\n\t- [ ] 图表\n- [ ] 重新绘制主图。\n- [ ] 优化 introduction。\n- [ ] 编写实验代码",
+			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 优化 introduction。\n- [ ] 编写实验代码",
 			"styleAttributes":{},
 			"x":-1460,
 			"y":-640,
@@ -30,16 +30,6 @@
 			"y":-200,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"03434bdb108a8a2a",
-			"type":"text",
-			"text":"实验部分怎么改？\n1. 再修改实验部分正文\n2. 所有数字采用 数据管道的形式，而不是固定数字\n",
-			"styleAttributes":{},
-			"x":-1840,
-			"y":-360,
-			"width":260,
-			"height":240
 		}
 	],
 	"edges":[],
