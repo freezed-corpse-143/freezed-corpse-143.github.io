@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -1472.857474146765,
-                  "y": -222.4499892268472,
+                  "x": -1540,
+                  "y": -345,
                   "zoom": 0
                 }
               },
@@ -70,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"atuin ",
+                "query": "\"lean-ctx",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -95,8 +95,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -216,10 +215,10 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "报错.md",
-    "经验之谈.md",
-    "TODO.canvas",
     "备份.md",
+    "报错.md",
+    "TODO.canvas",
+    "经验之谈.md",
     "软件使用.md",
     "环境配置.md",
     "服务使用.md",
