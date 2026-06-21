@@ -4,22 +4,12 @@
 		{
 			"id":"45ff53f6bfde89e0",
 			"type":"text",
-			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 优化 introduction。\n- [ ] 编写实验代码",
+			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 优化 introduction。\n- [ ] 优化 Abstract。\n- [ ] 编写实验代码\n- [ ] 更新 Appendix",
 			"styleAttributes":{},
-			"x":-1460,
-			"y":-640,
+			"x":-1880,
+			"y":-400,
 			"width":260,
 			"height":280
-		},
-		{
-			"id":"e417f78bd684196f",
-			"type":"text",
-			"text":"更新简历",
-			"styleAttributes":{},
-			"x":-1460,
-			"y":-320,
-			"width":260,
-			"height":60
 		},
 		{
 			"id":"6ac1dde18b0c986d",
@@ -27,7 +17,17 @@
 			"text":"更新中期考核",
 			"styleAttributes":{},
 			"x":-1460,
-			"y":-200,
+			"y":-180,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"e417f78bd684196f",
+			"type":"text",
+			"text":"更新简历",
+			"styleAttributes":{},
+			"x":-1460,
+			"y":-290,
 			"width":260,
 			"height":60
 		}
