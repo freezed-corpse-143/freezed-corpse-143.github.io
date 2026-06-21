@@ -1,38 +1,78 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1880,"y":-640,"width":250,"height":160,"color":"1"},
 		{
-			"id":"45ff53f6bfde89e0",
+			"id":"e417f78bd684196f",
 			"type":"text",
-			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 编写实验代码\n- [ ] 更新 Appendix",
+			"text":"更新简历",
 			"styleAttributes":{},
-			"x":-1880,
-			"y":-400,
+			"x":-1310,
+			"y":-740,
 			"width":260,
-			"height":280
+			"height":60
+		},
+		{
+			"id":"151c7d4605d37118",
+			"type":"text",
+			"text":"进入工作系统编写",
+			"styleAttributes":{},
+			"x":-1620,
+			"y":-740,
+			"width":260,
+			"height":60
 		},
 		{
 			"id":"6ac1dde18b0c986d",
 			"type":"text",
 			"text":"更新中期考核",
 			"styleAttributes":{},
-			"x":-1440,
-			"y":-260,
+			"x":-1260,
+			"y":-540,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"e417f78bd684196f",
+			"id":"ca3f5d948e7e648b",
 			"type":"text",
-			"text":"更新简历",
+			"text":"重绘 overview 图后",
 			"styleAttributes":{},
-			"x":-1460,
-			"y":-620,
+			"x":-1620,
+			"y":-540,
+			"width":260,
+			"height":60
+		},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1960,"y":-640,"width":250,"height":160,"color":"1"},
+		{
+			"id":"45ff53f6bfde89e0",
+			"type":"text",
+			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 编写实验代码\n- [ ] 更新 Appendix",
+			"styleAttributes":{},
+			"x":-1960,
+			"y":-400,
+			"width":260,
+			"height":280
+		},
+		{
+			"id":"e30a719b9248a6c4",
+			"type":"text",
+			"text":"怎么在线分辨 熵的分位数。",
+			"styleAttributes":{},
+			"x":-1620,
+			"y":-400,
 			"width":260,
 			"height":60
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"00bd76acb1db707e",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"ca3f5d948e7e648b",
+			"fromSide":"right",
+			"toNode":"6ac1dde18b0c986d",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
