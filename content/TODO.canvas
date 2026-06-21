@@ -50,16 +50,6 @@
 			"y":-400,
 			"width":260,
 			"height":280
-		},
-		{
-			"id":"e30a719b9248a6c4",
-			"type":"text",
-			"text":"怎么在线分辨 熵的分位数。",
-			"styleAttributes":{},
-			"x":-1620,
-			"y":-400,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
