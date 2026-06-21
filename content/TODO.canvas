@@ -4,7 +4,7 @@
 		{
 			"id":"45ff53f6bfde89e0",
 			"type":"text",
-			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 优化 introduction。\n- [ ] 优化 Abstract。\n- [ ] 编写实验代码\n- [ ] 更新 Appendix",
+			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 优化 introduction。\n- [ ] 优化 Abstract。\n- [ ] 优化 Conclusion。\n- [ ] 编写实验代码\n- [ ] 更新 Appendix",
 			"styleAttributes":{},
 			"x":-1880,
 			"y":-400,
