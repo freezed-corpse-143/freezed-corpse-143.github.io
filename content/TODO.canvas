@@ -12,22 +12,22 @@
 			"height":280
 		},
 		{
-			"id":"6ac1dde18b0c986d",
-			"type":"text",
-			"text":"更新中期考核",
-			"styleAttributes":{},
-			"x":-1460,
-			"y":-180,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"e417f78bd684196f",
 			"type":"text",
 			"text":"更新简历",
 			"styleAttributes":{},
-			"x":-1460,
-			"y":-290,
+			"x":-1440,
+			"y":-400,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"6ac1dde18b0c986d",
+			"type":"text",
+			"text":"更新中期考核",
+			"styleAttributes":{},
+			"x":-1440,
+			"y":-260,
 			"width":260,
 			"height":60
 		}
