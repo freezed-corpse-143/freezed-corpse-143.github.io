@@ -32,17 +32,6 @@
 			"height":60
 		},
 		{
-			"id":"151c7d4605d37118",
-			"type":"text",
-			"text":"进入工作系统，根据项目编写",
-			"styleAttributes":{},
-			"x":-1620,
-			"y":-640,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"45ff53f6bfde89e0",
 			"type":"text",
 			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 编写实验代码",
@@ -61,15 +50,6 @@
 			"fromNode":"ca3f5d948e7e648b",
 			"fromSide":"right",
 			"toNode":"6ac1dde18b0c986d",
-			"toSide":"left"
-		},
-		{
-			"id":"86cc717b97552c55",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"151c7d4605d37118",
-			"fromSide":"right",
-			"toNode":"e417f78bd684196f",
 			"toSide":"left"
 		}
 	],
