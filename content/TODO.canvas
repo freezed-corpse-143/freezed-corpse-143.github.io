@@ -40,6 +40,36 @@
 			"y":-380,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"af25f34d7a9b85d3",
+			"type":"text",
+			"text":"第一个点：检测失败后频繁检测的问题。",
+			"styleAttributes":{},
+			"x":-1220,
+			"y":-240,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"4279f0c8bd4c4585",
+			"type":"text",
+			"text":"峰值怎么判断异常值：最大平均数子列。",
+			"styleAttributes":{},
+			"x":-1220,
+			"y":-80,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"03f5a355789f43ad",
+			"type":"text",
+			"text":"末尾默认判断一次。",
+			"styleAttributes":{},
+			"x":-1220,
+			"y":-160,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
