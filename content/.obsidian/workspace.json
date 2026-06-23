@@ -98,7 +98,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "claude-hud",
+                "query": "E",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -242,7 +242,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "63c27cfd26d5c0d2",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
     "环境配置.md",
     "报错.md",
