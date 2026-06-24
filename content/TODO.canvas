@@ -6,8 +6,8 @@
 			"type":"text",
 			"text":"论文重构：\n- [ ] 编写实验代码",
 			"styleAttributes":{},
-			"x":-1620,
-			"y":-540,
+			"x":-1600,
+			"y":-240,
 			"width":260,
 			"height":160
 		},
@@ -16,8 +16,8 @@
 			"type":"text",
 			"text":"更新中期考核",
 			"styleAttributes":{},
-			"x":-1280,
-			"y":-490,
+			"x":-1600,
+			"y":-360,
 			"width":260,
 			"height":60
 		}
