@@ -1,78 +1,28 @@
 {
 	"nodes":[
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1920,"y":-540,"width":260,"height":160,"color":"1"},
+		{
+			"id":"45ff53f6bfde89e0",
+			"type":"text",
+			"text":"论文重构：\n- [ ] 编写实验代码",
+			"styleAttributes":{},
+			"x":-1620,
+			"y":-540,
+			"width":260,
+			"height":160
+		},
 		{
 			"id":"6ac1dde18b0c986d",
 			"type":"text",
 			"text":"更新中期考核",
 			"styleAttributes":{},
-			"x":-1260,
-			"y":-540,
+			"x":-1280,
+			"y":-490,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"ca3f5d948e7e648b",
-			"type":"text",
-			"text":"重绘 overview 图后",
-			"styleAttributes":{},
-			"x":-1620,
-			"y":-540,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"45ff53f6bfde89e0",
-			"type":"text",
-			"text":"论文重构：\n- [ ] 重新绘制主图。\n- [ ] 编写实验代码",
-			"styleAttributes":{},
-			"x":-1620,
-			"y":-420,
-			"width":260,
-			"height":160
-		},
-		{
-			"id":"af25f34d7a9b85d3",
-			"type":"text",
-			"text":"第一个点：检测失败后频繁检测的问题。",
-			"styleAttributes":{},
-			"x":-1220,
-			"y":-240,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"4279f0c8bd4c4585",
-			"type":"text",
-			"text":"峰值怎么判断异常值：最大平均数子列。",
-			"styleAttributes":{},
-			"x":-1220,
-			"y":-80,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"03f5a355789f43ad",
-			"type":"text",
-			"text":"末尾默认判断一次。",
-			"styleAttributes":{},
-			"x":-1220,
-			"y":-160,
-			"width":260,
-			"height":60
-		},
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1920,"y":-540,"width":260,"height":160,"color":"1"}
-	],
-	"edges":[
-		{
-			"id":"00bd76acb1db707e",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"ca3f5d948e7e648b",
-			"fromSide":"right",
-			"toNode":"6ac1dde18b0c986d",
-			"toSide":"left"
 		}
 	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
