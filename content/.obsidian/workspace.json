@@ -11,14 +11,17 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "经验之谈.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -1460,
+                  "y": -330,
+                  "zoom": -0.22523689568348518
+                }
               },
-              "icon": "lucide-file",
-              "title": "经验之谈"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -198,13 +201,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "经验之谈.md",
+                "file": "TODO.canvas",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "经验之谈 的大纲"
+              "title": "TODO 的大纲"
             }
           },
           {
@@ -239,12 +242,12 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "经验之谈.md",
     "环境配置.md",
     "备份.md",
     "TODO.canvas",
     "报错.md",
     "软件使用.md",
-    "经验之谈.md",
     "服务使用.md",
     "我的项目.md",
     "网上资源.md",
