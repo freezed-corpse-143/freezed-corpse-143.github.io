@@ -31,16 +31,6 @@
 			"height":160
 		},
 		{
-			"id":"d6cd918ac48bd385",
-			"type":"text",
-			"text":"两类信号：蕴含信号、稳定性信号。\n\n",
-			"styleAttributes":{},
-			"x":-1260,
-			"y":-380,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"af25f34d7a9b85d3",
 			"type":"text",
 			"text":"第一个点：检测失败后频繁检测的问题。",
