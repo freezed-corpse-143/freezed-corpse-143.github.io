@@ -2,16 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1920,"y":-540,"width":260,"height":160,"color":"1"},
 		{
-			"id":"45ff53f6bfde89e0",
-			"type":"text",
-			"text":"论文重构：\n- [ ] 编写实验代码",
-			"styleAttributes":{},
-			"x":-1600,
-			"y":-240,
-			"width":260,
-			"height":160
-		},
-		{
 			"id":"6ac1dde18b0c986d",
 			"type":"text",
 			"text":"更新中期考核",
@@ -20,6 +10,16 @@
 			"y":-360,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"45ff53f6bfde89e0",
+			"type":"text",
+			"text":"论文重构：\n- [ ] 编写实验代码",
+			"styleAttributes":{},
+			"x":-1260,
+			"y":-360,
+			"width":260,
+			"height":160
 		}
 	],
 	"edges":[],
