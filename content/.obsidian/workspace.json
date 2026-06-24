@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "经验之谈.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
+              "title": "经验之谈"
             }
           },
           {
@@ -95,7 +95,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "EZ4",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -116,8 +116,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -199,13 +198,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "经验之谈.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "TODO 的大纲"
+              "title": "经验之谈 的大纲"
             }
           },
           {
@@ -223,8 +222,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5,
-    "collapsed": true
+    "width": 422.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -241,8 +239,8 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "备份.md",
     "环境配置.md",
+    "备份.md",
     "TODO.canvas",
     "报错.md",
     "软件使用.md",
