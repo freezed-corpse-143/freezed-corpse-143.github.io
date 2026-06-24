@@ -20,16 +20,6 @@
 			"y":-360,
 			"width":260,
 			"height":160
-		},
-		{
-			"id":"09d5f35d2ea79197",
-			"type":"text",
-			"text":"改为显性信号与隐性信号",
-			"styleAttributes":{},
-			"x":-1880,
-			"y":-200,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],

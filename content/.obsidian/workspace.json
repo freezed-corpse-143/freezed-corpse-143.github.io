@@ -38,8 +38,7 @@
               "title": "环境配置"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -214,10 +213,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8914a4b1066ad10d",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "报错.md",
     "环境配置.md",
+    "报错.md",
     "TODO.canvas",
     "经验之谈.md",
     "备份.md",
