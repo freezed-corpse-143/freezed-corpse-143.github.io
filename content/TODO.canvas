@@ -10,6 +10,16 @@
 			"y":-540,
 			"width":260,
 			"height":160
+		},
+		{
+			"id":"240adc255d016d14",
+			"type":"text",
+			"text":"中期重新提交。",
+			"styleAttributes":{},
+			"x":-1880,
+			"y":-240,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
