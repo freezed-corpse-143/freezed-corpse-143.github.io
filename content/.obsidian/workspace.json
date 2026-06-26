@@ -11,14 +11,17 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "环境配置.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -1580,
+                  "y": -357,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "环境配置"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -68,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "oh-my-pi",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -214,10 +217,10 @@
   },
   "active": "8914a4b1066ad10d",
   "lastOpenFiles": [
-    "经验之谈.md",
-    "环境配置.md",
-    "报错.md",
     "TODO.canvas",
+    "环境配置.md",
+    "经验之谈.md",
+    "报错.md",
     "网上资源.md",
     "备份.md",
     "软件使用.md",
