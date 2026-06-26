@@ -15,9 +15,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -1414.020426605257,
-                  "y": -175.6960323386441,
-                  "zoom": -0.22523689568348518
+                  "x": -1580,
+                  "y": -360,
+                  "zoom": 0
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -70,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "蓝牙",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -215,15 +215,15 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "环境配置.md",
-    "报错.md",
-    "TODO.canvas",
     "经验之谈.md",
+    "环境配置.md",
+    "网上资源.md",
+    "TODO.canvas",
+    "报错.md",
     "备份.md",
     "软件使用.md",
     "服务使用.md",
     "我的项目.md",
-    "网上资源.md",
     "windows.md",
     "Prompt.md",
     "Excalidraw/Drawing 2026-06-10 14.20.21.excalidraw.md",
