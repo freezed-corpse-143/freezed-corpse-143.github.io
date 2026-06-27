@@ -10,6 +10,16 @@
 			"y":-540,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"3c33207ff137f851",
+			"type":"text",
+			"text":"highdimprob 迁移到 win 环境。",
+			"styleAttributes":{},
+			"x":-1580,
+			"y":-240,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
