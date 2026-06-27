@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"claude code",
+                "query": "oh-my-pi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -215,15 +215,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "8914a4b1066ad10d",
   "lastOpenFiles": [
-    "TODO.canvas",
+    "软件使用.md",
     "环境配置.md",
+    "TODO.canvas",
     "经验之谈.md",
     "报错.md",
     "网上资源.md",
     "备份.md",
-    "软件使用.md",
     "服务使用.md",
     "我的项目.md",
     "windows.md",
