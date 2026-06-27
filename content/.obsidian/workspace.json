@@ -11,14 +11,17 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "服务使用.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -1580,
+                  "y": -360,
+                  "zoom": -0.544079444280583
+                }
               },
-              "icon": "lucide-file",
-              "title": "服务使用"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -198,6 +201,7 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "服务使用.md",
     "环境配置.md",
     "TODO.canvas",
     "软件使用.md",
@@ -205,7 +209,6 @@
     "报错.md",
     "网上资源.md",
     "备份.md",
-    "服务使用.md",
     "我的项目.md",
     "windows.md",
     "Prompt.md",
