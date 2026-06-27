@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "\"claude code",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -215,7 +215,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8914a4b1066ad10d",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
     "TODO.canvas",
     "环境配置.md",
