@@ -35,17 +35,6 @@
 			"color":"1"
 		},
 		{
-			"id":"36ff994c282a39dd",
-			"type":"text",
-			"text":"编写 AI 味检测管线",
-			"styleAttributes":{},
-			"x":-2220,
-			"y":220,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"3896a58aa7149092",
 			"type":"text",
 			"text":"更新实验表格和实验描述",
