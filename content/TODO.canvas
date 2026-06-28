@@ -32,16 +32,6 @@
 			"height":60
 		},
 		{
-			"id":"37e7300d12fb658e",
-			"type":"text",
-			"text":"roadmap 可视化：开发。",
-			"styleAttributes":{},
-			"x":-1700,
-			"y":300,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"899aebe44c3794b5",
 			"type":"text",
 			"text":"Method 图配色优化：取 claude 主题",
@@ -68,6 +58,16 @@
 			"styleAttributes":{},
 			"x":-2220,
 			"y":200,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"37e7300d12fb658e",
+			"type":"text",
+			"text":"roadmap 可视化：开发。",
+			"styleAttributes":{},
+			"x":-1800,
+			"y":100,
 			"width":260,
 			"height":60
 		}
