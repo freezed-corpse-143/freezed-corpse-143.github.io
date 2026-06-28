@@ -9,16 +9,6 @@
 			"x":-1800,
 			"y":-180,
 			"width":260,
-			"height":60
-		},
-		{
-			"id":"ee39f9c1612727e1",
-			"type":"text",
-			"text":"更新论文方法部分",
-			"styleAttributes":{},
-			"x":-2220,
-			"y":-150,
-			"width":260,
 			"height":60,
 			"color":"1"
 		},
@@ -75,26 +65,7 @@
 			"color":"1"
 		}
 	],
-	"edges":[
-		{
-			"id":"a9b490a3c6a56fb8",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"ee39f9c1612727e1",
-			"fromSide":"right",
-			"toNode":"3896a58aa7149092",
-			"toSide":"left"
-		},
-		{
-			"id":"2d6668a5ec39cf97",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"ee39f9c1612727e1",
-			"fromSide":"right",
-			"toNode":"d965642080687db8",
-			"toSide":"left"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
