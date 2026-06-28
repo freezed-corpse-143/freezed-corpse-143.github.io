@@ -2,17 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1920,"y":-540,"width":260,"height":180,"color":"1"},
 		{
-			"id":"899aebe44c3794b5",
-			"type":"text",
-			"text":"Method 图配色优化：",
-			"styleAttributes":{},
-			"x":-2220,
-			"y":-20,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"9c16f004ef4bb367",
 			"type":"text",
 			"text":"Introduction 图像 优化，字体太小",
@@ -46,12 +35,23 @@
 			"color":"1"
 		},
 		{
+			"id":"899aebe44c3794b5",
+			"type":"text",
+			"text":"Method 图配色优化：",
+			"styleAttributes":{},
+			"x":-2220,
+			"y":200,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
 			"id":"d965642080687db8",
 			"type":"text",
 			"text":"更新附录",
 			"styleAttributes":{},
-			"x":-1860,
-			"y":-260,
+			"x":-2220,
+			"y":-60,
 			"width":260,
 			"height":60,
 			"color":"1"
