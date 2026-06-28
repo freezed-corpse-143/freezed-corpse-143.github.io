@@ -19,7 +19,8 @@
 			"x":-2220,
 			"y":-150,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"d965642080687db8",
@@ -66,10 +67,11 @@
 			"type":"text",
 			"text":"roadmap 可视化：开发。",
 			"styleAttributes":{},
-			"x":-1800,
-			"y":100,
+			"x":-2220,
+			"y":-260,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		}
 	],
 	"edges":[
