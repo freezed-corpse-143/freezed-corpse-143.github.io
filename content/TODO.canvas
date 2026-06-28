@@ -4,7 +4,7 @@
 		{
 			"id":"899aebe44c3794b5",
 			"type":"text",
-			"text":"Method 图配色优化：取 claude 主题",
+			"text":"Method 图配色优化：",
 			"styleAttributes":{},
 			"x":-2220,
 			"y":-20,
@@ -20,7 +20,8 @@
 			"x":-2220,
 			"y":100,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"37e7300d12fb658e",
@@ -34,16 +35,6 @@
 			"color":"1"
 		},
 		{
-			"id":"d965642080687db8",
-			"type":"text",
-			"text":"更新附录",
-			"styleAttributes":{},
-			"x":-2220,
-			"y":-100,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"36ff994c282a39dd",
 			"type":"text",
 			"text":"编写 AI 味检测管线",
@@ -51,7 +42,8 @@
 			"x":-2220,
 			"y":220,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"3896a58aa7149092",
@@ -60,6 +52,17 @@
 			"styleAttributes":{},
 			"x":-2220,
 			"y":-160,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"d965642080687db8",
+			"type":"text",
+			"text":"更新附录",
+			"styleAttributes":{},
+			"x":-2220,
+			"y":340,
 			"width":260,
 			"height":60,
 			"color":"1"
