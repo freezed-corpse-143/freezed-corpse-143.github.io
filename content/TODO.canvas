@@ -9,7 +9,8 @@
 			"x":-2220,
 			"y":-20,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"9c16f004ef4bb367",
@@ -43,12 +44,22 @@
 			"height":60
 		},
 		{
+			"id":"36ff994c282a39dd",
+			"type":"text",
+			"text":"编写 AI 味检测管线",
+			"styleAttributes":{},
+			"x":-2220,
+			"y":220,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"3896a58aa7149092",
 			"type":"text",
 			"text":"更新实验表格和实验描述",
 			"styleAttributes":{},
-			"x":-1860,
-			"y":-200,
+			"x":-2220,
+			"y":-160,
 			"width":260,
 			"height":60,
 			"color":"1"
