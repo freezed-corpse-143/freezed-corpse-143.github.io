@@ -66,16 +66,6 @@
 			"width":260,
 			"height":60,
 			"color":"1"
-		},
-		{
-			"id":"b64e93ecf7fcef3e",
-			"type":"text",
-			"text":"修复 setcounter 的",
-			"styleAttributes":{},
-			"x":-1820,
-			"y":-80,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
