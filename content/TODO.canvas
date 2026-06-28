@@ -70,6 +70,26 @@
 			"y":480,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"ec5cd7b8210a7f45",
+			"type":"text",
+			"text":"下载模型，开始替换",
+			"styleAttributes":{},
+			"x":-1680,
+			"y":180,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"37e7300d12fb658e",
+			"type":"text",
+			"text":"roadmap 可视化：开发。",
+			"styleAttributes":{},
+			"x":-1700,
+			"y":300,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
