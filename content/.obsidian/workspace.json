@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -1820,
-                  "y": 117.41126461211475,
+                  "y": -2.842170943040401e-14,
                   "zoom": -0.33626820807222907
                 }
               },
@@ -216,9 +216,9 @@
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
     "网上资源.md",
+    "TODO.canvas",
     "经验之谈.md",
     "软件使用.md",
-    "TODO.canvas",
     "环境配置.md",
     "我的项目.md",
     "服务使用.md",
