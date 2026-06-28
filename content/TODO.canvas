@@ -43,17 +43,6 @@
 			"height":60
 		},
 		{
-			"id":"2d77d94c8f51d99e",
-			"type":"text",
-			"text":"AI 味单独检查测",
-			"styleAttributes":{},
-			"x":-2220,
-			"y":200,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"37e7300d12fb658e",
 			"type":"text",
 			"text":"roadmap 可视化：开发。",

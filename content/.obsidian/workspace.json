@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -1820,
-                  "y": 117.41126461211478,
+                  "y": 469.6450584484591,
                   "zoom": -0.33626820807222907
                 }
               },
@@ -30,12 +30,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经验之谈.md",
+                "file": "网上资源.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "经验之谈"
+              "title": "网上资源"
             }
           }
         ]
@@ -214,6 +214,7 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "网上资源.md",
     "经验之谈.md",
     "TODO.canvas",
     "软件使用.md",
@@ -221,7 +222,6 @@
     "我的项目.md",
     "服务使用.md",
     "报错.md",
-    "网上资源.md",
     "备份.md",
     "windows.md",
     "Prompt.md",
