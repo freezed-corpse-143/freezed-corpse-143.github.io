@@ -2,32 +2,22 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-1920,"y":-540,"width":260,"height":180,"color":"1"},
 		{
-			"id":"9c16f004ef4bb367",
-			"type":"text",
-			"text":"Introduction 图像 优化，字体太小",
-			"styleAttributes":{},
-			"x":-2220,
-			"y":100,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
-			"id":"507e9fe2917daa74",
-			"type":"text",
-			"text":"去掉：This is an anonymized submission for review purposes only. Distribution, citation, or public sharing of this manuscript is strictly prohibited. Copyright and publication details will appear in the final version if accepted.",
-			"styleAttributes":{},
-			"x":-1780,
-			"y":60,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"a512bdaaf8b5383b",
 			"type":"text",
 			"text":"编写代码",
 			"styleAttributes":{},
 			"x":-2160,
+			"y":-160,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"9c16f004ef4bb367",
+			"type":"text",
+			"text":"Introduction 图像 优化，字体太小",
+			"styleAttributes":{},
+			"x":-1820,
 			"y":-160,
 			"width":260,
 			"height":60,
