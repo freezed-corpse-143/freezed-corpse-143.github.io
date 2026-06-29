@@ -13,17 +13,6 @@
 			"color":"1"
 		},
 		{
-			"id":"3896a58aa7149092",
-			"type":"text",
-			"text":"更新实验表格和实验描述",
-			"styleAttributes":{},
-			"x":-2220,
-			"y":-160,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"a512bdaaf8b5383b",
 			"type":"text",
 			"text":"编写代码",
@@ -44,17 +33,7 @@
 			"height":60
 		}
 	],
-	"edges":[
-		{
-			"id":"58bd0712fb33aefc",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"3896a58aa7149092",
-			"fromSide":"right",
-			"toNode":"a512bdaaf8b5383b",
-			"toSide":"left"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
