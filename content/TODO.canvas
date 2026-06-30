@@ -11,7 +11,47 @@
 			"height":60,
 			"color":"1"
 		},
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2160,"y":-420,"width":260,"height":180,"color":"1"}
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2160,"y":-420,"width":260,"height":180,"color":"1"},
+		{
+			"id":"f3d497207a07cb26",
+			"type":"text",
+			"text":"主谓宾检查",
+			"styleAttributes":{},
+			"x":-1660,
+			"y":-240,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"da2fdf51b72f3e9a",
+			"type":"text",
+			"text":"引用检查",
+			"styleAttributes":{},
+			"x":-1660,
+			"y":-40,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b0fd4fb296345991",
+			"type":"text",
+			"text":"术语检查",
+			"styleAttributes":{},
+			"x":-1660,
+			"y":-130,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"196f0fb2d55debfe",
+			"type":"text",
+			"text":"引用更新",
+			"styleAttributes":{},
+			"x":-1660,
+			"y":80,
+			"width":260,
+			"height":60
+		}
 	],
 	"edges":[],
 	"metadata":{
