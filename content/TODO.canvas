@@ -41,16 +41,6 @@
 			"y":-40,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"afce68ebcaea8cee",
-			"type":"text",
-			"text":"信息泄露检查",
-			"styleAttributes":{},
-			"x":-1660,
-			"y":-480,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
