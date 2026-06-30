@@ -11,17 +11,6 @@
 			"height":60,
 			"color":"1"
 		},
-		{
-			"id":"9c16f004ef4bb367",
-			"type":"text",
-			"text":"Introduction 图像 优化，字体太小",
-			"styleAttributes":{},
-			"x":-2160,
-			"y":-40,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2160,"y":-420,"width":260,"height":180,"color":"1"}
 	],
 	"edges":[],
