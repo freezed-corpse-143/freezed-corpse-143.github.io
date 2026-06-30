@@ -20,7 +20,8 @@
 			"x":-1660,
 			"y":-240,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"da2fdf51b72f3e9a",
