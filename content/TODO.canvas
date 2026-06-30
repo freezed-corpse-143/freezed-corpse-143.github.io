@@ -23,22 +23,22 @@
 			"height":60
 		},
 		{
-			"id":"196f0fb2d55debfe",
-			"type":"text",
-			"text":"引用更新",
-			"styleAttributes":{},
-			"x":-1660,
-			"y":-80,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"b0fd4fb296345991",
 			"type":"text",
 			"text":"术语检查",
 			"styleAttributes":{},
 			"x":-1660,
 			"y":-240,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"196f0fb2d55debfe",
+			"type":"text",
+			"text":"引用更新",
+			"styleAttributes":{},
+			"x":-1660,
+			"y":-130,
 			"width":260,
 			"height":60
 		}
