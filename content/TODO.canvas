@@ -11,17 +11,7 @@
 			"height":60,
 			"color":"1"
 		},
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2160,"y":-420,"width":260,"height":180,"color":"1"},
-		{
-			"id":"6f94d577685fc6ed",
-			"type":"text",
-			"text":"octo",
-			"styleAttributes":{},
-			"x":-1620,
-			"y":-200,
-			"width":260,
-			"height":60
-		}
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2160,"y":-420,"width":260,"height":180,"color":"1"}
 	],
 	"edges":[],
 	"metadata":{
