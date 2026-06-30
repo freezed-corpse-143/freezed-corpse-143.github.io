@@ -43,16 +43,6 @@
 			"height":60
 		},
 		{
-			"id":"e11271fe9b12cda2",
-			"type":"text",
-			"text":"float 的位置检查",
-			"styleAttributes":{},
-			"x":-1660,
-			"y":-360,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"afce68ebcaea8cee",
 			"type":"text",
 			"text":"信息泄露检查",
