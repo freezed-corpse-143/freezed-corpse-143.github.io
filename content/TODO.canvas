@@ -12,12 +12,22 @@
 			"height":60
 		},
 		{
+			"id":"bd9be3cedd3e60eb",
+			"type":"text",
+			"text":"视觉检查",
+			"styleAttributes":{},
+			"x":-1720,
+			"y":-200,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"a512bdaaf8b5383b",
 			"type":"text",
 			"text":"编写代码",
 			"styleAttributes":{},
-			"x":-1720,
-			"y":-300,
+			"x":-2160,
+			"y":-170,
 			"width":260,
 			"height":60,
 			"color":"1"
