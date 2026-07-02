@@ -27,8 +27,8 @@
 			"type":"text",
 			"text":"视觉检查",
 			"styleAttributes":{},
-			"x":-1740,
-			"y":-330,
+			"x":-1720,
+			"y":-300,
 			"width":260,
 			"height":60
 		}
