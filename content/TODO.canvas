@@ -31,16 +31,6 @@
 			"y":-330,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"34e7acb9b997097c",
-			"type":"text",
-			"text":"codex、claude、oh-my-pi 的 memory 导入记忆",
-			"styleAttributes":{},
-			"x":-1700,
-			"y":-120,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
