@@ -1,34 +1,54 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2160,"y":-420,"width":260,"height":180,"color":"1"},
-		{
-			"id":"b0fd4fb296345991",
-			"type":"text",
-			"text":"术语检查",
-			"styleAttributes":{},
-			"x":-1720,
-			"y":-420,
-			"width":260,
-			"height":60
-		},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2360,"y":-480,"width":260,"height":180,"color":"1"},
 		{
 			"id":"a512bdaaf8b5383b",
 			"type":"text",
 			"text":"编写代码",
 			"styleAttributes":{},
-			"x":-2160,
-			"y":-170,
+			"x":-2360,
+			"y":-200,
 			"width":260,
 			"height":60,
 			"color":"1"
 		},
 		{
-			"id":"bd9be3cedd3e60eb",
+			"id":"b0fd4fb296345991",
 			"type":"text",
-			"text":"视觉检查",
+			"text":"术语检查",
 			"styleAttributes":{},
-			"x":-1720,
-			"y":-300,
+			"x":-1980,
+			"y":-480,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"646ae98ec6781e50",
+			"type":"text",
+			"text":"构图检查（手动检查）",
+			"styleAttributes":{},
+			"x":-1980,
+			"y":-360,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fa55bede063c8577",
+			"type":"text",
+			"text":"逐句翻译对比图",
+			"styleAttributes":{},
+			"x":-1980,
+			"y":-230,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"7fb25ee219088ca3",
+			"type":"text",
+			"text":"逐句逻辑对比图",
+			"styleAttributes":{},
+			"x":-1980,
+			"y":-120,
 			"width":260,
 			"height":60
 		}
