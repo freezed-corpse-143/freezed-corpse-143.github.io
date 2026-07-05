@@ -63,26 +63,6 @@
 			"height":190
 		},
 		{
-			"id":"9cf425c71c570fcf",
-			"type":"text",
-			"text":"topaperlist 项目更新",
-			"styleAttributes":{},
-			"x":-2800,
-			"y":0,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"fdbd37000799a6cf",
-			"type":"text",
-			"text":"引用更新",
-			"styleAttributes":{},
-			"x":-2420,
-			"y":40,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"7fb25ee219088ca3",
 			"type":"text",
 			"text":"逐句逻辑对比图",
@@ -107,8 +87,8 @@
 			"type":"text",
 			"text":"更新 cuda 驱动",
 			"styleAttributes":{},
-			"x":-1960,
-			"y":20,
+			"x":-2120,
+			"y":30,
 			"width":260,
 			"height":60
 		},
@@ -117,8 +97,8 @@
 			"type":"text",
 			"text":"更新 llama.cpp 版本",
 			"styleAttributes":{},
-			"x":-1950,
-			"y":140,
+			"x":-2120,
+			"y":160,
 			"width":260,
 			"height":60
 		},
@@ -127,8 +107,28 @@
 			"type":"text",
 			"text":"手动编译 mistral.rs",
 			"styleAttributes":{},
-			"x":-2580,
-			"y":220,
+			"x":-2490,
+			"y":160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fdbd37000799a6cf",
+			"type":"text",
+			"text":"引用更新",
+			"styleAttributes":{},
+			"x":-2490,
+			"y":30,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"9cf425c71c570fcf",
+			"type":"text",
+			"text":"topaperlist 项目更新",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":30,
 			"width":260,
 			"height":60
 		}
