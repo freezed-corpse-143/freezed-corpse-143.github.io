@@ -72,17 +72,6 @@
 			"height":60
 		},
 		{
-			"id":"104a38255dfbd5e7",
-			"type":"text",
-			"text":"更新 cuda 驱动",
-			"styleAttributes":{},
-			"x":-2120,
-			"y":-30,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"18da9a8927bd1179",
 			"type":"text",
 			"text":"简历中，录用论文，增加 URL",
