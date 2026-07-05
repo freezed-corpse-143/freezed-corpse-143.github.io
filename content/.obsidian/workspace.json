@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -1810,
-                  "y": -265,
+                  "x": -2040,
+                  "y": -270,
                   "zoom": 0
                 }
               },
@@ -91,8 +91,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",

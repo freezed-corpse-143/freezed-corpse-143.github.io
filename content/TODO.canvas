@@ -2,17 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2360,"y":-480,"width":260,"height":180,"color":"1"},
 		{
-			"id":"a512bdaaf8b5383b",
-			"type":"text",
-			"text":"编写代码",
-			"styleAttributes":{},
-			"x":-2360,
-			"y":-200,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"b0fd4fb296345991",
 			"type":"text",
 			"text":"术语检查",
@@ -49,6 +38,26 @@
 			"styleAttributes":{},
 			"x":-1980,
 			"y":-120,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"5acab6f2666fa18c",
+			"type":"text",
+			"text":"验证数据集",
+			"styleAttributes":{},
+			"x":-1980,
+			"y":0,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"e51d777d4c971e75",
+			"type":"text",
+			"text":"让 Agent 解释项目代码",
+			"styleAttributes":{},
+			"x":-2360,
+			"y":-230,
 			"width":260,
 			"height":60
 		}
