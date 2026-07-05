@@ -11,17 +11,14 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2040,
-                  "y": -270,
-                  "zoom": 0
-                }
+                "file": "服务使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "服务使用"
             }
           },
           {
@@ -214,20 +211,22 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "软件使用.md",
-    "TODO.canvas",
-    "需求.md",
     "环境配置.md",
-    "我的项目.md",
-    "网上资源.md",
+    "绘图.md",
     "经验之谈.md",
+    "软件使用.md",
+    "实习.md",
+    "网上资源.md",
+    "我的项目.md",
+    "需求.md",
+    "index.md",
+    "Prompt.md",
+    "TODO.canvas",
     "服务使用.md",
     "报错.md",
     "备份.md",
     "windows.md",
-    "Prompt.md",
     "Excalidraw/Drawing 2026-06-10 14.20.21.excalidraw.md",
-    "绘图.md",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
@@ -247,9 +246,7 @@
     "软件使用.md.tmp.29076.99ec8dfb3daa",
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
     "环境配置.md.tmp.29076.504e06044194",
-    "index.md",
     "我的项目.md.tmp.29192.3b9b1a433815",
-    "实习.md",
     "Drawing 2026-05-21 19.23.21.excalidraw.md",
     "index.md.tmp.24064.bd9ad9a42ce6",
     "环境配置.md.tmp.24064.6640726cfa95"
