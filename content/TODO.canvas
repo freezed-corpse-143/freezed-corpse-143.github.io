@@ -49,6 +49,17 @@
 			"x":-2140,
 			"y":-290,
 			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"5acab6f2666fa18c",
+			"type":"text",
+			"text":"验证数据集",
+			"styleAttributes":{},
+			"x":-2140,
+			"y":0,
+			"width":260,
 			"height":60
 		},
 		{
@@ -58,16 +69,6 @@
 			"styleAttributes":{},
 			"x":-2140,
 			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"5acab6f2666fa18c",
-			"type":"text",
-			"text":"验证数据集",
-			"styleAttributes":{},
-			"x":-2140,
-			"y":0,
 			"width":260,
 			"height":60
 		}
