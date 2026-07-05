@@ -131,16 +131,6 @@
 			"y":220,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"f7e7ee459bb7e0bf",
-			"type":"text",
-			"text":"加入 stable-diffusion.cpp",
-			"styleAttributes":{},
-			"x":-2060,
-			"y":250,
-			"width":290,
-			"height":60
 		}
 	],
 	"edges":[
