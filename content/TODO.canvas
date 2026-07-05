@@ -71,9 +71,49 @@
 			"y":-120,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"b1f09d0d1526d800",
+			"type":"text",
+			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
+			"styleAttributes":{},
+			"x":-2780,
+			"y":-310,
+			"width":260,
+			"height":160
+		},
+		{
+			"id":"9cf425c71c570fcf",
+			"type":"text",
+			"text":"topaperlist 项目更新",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":0,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fdbd37000799a6cf",
+			"type":"text",
+			"text":"引用更新",
+			"styleAttributes":{},
+			"x":-2420,
+			"y":40,
+			"width":260,
+			"height":60
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"c03f52d3b2efadd6",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"9cf425c71c570fcf",
+			"fromSide":"right",
+			"toNode":"fdbd37000799a6cf",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},

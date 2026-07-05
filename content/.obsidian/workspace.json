@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -2190,
-                  "y": -162,
+                  "y": -255,
                   "zoom": 0
                 }
               },
@@ -215,6 +215,7 @@
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
     "服务使用.md",
+    "TODO.canvas",
     "环境配置.md",
     "绘图.md",
     "经验之谈.md",
@@ -225,7 +226,6 @@
     "需求.md",
     "index.md",
     "Prompt.md",
-    "TODO.canvas",
     "报错.md",
     "备份.md",
     "windows.md",
