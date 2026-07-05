@@ -60,6 +60,16 @@
 			"y":-230,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"18da9a8927bd1179",
+			"type":"text",
+			"text":"简历中，录用论文，增加 URL",
+			"styleAttributes":{},
+			"x":-2360,
+			"y":-90,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
