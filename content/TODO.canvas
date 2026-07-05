@@ -42,17 +42,6 @@
 			"height":60
 		},
 		{
-			"id":"fa55bede063c8577",
-			"type":"text",
-			"text":"逐句翻译对比图",
-			"styleAttributes":{},
-			"x":-2140,
-			"y":-290,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"b1f09d0d1526d800",
 			"type":"text",
 			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
@@ -61,16 +50,6 @@
 			"y":-310,
 			"width":260,
 			"height":190
-		},
-		{
-			"id":"7fb25ee219088ca3",
-			"type":"text",
-			"text":"逐句逻辑对比图",
-			"styleAttributes":{},
-			"x":-1820,
-			"y":-290,
-			"width":260,
-			"height":60
 		},
 		{
 			"id":"5acab6f2666fa18c",
@@ -131,6 +110,16 @@
 			"y":30,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"7fb25ee219088ca3",
+			"type":"text",
+			"text":"逐句逻辑对比图",
+			"styleAttributes":{},
+			"x":-2120,
+			"y":-290,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
@@ -141,15 +130,6 @@
 			"fromNode":"9cf425c71c570fcf",
 			"fromSide":"right",
 			"toNode":"fdbd37000799a6cf",
-			"toSide":"left"
-		},
-		{
-			"id":"f7a44fd041a56cad",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"fa55bede063c8577",
-			"fromSide":"right",
-			"toNode":"7fb25ee219088ca3",
 			"toSide":"left"
 		}
 	],

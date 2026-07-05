@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -2190,
-                  "y": -69,
+                  "x": -2012.1099399719305,
+                  "y": -85.82523952049164,
                   "zoom": 0
                 }
               },
@@ -38,8 +38,7 @@
               "title": "经验之谈"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -214,10 +213,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7a1c320bb08cd5ec",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "TODO.canvas",
     "经验之谈.md",
+    "TODO.canvas",
     "软件使用.md",
     "服务使用.md",
     "环境配置.md",
