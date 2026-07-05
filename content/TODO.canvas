@@ -12,32 +12,12 @@
 			"height":60
 		},
 		{
-			"id":"18da9a8927bd1179",
-			"type":"text",
-			"text":"简历中，录用论文，增加 URL",
-			"styleAttributes":{},
-			"x":-2490,
-			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"b0fd4fb296345991",
 			"type":"text",
 			"text":"术语检查",
 			"styleAttributes":{},
 			"x":-2140,
 			"y":-570,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"646ae98ec6781e50",
-			"type":"text",
-			"text":"构图检查（手动检查）",
-			"styleAttributes":{},
-			"x":-2140,
-			"y":-450,
 			"width":260,
 			"height":60
 		},
@@ -50,56 +30,6 @@
 			"y":-310,
 			"width":260,
 			"height":190
-		},
-		{
-			"id":"5acab6f2666fa18c",
-			"type":"text",
-			"text":"验证数据集",
-			"styleAttributes":{},
-			"x":-2120,
-			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"104a38255dfbd5e7",
-			"type":"text",
-			"text":"更新 cuda 驱动",
-			"styleAttributes":{},
-			"x":-2120,
-			"y":30,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"b9cf9591d191a07f",
-			"type":"text",
-			"text":"更新 llama.cpp 版本",
-			"styleAttributes":{},
-			"x":-2120,
-			"y":160,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"856ef57ca7912c80",
-			"type":"text",
-			"text":"手动编译 mistral.rs",
-			"styleAttributes":{},
-			"x":-2490,
-			"y":160,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"fdbd37000799a6cf",
-			"type":"text",
-			"text":"引用更新",
-			"styleAttributes":{},
-			"x":-2490,
-			"y":30,
-			"width":260,
-			"height":60
 		},
 		{
 			"id":"9cf425c71c570fcf",
@@ -118,6 +48,76 @@
 			"styleAttributes":{},
 			"x":-2120,
 			"y":-290,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"646ae98ec6781e50",
+			"type":"text",
+			"text":"构图检查（手动检查）",
+			"styleAttributes":{},
+			"x":-2120,
+			"y":-420,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"5acab6f2666fa18c",
+			"type":"text",
+			"text":"验证数据集",
+			"styleAttributes":{},
+			"x":-2120,
+			"y":-150,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"104a38255dfbd5e7",
+			"type":"text",
+			"text":"更新 cuda 驱动",
+			"styleAttributes":{},
+			"x":-2120,
+			"y":-30,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"18da9a8927bd1179",
+			"type":"text",
+			"text":"简历中，录用论文，增加 URL",
+			"styleAttributes":{},
+			"x":-2490,
+			"y":-150,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fdbd37000799a6cf",
+			"type":"text",
+			"text":"引用更新",
+			"styleAttributes":{},
+			"x":-2490,
+			"y":-30,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"856ef57ca7912c80",
+			"type":"text",
+			"text":"手动编译 mistral.rs",
+			"styleAttributes":{},
+			"x":-2490,
+			"y":130,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b9cf9591d191a07f",
+			"type":"text",
+			"text":"更新 llama.cpp 版本",
+			"styleAttributes":{},
+			"x":-2120,
+			"y":130,
 			"width":260,
 			"height":60
 		}
