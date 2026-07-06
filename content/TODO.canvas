@@ -36,7 +36,7 @@
 			"type":"text",
 			"text":"人工校对：\n- [ ] 单句对比表\n- [ ] 新的引用\n- [ ] 新的逻辑句子表\n- [ ] Code 目录",
 			"styleAttributes":{},
-			"x":-2800,
+			"x":-2540,
 			"y":-140,
 			"width":260,
 			"height":180
