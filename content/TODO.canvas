@@ -62,17 +62,6 @@
 			"height":60
 		},
 		{
-			"id":"856ef57ca7912c80",
-			"type":"text",
-			"text":"手动编译 mistral.rs",
-			"styleAttributes":{},
-			"x":-2490,
-			"y":130,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"b1f09d0d1526d800",
 			"type":"text",
 			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
