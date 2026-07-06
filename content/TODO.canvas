@@ -100,16 +100,6 @@
 			"y":0,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"bfed4da6ccc24799",
-			"type":"text",
-			"text":"更新 cuda 13.3",
-			"styleAttributes":{},
-			"x":-3020,
-			"y":100,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
