@@ -12,16 +12,6 @@
 			"height":60
 		},
 		{
-			"id":"b0fd4fb296345991",
-			"type":"text",
-			"text":"术语检查",
-			"styleAttributes":{},
-			"x":-2140,
-			"y":-570,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"646ae98ec6781e50",
 			"type":"text",
 			"text":"构图检查（手动检查）",
@@ -63,16 +53,6 @@
 			"color":"1"
 		},
 		{
-			"id":"7fb25ee219088ca3",
-			"type":"text",
-			"text":"逐句逻辑对比图",
-			"styleAttributes":{},
-			"x":-2080,
-			"y":100,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"5acab6f2666fa18c",
 			"type":"text",
 			"text":"验证数据集",
@@ -91,6 +71,26 @@
 			"y":40,
 			"width":260,
 			"height":120
+		},
+		{
+			"id":"7fb25ee219088ca3",
+			"type":"text",
+			"text":"逐句逻辑结构总结表",
+			"styleAttributes":{},
+			"x":-2120,
+			"y":40,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b0fd4fb296345991",
+			"type":"text",
+			"text":"术语检查",
+			"styleAttributes":{},
+			"x":-2120,
+			"y":-570,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
