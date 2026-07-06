@@ -1,26 +1,5 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2500,"y":-570,"width":260,"height":180,"color":"1"},
-		{
-			"id":"646ae98ec6781e50",
-			"type":"text",
-			"text":"构图检查（手动检查）",
-			"styleAttributes":{},
-			"x":-2120,
-			"y":-420,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"b1f09d0d1526d800",
-			"type":"text",
-			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-575,
-			"width":260,
-			"height":190
-		},
 		{
 			"id":"fdbd37000799a6cf",
 			"type":"text",
@@ -53,16 +32,6 @@
 			"height":60
 		},
 		{
-			"id":"18da9a8927bd1179",
-			"type":"text",
-			"text":"简历中，录用论文，增加 URL",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":200,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"2e5d327ff65e2672",
 			"type":"text",
 			"text":"人工校对：\n- [ ] 对比表",
@@ -90,6 +59,37 @@
 			"styleAttributes":{},
 			"x":-2860,
 			"y":10,
+			"width":260,
+			"height":60
+		},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-2860,"y":-570,"width":260,"height":180,"color":"1"},
+		{
+			"id":"18da9a8927bd1179",
+			"type":"text",
+			"text":"简历中，录用论文，增加 URL",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b1f09d0d1526d800",
+			"type":"text",
+			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
+			"styleAttributes":{},
+			"x":-2520,
+			"y":-575,
+			"width":260,
+			"height":190
+		},
+		{
+			"id":"646ae98ec6781e50",
+			"type":"text",
+			"text":"构图检查（手动检查）",
+			"styleAttributes":{},
+			"x":-2480,
+			"y":-290,
 			"width":260,
 			"height":60
 		}
