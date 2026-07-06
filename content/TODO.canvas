@@ -2,32 +2,12 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目","x":-2500,"y":-570,"width":260,"height":180,"color":"1"},
 		{
-			"id":"e51d777d4c971e75",
-			"type":"text",
-			"text":"让 Agent 解释项目代码",
-			"styleAttributes":{},
-			"x":-2490,
-			"y":-290,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"646ae98ec6781e50",
 			"type":"text",
 			"text":"构图检查（手动检查）",
 			"styleAttributes":{},
 			"x":-2120,
 			"y":-420,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"18da9a8927bd1179",
-			"type":"text",
-			"text":"简历中，录用论文，增加 URL",
-			"styleAttributes":{},
-			"x":-2490,
-			"y":-150,
 			"width":260,
 			"height":60
 		},
@@ -63,26 +43,6 @@
 			"height":60
 		},
 		{
-			"id":"2e5d327ff65e2672",
-			"type":"text",
-			"text":"人工校对：\n- [ ] 对比表",
-			"styleAttributes":{},
-			"x":-2500,
-			"y":40,
-			"width":260,
-			"height":120
-		},
-		{
-			"id":"7fb25ee219088ca3",
-			"type":"text",
-			"text":"逐句逻辑结构总结表",
-			"styleAttributes":{},
-			"x":-2120,
-			"y":40,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"b0fd4fb296345991",
 			"type":"text",
 			"text":"术语检查",
@@ -91,6 +51,46 @@
 			"y":-570,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"e51d777d4c971e75",
+			"type":"text",
+			"text":"让 Agent 解释项目代码",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":-120,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"7fb25ee219088ca3",
+			"type":"text",
+			"text":"逐句逻辑结构总结表",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":40,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"18da9a8927bd1179",
+			"type":"text",
+			"text":"简历中，录用论文，增加 URL",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":200,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"2e5d327ff65e2672",
+			"type":"text",
+			"text":"人工校对：\n- [ ] 对比表",
+			"styleAttributes":{},
+			"x":-2480,
+			"y":-80,
+			"width":260,
+			"height":120
 		}
 	],
 	"edges":[],
