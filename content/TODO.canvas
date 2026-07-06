@@ -22,16 +22,6 @@
 			"height":60
 		},
 		{
-			"id":"7fb25ee219088ca3",
-			"type":"text",
-			"text":"逐句逻辑对比图",
-			"styleAttributes":{},
-			"x":-2120,
-			"y":-290,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"646ae98ec6781e50",
 			"type":"text",
 			"text":"构图检查（手动检查）",
@@ -66,18 +56,38 @@
 			"type":"text",
 			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
 			"styleAttributes":{},
-			"x":-2840,
-			"y":-310,
+			"x":-2860,
+			"y":-575,
 			"width":260,
 			"height":190
+		},
+		{
+			"id":"7fb25ee219088ca3",
+			"type":"text",
+			"text":"逐句逻辑对比图",
+			"styleAttributes":{},
+			"x":-2040,
+			"y":100,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"2e5d327ff65e2672",
+			"type":"text",
+			"text":"人工校对：\n- [ ] 对比表",
+			"styleAttributes":{},
+			"x":-2380,
+			"y":140,
+			"width":260,
+			"height":120
 		},
 		{
 			"id":"fdbd37000799a6cf",
 			"type":"text",
 			"text":"引用更新",
 			"styleAttributes":{},
-			"x":-2880,
-			"y":0,
+			"x":-2860,
+			"y":-260,
 			"width":260,
 			"height":60,
 			"color":"1"
