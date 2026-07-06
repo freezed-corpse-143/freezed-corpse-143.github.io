@@ -22,26 +22,6 @@
 			"height":60
 		},
 		{
-			"id":"b1f09d0d1526d800",
-			"type":"text",
-			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
-			"styleAttributes":{},
-			"x":-2780,
-			"y":-310,
-			"width":260,
-			"height":190
-		},
-		{
-			"id":"9cf425c71c570fcf",
-			"type":"text",
-			"text":"topaperlist 项目更新",
-			"styleAttributes":{},
-			"x":-2800,
-			"y":30,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"7fb25ee219088ca3",
 			"type":"text",
 			"text":"逐句逻辑对比图",
@@ -82,16 +62,6 @@
 			"height":60
 		},
 		{
-			"id":"fdbd37000799a6cf",
-			"type":"text",
-			"text":"引用更新",
-			"styleAttributes":{},
-			"x":-2490,
-			"y":-30,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"856ef57ca7912c80",
 			"type":"text",
 			"text":"手动编译 mistral.rs",
@@ -102,12 +72,32 @@
 			"height":60
 		},
 		{
-			"id":"b9cf9591d191a07f",
+			"id":"b1f09d0d1526d800",
 			"type":"text",
-			"text":"更新 llama.cpp 版本",
+			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
 			"styleAttributes":{},
-			"x":-2120,
-			"y":130,
+			"x":-2840,
+			"y":-310,
+			"width":260,
+			"height":190
+		},
+		{
+			"id":"fdbd37000799a6cf",
+			"type":"text",
+			"text":"引用更新",
+			"styleAttributes":{},
+			"x":-2490,
+			"y":0,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"9cf425c71c570fcf",
+			"type":"text",
+			"text":"topaperlist 项目更新",
+			"styleAttributes":{},
+			"x":-2840,
+			"y":0,
 			"width":260,
 			"height":60
 		}
@@ -121,6 +111,16 @@
 			"fromSide":"right",
 			"toNode":"fdbd37000799a6cf",
 			"toSide":"left"
+		},
+		{
+			"id":"e24b87720d14b438",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromFloating":false,
+			"fromNode":"b0fd4fb296345991",
+			"fromSide":"top",
+			"toNode":"5e884b4bc6cbb212",
+			"toSide":"bottom"
 		}
 	],
 	"metadata":{
