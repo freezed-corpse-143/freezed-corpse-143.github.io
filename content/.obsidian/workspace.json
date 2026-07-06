@@ -11,17 +11,14 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2545.0041741097707,
-                  "y": -94.12196511805125,
-                  "zoom": -0.3333333333333334
-                }
+                "file": "编程语言.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "编程语言"
             }
           }
         ]
@@ -200,8 +197,8 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "经验之谈.md",
     "TODO.canvas",
+    "经验之谈.md",
     "软件使用.md",
     "服务使用.md",
     "环境配置.md",
