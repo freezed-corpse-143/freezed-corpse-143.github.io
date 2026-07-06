@@ -65,17 +65,6 @@
 			"height":190
 		},
 		{
-			"id":"18da9a8927bd1179",
-			"type":"text",
-			"text":"简历中，录用论文，增加 URL",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":160,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"b0fd4fb296345991",
 			"type":"text",
 			"text":"术语检查",
