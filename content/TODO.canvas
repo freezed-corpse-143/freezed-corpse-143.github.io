@@ -53,26 +53,6 @@
 			"height":60
 		},
 		{
-			"id":"e51d777d4c971e75",
-			"type":"text",
-			"text":"让 Agent 解释项目代码",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"7fb25ee219088ca3",
-			"type":"text",
-			"text":"逐句逻辑结构总结表",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":40,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"18da9a8927bd1179",
 			"type":"text",
 			"text":"简历中，录用论文，增加 URL",
@@ -91,6 +71,27 @@
 			"y":-80,
 			"width":260,
 			"height":120
+		},
+		{
+			"id":"7fb25ee219088ca3",
+			"type":"text",
+			"text":"逐句逻辑结构总结表",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":-140,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"e51d777d4c971e75",
+			"type":"text",
+			"text":"让 Agent 解释项目代码",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":10,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
