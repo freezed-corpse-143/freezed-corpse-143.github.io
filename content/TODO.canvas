@@ -76,34 +76,14 @@
 			"type":"text",
 			"text":"引用更新",
 			"styleAttributes":{},
-			"x":-2490,
-			"y":0,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"9cf425c71c570fcf",
-			"type":"text",
-			"text":"topaperlist 项目更新",
-			"styleAttributes":{},
-			"x":-2840,
+			"x":-2880,
 			"y":0,
 			"width":260,
 			"height":60,
 			"color":"1"
 		}
 	],
-	"edges":[
-		{
-			"id":"c03f52d3b2efadd6",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"9cf425c71c570fcf",
-			"fromSide":"right",
-			"toNode":"fdbd37000799a6cf",
-			"toSide":"left"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
