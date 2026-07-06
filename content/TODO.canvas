@@ -1,49 +1,6 @@
 {
 	"nodes":[
-		{
-			"id":"fdbd37000799a6cf",
-			"type":"text",
-			"text":"引用更新",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-290,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
-			"id":"7fb25ee219088ca3",
-			"type":"text",
-			"text":"逐句逻辑结构总结表",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-140,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-2860,"y":-570,"width":260,"height":180,"color":"1"},
-		{
-			"id":"e51d777d4c971e75",
-			"type":"text",
-			"text":"让 Agent 解释项目代码：\n- 验证实验方法\n- 验证数据集",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-20,
-			"width":260,
-			"height":120,
-			"color":"1"
-		},
-		{
-			"id":"2e5d327ff65e2672",
-			"type":"text",
-			"text":"人工校对：\n- [ ] 对比表",
-			"styleAttributes":{},
-			"x":-2540,
-			"y":-140,
-			"width":260,
-			"height":120
-		},
 		{
 			"id":"646ae98ec6781e50",
 			"type":"text",
@@ -73,6 +30,16 @@
 			"y":-290,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"2e5d327ff65e2672",
+			"type":"text",
+			"text":"人工校对：\n- [ ] 单句对比表\n- [ ] 新的引用\n- [ ] 新的逻辑句子表\n- [ ] Code 目录",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":-140,
+			"width":260,
+			"height":180
 		}
 	],
 	"edges":[],
