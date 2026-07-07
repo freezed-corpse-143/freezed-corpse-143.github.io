@@ -11,14 +11,17 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "编程语言.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2720,
+                  "y": -462.5,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "编程语言"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -197,6 +200,7 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "编程语言.md",
     "TODO.canvas",
     "经验之谈.md",
     "软件使用.md",
@@ -226,7 +230,6 @@
     "未命名.base",
     "Excalidraw",
     "未命名",
-    "编程语言.md",
     "ss.md",
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",
