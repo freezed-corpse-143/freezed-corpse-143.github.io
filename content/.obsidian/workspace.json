@@ -20,6 +20,23 @@
               "icon": "lucide-file",
               "title": "操作系统"
             }
+          },
+          {
+            "id": "f4f2b661ccac11ea",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2812.0077759852265,
+                  "y": -608.3087578417708,
+                  "zoom": -0.25784313374907003
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ]
       }
@@ -198,12 +215,12 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "编程语言.md",
+    "TODO.canvas",
     "408/操作系统.md",
+    "编程语言.md",
     "408",
     "软件使用.md",
     "环境配置.md",
-    "TODO.canvas",
     "经验之谈.md",
     "服务使用.md",
     "绘图.md",
