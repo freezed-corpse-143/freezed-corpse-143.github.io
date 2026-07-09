@@ -11,17 +11,14 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2720,
-                  "y": -447.5,
-                  "zoom": 0
-                }
+                "file": "需求.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "需求"
             }
           },
           {
@@ -38,8 +35,7 @@
               "title": "操作系统"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -96,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -214,7 +209,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f4f2b661ccac11ea",
+  "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
     "TODO.canvas",
     "408/操作系统.md",
