@@ -28,20 +28,18 @@
             "id": "f4f2b661ccac11ea",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2812.0077759852265,
-                  "y": -608.3087578417708,
-                  "zoom": -0.25784313374907003
-                }
+                "file": "408/操作系统.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "操作系统"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -215,10 +213,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "63c27cfd26d5c0d2",
+  "active": "f4f2b661ccac11ea",
   "lastOpenFiles": [
-    "408/操作系统.md",
     "TODO.canvas",
+    "408/操作系统.md",
     "编程语言.md",
     "408",
     "软件使用.md",
