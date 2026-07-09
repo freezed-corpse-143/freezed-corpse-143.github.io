@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -213,10 +214,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "63c27cfd26d5c0d2",
+  "active": "f4f2b661ccac11ea",
   "lastOpenFiles": [
-    "TODO.canvas",
     "408/操作系统.md",
+    "TODO.canvas",
     "编程语言.md",
     "408",
     "软件使用.md",
