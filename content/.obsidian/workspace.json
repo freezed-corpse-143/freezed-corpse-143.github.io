@@ -11,14 +11,17 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "需求.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2720,
+                  "y": -447.5,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "需求"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -92,8 +95,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -212,8 +214,8 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "软件使用.md",
     "需求.md",
+    "软件使用.md",
     "服务使用.md",
     "408/操作系统.md",
     "TODO.canvas",
