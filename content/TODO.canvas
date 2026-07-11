@@ -20,6 +20,26 @@
 			"y":-570,
 			"width":260,
 			"height":250
+		},
+		{
+			"id":"d3bd0d06adf558c3",
+			"type":"text",
+			"text":"排查 oh-my-pi 的飞书插件",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-240,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"87e0bcfe82ecc6b2",
+			"type":"text",
+			"text":"latex 浮动窗体的固定位置",
+			"styleAttributes":{},
+			"x":-2700,
+			"y":-160,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
