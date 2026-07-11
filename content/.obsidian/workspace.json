@@ -56,7 +56,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tlmg",
+                "query": "wezterm",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -200,10 +200,10 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "编译.md",
-    "环境配置.md",
     "软件使用.md",
+    "环境配置.md",
     "TODO.canvas",
+    "编译.md",
     "需求.md",
     "服务使用.md",
     "408/操作系统.md",
