@@ -46,8 +46,8 @@
 			"type":"text",
 			"text":"单句每行检测逻辑加上; 分号",
 			"styleAttributes":{},
-			"x":-3040,
-			"y":-40,
+			"x":-3160,
+			"y":-120,
 			"width":260,
 			"height":60
 		},
@@ -56,8 +56,8 @@
 			"type":"text",
 			"text":"检查管线：float 的位置信息更新",
 			"styleAttributes":{},
-			"x":-2660,
-			"y":0,
+			"x":-2820,
+			"y":-120,
 			"width":260,
 			"height":60
 		}
