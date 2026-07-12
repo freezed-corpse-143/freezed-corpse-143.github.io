@@ -22,22 +22,22 @@
 			"height":250
 		},
 		{
-			"id":"87e0bcfe82ecc6b2",
-			"type":"text",
-			"text":"latex 浮动窗体的固定位置",
-			"styleAttributes":{},
-			"x":-2700,
-			"y":-160,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"20b19a4061e084eb",
 			"type":"text",
 			"text":"yazi ：为 windows 安装 file",
 			"styleAttributes":{},
-			"x":-3200,
-			"y":-160,
+			"x":-3160,
+			"y":-250,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"87e0bcfe82ecc6b2",
+			"type":"text",
+			"text":"latex 浮动窗体的固定位置",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":-280,
 			"width":260,
 			"height":60
 		}
