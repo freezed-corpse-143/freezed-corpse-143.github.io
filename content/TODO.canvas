@@ -30,17 +30,6 @@
 			"y":-250,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"ed724737302a9f89",
-			"type":"text",
-			"text":"添加禁用命令检测",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-250,
-			"width":260,
-			"height":60,
-			"color":"1"
 		}
 	],
 	"edges":[],
