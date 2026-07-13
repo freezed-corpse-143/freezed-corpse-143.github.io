@@ -42,27 +42,17 @@
 			"height":60
 		},
 		{
-			"id":"fadb45779915593e",
+			"id":"ed724737302a9f89",
 			"type":"text",
-			"text":"检查管线：float 的位置信息更新",
+			"text":"警用命令检测",
 			"styleAttributes":{},
-			"x":-3480,
-			"y":-360,
+			"x":-2500,
+			"y":-320,
 			"width":260,
 			"height":60
 		}
 	],
-	"edges":[
-		{
-			"id":"c34624ebe761a7a2",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"fadb45779915593e",
-			"fromSide":"right",
-			"toNode":"2e5d327ff65e2672",
-			"toSide":"left"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
