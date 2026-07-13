@@ -42,27 +42,46 @@
 			"height":60
 		},
 		{
-			"id":"c309c845120cf667",
-			"type":"text",
-			"text":"单句每行检测逻辑加上; 分号",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":-120,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"fadb45779915593e",
 			"type":"text",
 			"text":"检查管线：float 的位置信息更新",
 			"styleAttributes":{},
-			"x":-2760,
-			"y":-90,
+			"x":-3480,
+			"y":-360,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"c309c845120cf667",
+			"type":"text",
+			"text":"单句每行检测逻辑加上; 分号",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":-527,
 			"width":260,
 			"height":60
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"c34624ebe761a7a2",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"fadb45779915593e",
+			"fromSide":"right",
+			"toNode":"2e5d327ff65e2672",
+			"toSide":"left"
+		},
+		{
+			"id":"fdd14bb5922b54a1",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"c309c845120cf667",
+			"fromSide":"right",
+			"toNode":"2e5d327ff65e2672",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
