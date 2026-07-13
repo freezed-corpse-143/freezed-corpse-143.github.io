@@ -32,16 +32,6 @@
 			"height":60
 		},
 		{
-			"id":"87e0bcfe82ecc6b2",
-			"type":"text",
-			"text":"latex 浮动窗体的固定位置",
-			"styleAttributes":{},
-			"x":-2820,
-			"y":-250,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"ed724737302a9f89",
 			"type":"text",
 			"text":"添加禁用命令检测",
