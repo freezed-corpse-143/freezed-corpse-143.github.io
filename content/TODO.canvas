@@ -46,8 +46,8 @@
 			"type":"text",
 			"text":"警用命令检测",
 			"styleAttributes":{},
-			"x":-2500,
-			"y":-320,
+			"x":-2480,
+			"y":-250,
 			"width":260,
 			"height":60
 		}
