@@ -30,6 +30,16 @@
 			"y":-250,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"aee6cc113d48ddd2",
+			"type":"text",
+			"text":"早停投票加入方法中。",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":-260,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
