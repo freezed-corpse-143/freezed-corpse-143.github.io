@@ -14,7 +14,7 @@
 		{
 			"id":"2e5d327ff65e2672",
 			"type":"text",
-			"text":"人工校对：\n- [ ] 正文：单句对比表\n- [ ] 正文：新的引用\n- [ ] Code 目录\n- [ ] 视图检查\n- [ ] 术语检查\n- [ ] 附录：",
+			"text":"人工校对：\n- [ ] 正文：新的引用\n- [ ] Code 目录\n- [ ] 视图检查\n- [ ] 术语检查\n- [ ] 附录：",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-570,
@@ -28,6 +28,16 @@
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-250,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"5e0cefc449c3d4f5",
+			"type":"text",
+			"text":"去掉编译管线中的 Main.pdf",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":-140,
 			"width":260,
 			"height":60
 		}
