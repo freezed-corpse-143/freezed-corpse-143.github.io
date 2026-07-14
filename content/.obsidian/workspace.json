@@ -11,17 +11,14 @@
             "id": "63c27cfd26d5c0d2",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2655.330865490867,
-                  "y": -322.54087162746697,
-                  "zoom": -1.1102230246251565e-16
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           }
         ]
@@ -56,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "#",
+                "query": "wezterm",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -200,13 +197,13 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
-    "我的项目.md",
+    "编译.md",
     "TODO.canvas",
+    "我的项目.md",
     "环境配置.md",
     "编程语言.md",
     "经验之谈.md",
     "软件使用.md",
-    "编译.md",
     "需求.md",
     "服务使用.md",
     "408/操作系统.md",
