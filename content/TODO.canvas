@@ -14,7 +14,7 @@
 		{
 			"id":"2e5d327ff65e2672",
 			"type":"text",
-			"text":"人工校对：\n- [ ] 正文：新的引用\n- [ ] Code 目录\n- [ ] 视图检查\n- [ ] 术语检查\n- [ ] 附录：",
+			"text":"人工校对：\n- [ ] Code 目录\n- [ ] 视图检查\n- [ ] 术语检查\n- [ ] 根据引用：更新 2026 的 baselines\n- [ ] 附录：",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-570,
@@ -28,16 +28,6 @@
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-250,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"fb3c4118717036ab",
-			"type":"text",
-			"text":"根据引用：更新 2026的 baselines",
-			"styleAttributes":{},
-			"x":-2700,
-			"y":-180,
 			"width":260,
 			"height":60
 		}
