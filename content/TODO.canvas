@@ -30,16 +30,6 @@
 			"y":-250,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"be5c1099312e43dc",
-			"type":"text",
-			"text":"w/o xx。加粗\\paragraph{}",
-			"styleAttributes":{},
-			"x":-3020,
-			"y":-100,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
