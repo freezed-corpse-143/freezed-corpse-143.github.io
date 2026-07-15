@@ -14,7 +14,7 @@
 		{
 			"id":"2e5d327ff65e2672",
 			"type":"text",
-			"text":"人工校对：\n- [ ] 视图检查\n- [ ] 附录实验重构",
+			"text":"人工校对：\n- [ ] 视图检查",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-570,
@@ -31,16 +31,6 @@
 			"width":260,
 			"height":410,
 			"color":"1"
-		},
-		{
-			"id":"cbc4e5962656ec9a",
-			"type":"text",
-			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
-			"styleAttributes":{},
-			"x":-2520,
-			"y":-330,
-			"width":260,
-			"height":120
 		},
 		{
 			"id":"74e5bd8a0a0da62c",
@@ -63,6 +53,27 @@
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"2f05c51ad640002c",
+			"type":"text",
+			"text":" 附录实验重构：\n - 实验设计重构",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-60,
+			"width":260,
+			"height":100,
+			"color":"1"
+		},
+		{
+			"id":"cbc4e5962656ec9a",
+			"type":"text",
+			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
+			"styleAttributes":{},
+			"x":-2540,
+			"y":-330,
+			"width":260,
+			"height":120
 		}
 	],
 	"edges":[
