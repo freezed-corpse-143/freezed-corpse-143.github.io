@@ -4,32 +4,32 @@
 		{
 			"id":"b1f09d0d1526d800",
 			"type":"text",
-			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查\n- \n- ",
+			"text":"一致性检查：\n- 文本一致性检查\n- 图与图一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
 			"styleAttributes":{},
 			"x":-2540,
 			"y":-575,
 			"width":260,
-			"height":295
+			"height":185
 		},
 		{
 			"id":"2e5d327ff65e2672",
 			"type":"text",
-			"text":"人工校对：\n- [ ] 视图检查\n- [ ] 附录：",
+			"text":"人工校对：\n- [ ] 视图检查\n- [ ] 附录实验重构",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-570,
 			"width":260,
-			"height":290
+			"height":130
 		},
 		{
 			"id":"2c0d25acbf5c4350",
 			"type":"text",
-			"text":"根据引用：更新 2026 的 baselines",
+			"text":"根据引用：更新 2026 的 baselines：\n- 确定加入的 baselines\n- 确定更新的位置：raw 数据集、related work、experiments\n",
 			"styleAttributes":{},
-			"x":-3160,
-			"y":-120,
+			"x":-3200,
+			"y":-360,
 			"width":260,
-			"height":60,
+			"height":160,
 			"color":"1"
 		},
 		{
@@ -37,8 +37,8 @@
 			"type":"text",
 			"text":"术语一致性检查",
 			"styleAttributes":{},
-			"x":-3160,
-			"y":0,
+			"x":-3200,
+			"y":-120,
 			"width":260,
 			"height":60,
 			"color":"1"
@@ -48,8 +48,8 @@
 			"type":"text",
 			"text":"符号的一致性检查",
 			"styleAttributes":{},
-			"x":-3160,
-			"y":120,
+			"x":-3200,
+			"y":0,
 			"width":260,
 			"height":60,
 			"color":"1"
@@ -57,12 +57,13 @@
 		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
-			"text":"Code 目录重构：\n- 环境配置\n- 入口文件\n- 配置加载\n- 数据加载\n- deamon 核心\n- Prompt 管理\n- 核心模块\n- 日志模块\n- 测试模块\n- ",
+			"text":"Code 目录重构：\n- 环境配置\n- 运行入口文件\n- 配置加载\n- 数据加载\n- deamon 核心\n- Prompt 管理\n- 核心模块\n- 日志模块\n- 测试模块\n- 多 Agent 定义\n- 辩论定义\n- 解码后端\n- scheduler 模块\n- verifier 模块\n- 实验定义模块。\n- 指标",
 			"styleAttributes":{},
-			"x":-2730,
-			"y":-260,
+			"x":-2860,
+			"y":-330,
 			"width":260,
-			"height":340
+			"height":480,
+			"color":"1"
 		}
 	],
 	"edges":[],
