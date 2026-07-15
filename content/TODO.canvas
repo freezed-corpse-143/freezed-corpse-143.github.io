@@ -75,6 +75,16 @@
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"cbc4e5962656ec9a",
+			"type":"text",
+			"text":"LLM 一个用 qwen 3 7 B,一个用 deepseek APIkey，将规模化表现出来。",
+			"styleAttributes":{},
+			"x":-2500,
+			"y":-20,
+			"width":260,
+			"height":120
 		}
 	],
 	"edges":[],
