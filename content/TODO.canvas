@@ -9,7 +9,7 @@
 			"x":-2540,
 			"y":-575,
 			"width":260,
-			"height":185
+			"height":155
 		},
 		{
 			"id":"2e5d327ff65e2672",
@@ -19,17 +19,17 @@
 			"x":-3160,
 			"y":-570,
 			"width":260,
-			"height":130
+			"height":110
 		},
 		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
-			"text":"Code 目录重构：\n- deamon 核心\n- 核心模块\n- 指标模块\n- 实验定义模块。\n- 辩论定义\n- \n- 解码后端\n- scheduler 模块\n- verifier 模块\n- 与后端的嵌入层\n- ",
+			"text":"Code 目录重构：\n- deamon 核心\n- 核心模块\n- 指标模块\n- 实验定义模块。\n- 辩论定义\n- 解码后端\n- scheduler 模块\n- verifier 模块\n- 与后端的嵌入层\n- ",
 			"styleAttributes":{},
 			"x":-2860,
 			"y":-330,
 			"width":260,
-			"height":410,
+			"height":330,
 			"color":"1"
 		},
 		{
