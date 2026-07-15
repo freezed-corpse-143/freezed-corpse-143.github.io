@@ -14,23 +14,12 @@
 		{
 			"id":"2e5d327ff65e2672",
 			"type":"text",
-			"text":"人工校对：\n- [ ] 视图检查\n- [ ] 术语检查\n- [ ] 根据引用：更新 2026 的 baselines\n- [ ] 附录：",
+			"text":"人工校对：\n- [ ] 视图检查\n- [ ] 附录：",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-570,
 			"width":260,
 			"height":290
-		},
-		{
-			"id":"9408673e014db7ea",
-			"type":"text",
-			"text":"Code 目录：根据正文内容同步实验目录。建立结构文档。",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":-240,
-			"width":260,
-			"height":60,
-			"color":"1"
 		},
 		{
 			"id":"01500dae1a4bd737",
@@ -46,13 +35,34 @@
 		{
 			"id":"f0eeae28449b48c9",
 			"type":"text",
-			"text":"公式检查",
+			"text":"公式检查：添加检查管线，公式应该超过的单栏列宽",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":0,
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"2c0d25acbf5c4350",
+			"type":"text",
+			"text":"根据引用：更新 2026 的 baselines",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":120,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"74e5bd8a0a0da62c",
+			"type":"text",
+			"text":"术语一致性检查",
+			"styleAttributes":{},
+			"x":-2780,
+			"y":-120,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
