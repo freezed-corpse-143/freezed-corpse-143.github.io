@@ -24,7 +24,7 @@
 		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
-			"text":"Code 目录重构：\n- 数据预处理模块。\n- deamon 核心\n- 核心模块\n- 日志模块\n- 测试模块\n- 多 Agent 定义\n- 辩论定义\n- 解码后端\n- scheduler 模块\n- verifier 模块\n- 与后端的嵌入层\n- 实验定义模块。\n- 指标",
+			"text":"Code 目录重构：\n- deamon 核心\n- 核心模块\n- 日志模块\n- 测试模块\n- 多 Agent 定义\n- 辩论定义\n- 解码后端\n- scheduler 模块\n- verifier 模块\n- 与后端的嵌入层\n- 实验定义模块。\n- 指标",
 			"styleAttributes":{},
 			"x":-2860,
 			"y":-330,
