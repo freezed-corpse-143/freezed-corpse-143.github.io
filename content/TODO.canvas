@@ -20,16 +20,6 @@
 			"y":-570,
 			"width":260,
 			"height":250
-		},
-		{
-			"id":"20b19a4061e084eb",
-			"type":"text",
-			"text":"yazi ：为 windows 安装 file",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":-250,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
