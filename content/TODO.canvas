@@ -24,7 +24,7 @@
 		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
-			"text":"Code 目录重构：\n- deamon 核心\n- 核心模块\n- 指标模块\n- 实验定义模块。\n- 辩论定义\n- 解码后端\n- scheduler 模块\n- verifier 模块\n- 与后端的嵌入层\n- ",
+			"text":"Code 目录重构：\n- deamon 核心\n- 核心模块\n- 指标模块\n- 实验定义模块。\n- 辩论定义\n- \n- 解码后端\n- scheduler 模块\n- verifier 模块\n- 与后端的嵌入层\n- ",
 			"styleAttributes":{},
 			"x":-2860,
 			"y":-330,
@@ -57,12 +57,12 @@
 		{
 			"id":"2f05c51ad640002c",
 			"type":"text",
-			"text":" 附录实验重构：\n - 实验设计重构\n - 生成数据示例\n - 可视化示例\n - 重构文本与引用",
+			"text":" 附录实验重构：\n - 生成数据示例\n - 可视化示例\n - 重构文本与引用",
 			"styleAttributes":{},
 			"x":-3200,
 			"y":-60,
 			"width":260,
-			"height":140,
+			"height":180,
 			"color":"1"
 		},
 		{
