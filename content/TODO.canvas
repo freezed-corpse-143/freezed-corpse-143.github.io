@@ -29,7 +29,7 @@
 			"x":-3200,
 			"y":-360,
 			"width":260,
-			"height":160,
+			"height":200,
 			"color":"1"
 		},
 		{
@@ -64,6 +64,16 @@
 			"width":260,
 			"height":480,
 			"color":"1"
+		},
+		{
+			"id":"95f0cd61733625d6",
+			"type":"text",
+			"text":"术语专业性检查",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":120,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
