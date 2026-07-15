@@ -59,7 +59,7 @@
 			"text":"符号的一致性检查",
 			"styleAttributes":{},
 			"x":-3200,
-			"y":-160,
+			"y":-200,
 			"width":260,
 			"height":60,
 			"color":"1"
@@ -70,7 +70,7 @@
 			"text":"术语专业性检查",
 			"styleAttributes":{},
 			"x":-3200,
-			"y":90,
+			"y":-40,
 			"width":260,
 			"height":60,
 			"color":"1"
