@@ -79,7 +79,7 @@
 		{
 			"id":"cbc4e5962656ec9a",
 			"type":"text",
-			"text":"LLM 一个用 qwen 3 新模型,一个用 deepseek APIkey，将规模化表现出来。",
+			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
 			"styleAttributes":{},
 			"x":-2520,
 			"y":-330,
