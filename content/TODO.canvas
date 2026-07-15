@@ -54,23 +54,23 @@
 			"color":"1"
 		},
 		{
-			"id":"cf0f21770626e36f",
-			"type":"text",
-			"text":"符号的一致性检查",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-200,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"95f0cd61733625d6",
 			"type":"text",
 			"text":"术语专业性检查",
 			"styleAttributes":{},
 			"x":-3200,
 			"y":-40,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"cf0f21770626e36f",
+			"type":"text",
+			"text":"符号的一致性检查",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-180,
 			"width":260,
 			"height":60,
 			"color":"1"
