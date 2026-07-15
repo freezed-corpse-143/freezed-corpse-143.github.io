@@ -14,7 +14,7 @@
 		{
 			"id":"2e5d327ff65e2672",
 			"type":"text",
-			"text":"人工校对：\n- [ ] 视图检查",
+			"text":"人工校对：\n- [ ] 视图检查\n\t- [ ] appendix\n\t- [ ] 正文视图检查",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":-570,
