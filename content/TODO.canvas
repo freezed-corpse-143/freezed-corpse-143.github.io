@@ -1,16 +1,5 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-2860,"y":-570,"width":260,"height":180,"color":"1"},
-		{
-			"id":"b1f09d0d1526d800",
-			"type":"text",
-			"text":"一致性检查：\n- 图与文本一致性检查\n- 表与表一致性检查\n- 混合一致性检查",
-			"styleAttributes":{},
-			"x":-2540,
-			"y":-575,
-			"width":260,
-			"height":155
-		},
 		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
@@ -60,10 +49,21 @@
 			"type":"text",
 			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
 			"styleAttributes":{},
-			"x":-2540,
-			"y":-330,
+			"x":-2500,
+			"y":-315,
 			"width":260,
 			"height":120
+		},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3200,"y":-587,"width":260,"height":180,"color":"1"},
+		{
+			"id":"b1f09d0d1526d800",
+			"type":"text",
+			"text":"一致性检查：\n- 图与文本一致性检查\n- 表与表一致性检查",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":-587,
+			"width":260,
+			"height":155
 		}
 	],
 	"edges":[
