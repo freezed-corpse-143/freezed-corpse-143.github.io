@@ -1,17 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"d8bcbaf76fa15b7e",
-			"type":"text",
-			"text":"Code 目录重构：\n- 实验顺序是什么：超参数实验，",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-330,
-			"width":260,
-			"height":110,
-			"color":"1"
-		},
-		{
 			"id":"95f0cd61733625d6",
 			"type":"text",
 			"text":"术语专业性检查",
@@ -63,6 +52,17 @@
 			"y":-315,
 			"width":260,
 			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"d8bcbaf76fa15b7e",
+			"type":"text",
+			"text":"Code 目录重构：\n- 实验顺序是什么：超参数实验，",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":-310,
+			"width":260,
+			"height":110,
 			"color":"1"
 		}
 	],
