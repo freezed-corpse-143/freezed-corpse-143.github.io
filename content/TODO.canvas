@@ -9,7 +9,8 @@
 			"x":-3200,
 			"y":-380,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"19038e06321a40a9",
@@ -20,17 +21,6 @@
 			"y":-320,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"95f0cd61733625d6",
-			"type":"text",
-			"text":"术语专业性检查",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-320,
-			"width":260,
-			"height":60,
-			"color":"1"
 		},
 		{
 			"id":"cbc4e5962656ec9a",
@@ -52,6 +42,17 @@
 			"y":-220,
 			"width":260,
 			"height":160,
+			"color":"1"
+		},
+		{
+			"id":"95f0cd61733625d6",
+			"type":"text",
+			"text":"术语专业性检查",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-320,
+			"width":260,
+			"height":60,
 			"color":"1"
 		}
 	],
