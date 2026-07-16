@@ -1,5 +1,38 @@
 {
 	"nodes":[
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3200,"y":-587,"width":260,"height":180,"color":"1"},
+		{
+			"id":"19038e06321a40a9",
+			"type":"text",
+			"text":"图与文本一致性检查",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-310,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"cbc4e5962656ec9a",
+			"type":"text",
+			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
+			"styleAttributes":{},
+			"x":-2820,
+			"y":-240,
+			"width":260,
+			"height":120,
+			"color":"1"
+		},
+		{
+			"id":"2f05c51ad640002c",
+			"type":"text",
+			"text":" 附录实验重构：\n- [ ] 视图检查\n- [ ] appendix\n- [ ] 正文视图检查",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-80,
+			"width":260,
+			"height":180,
+			"color":"1"
+		},
 		{
 			"id":"95f0cd61733625d6",
 			"type":"text",
@@ -12,70 +45,17 @@
 			"color":"1"
 		},
 		{
-			"id":"2f05c51ad640002c",
-			"type":"text",
-			"text":" 附录实验重构：\n- [ ] 视图检查\n- [ ] appendix\n- [ ] 正文视图检查",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-60,
-			"width":260,
-			"height":180,
-			"color":"1"
-		},
-		{
-			"id":"cbc4e5962656ec9a",
-			"type":"text",
-			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
-			"styleAttributes":{},
-			"x":-2500,
-			"y":-315,
-			"width":260,
-			"height":120
-		},
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3200,"y":-587,"width":260,"height":180,"color":"1"},
-		{
-			"id":"d8bcbaf76fa15b7e",
-			"type":"text",
-			"text":"Code 目录重构：\n- 实验顺序是什么：超参数实验，",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-310,
-			"width":260,
-			"height":110,
-			"color":"1"
-		},
-		{
-			"id":"19038e06321a40a9",
-			"type":"text",
-			"text":"图与文本一致性检查",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-310,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"955987ccbb11ba60",
 			"type":"text",
 			"text":"表与表一致性检查",
 			"styleAttributes":{},
-			"x":-2860,
-			"y":-437,
+			"x":-3200,
+			"y":-380,
 			"width":260,
 			"height":60
 		}
 	],
-	"edges":[
-		{
-			"id":"8b750c37fe0d0006",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"d8bcbaf76fa15b7e",
-			"fromSide":"right",
-			"toNode":"cbc4e5962656ec9a",
-			"toSide":"left"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
