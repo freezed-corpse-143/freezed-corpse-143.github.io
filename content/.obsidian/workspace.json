@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -2720,
-                  "y": -243.5,
+                  "y": -233.5,
                   "zoom": 0
                 }
               },
@@ -56,7 +56,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "\"# oh-my-pi",
+                "query": "\"uv tool install",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -200,13 +200,13 @@
   },
   "active": "63c27cfd26d5c0d2",
   "lastOpenFiles": [
+    "服务使用.md",
+    "TODO.canvas",
     "需求.md",
     "环境配置.md",
     "软件使用.md",
-    "TODO.canvas",
     "windows.md",
     "经验之谈.md",
-    "服务使用.md",
     "Prompt.md",
     "编译.md",
     "我的项目.md",
