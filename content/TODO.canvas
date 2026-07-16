@@ -34,27 +34,6 @@
 		},
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3200,"y":-587,"width":260,"height":180,"color":"1"},
 		{
-			"id":"b1f09d0d1526d800",
-			"type":"text",
-			"text":"一致性检查：\n- 图与文本一致性检查\n- 表与表一致性检查",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":-587,
-			"width":260,
-			"height":155
-		},
-		{
-			"id":"74e5bd8a0a0da62c",
-			"type":"text",
-			"text":"术语一致性检查",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-315,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
 			"text":"Code 目录重构：\n- 实验顺序是什么：超参数实验，",
@@ -64,6 +43,26 @@
 			"width":260,
 			"height":110,
 			"color":"1"
+		},
+		{
+			"id":"19038e06321a40a9",
+			"type":"text",
+			"text":"图与文本一致性检查",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-310,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"955987ccbb11ba60",
+			"type":"text",
+			"text":"表与表一致性检查",
+			"styleAttributes":{},
+			"x":-3500,
+			"y":-310,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
@@ -75,15 +74,6 @@
 			"fromSide":"right",
 			"toNode":"cbc4e5962656ec9a",
 			"toSide":"left"
-		},
-		{
-			"id":"ee99aa85e9ac5be1",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"74e5bd8a0a0da62c",
-			"fromSide":"bottom",
-			"toNode":"95f0cd61733625d6",
-			"toSide":"top"
 		}
 	],
 	"metadata":{
