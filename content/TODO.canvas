@@ -35,12 +35,12 @@
 		{
 			"id":"2f05c51ad640002c",
 			"type":"text",
-			"text":" 附录实验重构：\n- [ ] 视图检查\n- [ ] appendix",
+			"text":" 附录实验重构：\n- [ ] 视图检查：codex",
 			"styleAttributes":{},
 			"x":-2820,
 			"y":-587,
 			"width":260,
-			"height":120,
+			"height":76,
 			"color":"1"
 		},
 		{
