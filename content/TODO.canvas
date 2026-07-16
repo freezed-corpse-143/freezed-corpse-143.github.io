@@ -36,7 +36,7 @@
 		{
 			"id":"2f05c51ad640002c",
 			"type":"text",
-			"text":" 附录实验重构：\n- [ ] 视图检查\n- [ ] appendix\n- [ ] 正文视图检查\n - 重构文本与引用",
+			"text":" 附录实验重构：\n- [ ] 视图检查\n- [ ] appendix\n- [ ] 正文视图检查",
 			"styleAttributes":{},
 			"x":-3200,
 			"y":-60,
