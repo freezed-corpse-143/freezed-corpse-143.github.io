@@ -13,35 +13,14 @@
 			"color":"1"
 		},
 		{
-			"id":"19038e06321a40a9",
-			"type":"text",
-			"text":"图与文本一致性检查",
-			"styleAttributes":{},
-			"x":-2880,
-			"y":-320,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"2f05c51ad640002c",
 			"type":"text",
 			"text":" 附录实验重构：\n- [ ] 视图检查\n- [ ] appendix",
 			"styleAttributes":{},
-			"x":-2880,
-			"y":-220,
+			"x":-2800,
+			"y":-140,
 			"width":260,
 			"height":160,
-			"color":"1"
-		},
-		{
-			"id":"95f0cd61733625d6",
-			"type":"text",
-			"text":"术语专业性检查",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-320,
-			"width":260,
-			"height":60,
 			"color":"1"
 		},
 		{
@@ -50,10 +29,31 @@
 			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
 			"styleAttributes":{},
 			"x":-3200,
-			"y":-200,
+			"y":-140,
 			"width":260,
 			"height":120,
 			"color":"1"
+		},
+		{
+			"id":"95f0cd61733625d6",
+			"type":"text",
+			"text":"术语专业性检查",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-290,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"19038e06321a40a9",
+			"type":"text",
+			"text":"图与文本一致性检查",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":-290,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
