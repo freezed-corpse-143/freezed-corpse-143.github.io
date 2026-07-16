@@ -3,12 +3,12 @@
 		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
-			"text":"Code 目录重构：\n- 测试覆盖面：\n\t- 功能测试\n\t- 端到端测试\n- 基准检查点标签生成的模块\n- 本地 3 B 模型、torch+cu 128 做各种测试",
+			"text":"Code 目录重构：\n- 测试覆盖面：\n\t- 功能测试\n\t- 端到端测试\n- 基准检查点标签生成的模块\n- 本地 3 B 模型、torch+cu 128 做各种测试\n- 实验顺序是什么：超参数实验，",
 			"styleAttributes":{},
 			"x":-2860,
 			"y":-330,
 			"width":260,
-			"height":270,
+			"height":350,
 			"color":"1"
 		},
 		{
