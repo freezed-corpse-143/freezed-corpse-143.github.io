@@ -64,16 +64,6 @@
 			"width":260,
 			"height":60,
 			"color":"1"
-		},
-		{
-			"id":"0c868b9a559e0059",
-			"type":"text",
-			"text":"",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":-320,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
