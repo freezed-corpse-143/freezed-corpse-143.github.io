@@ -3,12 +3,12 @@
 		{
 			"id":"d8bcbaf76fa15b7e",
 			"type":"text",
-			"text":"Code 目录重构：\n- 每个实验的 pipeline 实验\n- 实验顺序是什么：超参数实验，",
+			"text":"Code 目录重构：\n- 实验顺序是什么：超参数实验，",
 			"styleAttributes":{},
 			"x":-2860,
 			"y":-330,
 			"width":260,
-			"height":180,
+			"height":110,
 			"color":"1"
 		},
 		{
