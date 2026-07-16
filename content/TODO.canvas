@@ -13,17 +13,6 @@
 			"color":"1"
 		},
 		{
-			"id":"cbc4e5962656ec9a",
-			"type":"text",
-			"text":"LLM 一个用 qwen 3 新模型,一个用 32 B 中等模型进行测试，将规模化表现出来。",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-140,
-			"width":260,
-			"height":120,
-			"color":"1"
-		},
-		{
 			"id":"95f0cd61733625d6",
 			"type":"text",
 			"text":"术语专业性检查",
