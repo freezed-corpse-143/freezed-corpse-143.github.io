@@ -2,17 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3200,"y":-587,"width":260,"height":180,"color":"1"},
 		{
-			"id":"95f0cd61733625d6",
-			"type":"text",
-			"text":"术语专业性检查",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-290,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"19038e06321a40a9",
 			"type":"text",
 			"text":"图与文本一致性检查",
@@ -52,19 +41,19 @@
 			"y":-150,
 			"width":260,
 			"height":60
-		}
-	],
-	"edges":[
+		},
 		{
-			"id":"e42dcdeea8e035b9",
+			"id":"9be9899cc881fdbf",
+			"type":"text",
+			"text":"加入 checklist 部分",
 			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"95f0cd61733625d6",
-			"fromSide":"right",
-			"toNode":"19038e06321a40a9",
-			"toSide":"left"
+			"x":-2400,
+			"y":-140,
+			"width":260,
+			"height":60
 		}
 	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
