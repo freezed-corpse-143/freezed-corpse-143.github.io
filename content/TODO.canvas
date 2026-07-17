@@ -9,7 +9,8 @@
 			"x":-2800,
 			"y":-150,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"b114f02ad02ce4fb",
@@ -35,7 +36,7 @@
 		{
 			"id":"2f05c51ad640002c",
 			"type":"text",
-			"text":" 附录实验重构：\n- [ ] 视图检查：codex",
+			"text":" 视图检查：codex",
 			"styleAttributes":{},
 			"x":-3180,
 			"y":-280,
