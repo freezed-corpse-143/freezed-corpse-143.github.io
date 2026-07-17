@@ -9,7 +9,8 @@
 			"x":-2800,
 			"y":-290,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"2f05c51ad640002c",
@@ -33,17 +34,6 @@
 			"height":60
 		},
 		{
-			"id":"424b2dbc69f1cb0c",
-			"type":"text",
-			"text":"将术语尽量宏化",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":-150,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"9be9899cc881fdbf",
 			"type":"text",
 			"text":"加入 checklist 部分",
@@ -58,10 +48,21 @@
 			"type":"text",
 			"text":"实验开始跑",
 			"styleAttributes":{},
-			"x":-3120,
+			"x":-3180,
 			"y":-20,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"424b2dbc69f1cb0c",
+			"type":"text",
+			"text":"将术语尽量宏化",
+			"styleAttributes":{},
+			"x":-3180,
+			"y":-150,
+			"width":260,
+			"height":60,
+			"color":"1"
 		}
 	],
 	"edges":[],
