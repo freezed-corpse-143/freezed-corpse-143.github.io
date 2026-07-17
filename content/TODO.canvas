@@ -40,7 +40,8 @@
 			"x":-3200,
 			"y":-150,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"9be9899cc881fdbf",
