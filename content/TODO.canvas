@@ -41,7 +41,8 @@
 			"x":-3180,
 			"y":-290,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"b114f02ad02ce4fb",
