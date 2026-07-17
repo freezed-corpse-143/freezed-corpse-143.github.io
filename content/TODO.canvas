@@ -9,7 +9,7 @@
 			"x":-3180,
 			"y":-280,
 			"width":260,
-			"height":76,
+			"height":60,
 			"color":"1"
 		},
 		{
@@ -17,8 +17,8 @@
 			"type":"text",
 			"text":"实验开始跑",
 			"styleAttributes":{},
-			"x":-2960,
-			"y":-204,
+			"x":-2800,
+			"y":-280,
 			"width":260,
 			"height":60
 		}
