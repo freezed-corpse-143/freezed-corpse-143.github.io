@@ -2,17 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3200,"y":-587,"width":260,"height":180,"color":"1"},
 		{
-			"id":"19038e06321a40a9",
-			"type":"text",
-			"text":"图与文本一致性检查",
-			"styleAttributes":{},
-			"x":-2800,
-			"y":-290,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"2f05c51ad640002c",
 			"type":"text",
 			"text":" 附录实验重构：\n- [ ] 视图检查：codex",
