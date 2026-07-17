@@ -23,17 +23,6 @@
 			"height":60
 		},
 		{
-			"id":"9be9899cc881fdbf",
-			"type":"text",
-			"text":"加入 checklist 部分",
-			"styleAttributes":{},
-			"x":-3180,
-			"y":-290,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"b114f02ad02ce4fb",
 			"type":"text",
 			"text":"实验开始跑",
