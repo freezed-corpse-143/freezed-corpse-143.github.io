@@ -17,18 +17,8 @@
 			"type":"text",
 			"text":"实验开始跑",
 			"styleAttributes":{},
-			"x":-3180,
-			"y":-40,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"17b63e57aa6f68ca",
-			"type":"text",
-			"text":"Baselines 段落更新",
-			"styleAttributes":{},
-			"x":-3180,
-			"y":-160,
+			"x":-2960,
+			"y":-204,
 			"width":260,
 			"height":60
 		}
