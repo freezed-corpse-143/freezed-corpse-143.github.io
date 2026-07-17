@@ -47,8 +47,18 @@
 			"type":"text",
 			"text":"加入 checklist 部分",
 			"styleAttributes":{},
-			"x":-2400,
-			"y":-140,
+			"x":-3180,
+			"y":-290,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b114f02ad02ce4fb",
+			"type":"text",
+			"text":"实验开始跑",
+			"styleAttributes":{},
+			"x":-3120,
+			"y":-20,
 			"width":260,
 			"height":60
 		}
