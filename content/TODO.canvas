@@ -2,23 +2,33 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3200,"y":-587,"width":260,"height":180,"color":"1"},
 		{
-			"id":"2f05c51ad640002c",
-			"type":"text",
-			"text":" 视图检查：codex",
-			"styleAttributes":{},
-			"x":-3180,
-			"y":-280,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"b114f02ad02ce4fb",
 			"type":"text",
 			"text":"实验开始跑",
 			"styleAttributes":{},
 			"x":-2800,
 			"y":-280,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"2f05c51ad640002c",
+			"type":"text",
+			"text":" 视图检查：codex",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-280,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"276ec914d6637172",
+			"type":"text",
+			"text":"UV 工具",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":-160,
 			"width":260,
 			"height":60
 		}
