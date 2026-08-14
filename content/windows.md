@@ -2749,3 +2749,43 @@ if (Test-Path -LiteralPath $pwshExe) {
 }
 
 ```
+
+
+# 打开凭证管理器
+
+1. `win+r`，输入 `control keymgr.dll`，并回车
+
+# windows 截图工具 OCR
+
+1. `shift+win+S`
+2. 上方工具导航栏，选择最右边的 文本提取器。
+
+或者 `shift+win+T`
+
+# 联想摄像头
+
+1. 右侧按钮可物理开关。
+
+# 设置默认截图方式
+
+Win+Shift+R 触发的是 ms-screenclip:// 协议，该协议被两个不同的程序注册了：
+
+ Windows 11 有两个并存的截屏实现：
+
+ - 老式 "屏幕截图": Windows 10 时代就有的 Shell 内置捕获体验，由
+   MicrosoftWindows.Client.Core 系统组件提供。它更轻量，但没有高级编辑功能。
+ - 新版 "截图工具": 从 Windows 10 后期引入的独立 UWP 应用（代号
+   ScreenSketch），支持截图标注、录屏、OCR 等。
+
+ 新版截图工具通过 rescap 3:MigrationProgIds 把老协议接管了，但老组件并没有取消注册 — 两者仍并存，系统无法自动选择。
+
+ 推荐选 "截图工具"（功能更强，截图+录屏+标注+OCR 都在里面），然后：
+
+ 1. 设置 → 应用 → 默认应用 → 按协议指定默认程序
+ 2. 找到 ms-screenclip → 设为 截图工具
+
+# 减少 win 11 系统占用
+
+1. `win+r`，输入 `service.msc`
+2. 找到 `sysmain` 服务，停止，并禁用。
+
