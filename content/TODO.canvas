@@ -1,6 +1,16 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3740,"y":-640,"width":260,"height":180,"color":"1"}
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3740,"y":-640,"width":260,"height":180,"color":"1"},
+		{
+			"id":"1b9d9b52b6dbe987",
+			"type":"text",
+			"text":"VBA 开发调试编译环境",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":-520,
+			"width":260,
+			"height":60
+		}
 	],
 	"edges":[],
 	"metadata":{
