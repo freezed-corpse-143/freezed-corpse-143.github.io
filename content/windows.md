@@ -2789,3 +2789,322 @@ Win+Shift+R 触发的是 ms-screenclip:// 协议，该协议被两个不同的�
 1. `win+r`，输入 `service.msc`
 2. 找到 `sysmain` 服务，停止，并禁用。
 
+
+# windows powershell 默认配置文件
+
+编译
+
+```powershell
+$script:LogBuffer = New-Object System.Collections.Generic.List[object]
+$script:LogLevel = "ERROR"  # DEBUG / INFO / WARN / ERROR
+
+$script:LevelRank = @{
+    "DEBUG" = 0
+    "INFO"  = 1
+    "STEP"  = 1
+    "OK"    = 1
+    "WARN"  = 2
+    "ERROR" = 3
+}
+
+$script:ColorMap = @{
+    "INFO"  = "DarkCyan"
+    "OK"    = "Green"
+    "WARN"  = "DarkYellow"
+    "ERROR" = "Red"
+    "DEBUG" = "DarkGray"
+    "STEP"  = "Blue"
+}
+
+$script:IconMap = @{
+    "INFO"  = "[i]"
+    "OK"    = "[+]"
+    "WARN"  = "[!]"
+    "ERROR" = "[x]"
+    "DEBUG" = "[*]"
+    "STEP"  = "[>]"
+}
+
+function Add-Log {
+    param(
+        [ValidateSet("INFO", "OK", "WARN", "ERROR", "DEBUG", "STEP")]
+        [string]$Level,
+        [string]$Message,
+        [string]$Detail = ""
+    )
+
+    if ($script:LevelRank[$Level] -lt $script:LevelRank[$script:LogLevel]) {
+        return
+    }
+
+    $script:LogBuffer.Add([PSCustomObject]@{
+        Level   = $Level
+        Message = $Message
+        Detail  = $Detail
+    }) | Out-Null
+}
+
+function Flush-Logs {
+    foreach ($log in $script:LogBuffer) {
+        $color = $script:ColorMap[$log.Level]
+        $icon  = $script:IconMap[$log.Level]
+
+        if ($log.Detail) {
+            Write-Host "$icon $($log.Message)" -ForegroundColor $color -NoNewline
+            Write-Host ": $($log.Detail)" -ForegroundColor Gray
+        } else {
+            Write-Host "$icon $($log.Message)" -ForegroundColor $color
+        }
+    }
+
+    $script:LogBuffer.Clear()
+}
+
+function Enable-DebugLog {
+    $script:LogLevel = "DEBUG"
+    Flush-Logs
+}
+
+function Expand-EnvValue {
+    param(
+        [string]$Value,
+        [hashtable]$KnownVars = @{}
+    )
+
+    $result = $Value
+
+    if ($result.Length -ge 2) {
+        if (($result.StartsWith('"') -and $result.EndsWith('"')) -or
+            ($result.StartsWith("'") -and $result.EndsWith("'"))) {
+            $result = $result.Substring(1, $result.Length - 2)
+        }
+    }
+
+    # resolve $HOME and $USERPROFILE first
+    $result = $result -replace '\$HOME', $env:USERPROFILE
+    $result = $result -replace '\$USERPROFILE', $env:USERPROFILE
+
+    # resolve $VARNAME references — previously loaded vars, then system env
+    $result = [regex]::Replace($result, '\$([A-Z_][A-Z0-9_]*)', {
+        param($m)
+        $varName = $m.Groups[1].Value
+        if ($KnownVars.ContainsKey($varName)) {
+            return $KnownVars[$varName]
+        }
+        $sysVal = [Environment]::GetEnvironmentVariable($varName, "Process")
+        if ($sysVal) { return $sysVal }
+        return $m.Value
+    })
+
+    if ($result -notmatch '://') {
+        $result = $result -replace '/', '\'
+    }
+
+    return $result
+}
+
+function Setup-ApplicationsPathFast {
+    Add-Log "STEP" "Scanning Applications directory"
+
+    $applicationsRoot = Join-Path $env:USERPROFILE "Applications"
+
+    if (-not (Test-Path -LiteralPath $applicationsRoot)) {
+        Add-Log "WARN" "Applications directory not found" $applicationsRoot
+        return @()
+    }
+
+    $folders = Get-ChildItem -LiteralPath $applicationsRoot -Directory -ErrorAction SilentlyContinue
+
+    if (-not $folders -or $folders.Count -eq 0) {
+        Add-Log "WARN" "No application folders found"
+        return @()
+    }
+
+    Add-Log "INFO" "Applications found" $folders.Count
+
+    $result = New-Object System.Collections.Generic.List[string]
+
+    foreach ($folder in $folders) {
+        $binPath = Join-Path $folder.FullName "bin"
+
+        if (Test-Path -LiteralPath $binPath) {
+            $result.Add($binPath) | Out-Null
+        } else {
+            $result.Add($folder.FullName) | Out-Null
+        }
+    }
+
+    return $result
+}
+
+function Import-UserEnvFileFast {
+    Add-Log "STEP" "Loading .env configuration"
+
+    $envFile = Join-Path $env:USERPROFILE ".env"
+
+    if (-not (Test-Path -LiteralPath $envFile)) {
+        Add-Log "WARN" ".env file not found" $envFile
+        return @()
+    }
+
+    $pathCandidates = New-Object System.Collections.Generic.List[string]
+    $loadedVars = 0
+    $skippedLines = 0
+    $lineNumber = 0
+    $knownVars = @{}
+
+    foreach ($rawLine in [System.IO.File]::ReadLines($envFile)) {
+        $lineNumber++
+        $line = $rawLine.Trim()
+
+        if ([string]::IsNullOrWhiteSpace($line) -or $line.StartsWith("#")) {
+            continue
+        }
+
+        $line = $line -replace '^export\s+', ''
+
+        if ($line -match '^PATH\s*=\s*(.+?):\$PATH$') {
+            $expandedPath = Expand-EnvValue $matches[1] -KnownVars $knownVars
+
+            if (Test-Path -LiteralPath $expandedPath) {
+                $pathCandidates.Add($expandedPath) | Out-Null
+            } else {
+                Add-Log "WARN" "PATH entry not found, skipped" $expandedPath
+            }
+
+            continue
+        }
+
+        if ($line -match '^([^=]+)=(.*)$') {
+            $key = $matches[1].Trim()
+            $value = Expand-EnvValue $matches[2].Trim() -KnownVars $knownVars
+            $knownVars[$key] = $value
+
+            try {
+                [Environment]::SetEnvironmentVariable($key, $value, "Process")
+                $loadedVars++
+                Add-Log "DEBUG" "Loaded env var" $key
+            } catch {
+                Add-Log "ERROR" "Failed to load env var" $key
+            }
+
+            continue
+        }
+
+        $skippedLines++
+        Add-Log "WARN" "Malformed line skipped" "line $lineNumber"
+    }
+
+    if ($loadedVars -gt 0) {
+        Add-Log "OK" "Environment variables loaded" $loadedVars
+    }
+
+    if ($skippedLines -gt 0) {
+        Add-Log "WARN" "Malformed lines skipped" $skippedLines
+    }
+
+    return $pathCandidates
+}
+
+function Update-ProcessPathBatch {
+    param(
+        [string[]]$Candidates
+    )
+
+    if (-not $Candidates -or $Candidates.Count -eq 0) {
+        Add-Log "INFO" "No PATH entries to process"
+        return
+    }
+
+    Add-Log "STEP" "Updating PATH in batch"
+
+    $currentPath = [Environment]::GetEnvironmentVariable("PATH", "Process")
+    $existing = New-Object "System.Collections.Generic.HashSet[string]" ([System.StringComparer]::OrdinalIgnoreCase)
+
+    foreach ($p in ($currentPath -split ';')) {
+        if (-not [string]::IsNullOrWhiteSpace($p)) {
+            $existing.Add($p.Trim()) | Out-Null
+        }
+    }
+
+    $newPaths = New-Object System.Collections.Generic.List[string]
+
+    foreach ($path in $Candidates) {
+        if ([string]::IsNullOrWhiteSpace($path)) {
+            continue
+        }
+
+        $normalized = $path.Trim()
+
+        if (-not $existing.Contains($normalized)) {
+            $existing.Add($normalized) | Out-Null
+            $newPaths.Add($normalized) | Out-Null
+        }
+    }
+
+    if ($newPaths.Count -eq 0) {
+        Add-Log "INFO" "No new PATH entries added"
+        return
+    }
+
+    $finalPath = (($newPaths + ($currentPath -split ';')) | Where-Object {
+        -not [string]::IsNullOrWhiteSpace($_)
+    }) -join ';'
+
+    [Environment]::SetEnvironmentVariable("PATH", $finalPath, "Process")
+
+    Add-Log "OK" "PATH entries added" $newPaths.Count
+
+    foreach ($p in $newPaths) {
+        Add-Log "INFO" "Added PATH" $p
+    }
+}
+
+# ============================================
+# Main
+# ============================================
+
+Add-Log "STEP" "Starting environment setup"
+
+$appPaths = Setup-ApplicationsPathFast
+$envPaths = Import-UserEnvFileFast
+
+$allPaths = @()
+if ($appPaths) { $allPaths += $appPaths }
+if ($envPaths) { $allPaths += $envPaths }
+
+Update-ProcessPathBatch -Candidates $allPaths
+
+Add-Log "OK" "Environment setup completed"
+
+# Flush logs only when debug mode is enabled
+if ($script:LogLevel -eq "DEBUG") {
+    Flush-Logs
+}
+
+if ($Host.Name -eq 'ConsoleHost') {
+    try { Clear-Host } catch { }
+
+    try { Set-PSReadLineOption -PredictionSource HistoryAndPlugin } catch { }
+    try { Set-PSReadLineOption -PredictionViewStyle ListView } catch { }
+    try { Invoke-Expression (&starship init powershell) } catch { }
+}
+
+function pon {
+    $env:HTTP_PROXY = "http://127.0.0.1:7890"
+    $env:HTTPS_PROXY = "http://127.0.0.1:7890"
+    Write-Host "Proxy is ready: http://127.0.0.1:7890" -ForegroundColor Green
+}
+
+function poff {
+    Remove-Item Env:HTTP_PROXY -ErrorAction SilentlyContinue
+    Remove-Item Env:HTTPS_PROXY -ErrorAction SilentlyContinue
+    Write-Host "Proxy is off" -ForegroundColor Yellow
+}
+
+
+# lean-ctx shell hook — begin
+$leanCtxHook = Join-Path $env:USERPROFILE ".config\lean-ctx\shell-hook.ps1"
+if ((Test-Path $leanCtxHook) -and -not [Console]::IsOutputRedirected) { . $leanCtxHook }
+
+```

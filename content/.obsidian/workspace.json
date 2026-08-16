@@ -8,17 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "f6c01b910383f5d2",
+            "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows.md",
+                "file": "数据库.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "windows"
+              "title": "数据库"
             }
           }
         ]
@@ -158,13 +158,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "环境配置.md",
+                "file": "数据库.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "环境配置 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -178,7 +178,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -197,29 +197,30 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f6c01b910383f5d2",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
-    "产品服务.md",
-    "windows.md",
+    "报错.md",
+    "环境配置.md",
+    "数据库.md",
+    "软件使用.md",
     "TODO.canvas",
+    "服务使用.md",
+    "windows.md",
+    "Prompt.md",
+    "绘图.md",
+    "需求.md",
+    "实习.md",
+    "经验之谈.md",
+    "产品服务.md",
     "index.md",
     "408/大模型.md",
-    "软件使用.md",
     "408/计算机网络.md",
-    "需求.md",
-    "环境配置.md",
     "408/操作系统.md",
-    "服务使用.md",
-    "经验之谈.md",
-    "Prompt.md",
     "编译.md",
     "我的项目.md",
     "编程语言.md",
     "408",
-    "绘图.md",
-    "实习.md",
     "网上资源.md",
-    "报错.md",
     "备份.md",
     "Excalidraw/Drawing 2026-06-10 14.20.21.excalidraw.md",
     "Pasted image 20260610145938.png",
