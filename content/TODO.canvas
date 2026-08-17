@@ -1,16 +1,6 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3740,"y":-640,"width":260,"height":180,"color":"1"},
-		{
-			"id":"431a26878e7c744d",
-			"type":"text",
-			"text":"wallpower engine 的网页浏览和下载工具",
-			"styleAttributes":{},
-			"x":-4100,
-			"y":-640,
-			"width":260,
-			"height":60
-		}
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 408\n- [ ] 行测\n- [ ] 编程\n- [ ] 项目：牛客深度拷打","x":-3740,"y":-640,"width":260,"height":180,"color":"1"}
 	],
 	"edges":[],
 	"metadata":{
