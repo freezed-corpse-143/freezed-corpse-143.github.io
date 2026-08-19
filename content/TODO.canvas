@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [x] 408\n- [ ] 行测++--\n- [x] 编程\n- [ ] 项目：牛客深度拷打","x":-3740,"y":-640,"width":260,"height":180,"color":"1"}
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [x] 408\n- [ ] 行测\n- [x] 编程\n- [ ] 项目：牛客深度拷打","x":-3740,"y":-640,"width":260,"height":180,"color":"1"}
 	],
 	"edges":[],
 	"metadata":{
