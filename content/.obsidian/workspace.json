@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "408/操作系统.md",
+                "file": "经验之谈.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "操作系统"
+              "title": "经验之谈"
             }
           }
         ]
@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "N_m3u8DL-RE",
+                "query": "chrome 插件",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -76,7 +76,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -197,8 +198,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3f6c7f0824f85cbf",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
+    "408/操作系统.md",
     "经验之谈.md",
     "TODO.canvas",
     "数据库.md",
@@ -215,7 +217,6 @@
     "index.md",
     "408/大模型.md",
     "408/计算机网络.md",
-    "408/操作系统.md",
     "编译.md",
     "我的项目.md",
     "编程语言.md",
