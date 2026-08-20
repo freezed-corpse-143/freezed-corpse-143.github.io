@@ -11,10 +11,17 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3670,
+                  "y": -290,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -195,6 +202,7 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "需求.md",
     "数据库.md",
     "网上资源.md",
     "软件使用.md",
@@ -209,7 +217,6 @@
     "windows.md",
     "Prompt.md",
     "绘图.md",
-    "需求.md",
     "实习.md",
     "产品服务.md",
     "index.md",
