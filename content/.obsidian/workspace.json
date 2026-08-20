@@ -11,17 +11,14 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3670,
-                  "y": -290,
-                  "zoom": 0
-                }
+                "file": "Python.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "Python"
             }
           }
         ]
@@ -202,11 +199,12 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "Python.md",
     "需求.md",
     "数据库.md",
     "网上资源.md",
     "软件使用.md",
-    "TODO.canvas",
     "Prompt Engineer.md",
     "408/操作系统.md",
     "环境配置.md",
@@ -245,7 +243,6 @@
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
     "环境配置.md.tmp.29076.504e06044194",
     "我的项目.md.tmp.29192.3b9b1a433815",
-    "Drawing 2026-05-21 19.23.21.excalidraw.md",
     "index.md.tmp.24064.bd9ad9a42ce6",
     "环境配置.md.tmp.24064.6640726cfa95"
   ]
