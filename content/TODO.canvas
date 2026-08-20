@@ -40,6 +40,16 @@
 			"y":-100,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"5630a701fdf5df88",
+			"type":"text",
+			"text":"牛客网简历投递、国聘网投递、临港投递",
+			"styleAttributes":{},
+			"x":-3600,
+			"y":-260,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
