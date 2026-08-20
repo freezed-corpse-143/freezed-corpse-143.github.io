@@ -11,17 +11,10 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
-              "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3610,
-                  "y": -271,
-                  "zoom": 0
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
             }
           }
         ]
@@ -202,15 +195,16 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "数据库.md",
+    "网上资源.md",
+    "软件使用.md",
+    "TODO.canvas",
     "Prompt Engineer.md",
     "408/操作系统.md",
     "环境配置.md",
     "报错.md",
     "408/计算机网络.md",
     "经验之谈.md",
-    "TODO.canvas",
-    "数据库.md",
-    "软件使用.md",
     "服务使用.md",
     "windows.md",
     "Prompt.md",
@@ -224,7 +218,6 @@
     "我的项目.md",
     "编程语言.md",
     "408",
-    "网上资源.md",
     "备份.md",
     "Excalidraw/Drawing 2026-06-10 14.20.21.excalidraw.md",
     "Pasted image 20260610145938.png",
