@@ -12,16 +12,6 @@
 			"height":60
 		},
 		{
-			"id":"20111ec57f5fba48",
-			"type":"text",
-			"text":"通过 python 题库",
-			"styleAttributes":{},
-			"x":-3960,
-			"y":-420,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9727a4171074a483",
 			"type":"text",
 			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
@@ -53,15 +43,6 @@
 		}
 	],
 	"edges":[
-		{
-			"id":"d0f180e8594700a7",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"20111ec57f5fba48",
-			"fromSide":"bottom",
-			"toNode":"98250b73c9ba5e10",
-			"toSide":"top"
-		},
 		{
 			"id":"3c6fabd0f17981f7",
 			"styleAttributes":{},
