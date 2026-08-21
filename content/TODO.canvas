@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [x] 408\n- [ ] 行测\n- [x] 编程\n- [ ] 项目：牛客深度拷打","x":-3740,"y":-640,"width":260,"height":180,"color":"1"},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [x] 408\n- [ ] 行测\n- [x] 编程","x":-3740,"y":-640,"width":260,"height":180,"color":"1"},
 		{
 			"id":"98250b73c9ba5e10",
 			"type":"text",
@@ -9,15 +9,16 @@
 			"x":-3960,
 			"y":-260,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"9727a4171074a483",
 			"type":"text",
 			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
 			"styleAttributes":{},
-			"x":-3960,
-			"y":-100,
+			"x":-4090,
+			"y":-40,
 			"width":260,
 			"height":160
 		},
@@ -26,18 +27,28 @@
 			"type":"text",
 			"text":"调研投递",
 			"styleAttributes":{},
-			"x":-3640,
-			"y":-100,
+			"x":-3740,
+			"y":60,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"4d665b63ac19354a",
+			"type":"text",
+			"text":"1. 查看本项目的情况\n2. codex 充钱\n3. 查看优化方向和面试方向。\n4. 查看技术栈\n5. 根据技术栈，找示例项目\n6. 阅读示例项目，优化项目和经历\n7. 修改简历",
+			"styleAttributes":{},
+			"x":-3510,
+			"y":-290,
+			"width":260,
+			"height":310
 		},
 		{
 			"id":"5630a701fdf5df88",
 			"type":"text",
 			"text":"牛客网简历投递、国聘网投递、临港投递",
 			"styleAttributes":{},
-			"x":-3600,
-			"y":-260,
+			"x":-3420,
+			"y":60,
 			"width":260,
 			"height":60
 		}
@@ -60,6 +71,24 @@
 			"fromSide":"bottom",
 			"toNode":"73e1b93a180553d1",
 			"toSide":"top"
+		},
+		{
+			"id":"8cdfc5b958a14434",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"98250b73c9ba5e10",
+			"fromSide":"right",
+			"toNode":"4d665b63ac19354a",
+			"toSide":"left"
+		},
+		{
+			"id":"974214a6f4ff062a",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"73e1b93a180553d1",
+			"fromSide":"right",
+			"toNode":"5630a701fdf5df88",
+			"toSide":"left"
 		}
 	],
 	"metadata":{
