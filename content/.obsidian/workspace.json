@@ -11,17 +11,14 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3625,
-                  "y": -260,
-                  "zoom": 0
-                }
+                "file": "多智能体设计.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "多智能体设计"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -202,12 +200,12 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "TODO.canvas",
     "Python.md",
     "多智能体设计.md",
     "windows.md",
     "软件使用.md",
     "编程语言.md",
-    "TODO.canvas",
     "环境配置.md",
     "报错.md",
     "需求.md",
@@ -241,7 +239,6 @@
     "Pasted image 20260610144427.png",
     "未命名.base",
     "Excalidraw",
-    "ss.md",
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
