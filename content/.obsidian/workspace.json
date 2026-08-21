@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3670,
-                  "y": -104,
+                  "x": -3625,
+                  "y": -260,
                   "zoom": 0
                 }
               },
@@ -58,7 +58,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "lazyvim",
+                "query": "omx",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -202,8 +202,9 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
-    "Python.md",
+    "报错.md",
     "TODO.canvas",
+    "Python.md",
     "需求.md",
     "数据库.md",
     "网上资源.md",
@@ -211,7 +212,6 @@
     "Prompt Engineer.md",
     "408/操作系统.md",
     "环境配置.md",
-    "报错.md",
     "408/计算机网络.md",
     "经验之谈.md",
     "服务使用.md",
