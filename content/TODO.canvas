@@ -51,16 +51,6 @@
 			"y":60,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"a244bf91d2c6dba2",
-			"type":"text",
-			"text":"更新 bun",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":-400,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
