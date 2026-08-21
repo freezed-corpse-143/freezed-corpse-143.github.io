@@ -3082,7 +3082,7 @@ if ($script:LogLevel -eq "DEBUG") {
     Flush-Logs
 }
 
-if ($Host.Name -eq 'ConsoleHost') {
+if ($Host.Name -eq 'ConsoleHost' -and -not [Console]::IsOutputRedirected) {
     try { Clear-Host } catch { }
 
     try { Set-PSReadLineOption -PredictionSource HistoryAndPlugin } catch { }

@@ -11,17 +11,14 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3625,
-                  "y": -260,
-                  "zoom": 0
-                }
+                "file": "windows.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "windows"
             }
           }
         ]
@@ -58,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "omx",
+                "query": "http_proxy",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -79,7 +76,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -202,16 +200,17 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
-    "报错.md",
+    "软件使用.md",
+    "编程语言.md",
     "TODO.canvas",
+    "环境配置.md",
+    "报错.md",
     "Python.md",
     "需求.md",
     "数据库.md",
     "网上资源.md",
-    "软件使用.md",
     "Prompt Engineer.md",
     "408/操作系统.md",
-    "环境配置.md",
     "408/计算机网络.md",
     "经验之谈.md",
     "服务使用.md",
@@ -224,7 +223,6 @@
     "408/大模型.md",
     "编译.md",
     "我的项目.md",
-    "编程语言.md",
     "408",
     "备份.md",
     "Excalidraw/Drawing 2026-06-10 14.20.21.excalidraw.md",
