@@ -32,26 +32,6 @@
 			"height":60
 		},
 		{
-			"id":"89ca142f273d96b6",
-			"type":"text",
-			"text":"先表格化投递\n",
-			"styleAttributes":{},
-			"x":-3800,
-			"y":-280,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"8cc2432c32c9bc5c",
-			"type":"text",
-			"text":"备份之前的投递\n",
-			"styleAttributes":{},
-			"x":-3780,
-			"y":-180,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"4626106dc22d352d",
 			"type":"text",
 			"text":"更新简历\n",
@@ -81,24 +61,6 @@
 			"fromSide":"right",
 			"toNode":"5630a701fdf5df88",
 			"toSide":"left"
-		},
-		{
-			"id":"96841b46aff7a585",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"89ca142f273d96b6",
-			"fromSide":"bottom",
-			"toNode":"8cc2432c32c9bc5c",
-			"toSide":"top"
-		},
-		{
-			"id":"b9d1126926edf226",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"8cc2432c32c9bc5c",
-			"fromSide":"bottom",
-			"toNode":"4626106dc22d352d",
-			"toSide":"top"
 		},
 		{
 			"id":"ebfbf3e9630453b3",
