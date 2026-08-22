@@ -2,17 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [x] 408\n- [ ] 行测\n- [x] 编程","x":-3740,"y":-640,"width":260,"height":180,"color":"1"},
 		{
-			"id":"98250b73c9ba5e10",
-			"type":"text",
-			"text":"先看示例项目，再优化。\n优化项目经历和实习经历",
-			"styleAttributes":{},
-			"x":-3960,
-			"y":-260,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"9727a4171074a483",
 			"type":"text",
 			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
@@ -23,64 +12,67 @@
 			"height":160
 		},
 		{
-			"id":"73e1b93a180553d1",
+			"id":"89ca142f273d96b6",
 			"type":"text",
-			"text":"调研投递",
+			"text":"先表格化投递\n",
 			"styleAttributes":{},
 			"x":-3740,
-			"y":60,
+			"y":-280,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"4d665b63ac19354a",
+			"id":"8cc2432c32c9bc5c",
 			"type":"text",
-			"text":"\n1. 查看优化方向和面试方向。\n2. 查看技术栈\n3. 根据技术栈，找示例项目\n4. 阅读示例项目，优化项目和经历\n5. 修改简历",
+			"text":"备份之前的投递\n",
 			"styleAttributes":{},
-			"x":-3510,
-			"y":-290,
+			"x":-3740,
+			"y":-180,
 			"width":260,
-			"height":230
+			"height":60
+		},
+		{
+			"id":"73e1b93a180553d1",
+			"type":"text",
+			"text":"调研投递",
+			"styleAttributes":{},
+			"x":-3580,
+			"y":160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"4626106dc22d352d",
+			"type":"text",
+			"text":"更新简历\n",
+			"styleAttributes":{},
+			"x":-3760,
+			"y":-70,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"94860b68ebc6e0f2",
+			"type":"text",
+			"text":"新的投递",
+			"styleAttributes":{},
+			"x":-3780,
+			"y":30,
+			"width":260,
+			"height":60
 		},
 		{
 			"id":"5630a701fdf5df88",
 			"type":"text",
 			"text":"牛客网简历投递、国聘网投递、临港投递",
 			"styleAttributes":{},
-			"x":-3420,
+			"x":-3300,
 			"y":60,
 			"width":260,
 			"height":60
 		}
 	],
 	"edges":[
-		{
-			"id":"3c6fabd0f17981f7",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"98250b73c9ba5e10",
-			"fromSide":"bottom",
-			"toNode":"9727a4171074a483",
-			"toSide":"top"
-		},
-		{
-			"id":"29811924d935cef6",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"98250b73c9ba5e10",
-			"fromSide":"bottom",
-			"toNode":"73e1b93a180553d1",
-			"toSide":"top"
-		},
-		{
-			"id":"8cdfc5b958a14434",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"98250b73c9ba5e10",
-			"fromSide":"right",
-			"toNode":"4d665b63ac19354a",
-			"toSide":"left"
-		},
 		{
 			"id":"974214a6f4ff062a",
 			"styleAttributes":{},
@@ -89,6 +81,42 @@
 			"fromSide":"right",
 			"toNode":"5630a701fdf5df88",
 			"toSide":"left"
+		},
+		{
+			"id":"96841b46aff7a585",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"89ca142f273d96b6",
+			"fromSide":"bottom",
+			"toNode":"8cc2432c32c9bc5c",
+			"toSide":"top"
+		},
+		{
+			"id":"b9d1126926edf226",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"8cc2432c32c9bc5c",
+			"fromSide":"bottom",
+			"toNode":"4626106dc22d352d",
+			"toSide":"top"
+		},
+		{
+			"id":"ebfbf3e9630453b3",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"4626106dc22d352d",
+			"fromSide":"bottom",
+			"toNode":"94860b68ebc6e0f2",
+			"toSide":"top"
+		},
+		{
+			"id":"f615c316024262fe",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"94860b68ebc6e0f2",
+			"fromSide":"bottom",
+			"toNode":"73e1b93a180553d1",
+			"toSide":"top"
 		}
 	],
 	"metadata":{

@@ -11,14 +11,17 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "多智能体设计.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3526.008868669303,
+                  "y": -101.96219651244336,
+                  "zoom": 0.35433363194588535
+                }
               },
-              "icon": "lucide-file",
-              "title": "多智能体设计"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -80,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -200,9 +202,9 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "多智能体设计.md",
     "TODO.canvas",
     "Python.md",
-    "多智能体设计.md",
     "windows.md",
     "软件使用.md",
     "编程语言.md",
