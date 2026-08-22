@@ -14,27 +14,27 @@
 		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
-			"text":"牛客网简历投递",
+			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
 			"styleAttributes":{},
 			"x":-3540,
 			"y":-180,
-			"width":260,
-			"height":60
+			"width":400,
+			"height":80
 		},
 		{
 			"id":"f9000f77656388dd",
 			"type":"text",
-			"text":"国聘网简历投递",
+			"text":"国聘网简历投递 https://www.iguopin.com/",
 			"styleAttributes":{},
 			"x":-3540,
 			"y":-70,
-			"width":260,
+			"width":400,
 			"height":60
 		},
 		{
 			"id":"8f60e205fdbaffe5",
 			"type":"text",
-			"text":"临港地区简历投递",
+			"text":"临港地区企业简历投递",
 			"styleAttributes":{},
 			"x":-3540,
 			"y":60,
