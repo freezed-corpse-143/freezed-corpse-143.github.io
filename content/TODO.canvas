@@ -12,26 +12,6 @@
 			"height":160
 		},
 		{
-			"id":"89ca142f273d96b6",
-			"type":"text",
-			"text":"先表格化投递\n",
-			"styleAttributes":{},
-			"x":-3740,
-			"y":-280,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"8cc2432c32c9bc5c",
-			"type":"text",
-			"text":"备份之前的投递\n",
-			"styleAttributes":{},
-			"x":-3740,
-			"y":-180,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"73e1b93a180553d1",
 			"type":"text",
 			"text":"调研投递",
@@ -42,11 +22,41 @@
 			"height":60
 		},
 		{
+			"id":"5630a701fdf5df88",
+			"type":"text",
+			"text":"牛客网简历投递、国聘网投递、临港投递",
+			"styleAttributes":{},
+			"x":-3300,
+			"y":60,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"89ca142f273d96b6",
+			"type":"text",
+			"text":"先表格化投递\n",
+			"styleAttributes":{},
+			"x":-3800,
+			"y":-280,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"8cc2432c32c9bc5c",
+			"type":"text",
+			"text":"备份之前的投递\n",
+			"styleAttributes":{},
+			"x":-3780,
+			"y":-180,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"4626106dc22d352d",
 			"type":"text",
 			"text":"更新简历\n",
 			"styleAttributes":{},
-			"x":-3760,
+			"x":-3800,
 			"y":-70,
 			"width":260,
 			"height":60
@@ -56,18 +66,8 @@
 			"type":"text",
 			"text":"新的投递",
 			"styleAttributes":{},
-			"x":-3780,
+			"x":-3800,
 			"y":30,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"5630a701fdf5df88",
-			"type":"text",
-			"text":"牛客网简历投递、国聘网投递、临港投递",
-			"styleAttributes":{},
-			"x":-3300,
-			"y":60,
 			"width":260,
 			"height":60
 		}
