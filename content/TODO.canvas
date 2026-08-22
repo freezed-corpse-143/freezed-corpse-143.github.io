@@ -12,75 +12,37 @@
 			"height":160
 		},
 		{
-			"id":"73e1b93a180553d1",
+			"id":"aee284c7f4d11331",
 			"type":"text",
-			"text":"调研投递",
+			"text":"牛客网简历投递",
 			"styleAttributes":{},
-			"x":-3580,
-			"y":160,
+			"x":-3540,
+			"y":-180,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"5630a701fdf5df88",
+			"id":"f9000f77656388dd",
 			"type":"text",
-			"text":"牛客网简历投递、国聘网投递、临港投递",
+			"text":"国聘网简历投递",
 			"styleAttributes":{},
-			"x":-3300,
-			"y":60,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"4626106dc22d352d",
-			"type":"text",
-			"text":"更新简历\n",
-			"styleAttributes":{},
-			"x":-3800,
+			"x":-3540,
 			"y":-70,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"94860b68ebc6e0f2",
+			"id":"8f60e205fdbaffe5",
 			"type":"text",
-			"text":"新的投递",
+			"text":"临港地区简历投递",
 			"styleAttributes":{},
-			"x":-3800,
-			"y":30,
+			"x":-3540,
+			"y":60,
 			"width":260,
 			"height":60
 		}
 	],
-	"edges":[
-		{
-			"id":"974214a6f4ff062a",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"73e1b93a180553d1",
-			"fromSide":"right",
-			"toNode":"5630a701fdf5df88",
-			"toSide":"left"
-		},
-		{
-			"id":"ebfbf3e9630453b3",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"4626106dc22d352d",
-			"fromSide":"bottom",
-			"toNode":"94860b68ebc6e0f2",
-			"toSide":"top"
-		},
-		{
-			"id":"f615c316024262fe",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"94860b68ebc6e0f2",
-			"fromSide":"bottom",
-			"toNode":"73e1b93a180553d1",
-			"toSide":"top"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
