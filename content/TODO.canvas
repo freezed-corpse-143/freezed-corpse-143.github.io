@@ -2,16 +2,6 @@
 	"nodes":[
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [x] 408\n- [ ] 行测\n- [x] 编程","x":-3740,"y":-640,"width":260,"height":180,"color":"1"},
 		{
-			"id":"9727a4171074a483",
-			"type":"text",
-			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
-			"styleAttributes":{},
-			"x":-4090,
-			"y":-40,
-			"width":260,
-			"height":160
-		},
-		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
 			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
@@ -40,6 +30,16 @@
 			"y":-40,
 			"width":400,
 			"height":60
+		},
+		{
+			"id":"9727a4171074a483",
+			"type":"text",
+			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
+			"styleAttributes":{},
+			"x":-4100,
+			"y":-220,
+			"width":260,
+			"height":160
 		}
 	],
 	"edges":[],
