@@ -11,17 +11,14 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3615,
-                  "y": 112,
-                  "zoom": 0
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           }
         ]
@@ -58,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ez4",
+                "query": "oh-my-pi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -79,7 +76,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -202,8 +200,9 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
-    "环境配置.md",
+    "index.md",
     "TODO.canvas",
+    "环境配置.md",
     "多智能体设计.md",
     "Python.md",
     "windows.md",
@@ -222,7 +221,6 @@
     "绘图.md",
     "实习.md",
     "产品服务.md",
-    "index.md",
     "408/大模型.md",
     "编译.md",
     "我的项目.md",
