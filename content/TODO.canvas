@@ -40,6 +40,56 @@
 			"y":-220,
 			"width":260,
 			"height":160
+		},
+		{
+			"id":"3155d3292ee6d7cb",
+			"type":"text",
+			"text":"学习 paddle NLP 知识图谱处理、存储、查询流程",
+			"styleAttributes":{},
+			"x":-4020,
+			"y":60,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"7d401c7570ed5a60",
+			"type":"text",
+			"text":"学习 RAG 完成流程与向量数据库",
+			"styleAttributes":{},
+			"x":-4020,
+			"y":160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"524a95ce89e302d9",
+			"type":"text",
+			"text":"学习多智能体编排流程",
+			"styleAttributes":{},
+			"x":-4020,
+			"y":260,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1e5963333d4aa3c7",
+			"type":"text",
+			"text":"学习前端 ui 与图形协议。",
+			"styleAttributes":{},
+			"x":-3700,
+			"y":240,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"8355f4c4222cee8a",
+			"type":"text",
+			"text":"学习 AI 交互填报简历",
+			"styleAttributes":{},
+			"x":-3340,
+			"y":240,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
