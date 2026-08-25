@@ -11,14 +11,17 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "软件使用.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3590,
+                  "y": -100,
+                  "zoom": -0.33626820807222907
+                }
               },
-              "icon": "lucide-file",
-              "title": "软件使用"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -76,8 +79,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -200,13 +202,13 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "软件使用.md",
     "index.md",
     "TODO.canvas",
     "环境配置.md",
     "多智能体设计.md",
     "Python.md",
     "windows.md",
-    "软件使用.md",
     "编程语言.md",
     "报错.md",
     "需求.md",

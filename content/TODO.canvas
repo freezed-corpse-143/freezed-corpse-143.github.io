@@ -42,16 +42,6 @@
 			"height":180
 		},
 		{
-			"id":"8355f4c4222cee8a",
-			"type":"text",
-			"text":"学习 AI 交互填报简历",
-			"styleAttributes":{},
-			"x":-3340,
-			"y":240,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"3155d3292ee6d7cb",
 			"type":"text",
 			"text":"学习 paddle NLP 知识图谱处理、存储、查询流程",
