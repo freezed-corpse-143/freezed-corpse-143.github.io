@@ -11,17 +11,14 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3620,
-                  "y": 177.86822529224233,
-                  "zoom": -0.41427072007350213
-                }
+                "file": "人工智能/知识图谱.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "知识图谱"
             }
           }
         ]
@@ -202,11 +199,11 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "人工智能/多智能体设计.md",
+    "TODO.canvas",
     "人工智能/知识图谱.md",
     "数据库.md",
-    "人工智能/多智能体设计.md",
     "人工智能",
-    "TODO.canvas",
     "软件使用.md",
     "index.md",
     "环境配置.md",
@@ -230,7 +227,6 @@
     "我的项目.md",
     "408",
     "备份.md",
-    "Excalidraw/Drawing 2026-06-10 14.20.21.excalidraw.md",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
