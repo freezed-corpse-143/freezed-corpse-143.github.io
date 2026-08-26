@@ -42,16 +42,6 @@
 			"height":180
 		},
 		{
-			"id":"3155d3292ee6d7cb",
-			"type":"text",
-			"text":"学习，存储、查询流程",
-			"styleAttributes":{},
-			"x":-4100,
-			"y":60,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"7d401c7570ed5a60",
 			"type":"text",
 			"text":"学习 RAG 完成流程与向量数据库 https://github.com/mahmoudsamy7729/agentic-rag  https://github.com/icey1287/SuperMew",
