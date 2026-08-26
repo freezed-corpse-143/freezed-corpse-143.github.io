@@ -52,7 +52,8 @@
               "title": "windows"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -229,11 +230,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3f6c7f0824f85cbf",
+  "active": "0c5f28ecc5ea398b",
   "lastOpenFiles": [
+    "人工智能/知识图谱.md",
     "windows.md",
     "TODO.canvas",
-    "人工智能/知识图谱.md",
     "人工智能/多智能体设计.md",
     "数据库.md",
     "人工智能",
