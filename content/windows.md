@@ -3108,3 +3108,6 @@ $leanCtxHook = Join-Path $env:USERPROFILE ".config\lean-ctx\shell-hook.ps1"
 if ((Test-Path $leanCtxHook) -and -not [Console]::IsOutputRedirected) { . $leanCtxHook }
 
 ```
+
+# 关闭 windows 系统遥测
+
