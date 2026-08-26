@@ -52,8 +52,7 @@
               "title": "windows"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -230,10 +229,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6720f15b7382d5ed",
+  "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
-    "人工智能/知识图谱.md",
+    "windows.md",
     "TODO.canvas",
+    "人工智能/知识图谱.md",
     "人工智能/多智能体设计.md",
     "数据库.md",
     "人工智能",
@@ -241,7 +241,6 @@
     "index.md",
     "环境配置.md",
     "Python.md",
-    "windows.md",
     "编程语言.md",
     "报错.md",
     "需求.md",
