@@ -59,25 +59,25 @@
 			"x":-4100,
 			"y":160,
 			"width":260,
-			"height":170
-		},
-		{
-			"id":"1e5963333d4aa3c7",
-			"type":"text",
-			"text":"学习前端 ui 与图形协议。",
-			"styleAttributes":{},
-			"x":-4100,
-			"y":380,
-			"width":260,
-			"height":60
+			"height":220
 		},
 		{
 			"id":"524a95ce89e302d9",
 			"type":"text",
 			"text":"学习多智能体编排流程",
 			"styleAttributes":{},
-			"x":-3840,
-			"y":270,
+			"x":-3620,
+			"y":220,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1e5963333d4aa3c7",
+			"type":"text",
+			"text":"学习前端 ui 与图形协议。",
+			"styleAttributes":{},
+			"x":-4080,
+			"y":440,
 			"width":260,
 			"height":60
 		}
