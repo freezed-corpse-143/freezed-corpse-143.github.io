@@ -3111,3 +3111,5 @@ if ((Test-Path $leanCtxHook) -and -not [Console]::IsOutputRedirected) { . $leanC
 
 # 关闭 windows 系统遥测
 
+1. `win+r`，输入 `service.msc`
+2. 找到 `Connected User Experiences and Telemetry` 服务，停止，并禁用。
