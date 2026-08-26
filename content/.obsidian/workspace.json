@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "知识图谱"
             }
+          },
+          {
+            "id": "0c5f28ecc5ea398b",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3798.2043066004967,
+                  "y": 21.27187271833757,
+                  "zoom": 0.28329265083373784
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -198,11 +216,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3f6c7f0824f85cbf",
+  "active": "0c5f28ecc5ea398b",
   "lastOpenFiles": [
+    "人工智能/知识图谱.md",
     "人工智能/多智能体设计.md",
     "TODO.canvas",
-    "人工智能/知识图谱.md",
     "数据库.md",
     "人工智能",
     "软件使用.md",
