@@ -11,17 +11,14 @@
             "id": "3f6c7f0824f85cbf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3590,
-                  "y": 252.23379383634432,
-                  "zoom": -0.33626820807222907
-                }
+                "file": "人工智能/知识图谱.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "知识图谱"
             }
           }
         ]
@@ -79,8 +76,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -203,17 +199,19 @@
   },
   "active": "3f6c7f0824f85cbf",
   "lastOpenFiles": [
+    "数据库.md",
+    "人工智能/知识图谱.md",
+    "人工智能/多智能体设计.md",
+    "人工智能",
+    "TODO.canvas",
     "软件使用.md",
     "index.md",
-    "TODO.canvas",
     "环境配置.md",
-    "多智能体设计.md",
     "Python.md",
     "windows.md",
     "编程语言.md",
     "报错.md",
     "需求.md",
-    "数据库.md",
     "网上资源.md",
     "Prompt Engineer.md",
     "408/操作系统.md",
@@ -247,7 +245,6 @@
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
     "环境配置.md.tmp.29076.504e06044194",
     "我的项目.md.tmp.29192.3b9b1a433815",
-    "index.md.tmp.24064.bd9ad9a42ce6",
-    "环境配置.md.tmp.24064.6640726cfa95"
+    "index.md.tmp.24064.bd9ad9a42ce6"
   ]
 }
