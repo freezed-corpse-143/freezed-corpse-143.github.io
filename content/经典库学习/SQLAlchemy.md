@@ -45,3 +45,6 @@ with Session(engine) as session:
 	for row in result:
 		print(f"x: {row.x} y: {row.y}")
 ```
+
+# 形式化定义元数据
+
