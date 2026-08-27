@@ -573,3 +573,117 @@ POST /evaluations/{run_id}/rerun-failed
       → LLM 最终答案（每条事实带 [chunk_id] 引用）
   → 引用提取 → 缓存写回（可缓存时）→ AgentAskResponse
 ```
+
+# 业务模块（业务切面）
+
+## 依赖图
+
+```mermaid
+flowchart TD
+    UI[api/v1 routes] --> DEP[dependencies.py DI 装配]
+    DEP --> AGENTS[agents: ask_pipeline→service]
+    DEP --> RAG[RAG services]
+    DEP --> MODS[modules]
+
+    AGENTS --> TOOLS[tools: retriever_tool + registry]
+    AGENTS --> QREF[agents: query_refinement]
+    AGENTS --> CPOL[agents: cache_policy]
+    AGENTS --> CACHE[modules: semantic_cache]
+    AGENTS --> DOCS[modules: documents]
+
+    TOOLS --> RAGSVC[rag/pipeline RAGRetrievalService]
+    RAGSVC --> EMB[rag/embeddings interface]
+    RAGSVC --> VS[rag/vectorstore interface]
+    RAGSVC --> RR[rag/reranker interface]
+    EMB --> HF[infra: openai_embeddings]
+    EMB --> OAI[infra: huggingface_embeddings]
+    VS --> CHROMA[infra: chroma_vectorstore]
+    RR --> COHERE[infra: cohere_reranker]
+
+    RAGSVC2[rag/pipeline RAGIngestionService] --> CHUNK[rag/ingestion chunker+strategies]
+    RAGSVC2 --> PDF[rag/ingestion pdf_extractor]
+    RAGSVC2 --> EMB
+
+    MODS --> EVAL[modules: evaluation service/judge/metrics/retriever]
+    EVAL --> RAGEVAL[RAGRetrievalEvaluatorAdapter → RAGRetrievalService]
+    EVAL --> JLLM[ContextRelevanceJudge → infra/openai_llm]
+
+    MODS --> USERS[modules: users]
+    MODS --> DOCS
+    MODS --> CACHE
+
+    CACHE --> PG[(Postgres + pgvector)]
+    DOCS --> PG
+    EVAL --> PG
+    USERS --> PG
+    CHROMA --> CDB[(Chroma 本地库)]
+    AGENTS --> LLM[shared/interfaces LLM → infra/openai_llm]
+```
+
+## 依赖方向
+
+`api/v1`（装配层，唯一认识所有模块）→ `agents`（编排）→ `rag`（RAG 领域，只依赖自己目录内的接口）→ `modules/*`（领域实体，只依赖 infra 与 shared）→ `infrastructure`（适配器）→ `shared`（LLM/Tool 接口 + tracing）
+
+## 模块清单（按业务切面）
+
+### 1. api/v 1 — 表现层/装配层
+- `routes/`：agent, rag, auth, users, documents, evaluations, health, ui（8 个 router）
+- `schemas/`：agent, rag, documents, evaluation, health（Pydantic 请求/响应模型）
+- `dependencies.py`：唯一 DI 装配点，`@lru_cache` 单例，组装全部 service/tool/provider
+
+### 2. agents — 编排层
+| 模块 | 职责 |
+|---|---|
+| `ask_pipeline.py` | 编排：归属校验 → 改写 → 缓存查 → agent 循环 → 缓存写 |
+| `service.py` | AgentService 循环：LLM + 工具调用 + 引用提取 |
+| `query_refinement.py` | 查询改写服务 |
+| `cache_policy.py` | 缓存策略判定（is_cacheable_rag_answer / is_no_answer_fallback） |
+
+### 3. rag — RAG 领域层（接口/实现分离）
+| 模块 | 职责 |
+|---|---|
+| `pipeline/services.py` | RAGIngestionService + RAGRetrievalService（两个核心服务） |
+| `ingestion/` | chunker 入口 + chunking/{base, fixed_window, recursive_semantic, registry} + pdf_extractor |
+| `embeddings/` | EmbeddingProvider 接口 |
+| `reranker/` | Reranker 接口 |
+| `vectorstore/` | VectorStore 接口 |
+| `models.py` | RetrievedChunk / RAGChunk |
+
+### 4. modules — 业务领域实体
+| 模块 | 职责 | 持久化 |
+|---|---|---|
+| `users/` | 用户模型 + fastapi-users 装配 + JWT | Postgres |
+| `documents/` | 文档模型 + 归属 repository | Postgres |
+| `semantic_cache/` | 语义缓存模型/repository/service | Postgres + pgvector |
+| `evaluation/` | 评估全链路：dataset, judge, matching, metrics, models, repository, retriever, service | Postgres |
+
+### 5. infrastructure — 适配器
+| 模块                                | 实现                                     |
+| --------------------------------- | -------------------------------------- |
+| `database/`                       | SQLAlchemy async engine/session + Base |
+| `llm/openai_llm.py`               | OpenAI-compatible chat LLM             |
+| `llm/openai_embeddings.py`        | OpenAI embeddings                      |
+| `llm/huggingface_embeddings.py`   | HuggingFace embeddings                 |
+| `reranker/cohere_reranker.py`     | Cohere reranker                        |
+| `vector_db/chroma_vectorstore.py` | Chroma vector store                    |
+
+### 6. tools — 工具层
+- `retriever_tool.py`：`retrieve_context` 工具（RAG 检索封装，doc_id 隔离）
+- `ping_tool.py`：健康检查工具
+- `registry.py`：ToolRegistry（注册/查询/OpenAI schema 导出/执行）
+
+### 7. settings — 配置
+`app` (DB/JWT) / `auth` / `ai` (LLM+embedding) / `rag` (chunk_size, overlap, top_k, prefetch_k, reranker) / `database` / `evaluation` (judge model, k) / `agent` (max_steps, temperature, timeout, system_prompt)—— `config.py` 聚合为单一 `settings` 单例。
+
+### 8. shared — 共享
+- `interfaces/llm.py`：LLM 抽象（ChatMessage / ToolCall / GenerationConfig）
+- `interfaces/tool.py`：Tool 抽象（ToolContext / ToolExecutionResult）
+- `tracing.py`：全链路 trace（TraceContext / trace_event）
+
+## 关键架构决策
+
+1. **接口/实现分离**：`rag/embeddings|reranker|vectorstore` 是纯 Protocol/ABC，实现全在 `infrastructure/`，由 DI 装配——切换 provider 只改装配点。
+2. **评估复用生产检索**：`RAGRetrievalEvaluatorAdapter` 包装 `RAGRetrievalService`，评估不另起炉灶。
+3. **全链路 tracing**：`shared/tracing.py` 的 `TraceContext` 贯穿 ask→agent→retrieval 每一跳（最近提交 `feat: add request tracing across agent and retrieval flow`）。
+4. **DI 单例**：`api/v1/dependencies.py` 用 `@lru_cache` 缓存 provider/service 实例。
+5. **缓存与版本绑定**：语义缓存键含 `doc_version`（doc.last_indexed_at），文档重新摄取后旧缓存自动失效。
