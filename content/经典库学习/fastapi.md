@@ -190,3 +190,64 @@ class NoteSchema(BaseModel):
 
 # Post 路由
 
+新增 `src/app/api/notes.py`
+
+```python
+from app.api import crud
+from app.api.models import NoteDB, NoteSchema
+from fastapi import APIRouter, HTTPException
+
+router = APIRouter()
+
+@router.post("/", response_model=NoteDB, status_code=201)
+async def create_note(payload: NoteSchema):
+	note_id = await crud.post(payload)
+	response_object = {
+		"id": note_id,
+		"title": payload.title,
+		"description": payload.description,
+	}
+	return respone_object
+```
+
+新增 `src/app/api/crud.py`
+
+```python
+from app.api.models import NoteSchema
+from app.db import notes, database
+
+async def post(payload: NoteSchema):
+	query = notes.insert().values(
+		title=payload.title,
+		description=payload.description
+	)
+	return await database.execute(query=query)
+```
+
+更新 `src/app/api/models.py`
+
+```python
+from pydantic import BaseModel
+
+class NoteSchema(BaseModel):
+	title: str
+	description: str
+	
+class NoteDB(NoteSchema):
+	id: int
+```
+
+更新 main.py
+
+```python
+from app.api import notes
+
+app.include_router(notes, prefix="/notes", tags=["notes"])
+```
+
+测试模块，新增 `src/tests/test_notes.py`
+
+```python
+import json
+
+```
