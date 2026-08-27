@@ -8,20 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "3f6c7f0824f85cbf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "人工智能/知识图谱.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "知识图谱"
-            }
-          },
-          {
             "id": "0c5f28ecc5ea398b",
             "type": "leaf",
             "state": {
@@ -39,20 +25,21 @@
             }
           },
           {
-            "id": "6720f15b7382d5ed",
+            "id": "a02f345cb4cd892e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "windows.md",
+                "file": "软件使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "windows"
+              "title": "软件使用"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -111,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -229,11 +215,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3f6c7f0824f85cbf",
+  "active": "a02f345cb4cd892e",
   "lastOpenFiles": [
+    "人工智能/Prompt.md",
+    "人工智能/Prompt Engineer.md",
     "TODO.canvas",
-    "人工智能/知识图谱.md",
     "windows.md",
+    "人工智能/知识图谱.md",
     "环境配置.md",
     "人工智能/多智能体设计.md",
     "数据库.md",
@@ -245,12 +233,10 @@
     "报错.md",
     "需求.md",
     "网上资源.md",
-    "Prompt Engineer.md",
     "408/操作系统.md",
     "408/计算机网络.md",
     "经验之谈.md",
     "服务使用.md",
-    "Prompt.md",
     "绘图.md",
     "实习.md",
     "产品服务.md",
