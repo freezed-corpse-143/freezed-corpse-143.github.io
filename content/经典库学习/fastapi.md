@@ -96,3 +96,11 @@ def test_app():
 async def pong():
 	return {"ping": "pong!"}
 ```
+
+# API 路由
+
+比如，新建 `src/app/api/ping.py`
+
+```python
+from fastapi
+```
