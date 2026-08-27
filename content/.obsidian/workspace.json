@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经验之谈.md",
+                "file": "github项目/SuperMew.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "经验之谈"
+              "title": "SuperMew"
             }
           },
           {
@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3595.6250020643733,
-                  "y": 273.44466025694203,
+                  "y": 635.2409364793857,
                   "zoom": -0.37491243708473293
                 }
               },
@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -216,10 +215,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a02f345cb4cd892e",
+  "active": "0c5f28ecc5ea398b",
   "lastOpenFiles": [
-    "经验之谈.md",
     "TODO.canvas",
+    "github项目/SuperMew.md",
+    "经验之谈.md",
     "软件使用.md",
     "github项目/agentic-rag.md",
     "github项目",
@@ -245,7 +245,6 @@
     "绘图.md",
     "实习.md",
     "产品服务.md",
-    "编译.md",
     "408",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
