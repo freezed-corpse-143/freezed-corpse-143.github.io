@@ -204,3 +204,75 @@ DELETE /sessions/{session_id}          # 删除会话（user 仅可删自己的�
 复杂度规划对明显的单事实问题走本地规则快速路径，不调用模型。
 
 # 功能结构
+
+按能力域划分，6 个功能块：
+
+| 功能域 | 入口 | 核心服务 | 说明 |
+|---|---|---|---|
+| **认证与权限** | `/auth/*` | `infra/auth.py` (JWT + PBKDF 2 + RBAC) | 注册/登录/me，admin/user 角色，admin 邀请码 |
+| **聊天** | `/chat`, `/chat/stream` | `chat/service.py` → `chat/runtime.py` (Agent) | 同步/SSE 流式，流式 token + 中止，会话标题，持久笔记 |
+| **文档管理** | `/documents*` | `api/resources.py` + `jobs/upload_jobs.py` | admin 上传/删除（同步+异步任务）、列表、支持 6 种格式 |
+| **知识检索（RAG）** | 聊天内 `search_knowledge_base` 工具 | `rag/pipeline.py` + `rag/utils.py` | 复杂度规划→混合检索→Auto-merge→Rerank→评分路由→重写/HITL |
+| **会话记忆** | `/sessions*` | `chat/storage.py` (ConversationStorage) | PG 持久化 + Redis 热点缓存，摘要注入，HITL 断点持久化 |
+| **工具** | Agent 工具调用 | `tools/weather.py`, `tools/knowledge.py` | 天气查询、知识库检索（每轮 1 次预算） |
+
+## 各功能域明细
+
+### 认证与权限（infra/auth）
+- `POST /auth/register`：注册，`resolve_role` 校验 admin 邀请码（`ADMIN_INVITE_CODE`）决定角色
+- `POST /auth/login`：`authenticate_user`（兼容 PBKDF 2-SHA 256 新哈希与历史 bcrypt 哈希）→ `create_access_token`（HS 256 JWT，`JWT_EXPIRE_MINUTES` 时效）
+- `GET /auth/me`：当前用户（username/role）
+- RBAC：`get_current_user`（Bearer token）→ `require_admin` 守卫文档全部操作；会话按用户隔离
+- 密码：PBKDF 2-SHA 256，轮数 `PASSWORD_PBKDF2_ROUNDS`（默认 310000），服务端全局清洗不可见字符
+
+### 聊天（chat/service + runtime）
+- `POST /chat` 同步：`chat_with_agent` 单次调用返回完整回答
+- `POST /chat/stream` SSE：`chat_with_agent_stream`
+  - 首条消息自动 `generate_session_title`
+  - 加载历史 + `persistent_note` 摘要注入 `_build_context_messages`
+  - `create_agent_for_request`：LangChain `create_agent(model=MODEL, tools=[weather, knowledge], system_prompt=…)`
+  - `agent.astream(stream_mode="messages")` 逐 token 推送；`asyncio.Queue` + 后台任务解耦 RAG 同步工具的事件推送
+  - 每轮结束 `storage.save` 落库（PG + Redis 缓存失效）
+- 中止：前端 AbortController → StreamingResponse 断开 → `GeneratorExit` 取消 agent 任务
+- HITL：`pending_hitl` 存于会话 metadata；下次提问检测到后走 `_resume_rag_from_hitl_sync`（executor 线程）恢复，不重进主图
+
+### 文档管理（api/resources + jobs）
+- 支持格式：`.pdf` `.docx` `.doc` `.xlsx` `.xls` `.html` `.htm`（`is_supported_document`）
+- 同步上传：`POST /documents/upload` → `_process_upload_job` 全链路（清理旧版→解析分块→父块入库→向量入库）
+- 异步上传：`POST /documents/upload/async` → 内存任务状态机五步（upload → cleanup → parse → parent_store → vector_store），前端轮询进度
+- 删除：同步 `DELETE /documents/{filename}`；异步 `DELETE /documents/delete/async/{filename}`（prepare → bm 25 → milvus → parent_store），`delete_document_transactionally` 保证 Milvus 向量 + PG 父块 + Redis 缓存一致性清理
+- 同名重传：先清旧数据再入库，杜绝残留
+- 任务状态：`UploadJobManager`（进程内存 + 线程锁），含每步 percent/status/message
+
+### 知识检索（rag，重点）
+- 入口：Agent 调用 `search_knowledge_base(query)` 工具 → `run_rag_graph(query, ctx)`
+- 复杂度规划：`classify_complexity`（本地规则快速路径或 FAST_MODEL 结构化输出）→ simple 走标准检索 / complex 拆 2-4 子问题并行
+- 检索：`retrieve_documents`（详见数据流）— 候选池 → Auto-merging → Jina Rerank → min_score 门控
+- 证据评分与路由：`grade_documents_node`（GRADE_MODEL）→ answer / rewrite / clarify / scope_select / no_knowledge
+- 查询重写：`rewrite_question_node` — FAST_MODEL 单选 Step-back 或 HyDE，只执行一次二次检索（`rewrite_count ≥ 1` 则终止为 no_knowledge）
+- HITL：`clarify`（证据不足需补充细节）/ `scope_select`（多个检索方向需用户选择）→ 工具返回 `NEEDS_CLARIFICATION` / `NEEDS_SCOPE_SELECTION` → Agent 原样转述提问；恢复走 `resume_rag_from_hitl` 定向检索
+- 可观测：`rag_trace` 全字段（评分、路由、重写内容、初次/二次检索、合并与精排统计、子问题追踪），前端 `RetrievalTraceDetails.vue` 展开查看
+
+### 会话记忆（chat/storage）
+- `ConversationStorage`：PostgreSQL（`chat_messages` / `chat_sessions`）+ Redis 双读缓存
+- 缓存键：`chat_messages:{user}:{session}`、`chat_sessions:{user}`；写入/删除后失效
+- 会话元数据 `metadata_json`：标题、`persistent_note`（摘要）、`pending_hitl`（HITL 断点）
+- `update_persistent_note`：自动摘要旧消息注入系统提示，控制 token 且维持上下文
+
+### 工具（tools）
+- `get_current_weather`：高德天气 API（`AMAP_WEATHER_API` + `AMAP_API_KEY`），可插拔扩展
+- `search_knowledge_base`：按请求闭包绑定 `ChatRequestContext`；`acquire_knowledge_tool_slot` 每轮限 1 次（超限返回 `TOOL_CALL_LIMIT_REACHED`）；结果按 `[i] filename (Page n)` 格式化，HITL/无知识返回特殊前缀文案
+- system prompt 约束：基于检索块作答并内联引用 `[1][2]`，禁止无来源事实，禁止重复调用工具
+
+## 前端层（frontend/src）
+
+SPA 直接消费 API，Pinia 状态 + 组件分层：
+
+| 功能 | Store / 组件 | 说明 |
+|---|---|---|
+| 登录/注册 | `stores/auth.ts` + `AuthPanel.vue` | JWT Bearer 请求、admin 邀请码 |
+| 会话 | `stores/sessions.ts` + `HistorySidebar.vue` | 列表/切换/删除 |
+| 聊天流 | `stores/chat.ts` + `ChatArea/ChatInput/MessageItem` | SSE 流式、打字机、中止按钮、HITL 渲染 |
+| RAG 可视化 | `ThinkingTrace.vue` / `RetrievalTraceDetails.vue` / `KnowledgeContextPanel.vue` | 思考步骤、子 Agent 追踪、检索漏斗、评分/重写详情 |
+| 引用 | `References.vue` | RRF Rank / rerank_score / 合并块数 / 层级 / 页码 |
+| 文档管理 | `stores/documents.ts` + `UploadSection/DocumentSettings/DocumentItem` | 上传任务多阶段进度轮询、设置、列表删除 |
