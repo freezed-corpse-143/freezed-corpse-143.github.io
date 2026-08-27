@@ -82,14 +82,14 @@
 			"height":60
 		},
 		{
-			"id":"79c51116266d890c",
+			"id":"354a61675f30d51d",
 			"type":"text",
-			"text":"API 设计",
+			"text":"学习计划：\n- [ ] flaskapi 库\n- [ ] JWT 验证\n- [ ] ORM SQLAlchemy\n- [ ] Postgresql\n- [ ] jinja 模板\n- [ ] 检索 RAG:\n\t- [ ] 分块策略与检索粒度\n\t- [ ] 索引建立策略\n\t- [ ] 索引使用策略\n\t- [ ] 知识库元信息策略\n\t- [ ] 知识库更新策略\n\t- [ ] 查询改写策略\n\t- [ ] 检索策略。\n\t- [ ] RAG 评测策略。\n\t- [ ] pdf 提取策略\n\t- [ ] ",
 			"styleAttributes":{},
-			"x":-4100,
-			"y":60,
+			"x":-3680,
+			"y":340,
 			"width":260,
-			"height":60
+			"height":500
 		}
 	],
 	"edges":[],
