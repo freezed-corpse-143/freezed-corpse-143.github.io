@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3595.6250020643733,
-                  "y": 635.2409364793857,
+                  "y": 273.44466025694203,
                   "zoom": -0.37491243708473293
                 }
               },
@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
