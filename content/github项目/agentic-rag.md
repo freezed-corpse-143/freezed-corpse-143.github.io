@@ -1,3 +1,4 @@
+# 项目简介
 ## 定位
 
 生产导向的 FastAPI RAG 系统 starter——不止"传文本、问问题"，而是完整支持**认证、文档归属、文档级检索隔离、语义缓存、评估管线、内置 UI**。
@@ -15,7 +16,6 @@
 - 文档归属、列表、软删除
 - 评估管线：检索指标（ Hit@k / Recall@k /MRR）+ LLM judge 答案指标（Accuracy/Completeness/Relevance/Groundedness），支持运行历史、失败用例重跑、数据集复用
 - Jinja UI（登录、提问、评估、对比）
-
 ## 规模与技术栈
 
 **规模**：87 个 Python 文件，~6900 行。
@@ -53,6 +53,7 @@
 - 带运行历史、用例检查、重跑支持的评估管线
 - 开箱即用的提问与评估 UI
 
+# 快速开始
 ## 前置要求
 
 - Python `3.12+`
@@ -182,7 +183,7 @@ curl -X POST "http://localhost:8000/agent/ask?use_cache=true" \
 
 每次运行存储：聚合指标、逐用例结果、生成答案、引用、检索排名、配置快照（可复现）。
 
-## 目录结构（物理结构）
+# 目录结构（物理结构）
 
 ```
 agentic-rag/
@@ -380,3 +381,195 @@ Jinja 页面直接消费 API，无独立后端逻辑：
 | 文档列表              | `/documents-ui`             | documents_ui.html       |
 | 文档 chunks         | `/documents/{id}/chunks-ui` | document_chunks_ui.html |
 | 评估列表/创建/详情/对比/数据集 | `/evaluations*`             | evaluation_*.html ×5    |
+
+# 功能结构（逻辑结构）
+
+按能力域划分，6 个功能块：
+
+| 功能域 | 入口 | 核心服务 | 说明 |
+|---|---|---|---|
+| **认证** | `/auth/jwt/*`, `/users/*` | `modules/users/` (fastapi-users + 自定义 JWT/cookie) | access+refresh，Bearer + Cookie 双后端 |
+| **摄取** | `POST /rag/ingest/{text,pdf}` | `RAGIngestionService` + chunker + PDFExtractor | 分块→embed→写入 Chroma，记录 `last_indexed_at` |
+| **提问** | `POST /agent/ask` | `AgentAskPipeline` → `AgentService` → `RetrieverTool` → `RAGRetrievalService` | 改写→缓存查→agent 循环→缓存存 |
+| **文档管理** | `/documents*` | `modules/documents/` (repository) | 归属校验、列表、软删除、chunk 查看 |
+| **语义缓存** | 内嵌于 ask 流程 | `modules/semantic_cache/` | pgvector 相似度查/存，绑定 `doc_version`+`model_name` |
+| **评估** | `/evaluations*`, `/evaluation-datasets*` | `modules/evaluation/` (service+judge+metrics+retriever) | JSONL 数据集→跑检索/问答→指标+judge→持久化→rerun |
+
+## 各功能域明细
+
+### 认证
+- `src/modules/users/dependencies.py`：fastapi-users 装配，Bearer + Cookie 双 transport，JWTStrategy
+- `src/modules/users/security/jwt.py`：自定义 JWT 签发/校验
+- `src/api/v1/routes/auth.py`：login/refresh/logout，access + refresh 双 token，cookie 写入
+- `src/api/v1/routes/users.py`：fastapi-users 标准 users router（UserRead/UserUpdate）
+
+### 摄取（RAGIngestionService）
+- 文本摄取：chunk → embed_documents → vector_store.upsert_chunks
+- PDF 摄取：pdfplumber 提取页级分段（text/table）→ 逐段 chunk（页号元数据）→ embed → upsert
+- 分块策略（`rag/ingestion/chunking/`）：`fixed_window`（固定窗口）与 `recursive_semantic`（语义递归），通过 `ChunkingStrategyRegistry` 按名解析
+- 表格识别：PDF 页面内表格转 Markdown 文本段，正文词按 bbox 去重（rapidfuzz 相似度）
+
+### 提问（AgentAskPipeline）
+
+- 文档归属校验（不存在则抛 `DocumentNotFoundError`）
+- Query Refinement（LLM 改写查询，可配置开关）
+- 语义缓存查（embed 归一化问题 → pgvector 相似度），命中直接返回
+- Agent 循环（≤max_steps）：LLM generate → 工具调用 → RetrieverTool 检索 → 回填 → 最终答案 + 引用提取
+- 可缓存答案写回缓存（RAG-backed 且非 no-answer fallback）
+
+### 文档管理（modules/documents）
+
+- `Document` 模型：id（业务主键）、owner_user_id、source、chunking 配置、last_indexed_at、deleted_at
+- `DocumentsRepository`：归属过滤查询（`get_owned_document`）、列表、软删除
+- chunk 查看：从 Chroma 拉取文档下全部 chunk（documents 路由的 `_filter_chunks` 去重字段）
+
+### 语义缓存（modules/semantic_cache）
+
+- 命中键 = owner_user_id + doc_id + doc_version（last_indexed_at）+ model_name + 查询向量相似度
+- `normalize_question`：规范化问题文本
+- 缓存失败永不阻塞生成（try/except 吞掉并记录 trace）
+
+### 评估（modules/evaluation）
+- 数据集：JSONL 上传 → sha256 落盘去重 → `parse_retrieval_dataset_jsonl_bytes` 解析
+- 检索评估：`RAGRetrievalEvaluatorAdapter` 复用生产 `RAGRetrievalService`
+- 指标：hit@k / recall@k / precision@k / MRR / keyword_coverage，`metrics.py` 聚合与分组汇总
+- LLM judge：`ContextRelevanceJudge` 对检索上下文相关性打分（0-3 + 解释）
+- 运行管理：`POST /evaluations/retrieval`（202 异步）→ 逐 case 处理 → 聚合 → `rerun-failed` 重置失败用例
+- 数据集管理：list / preview / download / delete
+
+## UI 层（templates/）
+
+Jinja 页面直接消费 API，无独立后端逻辑：
+
+| 页面 | 路由 | 模板 |
+|---|---|---|
+| 登录 | `/login-ui` | login_ui.html |
+| 提问 | `/ask-ui` | ask_ui.html |
+| 文档列表 | `/documents-ui` | documents_ui.html |
+| 文档 chunks | `/documents/{id}/chunks-ui` | document_chunks_ui.html |
+| 评估列表/创建/详情/对比/数据集 | `/evaluations*` | evaluation_*.html ×5 |
+
+# 数据流结构
+
+入口：`main.py` 注册 8 个 router（agent/rag/auth/users/documents/evaluations/health/ui），全部业务入口经 `api/v1/dependencies.py` 的 DI 装配。
+
+## 1. 提问流（主链路）
+
+```mermaid
+flowchart TD
+    A[POST /agent/ask] --> B{AgentAskPipeline.ask}
+    B --> C[查 DocumentsRepository 归属校验]
+    C --> D[QueryRefinement 改写查询]
+    D --> E{缓存可用? use_cache + last_indexed_at}
+    E -->|是| F[embed_query + SemanticCache.lookup]
+    F -->|HIT| G[直接返回缓存答案 steps=0]
+    F -->|MISS| H
+    E -->|否| H[AgentService.run 循环 ≤max_steps]
+    H --> I[LLM generate with tools]
+    I --> J{有 tool_calls?}
+    J -->|是| K[ToolRegistry.execute: retrieve_context]
+    K --> L[RAGRetrievalService.retrieve]
+    L --> M[embed_query → Chroma 相似度 top prefetch_k]
+    M --> N[可选 Cohere rerank → top_k]
+    N --> O[结果回填 messages → 回到 I]
+    J -->|否| P[提取 citations → 最终答案]
+    P --> Q{is_cacheable_rag_answer 且非 fallback}
+    Q -->|是| R[embed + SemanticCache.store]
+    R --> S[AgentAskResponse]
+```
+
+**输入**：`AgentAskRequest {question, doc_id, session_id?}` + query 参数 `use_cache`
+
+**输出**：`AgentAskResponse {status, cache_status(hit/miss), refined_query, answer, steps, tools_used, citations[{source, doc_id, chunk_id, snippet, page_number}]}`
+
+**关键约束**：
+
+- `doc_id` 是**硬性检索隔离**——RetrieverTool 强制从 `ToolContext.doc_id` 取文档范围；文档不存在抛 `DocumentNotFoundError`
+- 缓存失败永不阻塞生成（异常吞掉，trace 记录 `ask.cache.lookup.failed`）
+- no-answer fallback 不写缓存（`is_no_answer_fallback` 检查）
+- 可缓存条件：`is_cacheable_rag_answer`（RAG-backed 且有引用）
+- 全链路 tracing：`TraceContext(request_id, doc_id, owner_user_id, session_id)` 贯穿 ask→agent→retrieval 每跳
+
+### AgentService 循环细节
+
+- system prompt：严格 RAG 助手，只答检索内容，禁止推理/猜测/外部知识
+- 每轮：LLM generate（带工具 schema）→ 有 tool_calls 则执行工具（注册表 `retrieve_context` + `ping`）→ 结果回填 → 直至无 tool_calls 或达 max_steps
+- 引用提取：从最新一次 `retrieve_context` 输出的 `results[]` 中取 doc_id/chunk_id/text/page_number
+- 无引用 → `NO_ANSWER_FALLBACK`；超步数 → `status: max_steps_reached`
+
+## 2. 摄取流
+
+```text
+文本: POST /rag/ingest/text {text, source?}
+PDF:  POST /rag/ingest/pdf (multipart bytes)
+  → ChunkingStrategy.resolve(strategy_name)   # fixed_window | recursive_semantic
+  → chunk(text, doc_id, chunk_size, chunk_overlap, page_number?)
+  → embed_documents(chunks)
+  → VectorStore.upsert_chunks
+  → 返回 IngestionResult / PDFIngestionResult
+```
+
+PDF 特殊处理：
+
+- pdfplumber 逐页提取，识别表格（bbox 重叠去重，rapidfuzz 相似度去重相邻重复段）
+- 段级 chunk，携带 `page_number` → 引用可带页码
+- chunk_id 重编号为 `chunk-{global_index}`
+- `pages_ingested == 0` 或 `chunks == 0` 抛 ValueError
+
+## 3. 检索流（RetrieverTool → RAGRetrievalService）
+
+```text
+retrieve(query, top_k, doc_id)
+  → embed_query(query)
+  → vector_store.similarity_search(query_embedding, top_k=prefetch_k, doc_id=doc_id)
+  → 无候选 → []
+  → 无 reranker → 截取 top_k
+  → 有 reranker → rerank(candidates) → top_k（失败重试 1 次，仍失败抛 RERANK_EXHAUSTED_ERROR）
+```
+
+## 4. 评估流
+
+```text
+POST /evaluations/retrieval (202 异步)
+  → 解析 JSONL 数据集（sha256 落盘去重）
+  → EvaluationRetriever（RAGRetrievalEvaluatorAdapter 复用生产检索服务）
+  → 逐 case: 检索 → matching(关键词/短语) → metrics(hit@k/recall/mrr/keyword_coverage)
+  → 可选 ContextRelevanceJudge（LLM 打分 0-3 + 解释）
+  → 聚合指标 + grouped_summary → EvaluationRepository 持久化
+  → config_snapshot 记录配置保证可复现
+
+POST /evaluations/{run_id}/rerun-failed
+  → 重置失败用例为 queued → 重跑 → 更新聚合
+```
+
+评估输入（JSONL 数据集）：`{question, reference_answer, must_include_keywords?, must_include_phrases?, difficulty?, category?}`
+
+评估输出：Run 聚合指标 + 每 case 的检索排名/命中/关键词覆盖率 + judge 评分与解释。
+
+## 5. CRUD 导出（全部数据操作）
+
+| 实体 | Create | Read | Update | Delete |
+|---|---|---|---|---|
+| **User** | 注册 `POST /auth/register` (fastapi-users) | `GET /users/me` | `PATCH /users/me` | — |
+| **Document** | `POST /rag/ingest/{text,pdf}` (隐式建 doc) | `GET /documents`, `GET /documents/{id}`, `GET /documents/{id}/chunks` | — | `DELETE /documents/{id}`（软删除） |
+| **SemanticCacheEntry** | `SemanticCache.store`（ask 命中后写） | `SemanticCache.lookup`（ask 前置查） | — | —（随 doc 级联删） |
+| **EvaluationRun** | `POST /evaluations/retrieval` (202 异步) | `GET /evaluations`, `GET /evaluations/{id}`, `GET .../cases` | 运行中更新 processed/metrics；`POST .../rerun-failed` 重置失败用例 | `DELETE /evaluations/{id}` |
+| **EvaluationDataset** | 随 run 上传 JSONL 隐式落盘 | `GET /evaluation-datasets`, `.../{sha256}` (preview/download) | — | `DELETE /evaluation-datasets/{sha256}` |
+| **向量 chunk** | `upsert_chunks`（摄取时） | `similarity_search`（检索时） | — | —（软删后由 doc 隔离屏蔽，非物理删除） |
+
+## 6. 端到端时序（典型场景）
+
+```text
+用户 → POST /agent/ask {question, doc_id}
+  → 鉴权（Bearer/cookie JWT）
+  → AgentAskPipeline:
+      doc 归属校验 → 查询改写 → 缓存查(命中即返) → AgentService
+  → AgentService 循环:
+      LLM.generate(question, [retrieve_context, ping])
+      → LLM 返回 tool_call: retrieve_context(query)
+      → RetrieverTool.run → RAGRetrievalService.retrieve(doc_id 隔离)
+      → Chroma 相似度 top prefetch_k → Cohere rerank → top_k chunks
+      → 工具结果回填 messages
+      → LLM 最终答案（每条事实带 [chunk_id] 引用）
+  → 引用提取 → 缓存写回（可缓存时）→ AgentAskResponse
+```
