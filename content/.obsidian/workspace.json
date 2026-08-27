@@ -52,7 +52,8 @@
               "title": "经验之谈"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -229,10 +230,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0c5f28ecc5ea398b",
+  "active": "a02f345cb4cd892e",
   "lastOpenFiles": [
-    "TODO.canvas",
     "经典库学习/fastapi.md",
+    "TODO.canvas",
     "经典库学习/asyncpg.md",
     "github项目/SuperMew.md",
     "经典库学习",

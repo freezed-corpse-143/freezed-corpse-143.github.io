@@ -398,5 +398,21 @@ async def delete(id: int):
 # 配置跨域访问
 
 ```python
-from fastapi import
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+origins = [
+	"http://localhost:3000",   # 例如：React 开发服务器
+	"http://localhost:8080",   # 例如：Vue 开发服务器
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,      # 允许的源列表
+    allow_credentials=True,     # 是否允许携带 Cookie
+    allow_methods=["*"],        # 允许所有 HTTP 方法 (GET, POST, PUT, etc.)
+    allow_headers=["*"],        # 允许所有请求头
+)
 ```
