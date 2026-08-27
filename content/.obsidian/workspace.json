@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3522.8521676432406,
-                  "y": 559.7652469646906,
+                  "y": 497.8475386626511,
                   "zoom": 0.5868786407730189
                 }
               },
@@ -217,11 +217,11 @@
   },
   "active": "4fad53f7c6be159a",
   "lastOpenFiles": [
-    "软件使用.md",
+    "TODO.canvas",
     "经典库学习/psycopg3.md",
+    "软件使用.md",
     "环境配置.md",
     "经典库学习/sqlite3.md",
-    "TODO.canvas",
     "经典库学习/SQLAlchemy.md",
     "经典库学习/PyJWT.md",
     "经验之谈.md",
@@ -246,7 +246,6 @@
     "编程语言.md",
     "需求.md",
     "网上资源.md",
-    "408/操作系统.md",
     "408",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
