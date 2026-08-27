@@ -121,3 +121,6 @@ app = FastAPI()
 
 app.include_router(ping.router)
 ```
+
+# postgresql 集成
+
