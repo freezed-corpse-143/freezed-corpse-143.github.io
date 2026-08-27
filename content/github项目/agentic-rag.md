@@ -687,3 +687,196 @@ flowchart TD
 3. **全链路 tracing**：`shared/tracing.py` 的 `TraceContext` 贯穿 ask→agent→retrieval 每一跳（最近提交 `feat: add request tracing across agent and retrieval flow`）。
 4. **DI 单例**：`api/v1/dependencies.py` 用 `@lru_cache` 缓存 provider/service 实例。
 5. **缓存与版本绑定**：语义缓存键含 `doc_version`（doc.last_indexed_at），文档重新摄取后旧缓存自动失效。
+
+# 数据模型与数据结构
+
+# Agentic RAG — 数据模型与数据结构
+
+## 1. SQLAlchemy 持久化模型（Postgres）
+
+### user（fastapi_users SQLAlchemyBaseUserTableUUID）
+
+```
+user
+  ├─ id UUID PK
+  ├─ email, hashed_password
+  ├─ is_active, is_superuser, is_verified
+  ├─ 1:N documents.owner_user_id (CASCADE)
+  ├─ 1:N semantic_cache_entries.owner_user_id (CASCADE)
+  └─ 1:N evaluation_runs.owner_user_id (CASCADE)
+```
+
+### documents
+
+```
+documents
+  ├─ id String(255) PK        # 业务主键，摄取时可指定
+  ├─ owner_user_id FK → user.id (CASCADE, index)
+  ├─ source String(512)?      # 来源标识（inline-text / uploaded-pdf / 自定义）
+  ├─ chunking_strategy String(64)?   # fixed_window | recursive_semantic
+  ├─ chunk_size Int? / chunk_overlap Int?
+  ├─ created_at / updated_at (server_default now)
+  ├─ last_indexed_at DateTime?       # 缓存失效的版本锚点 (doc_version)
+  └─ deleted_at DateTime?            # 软删除
+```
+
+### semantic_cache_entries
+
+```
+semantic_cache_entries
+  ├─ id UUID PK (uuid4)
+  ├─ owner_user_id FK → user.id (CASCADE, index)
+  ├─ doc_id String(255) FK → documents.id (CASCADE, index)
+  ├─ doc_version DateTime         # 文档版本（last_indexed_at）
+  ├─ model_name String(255)       # 生成答案的模型
+  ├─ question_normalized Text     # 归一化问题
+  ├─ question_embedding Vector    # pgvector；sqlite 变体 JSON
+  ├─ answer Text
+  ├─ citations JSONB (default [])
+  ├─ created_at
+  └─ 复合索引 (owner_user_id, doc_id, doc_version, model_name)
+     # 命中键 = 用户+文档+版本+模型
+```
+
+### evaluation_runs
+
+```
+evaluation_runs
+  ├─ id UUID PK (uuid4)
+  ├─ owner_user_id FK → user.id (CASCADE, index)
+  ├─ doc_id String(255) FK → documents.id (CASCADE, index)
+  ├─ status String(32) (index)          # queued/running/completed/failed
+  ├─ evaluation_type String(32) (default "retrieval")
+  ├─ dataset_name String(512) / dataset_path String(1024) / dataset_sha256 String(64)
+  ├─ total_cases Int / processed_cases Int (default 0)
+  ├─ k Int                               # top-k
+  ├─ config_snapshot JSONB               # 可复现性配置
+  ├─ hit_at_k_avg / recall_at_k_avg / precision_at_k_avg / mrr_avg Float?
+  ├─ keyword_coverage_avg Float? / context_relevance_score_avg Float?
+  ├─ grouped_summary JSONB               # 按 difficulty/category 分组指标
+  ├─ error_message Text?
+  ├─ created_at / started_at? / finished_at?
+  └─ 1:N evaluation_cases (cascade delete-orphan, order by case_index)
+```
+
+### evaluation_cases
+
+```
+evaluation_cases
+  ├─ id UUID PK (uuid4)
+  ├─ run_id UUID FK → evaluation_runs.id (CASCADE, index)
+  ├─ case_index Int
+  ├─ status String(32) (default "queued", index)   # queued/running/passed/failed
+  ├─ 输入:
+  │   ├─ question Text
+  │   ├─ reference_answer Text
+  │   ├─ must_include_keywords JSONB (default [])
+  │   ├─ must_include_phrases JSONB (default [])
+  │   ├─ difficulty String(64)? / category String(64)?
+  ├─ 检索证据:
+  │   ├─ retrieved_chunk_ids JSONB (default [])
+  │   ├─ retrieved_chunk_texts JSONB (default [])
+  │   ├─ matched_phrases JSONB / matched_keywords JSONB
+  │   ├─ first_correct_rank Int? / useful_chunk_count Int?
+  ├─ 指标:
+  │   ├─ hit_at_k / recall_at_k / precision_at_k / mrr Float?
+  │   ├─ keyword_coverage Float?
+  │   ├─ context_relevance_score Int? / context_relevance_explanation Text?
+  ├─ error_message Text?
+  └─ created_at
+```
+
+## 2. 关系图
+
+```mermaid
+erDiagram
+    USER ||--o{ DOCUMENT : owns
+    USER ||--o{ SEMANTIC_CACHE_ENTRY : owns
+    USER ||--o{ EVALUATION_RUN : owns
+    DOCUMENT ||--o{ SEMANTIC_CACHE_ENTRY : scopes
+    DOCUMENT ||--o{ EVALUATION_RUN : scopes
+    EVALUATION_RUN ||--|{ EVALUATION_CASE : contains
+
+    USER {
+        uuid id PK
+        string email
+        string hashed_password
+    }
+    DOCUMENT {
+        string id PK
+        uuid owner_user_id FK
+        string source
+        string chunking_strategy
+        datetime last_indexed_at
+        datetime deleted_at
+    }
+    SEMANTIC_CACHE_ENTRY {
+        uuid id PK
+        uuid owner_user_id FK
+        string doc_id FK
+        datetime doc_version
+        string model_name
+        vector question_embedding
+        text answer
+    }
+    EVALUATION_RUN {
+        uuid id PK
+        uuid owner_user_id FK
+        string doc_id FK
+        string status
+        string dataset_sha256
+        json config_snapshot
+        float mrr_avg
+    }
+    EVALUATION_CASE {
+        uuid id PK
+        uuid run_id FK
+        int case_index
+        text question
+        text reference_answer
+        json retrieved_chunk_ids
+        float hit_at_k
+        int context_relevance_score
+    }
+```
+
+## 3. 运行时数据结构（非持久）
+
+| 结构 | 位置 | 作用 |
+|---|---|---|
+| `RetrievedChunk` / `RAGChunk` | `rag/models.py` | 检索结果：doc_id, chunk_id, source, text, score, page_number |
+| `AgentAskPipelineResult` | `agents/ask_pipeline.py` | 管道输出（dataclass, slots）：status, cache_status, refined_query, answer, steps, tools_used, citations |
+| `AgentResult` / `AgentCitation` | `agents/service.py` | agent 循环产物 + 引用（page_number 可空） |
+| `ChatMessage / ToolCall / GenerationConfig` | `shared/interfaces/llm.py` | LLM 抽象的消息/工具调用协议（SYSTEM/USER/ASSISTANT/TOOL 角色） |
+| `ToolContext` | `shared/interfaces/tool.py` | 工具上下文：session_id, user_id, doc_id, request_id |
+| `ToolExecutionResult` | 同上 | 工具输出 {success, output, error} |
+| `IngestionResult` / `PDFIngestionResult` | `rag/pipeline/services.py` | 摄取摘要（chunks_ingested, pages, skipped_pages, warnings） |
+| `TraceContext` | `shared/tracing.py` | 全链路追踪键：request_id, doc_id, owner_user_id, session_id |
+| `PDFSegment / PDFExtractionResult` | `rag/ingestion/pdf_extractor.py` | PDF 段（text/table + 页号 + bbox），提取结果（pages_total/ingested/skipped/warnings） |
+| `Chunk`（内部） | `rag/ingestion/chunking/base.py` | 分块结果，chunk_id 由摄取服务重编号 `chunk-{i}` |
+| `RetrievalEvaluationRunConfig` | `modules/evaluation/service.py` | 评估配置快照：k, 匹配参数, judge 开关, rag 参数, embedding/reranker/judge 模型 |
+| `SemanticCacheHit` | `modules/semantic_cache/service.py` | 缓存命中：answer + citations |
+| `ContextRelevanceJudgeResult` | `modules/evaluation/judge.py` | judge 输出：score + explanation |
+
+## 4. 配置模型（settings/，pydantic-settings 分段）
+
+| 段 | 关键字段 |
+|---|---|
+| `app.py` | database url, jwt secrets, token 时效 |
+| `auth.py` | cookie 名/域/secure/samesite, reset/verification secret |
+| `ai.py` | LLM model/base_url/key, embedding provider/model |
+| `rag.py` | chunk_size, chunk_overlap, 默认策略, top_k, prefetch_k, reranker 开关/模型 |
+| `database.py` | 连接池、echo |
+| `evaluation.py` | judge model, k 默认值 |
+| `agent.py` | max_steps, temperature, max_tokens, timeout_s, system_prompt, query_refinement 开关 |
+
+全部由 `config.py` 聚合为单一 `settings` 单例。
+
+## 5. 关键数据约束/不变量
+
+1. **归属强制**：所有查询（documents/cache/runs）都以 `owner_user_id` 过滤——跨用户访问不可能。
+2. **检索隔离**：向量检索带 `doc_id` 过滤——跨文档泄漏被架构阻断。
+3. **缓存版本化**：`doc_version = last_indexed_at` ——文档重摄取后旧缓存自动失效。
+4. **软删除**：文档 `deleted_at` 置位，检索/查询排除 deleted；向量数据不物理删除，由隔离屏蔽。
+5. **级联清理**：user → documents → cache/runs 全链路 CASCADE。
+6. **可复现评估**：run 存储 `config_snapshot` + `dataset_sha256`。
