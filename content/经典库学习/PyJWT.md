@@ -60,3 +60,9 @@ sequenceDiagram
         A-->>C: 6. 401 Unauthorized，要求重新登录
     end
 ```
+
+# 主动登出/强制失效（黑名单机制）
+
+```mermaid
+
+```
