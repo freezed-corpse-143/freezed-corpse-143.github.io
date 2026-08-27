@@ -87,4 +87,12 @@ def test_app():
 
 # 异步处理
 
-只要处理程序中没有任何阻塞 I/O 调用，只要添加 async 挂
+只要处理程序中没有任何阻塞 I/O 调用，只要添加 async 关键字
+
+比如 main.py
+
+```python
+@app.get("/ping")
+async def pong():
+	return {"ping": "pong!"}
+```
