@@ -103,4 +103,21 @@ async def pong():
 
 ```python
 from fastapi
+
+router = APIRouter()
+
+@router.get("/ping")
+async def pong():
+	return {"ping": "pong!"}
+```
+
+修改 `main.py`
+
+```python
+from fastapi import FastAPI
+from app.api import ping
+
+app = FastAPI()
+
+app.include_router(ping.router)
 ```
