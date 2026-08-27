@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3798.2043066004967,
-                  "y": 250.5299352355331,
+                  "y": 364.8019277772433,
                   "zoom": 0.28329265083373784
                 }
               },
@@ -38,8 +38,7 @@
               "title": "软件使用"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -216,8 +215,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a02f345cb4cd892e",
+  "active": "0c5f28ecc5ea398b",
   "lastOpenFiles": [
+    "软件使用.md",
     "人工智能/Prompt.md",
     "人工智能/Prompt Engineer.md",
     "TODO.canvas",
@@ -227,7 +227,6 @@
     "人工智能/多智能体设计.md",
     "数据库.md",
     "人工智能",
-    "软件使用.md",
     "index.md",
     "Python.md",
     "编程语言.md",
