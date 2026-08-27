@@ -30,15 +30,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经典库学习/sqlite3.md",
+                "file": "环境配置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "sqlite3"
+              "title": "环境配置"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,11 +215,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a02f345cb4cd892e",
+  "active": "4fad53f7c6be159a",
   "lastOpenFiles": [
     "经典库学习/sqlite3.md",
-    "软件使用.md",
     "TODO.canvas",
+    "软件使用.md",
     "环境配置.md",
     "经典库学习/SQLAlchemy.md",
     "经典库学习/PyJWT.md",
@@ -245,7 +246,6 @@
     "需求.md",
     "网上资源.md",
     "408/操作系统.md",
-    "408/计算机网络.md",
     "408",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
