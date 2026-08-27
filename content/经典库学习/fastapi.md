@@ -19,3 +19,9 @@ fastapi
 		└── requirements.txt
 ```
 
+
+在 main.py 文件中创建一个 FastAPI 实例并设置一个检查路由
+
+```python
+from fastapi impo
+```
