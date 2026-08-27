@@ -70,6 +70,16 @@
 			"y":540,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"ce8f450312f7c2a5",
+			"type":"text",
+			"text":"antvG6 调用 GPU",
+			"styleAttributes":{},
+			"x":-4100,
+			"y":640,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
