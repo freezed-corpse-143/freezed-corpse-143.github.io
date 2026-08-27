@@ -207,14 +207,14 @@ DELETE /sessions/{session_id}          # 删除会话（user 仅可删自己的�
 
 按能力域划分，6 个功能块：
 
-| 功能域 | 入口 | 核心服务 | 说明 |
-|---|---|---|---|
-| **认证与权限** | `/auth/*` | `infra/auth.py` (JWT + PBKDF 2 + RBAC) | 注册/登录/me，admin/user 角色，admin 邀请码 |
-| **聊天** | `/chat`, `/chat/stream` | `chat/service.py` → `chat/runtime.py` (Agent) | 同步/SSE 流式，流式 token + 中止，会话标题，持久笔记 |
-| **文档管理** | `/documents*` | `api/resources.py` + `jobs/upload_jobs.py` | admin 上传/删除（同步+异步任务）、列表、支持 6 种格式 |
-| **知识检索（RAG）** | 聊天内 `search_knowledge_base` 工具 | `rag/pipeline.py` + `rag/utils.py` | 复杂度规划→混合检索→Auto-merge→Rerank→评分路由→重写/HITL |
-| **会话记忆** | `/sessions*` | `chat/storage.py` (ConversationStorage) | PG 持久化 + Redis 热点缓存，摘要注入，HITL 断点持久化 |
-| **工具** | Agent 工具调用 | `tools/weather.py`, `tools/knowledge.py` | 天气查询、知识库检索（每轮 1 次预算） |
+| 功能域           | 入口                             | 核心服务                                          | 说明                                        |
+| ------------- | ------------------------------ | --------------------------------------------- | ----------------------------------------- |
+| **认证与权限**     | `/auth/*`                      | `infra/auth.py` (JWT + PBKDF 2 + RBAC)        | 注册/登录/me，admin/user 角色，admin 邀请码          |
+| **聊天**        | `/chat`, `/chat/stream`        | `chat/service.py` → `chat/runtime.py` (Agent) | 同步/SSE 流式，流式 token + 中止，会话标题，持久笔记         |
+| **文档管理**      | `/documents*`                  | `api/resources.py` + `jobs/upload_jobs.py`    | admin 上传/删除（同步+异步任务）、列表、支持 6 种格式          |
+| **知识检索（RAG）** | 聊天内 `search_knowledge_base` 工具 | `rag/pipeline.py` + `rag/utils.py`            | 复杂度规划→混合检索→Auto-merge→Rerank→评分路由→重写/HITL |
+| **会话记忆**      | `/sessions*`                   | `chat/storage.py` (ConversationStorage)       | PG 持久化 + Redis 热点缓存，摘要注入，HITL 断点持久化       |
+| **工具**        | Agent 工具调用                     | `tools/weather.py`, `tools/knowledge.py`      | 天气查询、知识库检索（每轮 1 次预算）                      |
 
 ## 各功能域明细
 
