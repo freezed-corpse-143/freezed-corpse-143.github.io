@@ -34,4 +34,14 @@ def pong():
 
 # 测试设置
 
-项目
+项目结构
+
+```
+fastapi 
+	├── docker-compose.yml 
+	└── src 
+		├── Dockerfile 
+		├── app 
+		│ 	├── __init__.py 
+		│ └── main.py ├── requirements.txt └── tests ├── __init__.py ├── conftest.py └── test_main.py
+```
