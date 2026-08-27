@@ -30,12 +30,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经典库学习/SQLAlchemy.md",
+                "file": "环境配置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SQLAlchemy"
+              "title": "环境配置"
             }
           }
         ],
@@ -217,15 +217,15 @@
   },
   "active": "4fad53f7c6be159a",
   "lastOpenFiles": [
-    "TODO.canvas",
+    "软件使用.md",
     "经典库学习/SQLAlchemy.md",
+    "TODO.canvas",
     "经典库学习/PyJWT.md",
     "经验之谈.md",
     "经典库学习/fastapi.md",
     "经典库学习/asyncpg.md",
     "github项目/SuperMew.md",
     "经典库学习",
-    "软件使用.md",
     "github项目/agentic-rag.md",
     "github项目",
     "windows.md",
