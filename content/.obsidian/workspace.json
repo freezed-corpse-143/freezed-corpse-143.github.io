@@ -11,31 +11,31 @@
             "id": "0c5f28ecc5ea398b",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3798.2043066004967,
-                  "y": 211.96321943244638,
-                  "zoom": -0.05004068249959548
-                }
+                "file": "经验之谈.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "经验之谈"
             }
           },
           {
             "id": "a02f345cb4cd892e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "软件使用.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3620,
+                  "y": 30,
+                  "zoom": -1.0415791037513995
+                }
               },
-              "icon": "lucide-file",
-              "title": "软件使用"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -72,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "milvus",
+                "query": "快速",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -97,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -217,10 +216,13 @@
   },
   "active": "0c5f28ecc5ea398b",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件使用.md",
+    "经验之谈.md",
+    "408/大模型.md",
+    "我的项目.md",
     "人工智能/Prompt.md",
     "人工智能/Prompt Engineer.md",
-    "TODO.canvas",
     "windows.md",
     "人工智能/知识图谱.md",
     "环境配置.md",
@@ -235,14 +237,11 @@
     "网上资源.md",
     "408/操作系统.md",
     "408/计算机网络.md",
-    "经验之谈.md",
     "服务使用.md",
     "绘图.md",
     "实习.md",
     "产品服务.md",
-    "408/大模型.md",
     "编译.md",
-    "我的项目.md",
     "408",
     "备份.md",
     "Pasted image 20260610145938.png",

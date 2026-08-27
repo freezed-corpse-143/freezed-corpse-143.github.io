@@ -80,6 +80,16 @@
 			"y":640,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"573ca2aca8451faf",
+			"type":"text",
+			"text":"快速了解一个项目",
+			"styleAttributes":{},
+			"x":-4100,
+			"y":20,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
