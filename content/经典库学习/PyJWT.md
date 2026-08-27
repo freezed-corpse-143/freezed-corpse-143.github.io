@@ -77,3 +77,42 @@ sequenceDiagram
 ```
 
 # JWT 结构回顾
+
+JWT 由三部分组成，用 `.` 连接
+
+```
+base64UrlEncode(Header).base64UrlEncode(payload).签名(Signature)
+```
+
+- Header：定义算法和类型，比如
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+- Payload：存放用户信息，比如
+
+```json
+{
+  "sub": "zhangsan",      // 用户标识
+  "userId": 10086,
+  "role": "admin",
+  "iat": 1750000000,      // 签发时间（Unix秒）
+  "exp": 1750007200       // 过期时间（2小时后）
+}
+```
+
+签名：
+
+1. 服务端准备密钥 Secret
+2. 拼接待签名字符串
+
+```
+待签名内容=base64UrlEncode(Header).base64UrlEncode(payload)
+```
+3. 使用密钥加密
+4. 将密文使用 Base64 进行编码
+5. 将最后的编码拼接到待签名内容即可。
