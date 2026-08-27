@@ -315,3 +315,68 @@ src/tools/retriever_tool.py
 ```
 
 ## 功能结构（逻辑结构）
+
+按能力域划分，6 个功能块：
+
+| 功能域 | 入口 | 核心服务 | 说明 |
+|---|---|---|---|
+| **认证** | `/auth/jwt/*`, `/users/*` | `modules/users/` (fastapi-users + 自定义 JWT/cookie) | access+refresh，Bearer + Cookie 双后端 |
+| **摄取** | `POST /rag/ingest/{text,pdf}` | `RAGIngestionService` + chunker + PDFExtractor | 分块→embed→写入 Chroma，记录 `last_indexed_at` |
+| **提问** | `POST /agent/ask` | `AgentAskPipeline` → `AgentService` → `RetrieverTool` → `RAGRetrievalService` | 改写→缓存查→agent 循环→缓存存 |
+| **文档管理** | `/documents*` | `modules/documents/` (repository) | 归属校验、列表、软删除、chunk 查看 |
+| **语义缓存** | 内嵌于 ask 流程 | `modules/semantic_cache/` | pgvector 相似度查/存，绑定 `doc_version`+`model_name` |
+| **评估** | `/evaluations*`, `/evaluation-datasets*` | `modules/evaluation/` (service+judge+metrics+retriever) | JSONL 数据集→跑检索/问答→指标+judge→持久化→rerun |
+
+## 各功能域明细
+
+### 认证
+- `src/modules/users/dependencies.py`：fastapi-users 装配，Bearer + Cookie 双 transport，JWTStrategy
+- `src/modules/users/security/jwt.py`：自定义 JWT 签发/校验
+- `src/api/v1/routes/auth.py`：login/refresh/logout，access + refresh 双 token，cookie 写入
+- `src/api/v1/routes/users.py`：fastapi-users 标准 users router（UserRead/UserUpdate）
+
+### 摄取（RAGIngestionService）
+- 文本摄取：chunk → embed_documents → vector_store.upsert_chunks
+- PDF 摄取：pdfplumber 提取页级分段（text/table）→ 逐段 chunk（页号元数据）→ embed → upsert
+- 分块策略（`rag/ingestion/chunking/`）：`fixed_window`（固定窗口）与 `recursive_semantic`（语义递归），通过 `ChunkingStrategyRegistry` 按名解析
+- 表格识别：PDF 页面内表格转 Markdown 文本段，正文词按 bbox 去重（rapidfuzz 相似度）
+
+### 提问（AgentAskPipeline）
+
+- 文档归属校验（不存在则抛 `DocumentNotFoundError`）
+- Query Refinement（LLM 改写查询，可配置开关）
+- 语义缓存查（embed 归一化问题 → pgvector 相似度），命中直接返回
+- Agent 循环（≤max_steps）：LLM generate → 工具调用 → RetrieverTool 检索 → 回填 → 最终答案 + 引用提取
+- 可缓存答案写回缓存（RAG-backed 且非 no-answer fallback）
+
+### 文档管理（modules/documents）
+
+- `Document` 模型：id（业务主键）、owner_user_id、source、chunking 配置、last_indexed_at、deleted_at
+- `DocumentsRepository`：归属过滤查询（`get_owned_document`）、列表、软删除
+- chunk 查看：从 Chroma 拉取文档下全部 chunk（documents 路由的 `_filter_chunks` 去重字段）
+
+### 语义缓存（modules/semantic_cache）
+
+- 命中键 = owner_user_id + doc_id + doc_version（last_indexed_at）+ model_name + 查询向量相似度
+- `normalize_question`：规范化问题文本
+- 缓存失败永不阻塞生成（try/except 吞掉并记录 trace）
+
+### 评估（modules/evaluation）
+- 数据集：JSONL 上传 → sha256 落盘去重 → `parse_retrieval_dataset_jsonl_bytes` 解析
+- 检索评估：`RAGRetrievalEvaluatorAdapter` 复用生产 `RAGRetrievalService`
+- 指标：hit@k / recall@k / precision@k / MRR / keyword_coverage，`metrics.py` 聚合与分组汇总
+- LLM judge：`ContextRelevanceJudge` 对检索上下文相关性打分（0-3 + 解释）
+- 运行管理：`POST /evaluations/retrieval`（202 异步）→ 逐 case 处理 → 聚合 → `rerun-failed` 重置失败用例
+- 数据集管理：list / preview / download / delete
+
+## UI 层（templates/）
+
+Jinja 页面直接消费 API，无独立后端逻辑：
+
+| 页面                | 路由                          | 模板                      |
+| ----------------- | --------------------------- | ----------------------- |
+| 登录                | `/login-ui`                 | login_ui.html           |
+| 提问                | `/ask-ui`                   | ask_ui.html             |
+| 文档列表              | `/documents-ui`             | documents_ui.html       |
+| 文档 chunks         | `/documents/{id}/chunks-ui` | document_chunks_ui.html |
+| 评估列表/创建/详情/对比/数据集 | `/evaluations*`             | evaluation_*.html ×5    |
