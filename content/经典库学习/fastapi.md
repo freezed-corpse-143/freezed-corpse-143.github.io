@@ -65,4 +65,17 @@ def test_ping():
 	assert response.json() == {"ping": "pong!" }
 ```
 
-requirem
+requirements.txt 中添加
+
+```
+pytest==5.4.1
+requests==2.23.0
+```
+
+conftest.py 中
+
+```python
+import pytest
+from starlette.testclient import TestClient
+from app.ma
+```
