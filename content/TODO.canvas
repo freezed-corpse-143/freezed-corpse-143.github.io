@@ -64,7 +64,7 @@
 		{
 			"id":"354a61675f30d51d",
 			"type":"text",
-			"text":"学习计划：\n- [ ] flaskapi 库\n- [ ] JWT 验证\n- [ ] ORM SQLAlchemy\n- [ ] Postgresql、SQLite、milvus 数据库\n- [ ] jinja 模板\n- [ ] 检索 RAG:\n\t- [ ] 分块策略与检索粒度\n\t- [ ] 索引建立策略\n\t- [ ] 索引使用策略\n\t- [ ] 知识库元信息策略\n\t- [ ] 知识库更新策略\n\t- [ ] 查询重写、多样化、澄清\n\t- [ ] 检索策略。\n\t- [ ] RAG 评测策略。\n\t- [ ] pdf 提取策略",
+			"text":"学习计划：\n- [ ] fastapi 库\n- [ ] JWT 验证\n- [ ] ORM SQLAlchemy\n- [ ] Postgresql、SQLite、milvus 数据库\n- [ ] jinja 模板\n- [ ] 检索 RAG:\n\t- [ ] 分块策略与检索粒度\n\t- [ ] 索引建立策略\n\t- [ ] 索引使用策略\n\t- [ ] 知识库元信息策略\n\t- [ ] 知识库更新策略\n\t- [ ] 查询重写、多样化、澄清\n\t- [ ] 检索策略。\n\t- [ ] RAG 评测策略。\n\t- [ ] pdf 提取策略",
 			"styleAttributes":{},
 			"x":-3720,
 			"y":245,

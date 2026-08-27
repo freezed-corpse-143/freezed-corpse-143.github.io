@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "github项目/SuperMew.md",
+                "file": "经典库学习/fastapi.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SuperMew"
+              "title": "fastapi"
             }
           },
           {
@@ -52,8 +52,7 @@
               "title": "经验之谈"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -112,8 +111,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -230,10 +228,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a02f345cb4cd892e",
+  "active": "0c5f28ecc5ea398b",
   "lastOpenFiles": [
-    "github项目/SuperMew.md",
     "TODO.canvas",
+    "经典库学习/fastapi.md",
+    "github项目/SuperMew.md",
+    "经典库学习",
     "经验之谈.md",
     "软件使用.md",
     "github项目/agentic-rag.md",
@@ -259,7 +259,6 @@
     "服务使用.md",
     "绘图.md",
     "实习.md",
-    "产品服务.md",
     "408",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
@@ -276,7 +275,6 @@
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",
     "经验之谈.md.tmp.29076.80d9c2b8ee80",
-    "环境配置.md.tmp.29076.504e06044194",
-    "我的项目.md.tmp.29192.3b9b1a433815"
+    "环境配置.md.tmp.29076.504e06044194"
   ]
 }
