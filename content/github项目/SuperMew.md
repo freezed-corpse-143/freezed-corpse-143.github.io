@@ -64,3 +64,143 @@ README 声明为"Agent 的项目记录，方便后续持续更新与展示"。�
 
 # 快速开始
 
+# SuperMew — 快速开始
+
+## 前置要求
+
+- Python `3.12+`
+- 包管理建议 `uv`（也支持 `pip`）
+- Docker 与 Docker Compose（启动 PostgreSQL / Redis / Milvus 全家桶）
+- Node.js + npm（编译前端）
+- 所需 provider 的 API 凭据（ARK 兼容 OpenAI endpoint：`ARK_API_KEY`、`MODEL`、`FAST_MODEL`、`GRADE_MODEL`）
+
+## 环境配置
+
+```bash
+cp .env.example .env
+```
+
+至少检查：
+
+- 模型设置：`MODEL`（主模型）、`FAST_MODEL`（复杂度/重写）、`GRADE_MODEL`（证据评分）、`BASE_URL`
+- 本地向量：`EMBEDDING_MODEL`（默认 BAAI/bge-m 3）、`HF_ENDPOINT`（国内镜像，默认 hf-mirror.com）
+- 检索参数：`RETRIEVAL_TOP_K` / `RETRIEVAL_CANDIDATE_K` / `AUTO_MERGE_*` / `RERANK_*`（不配 rerank 自动降级）
+- 数据库：`DATABASE_URL`（PostgreSQL）、`REDIS_URL`、`MILVUS_HOST/PORT`
+- 认证：`JWT_SECRET_KEY`（务必替换）、`ADMIN_INVITE_CODE`
+
+## 方式 A：Docker 启动依赖（最快）
+
+```bash
+docker compose up -d
+```
+
+一次拉起全部依赖（业务 + 向量）：
+
+- PostgreSQL：`5432`
+- Redis：`6379`
+- Milvus standalone：`19530`（健康检查 `9091`）
+- etcd / MinIO（Milvus 内部依赖，`9000` / `9001`）
+- Attu（Milvus Web 管理台）：`8080`
+
+## 方式 B：本地运行
+
+```bash
+uv sync                          # 安装后端依赖
+cd frontend && npm install && npm run build && cd ..   # 编译前端（生成 frontend/dist）
+uv run uvicorn backend.app:app --host 0.0.0.0 --port 8000 --reload
+```
+
+服务地址：
+
+- 前端 SPA：`http://127.0.0.1:8000/`（后端静态托管 `frontend/dist`）
+- Swagger UI：`http://127.0.0.1:8000/docs`
+
+前端开发模式（可选）：`cd frontend && npm run dev`，运行于 `http://localhost:3000`，内置反向代理至 8000。
+
+## 典型工作流
+
+### 1. 注册并登录（admin 可上传文档）
+
+```bash
+# 注册（管理员需带 admin_code）
+curl -X POST http://localhost:8000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"secret","role":"admin","admin_code":"supermew-admin-2026"}'
+
+# 登录获取 token
+curl -X POST http://localhost:8000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"secret"}'
+```
+
+### 2. 上传文档（admin，同步或异步）
+
+```bash
+curl -X POST http://localhost:8000/documents/upload \
+  -H "Authorization: Bearer <token>" \
+  -F "file=@policy.pdf"
+```
+
+异步版本返回 `job_id`，前端/调用方轮询 `GET /documents/upload/jobs/{job_id}` 查看五阶段进度（upload → cleanup → parse → parent_store → vector_store）。
+
+支持格式：`.pdf` / `.docx` / `.doc` / `.xlsx` / `.xls` / `.html` / `.htm`。
+
+### 3. 流式提问
+
+```bash
+curl -N -X POST http://localhost:8000/chat/stream \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"What does the policy define as an Account?","session_id":"s1"}'
+```
+
+SSE 事件流：
+
+- `rag_step` — 实时 RAG 过程步骤（Searching → Grading → Rewriting → …）
+- `content` — 逐 token 答案
+- `trace` — 完整 `rag_trace`（检索/评分/重写/合并/精排详情）
+- `hitl_request` — 人工介入：需澄清/需选择范围时暂停提问
+- `session_title` — 首条消息自动生成会话标题
+- `error` / `[DONE]`
+
+### 4. 会话管理
+
+```bash
+GET    /sessions                       # 会话列表
+GET    /sessions/{session_id}          # 会话消息（含 rag_trace）
+DELETE /sessions/{session_id}          # 删除会话（user 仅可删自己的）
+```
+
+## API 概览（核心端点）
+
+| 方法     | 路径                                           | 说明                        | 权限     |
+| ------ | -------------------------------------------- | ------------------------- | ------ |
+| POST   | `/auth/register`                             | 注册（可带 admin_code 升 admin） | 公开     |
+| POST   | `/auth/login`                                | 登录 → JWT                  | 公开     |
+| GET    | `/auth/me`                                   | 当前用户信息                    | 登录     |
+| POST   | `/chat`                                      | 同步聊天                      | 登录     |
+| POST   | `/chat/stream`                               | 流式聊天（SSE）                 | 登录     |
+| GET    | `/sessions`                                  | 会话列表                      | 登录（本人） |
+| GET    | `/sessions/{session_id}`                     | 会话消息                      | 登录（本人） |
+| DELETE | `/sessions/{session_id}`                     | 删除会话                      | 登录（本人） |
+| GET    | `/documents`                                 | 文档列表                      | admin  |
+| POST   | `/documents/upload`                          | 同步上传                      | admin  |
+| POST   | `/documents/upload/async`                    | 异步上传                      | admin  |
+| GET    | `/documents/upload/jobs` / `…/jobs/{job_id}` | 上传任务轮询                    | admin  |
+| DELETE | `/documents/{filename}`                      | 同步删除                      | admin  |
+| DELETE | `/documents/delete/async/{filename}`         | 异步删除                      | admin  |
+| GET    | `/documents/delete/jobs/{job_id}`            | 删除任务轮询                    | admin  |
+| GET    | `/`                                          | 前端 SPA                    | 公开     |
+| GET    | `/docs`                                      | Swagger UI                | 公开     |
+
+## 三模型分工
+
+| 模型            | 用途                                                  | 特点                  |
+| ------------- | --------------------------------------------------- | ------------------- |
+| `MODEL`       | Agent 主对话生成（含最终答案）                                  | temperature 0.3     |
+| `FAST_MODEL`  | 复杂度规划（simple/complex + 2-4 子问题）、Step-back/HyDE 单选重写 | 低延迟、temperature 0.2 |
+| `GRADE_MODEL` | 证据评分（相关性/可回答性/歧义/置信度）与路由                            | 独立高能力模型，结构化输出       |
+
+复杂度规划对明显的单事实问题走本地规则快速路径，不调用模型。
+
+# 功能结构
