@@ -43,5 +43,19 @@ fastapi
 		├── Dockerfile 
 		├── app 
 		│ 	├── __init__.py 
-		│ └── main.py ├── requirements.txt └── tests ├── __init__.py ├── conftest.py └── test_main.py
+		│ 	└── main.py 
+		├── requirements.txt 
+		└── tests 
+			├── __init__.py 
+			├── conftest.py 
+			└── test_main.py
+```
+
+test_main.py 文件
+
+```python
+from starlette.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
 ```
