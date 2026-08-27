@@ -64,12 +64,12 @@
 		{
 			"id":"354a61675f30d51d",
 			"type":"text",
-			"text":"学习计划：\n- [ ] ORM SQLAlchemy\n- [ ] Postgresql、SQLite、milvus 数据库\n- [ ] jinja 模板\n- [ ] 检索 RAG:\n\t- [ ] 分块策略与检索粒度\n\t- [ ] 索引建立策略\n\t- [ ] 索引使用策略\n\t- [ ] 知识库元信息策略\n\t- [ ] 知识库更新策略\n\t- [ ] 查询重写、多样化、澄清\n\t- [ ] 检索策略。\n\t- [ ] RAG 评测策略。\n\t- [ ] pdf 提取策略",
+			"text":"学习计划：\n- [ ] Postgresql、SQLite、milvus 数据库\n- [ ] jinja 模板\n- [ ] 检索 RAG:\n\t- [ ] 分块策略与检索粒度\n\t- [ ] 索引建立策略\n\t- [ ] 索引使用策略\n\t- [ ] 知识库元信息策略\n\t- [ ] 知识库更新策略\n\t- [ ] 查询重写、多样化、澄清\n\t- [ ] 检索策略。\n\t- [ ] RAG 评测策略。\n\t- [ ] 文本提取策略",
 			"styleAttributes":{},
 			"x":-3720,
 			"y":245,
 			"width":260,
-			"height":540
+			"height":475
 		},
 		{
 			"id":"1e5963333d4aa3c7",

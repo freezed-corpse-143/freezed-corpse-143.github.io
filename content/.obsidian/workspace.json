@@ -15,9 +15,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3630,
-                  "y": 160,
-                  "zoom": -1.0797880258936476
+                  "x": -3522.8521676432406,
+                  "y": 559.7652469646906,
+                  "zoom": 0.5868786407730189
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -98,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -219,8 +218,8 @@
   "active": "4fad53f7c6be159a",
   "lastOpenFiles": [
     "TODO.canvas",
-    "经典库学习/PyJWT.md",
     "经典库学习/SQLAlchemy.md",
+    "经典库学习/PyJWT.md",
     "经验之谈.md",
     "经典库学习/fastapi.md",
     "经典库学习/asyncpg.md",

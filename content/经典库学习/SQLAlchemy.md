@@ -88,4 +88,90 @@ user_table = Table(
 
 metadata_obj.create_all(engine)
 ```
+# 通过 ORM 进行数据操作
 
+ORM 模式下你操作的是映射类的实例，Session 负责把对象状态翻译成 SQL 并管理事务。增删改不会立即发 SQL——先在内存累积，直到 flush（手动调用，或在 commit/查询前自动触发，即 autoflush）。
+
+## 增加
+
+```python
+squidward = User(name="squidward", fullname="Squidward Tentacles")
+session.add(squidward)      # 对象进入 pending 状态，未入库
+session.commit()            # flush + commit，真正写入
+print(squidward.id)         # 自增主键自动回填（如 4）
+```
+
+- 主键留空由数据库自动生成，flush 后 ORM 通过 RETURNING 把新主键写回对象。
+- 可用 session.add_all([obj 1, obj 2]) 一次加多个。
+
+## 查询
+
+```python
+# 按主键获取（先查 identity map，没有才发 SELECT）
+sandy = session.get(User, 2)
+
+# 条件查询
+user = session.execute(
+select(User).filter_by(name="sandy")
+).scalar_one()          # 恰好一行，否则抛错
+users = session.execute(select(User).where(User.fullname.like("S%"))).scalars().all()
+```
+
+ - identity map：同一 Session 内同一主键只会有一个 Python 实例（session.get(User, 2) is 之前加载的对象 为 True）。
+
+## 更新
+
+```python
+sandy = session.get(User, 2)
+sandy.fullname = "Sandy Squirrel"   # 直接改属性，对象进入 dirty 状态
+session.commit()                    # flush 时按主键发 UPDATE
+```
+
+ 不需要显式 update() 语句——修改已加载对象的属性即可，Session 自动跟踪。
+
+## 删除
+
+```python
+patrick = session.get(User, 3)
+session.delete(patrick)     # 标记删除，flush 时才真正 DELETE
+session.commit()
+```
+
+ 注意：删除带外键关联的对象时，ORM 会先 SELECT 相关表（级联行为），相关行处理方式由 cascade 配置决定。
+
+## 批量操作
+
+ 对简单大批量插入/更新/删除，可以不用构造对象，直接用 Core 风格的 insert()/update()/delete() 构造通过 Session 执行：
+
+```python
+from sqlalchemy import insert, update, delete
+
+# 批量插入（一次传多个字典）
+session.execute(insert(User), [
+{"name": "squidward", "fullname": "Squidward Tentacles"},
+{"name": "krabs", "fullname": "Eugene H. Krabs"},
+])
+session.commit()
+
+# 条件更新 / 删除
+session.execute(update(User).where(User.name == "sandy").values(fullname="Sandy Squirrel"))
+session.execute(delete(User).where(User.name == "patrick"))
+session.commit()
+```
+
+## 回滚与关闭
+
+```python
+session.rollback()    # 回滚事务，并让所有关联对象过期（下次访问属性时重新加载）
+session.close()       # 释放连接资源、驱逐所有对象（对象变为 detached 状态）
+```
+
+ - 事务会一直开着直到 commit() / rollback() / close()。
+ - close() 后访问已过期对象会抛 DetachedInstanceError；需要跨 Session 用对象时设 Session(engine, expire_on_commit=False)。
+ - 推荐用上下文管理器自动关闭：
+
+```python
+with Session(engine) as session:
+session.add(User(name="squidward", fullname="Squidward Tentacles"))
+session.commit()
+```
