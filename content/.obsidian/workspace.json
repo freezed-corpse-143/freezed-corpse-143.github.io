@@ -38,7 +38,8 @@
               "title": "环境配置"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,12 +215,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a02f345cb4cd892e",
+  "active": "4fad53f7c6be159a",
   "lastOpenFiles": [
+    "TODO.canvas",
     "环境配置.md",
     "编程语言.md",
     "经典库学习/psycopg3.md",
-    "TODO.canvas",
     "软件使用.md",
     "经典库学习/sqlite3.md",
     "经典库学习/SQLAlchemy.md",
