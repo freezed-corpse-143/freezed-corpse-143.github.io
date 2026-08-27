@@ -64,5 +64,16 @@ sequenceDiagram
 # 主动登出/强制失效（黑名单机制）
 
 ```mermaid
+sequenceDiagram
+    participant C as 客户端
+    participant A as 认证服务
+    participant R as Redis/黑名单
 
+    C->>A: 1. 登出请求（携带access_token）
+    A->>A: 2. 解析Token，获取jti（唯一ID）+ 过期剩余时间
+    A->>R: 3. 将jti加入黑名单，TTL=剩余过期时间
+    A-->>C: 4. 登出成功
+    Note over A,R: 后续任何携带此Token的请求<br/>→ 先查黑名单 → 命中则拒绝
 ```
+
+# JWT 结构回顾
