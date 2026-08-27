@@ -276,3 +276,136 @@ SPA 直接消费 API，Pinia 状态 + 组件分层：
 | RAG 可视化 | `ThinkingTrace.vue` / `RetrievalTraceDetails.vue` / `KnowledgeContextPanel.vue` | 思考步骤、子 Agent 追踪、检索漏斗、评分/重写详情 |
 | 引用 | `References.vue` | RRF Rank / rerank_score / 合并块数 / 层级 / 页码 |
 | 文档管理 | `stores/documents.ts` + `UploadSection/DocumentSettings/DocumentItem` | 上传任务多阶段进度轮询、设置、列表删除 |
+
+# 目录结构
+
+```
+SuperMew/
+├── README.md                 # 项目记录：部署、架构、核心流程、未来迭代
+├── pyproject.toml / uv.lock  # Python 3.12+，依赖含 langchain/langgraph/milvus/sqlalchemy
+├── .env.example              # 全部环境变量模板（模型/向量/检索/Milvus/DB/认证/工具）
+├── docker-compose.yml        # postgres + redis + etcd + minio + milvus standalone + attu
+├── docker-compose.prod.yml
+├── frontend/                 # Vite + Vue 3 + TS + Pinia SPA（构建产物 backend 静态托管）
+├── tests/                    # 6 个测试文件（RAG 短路/延迟门控/追踪 schema/HITL 恢复等）
+├── langsmith_eval.py / test_embedding.py
+├── project_visualization.html / presentation.html
+├── data/                     # 运行时生成：documents/ 上传原文件（.gitignore）
+└── backend/                  # FastAPI 后端（41 个 Python 文件）
+    ├── app.py                # 入口: create_app + CORS + no-cache 中间件 + 静态挂载 / 
+    ├── env.py                # PROJECT_ROOT + load_env（.env 加载）
+    ├── api/                  # HTTP 层
+    │   ├── router.py         # 路由聚合（auth/sessions/chat/documents）
+    │   ├── resources.py      # 共享资源（loader/writer/milvus）+ 事务性文档删除
+    │   └── routes/           # auth.py / sessions.py / chat.py / documents.py
+    ├── chat/                 # 对话域
+    │   ├── service.py        # 流式/非流式编排、HITL 恢复、会话标题、持久笔记
+    │   ├── runtime.py        # MODEL/FAST_MODEL 客户端 + 每请求 create_agent
+    │   ├── request_context.py# 每请求 RAG step/trace/工具预算上下文（事件循环穿透）
+    │   └── storage.py        # ConversationStorage（PostgreSQL + Redis）
+    ├── rag/                  # RAG 域
+    │   ├── pipeline.py       # LangGraph 状态图（8 节点 + Send 并行 + HITL 恢复）
+    │   └── utils.py          # retrieve_documents：混合召回→Auto-merge→Rerank→门控
+    ├── indexing/             # 文档入库与向量
+    │   ├── embedding.py      # bge-m3 本地稠密向量（全进程单例）
+    │   ├── document_loader.py# PDF/Word/Excel 加载 + 三级滑窗分块 + 文本清洗
+    │   ├── html_processor.py # HTML 解析
+    │   ├── milvus_client.py  # Milvus 读写（集合初始化/插入/混合检索/分页查询）
+    │   ├── milvus_writer.py  # 叶子块向量化写入编排
+    │   └── parent_chunk_store.py  # 父级分块 DocStore（PostgreSQL + Redis）
+    ├── tools/                # LangChain @tool
+    │   ├── knowledge.py      # search_knowledge_base（跑 RAG 图，HITL 文案）
+    │   └── weather.py        # get_current_weather（高德天气 API）
+    ├── infra/                # 基础设施
+    │   ├── auth.py           # JWT 签发/校验、PBKDF2-SHA256、RBAC（require_admin）
+    │   ├── cache.py          # RedisCache（JSON 序列化、前缀、TTL）
+    │   └── database.py       # SQLAlchemy engine + NUL/不可见字符清洗监听器
+    ├── db/
+    │   └── models.py         # ORM：User / ChatSession / ChatMessage / ParentChunk
+    ├── schemas/              # Pydantic：auth.py / chat.py / documents.py
+    └── jobs/
+        └── upload_jobs.py    # 上传/删除任务状态机（进程内存 + 线程锁）
+```
+
+## 分层规则
+
+`api → chat/rag → indexing → infra → db`
+
+- `api/routes` 只做 HTTP 翻译与鉴权；业务编排在 `chat/service.py` 与 `rag/pipeline.py`。
+- `rag/` 依赖 `indexing/`（检索/入库实现），`indexing/` 依赖 `infra/` 与 `db/`；依赖单向向下。
+- `chat/request_context.py` 是**请求级显式上下文**（RAG step 队列、rag_trace、知识工具预算），经工具闭包传入 RAG 图，不采用全局单例。
+- `api/resources.py` 是文档链路的共享装配点（loader / milvus_writer / parent_chunk_store / 事务性删除）。
+- 模型客户端（`chat/runtime.py`）进程级单例；Agent 每请求创建（携带 request context）。
+- 无 Alembic：建表用 `Base.metadata.create_all`（启动时 `init_db`），字段演进直接改 `db/models.py`。
+
+## 完整源文件清单（41 个 Python 文件）
+
+```
+backend/__init__.py
+backend/app.py
+backend/env.py
+backend/api/__init__.py
+backend/api/router.py
+backend/api/resources.py
+backend/api/routes/__init__.py
+backend/api/routes/auth.py
+backend/api/routes/chat.py
+backend/api/routes/documents.py
+backend/api/routes/sessions.py
+backend/chat/__init__.py
+backend/chat/request_context.py
+backend/chat/runtime.py
+backend/chat/service.py
+backend/chat/storage.py
+backend/db/__init__.py
+backend/db/models.py
+backend/indexing/__init__.py
+backend/indexing/document_loader.py
+backend/indexing/embedding.py
+backend/indexing/html_processor.py
+backend/indexing/milvus_client.py
+backend/indexing/milvus_writer.py
+backend/indexing/parent_chunk_store.py
+backend/infra/__init__.py
+backend/infra/auth.py
+backend/infra/cache.py
+backend/infra/database.py
+backend/jobs/__init__.py
+backend/jobs/upload_jobs.py
+backend/rag/__init__.py
+backend/rag/pipeline.py
+backend/rag/utils.py
+backend/schemas/__init__.py
+backend/schemas/auth.py
+backend/schemas/chat.py
+backend/schemas/documents.py
+backend/tools/__init__.py
+backend/tools/knowledge.py
+backend/tools/weather.py
+```
+
+## 前端组件清单（frontend/src，30 个文件）
+
+```
+main.ts / App.vue / vite-env.d.ts
+assets/styles/                          # Sass 样式
+utils/api.ts                            # fetch ReadableStream SSE 流式解包 + AbortController
+utils/markdown.ts
+types/chat.ts / types/document.ts / types/user.ts
+stores/auth.ts                          # JWT 注册登录状态
+stores/sessions.ts                      # 会话创建/载入/删除/切换
+stores/chat.ts (+ chat.spec.ts)         # 消息流缓存 + RAG 步骤响应式更新
+stores/documents.ts (+ documents.spec.ts)  # 文档列表 + 上传任务轮询
+components/AuthPanel.vue                # 登录/注册（admin 邀请码）
+components/Sidebar.vue / HistorySidebar.vue / ThemeToggle.vue
+components/Chat/
+    ChatArea.vue / ChatInput.vue / WelcomeScreen.vue
+    MessageItem.vue / MessageContent.vue
+    ThinkingTrace.vue / RetrievalTraceDetails.vue   # RAG 思考链路 + 追踪详情（子 Agent/合并/召回）
+    References.vue / KnowledgeContextPanel.vue      # 来源引用 + 检索漏斗面板
+components/Documents/
+    UploadSection.vue / DocumentSettings.vue / DocumentItem.vue
+```
+
+# 数据流结构
+
