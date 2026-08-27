@@ -295,5 +295,108 @@ def test_create_note_invalid_json(test_app):
 @router.get("/{id}/", response_model=NoteDB)
 async def read_note(id: int):
 	note = await crud.get(id)
-	if
+	if not note:
+		raise HTTPException(
+			status_code=404,
+			detail="Note not found"
+		)
+	return note
+```
+
+更新 `src/app/api/crud.py`
+
+```python
+async def get(id: int):
+	query = notes.select().where(id == notes.c.id)
+	return await database.fetch_one(query=query)
+```
+
+## GET 所有
+
+更新 `src/app/api/notes.py`
+
+```python
+@router.get("/", response_model=List[NoteDB])
+async def read_all_notes():
+	return await crud.get_all()
+```
+
+更新 `src/app/api/crud.py`
+
+```python
+async def get_all():
+	query = notes.select()
+	return await database.fetch_all(query=query)
+```
+
+# PUT 路由
+
+更新 `src/app/api/notes.py`
+
+```python
+@router.put("/{id}/", response_model=NoteDB)
+async def update_note(id: int, payload: NoteSchema):
+	note = await crud.get(id)
+	if not note:
+		raise HTTPException(
+			status_code=404,
+			detail="Note not found"
+		)
+	
+	note_id = await crud.put(id payload)
+	
+	response_object = {
+		"id": note_id,
+		"title": payload.title,
+		"description": payload.description,
+	}
+	return response_object
+```
+
+更新 `src/app/api/crud.py`
+
+```python
+async def put(id: int, payload: NoteSchema):
+	query = (
+		notes
+		.update()
+		.where(id == notes.c.id)
+		.values(title=payload.title, description=payload.description)
+		.returning(note.c.id)
+	)
+	return await database.execute(query=query)
+```
+
+
+# DELETE 路由
+
+更新 `src/app/api/notes.py`
+
+```python
+@router.delete("/{id}/", response_model=NoteDB)
+async def delete_note(id: int):
+	note = await crud.get(id)
+	if not note:
+		raise HTTPException(
+			status_code=404,
+			detail="Note not found"
+		)
+	
+	await crud.delete(id)
+	
+	return note
+```
+
+更新 `src/app/api/crud.py`
+
+```python
+async def delete(id: int):
+	query = notes.delete().where(id == notes.c.id)
+	return await database.execute(query=query)
+```
+
+# 配置跨域访问
+
+```python
+from fastapi import
 ```
