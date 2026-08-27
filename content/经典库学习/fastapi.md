@@ -23,5 +23,15 @@ fastapi
 在 main.py 文件中创建一个 FastAPI 实例并设置一个检查路由
 
 ```python
-from fastapi impo
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/ping")
+def pong():
+	return {"ping": "pong!"}
 ```
+
+# 测试设置
+
+项目
