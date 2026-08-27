@@ -52,8 +52,7 @@
               "title": "经验之谈"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -230,10 +229,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a02f345cb4cd892e",
+  "active": "0c5f28ecc5ea398b",
   "lastOpenFiles": [
-    "github项目/SuperMew.md",
     "TODO.canvas",
+    "github项目/SuperMew.md",
     "经验之谈.md",
     "软件使用.md",
     "github项目/agentic-rag.md",
