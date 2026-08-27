@@ -181,3 +181,137 @@ curl -X POST "http://localhost:8000/agent/ask?use_cache=true" \
 - Groundedness
 
 每次运行存储：聚合指标、逐用例结果、生成答案、引用、检索排名、配置快照（可复现）。
+
+## 目录结构（物理结构）
+
+```
+agentic-rag/
+├── main.py                  # FastAPI 入口: lifespan + 8 个 router 注册 + /static
+├── pyproject.toml / uv.lock / pytest.ini
+├── alembic/                 # 9 个迁移 (users, documents, cache, eval 表, 配置快照)
+├── docker-compose.yml / Dockerfile
+├── templates/               # Jinja UI: login/ask/documents/evaluation×5
+├── static/                  # 浏览器端 JS/CSS
+├── tests/                   # unit/ + integration/
+├── output/                  # 样例评估输出 (jsonl + pdf)
+└── src/
+    ├── api/v1/              # 表现层: routes/(8 个) + schemas/ + dependencies.py(DI 装配)
+    ├── agents/              # ask_pipeline(编排) / service(agent 循环) / query_refinement / cache_policy
+    ├── rag/
+    │   ├── pipeline/        # services.py: RAGIngestionService + RAGRetrievalService
+    │   ├── ingestion/       # chunker + chunking/{fixed_window,recursive_semantic} + pdf_extractor
+    │   ├── embeddings/      # EmbeddingProvider 接口
+    │   ├── reranker/        # Reranker 接口
+    │   ├── vectorstore/     # VectorStore 接口
+    │   └── models.py        # RetrievedChunk / RAGChunk
+    ├── modules/             # 业务领域模块 (users/documents/semantic_cache/evaluation)
+    ├── infrastructure/      # 适配器: database/ llm/{openai,hf} reranker/cohere vector_db/chroma
+    ├── tools/               # retriever_tool + registry + ping_tool
+    ├── settings/            # pydantic-settings: app/auth/ai/rag/database/evaluation/agent
+    └── shared/              # tracing(全链路 trace) + interfaces/{llm,tool}
+```
+
+## 分层规则
+
+`api → agents/rag → modules/infrastructure → 外部服务`
+
+- `rag/` 内是**接口层**（embeddings/reranker/vectorstore 目录只有协议），实现全部在 `infrastructure/` ——刻意设计的依赖倒置。
+- `api/v1/dependencies.py` 是唯一的 DI 装配点，用 `@lru_cache` 单例装配 provider 与 service。
+- `alembic/versions/` 9 个迁移：users → documents → semantic_cache → evaluation 表 → config snapshot → keyword 字段 → 移除旧评估表 → chunking 配置。
+
+## 完整源文件清单（87 个 Python 文件）
+
+```
+src/__init__.py
+src/agents/__init__.py
+src/agents/ask_pipeline.py
+src/agents/cache_policy.py
+src/agents/query_refinement.py
+src/agents/service.py
+src/api/v1/dependencies.py
+src/api/v1/routes/__init__.py
+src/api/v1/routes/agent.py
+src/api/v1/routes/auth.py
+src/api/v1/routes/documents.py
+src/api/v1/routes/evaluations.py
+src/api/v1/routes/health.py
+src/api/v1/routes/rag.py
+src/api/v1/routes/ui.py
+src/api/v1/routes/users.py
+src/api/v1/schemas/__init__.py
+src/api/v1/schemas/agent.py
+src/api/v1/schemas/documents.py
+src/api/v1/schemas/evaluation.py
+src/api/v1/schemas/health.py
+src/api/v1/schemas/rag.py
+src/infrastructure/database/__init__.py
+src/infrastructure/database/database.py
+src/infrastructure/llm/__init__.py
+src/infrastructure/llm/huggingface_embeddings.py
+src/infrastructure/llm/openai_embeddings.py
+src/infrastructure/llm/openai_llm.py
+src/infrastructure/reranker/__init__.py
+src/infrastructure/reranker/cohere_reranker.py
+src/infrastructure/vector_db/__init__.py
+src/infrastructure/vector_db/chroma_vectorstore.py
+src/modules/__init__.py
+src/modules/documents/__init__.py
+src/modules/documents/dependencies.py
+src/modules/documents/models.py
+src/modules/documents/repository.py
+src/modules/evaluation/__init__.py
+src/modules/evaluation/dataset.py
+src/modules/evaluation/judge.py
+src/modules/evaluation/matching.py
+src/modules/evaluation/metrics.py
+src/modules/evaluation/models.py
+src/modules/evaluation/repository.py
+src/modules/evaluation/retriever.py
+src/modules/evaluation/service.py
+src/modules/semantic_cache/__init__.py
+src/modules/semantic_cache/models.py
+src/modules/semantic_cache/repository.py
+src/modules/semantic_cache/service.py
+src/modules/users/__init__.py
+src/modules/users/dependencies.py
+src/modules/users/jwt.py
+src/modules/users/models.py
+src/modules/users/schemas.py
+src/modules/users/security/__init__.py
+src/modules/users/security/jwt.py
+src/rag/embeddings/__init__.py
+src/rag/embeddings/interface.py
+src/rag/ingestion/__init__.py
+src/rag/ingestion/chunker.py
+src/rag/ingestion/chunking/__init__.py
+src/rag/ingestion/chunking/base.py
+src/rag/ingestion/chunking/fixed_window.py
+src/rag/ingestion/chunking/recursive_semantic.py
+src/rag/ingestion/chunking/registry.py
+src/rag/ingestion/pdf_extractor.py
+src/rag/models.py
+src/rag/pipeline/__init__.py
+src/rag/pipeline/services.py
+src/rag/reranker/__init__.py
+src/rag/reranker/interface.py
+src/rag/vectorstore/__init__.py
+src/rag/vectorstore/interface.py
+src/settings/__init__.py
+src/settings/agent.py
+src/settings/ai.py
+src/settings/app.py
+src/settings/auth.py
+src/settings/config.py
+src/settings/database.py
+src/settings/evaluation.py
+src/settings/rag.py
+src/shared/interfaces/llm.py
+src/shared/interfaces/tool.py
+src/shared/tracing.py
+src/tools/__init__.py
+src/tools/ping_tool.py
+src/tools/registry.py
+src/tools/retriever_tool.py
+```
+
+## 功能结构（逻辑结构）
