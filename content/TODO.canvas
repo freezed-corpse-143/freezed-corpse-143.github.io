@@ -134,7 +134,7 @@
 		{
 			"id":"7135c49943c1a2ef",
 			"type":"text",
-			"text":"Typescript 的 TUI Ink 教程：",
+			"text":"Typescript 的 TUI Ink 教程：https://github.com/vadimdemedes/ink",
 			"styleAttributes":{},
 			"x":-4060,
 			"y":1140,
