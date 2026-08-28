@@ -72,16 +72,6 @@
 			"height":150
 		},
 		{
-			"id":"524a95ce89e302d9",
-			"type":"text",
-			"text":"学习多智能体编排流程\n- langchain\n- langgraph\n- langsmith",
-			"styleAttributes":{},
-			"x":-4120,
-			"y":445,
-			"width":260,
-			"height":140
-		},
-		{
 			"id":"ce8f450312f7c2a5",
 			"type":"text",
 			"text":"antvG6 调用 GPU",
@@ -90,6 +80,16 @@
 			"y":690,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"524a95ce89e302d9",
+			"type":"text",
+			"text":"学习多智能体编排流程\n- langchain\n- langgraph\n- langsmith",
+			"styleAttributes":{},
+			"x":-4100,
+			"y":440,
+			"width":260,
+			"height":140
 		}
 	],
 	"edges":[],
