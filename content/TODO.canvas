@@ -90,6 +90,16 @@
 			"y":440,
 			"width":260,
 			"height":140
+		},
+		{
+			"id":"71c8daeb5829aada",
+			"type":"text",
+			"text":"agent 记忆架构",
+			"styleAttributes":{},
+			"x":-3740,
+			"y":800,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
