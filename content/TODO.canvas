@@ -52,14 +52,24 @@
 			"height":150
 		},
 		{
-			"id":"ce3a0f318bc08f98",
+			"id":"27c55458d5761900",
 			"type":"text",
-			"text":"pytorch 基础语法编写和 cuda",
+			"text":"cuda-flash attention",
 			"styleAttributes":{},
-			"x":-4100,
-			"y":280,
+			"x":-3680,
+			"y":360,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f0287cf59d2a5a0c",
+			"type":"text",
+			"text":"pytorch 基础编写\nself-attention、多头、batch、mastk、\n多头潜在注意力、MOE 模型",
+			"styleAttributes":{},
+			"x":-4120,
+			"y":260,
+			"width":380,
+			"height":130
 		}
 	],
 	"edges":[],

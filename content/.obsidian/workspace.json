@@ -38,7 +38,8 @@
               "title": "pytorch"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -176,7 +177,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "经典库学习/pytorch.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -215,11 +216,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "b396bf38564ee1f5",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件使用.md",
     "经典库学习/pytorch.md",
-    "TODO.canvas",
     "Python.md",
     "经典库学习/langgraph.md",
     "经典库学习/psycopg3.md",
