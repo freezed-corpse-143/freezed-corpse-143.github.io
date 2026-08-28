@@ -693,3 +693,108 @@ flowchart TB
     style Cache2 fill:#e8f5e9
     style Cache3 fill:#fff3e0
 ```
+
+
+# MOE 模型
+
+```python
+import torch
+import torch.nn.functional as F
+
+
+def moe_forward(
+    X: torch.Tensor,  # 输入 (batch, seq_len, d_model)
+    W_g: torch.Tensor,  # router 权重 (d_model, num_experts)
+    W_e1: torch.Tensor,  # 各专家升维权重 (num_experts, d_model, d_ff)
+    b_e1: torch.Tensor,  # (num_experts, d_ff)
+    W_e2: torch.Tensor,  # 各专家降维权重 (num_experts, d_ff, d_model)
+    b_e2: torch.Tensor,  # (num_experts, d_model)
+    top_k: int = 2,  # 每个 token 选几个专家
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    r"""Mixture of Experts 前向（稀疏路由）。
+
+    - router 给每个 token 打分，选 top_k 个专家，权重归一化后加权求和。
+    - 未选中的专家不计算（只把 dispatch 到的 token 送进对应专家），实现真正稀疏。
+    - 返回 load-balancing 辅助损失（Switch Transformer 风格），训练时乘以系数加到总损失。
+    """
+    batch, seq_len, d_model = X.shape
+    num_experts = W_e1.shape[0]
+    X_flat = X.reshape(-1, d_model)  # (n_tokens, d_model)
+    n_tokens = X_flat.shape[0]
+
+    # --- 1. router: 打分 + softmax ---
+    logits = X_flat @ W_g  # (n_tokens, num_experts)
+    probs = F.softmax(logits, dim=-1)
+
+    # --- 2. top-k 选择 ---
+    topk_vals, topk_idx = probs.topk(top_k, dim=-1)  # 各 (n_tokens, top_k)
+    # 对选中的 k 个概率重新归一化（GShard/Switch 惯例，等价于 mask 掉未选中项再 softmax）
+    weights = F.softmax(topk_vals, dim=-1)
+
+    # --- 3. 稀疏 dispatch: 逐专家处理被选中的 token ---
+    output = torch.zeros(n_tokens, d_model, dtype=X.dtype, device=X.device)
+    for e in range(num_experts):
+        rows, slots = (topk_idx == e).nonzero(as_tuple=True)  # 选了专家 e 的 token 及其 slot
+        if rows.numel() == 0:
+            continue
+        h = F.gelu(X_flat[rows] @ W_e1[e] + b_e1[e])  # (n, d_ff) 升维 + 激活
+        y = h @ W_e2[e] + b_e2[e]  # (n, d_model) 降维
+        w = weights[rows, slots].unsqueeze(-1)  # (n, 1) 该 token 在该 slot 的权重
+        output.index_add_(0, rows, y * w)  # 加权累加回对应 token
+
+    # --- 4. load-balancing 辅助损失: 鼓励 token 均匀分配到各专家 ---
+    f_i = torch.bincount(topk_idx.flatten(), minlength=num_experts).float() / (n_tokens * top_k)  # 各专家被选占比
+    P_i = probs.mean(dim=0)  # 各专家的平均路由概率
+    aux_loss = (f_i * P_i).sum() * num_experts  # 越小越均衡; 均匀时 = 1
+
+    return output.reshape(batch, seq_len, d_model), aux_loss, topk_idx, weights
+
+
+if __name__ == "__main__":
+    # ========== 测试输入 ==========
+    torch.manual_seed(0)
+    d_model, num_experts, d_ff, top_k = 8, 4, 16, 2
+    X = torch.randn(2, 3, d_model)
+    W_g = torch.randn(d_model, num_experts)  # router
+    W_e1 = torch.randn(num_experts, d_model, d_ff) * 0.1
+    b_e1 = torch.zeros(num_experts, d_ff)
+    W_e2 = torch.randn(num_experts, d_ff, d_model) * 0.1
+    b_e2 = torch.zeros(num_experts, d_model)
+
+    out, aux, topk_idx, weights = moe_forward(X, W_g, W_e1, b_e1, W_e2, b_e2, top_k)
+
+    # ========== 断言 ==========
+    assert out.shape == X.shape, f"输出形状 {out.shape} != 输入 {X.shape}"
+    assert torch.isfinite(out).all(), "输出含 NaN/Inf"
+    assert out.abs().sum() > 0, "输出全零，路由或加权有问题"
+    assert torch.isfinite(aux) and aux >= 0, f"辅助损失异常: {aux}"
+
+    n = X.shape[0] * X.shape[1]
+    # 每个 token 恰好选出 top_k 个不重复专家
+    assert topk_idx.shape == (n, top_k)
+    assert topk_idx.unique(dim=1).shape == topk_idx.shape, "同一 token 选了重复专家"
+    # 总 dispatch 次数 = n * top_k
+    dispatched = (topk_idx == torch.arange(num_experts).view(-1, 1, 1)).sum().item()
+    assert dispatched == n * top_k, f"dispatch {dispatched} != {n * top_k}"
+
+    # 与逐 token 手算的参考实现对比
+    Xf = X.reshape(n, d_model)
+    for t in range(n):
+        expect = torch.zeros(d_model)
+        for k in range(top_k):
+            e = topk_idx[t, k].item()
+            h = F.gelu(Xf[t] @ W_e1[e] + b_e1[e])
+            expect = expect + weights[t, k] * (h @ W_e2[e] + b_e2[e])
+        assert torch.allclose(out.reshape(n, d_model)[t], expect, atol=1e-5), f"token {t} 与参考实现不符"
+
+    # ========== 打印路由情况 ==========
+    print(f"输入形状 {tuple(X.shape)} -> 输出形状 {tuple(out.shape)}")
+    print(f"top_k={top_k}, 专家数={num_experts}")
+    print("各 token 路由:", topk_idx.tolist())
+    print(f"各专家被选占比 f_i: {torch.bincount(topk_idx.flatten(), minlength=num_experts).float() / (n * top_k)}")
+    P_i = torch.softmax(X.reshape(n, d_model) @ W_g, dim=-1).mean(0)
+    print(f"平均路由概率 P_i:  {P_i}")
+    print(f"load-balancing 辅助损失: {aux.item():.4f}")
+    print("\n全部断言通过 ✓")
+
+```
