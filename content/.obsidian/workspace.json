@@ -25,17 +25,14 @@
             "id": "b95ce4db1a308f38",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3620,
-                  "y": 141.99681190223168,
-                  "zoom": -0.34956503068568695
-                }
+                "file": "经典库学习/langchain.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "langchain"
             }
           }
         ],
@@ -176,7 +173,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "经典库学习/langchain.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -200,8 +197,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5,
-    "collapsed": true
+    "width": 422.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -217,8 +213,8 @@
   },
   "active": "b95ce4db1a308f38",
   "lastOpenFiles": [
-    "经典库学习/langchain.md",
     "TODO.canvas",
+    "经典库学习/langchain.md",
     "经典库学习/deep agents.md",
     "经典库学习/langsmith.md",
     "经典库学习/langgraph.md",
