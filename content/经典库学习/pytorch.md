@@ -610,3 +610,55 @@ if __name__ == "__main__":
     print("\n全部断言通过 ✓")
 
 ```
+
+```mermaid
+flowchart TB
+    subgraph Input["输入阶段"]
+        H[t时刻隐藏状态 h_t]
+    end
+
+    subgraph ContentPath["内容路径（压缩存储）"]
+        direction TB
+        C1["压缩投影 W_DKV"]
+        C2["低维潜在向量 c_t<br/>（缓存到KV Cache）"]
+        C3["解压投影 W_UK / W_UV"]
+        C4["内容Key/Value<br/>k_content, v_content"]
+        
+        H --> C1 --> C2 --> C3 --> C4
+    end
+
+    subgraph PosPath["位置路径（实时生成）"]
+        direction TB
+        P1["位置投影 W_pos"]
+        P2["应用旋转位置编码 RoPE"]
+        P3["位置Key<br/>k_pos"]
+        
+        H --> P1 --> P2 --> P3
+    end
+
+    subgraph Merge["融合与计算"]
+        direction LR
+        M1["拼接完整Key<br/>k = [k_content; k_pos]"]
+        M2["注意力分数计算<br/>Score = content_dot + pos_dot"]
+        M3["加权求和得到输出"]
+        
+        C4 --> M1
+        P3 --> M1
+        M1 --> M2 --> M3
+    end
+
+    subgraph Cache["💾 缓存策略对比"]
+        direction LR
+        Cache1["✅ 缓存内容部分<br/>（低维，占95%+）"]
+        Cache2["❌ 不缓存位置部分<br/>（推理时临时算）"]
+    end
+
+    C2 -.-> Cache1
+    P3 -.-> Cache2
+
+    style C2 fill:#4CAF50,color:#fff
+    style P2 fill:#FF9800,color:#fff
+    style M2 fill:#2196F3,color:#fff
+    style Cache1 fill:#e8f5e9
+    style Cache2 fill:#fff3e0
+```
