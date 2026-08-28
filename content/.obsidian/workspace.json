@@ -25,17 +25,14 @@
             "id": "b396bf38564ee1f5",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3603.435294117646,
-                  "y": -19.509806554457782,
-                  "zoom": -0.7167073491662621
-                }
+                "file": "经典库学习/pytorch.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "pytorch"
             }
           }
         ],
@@ -98,8 +95,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -177,7 +173,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "经典库学习/pytorch.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -218,8 +214,9 @@
   },
   "active": "b396bf38564ee1f5",
   "lastOpenFiles": [
-    "软件使用.md",
     "TODO.canvas",
+    "经典库学习/pytorch.md",
+    "软件使用.md",
     "Python.md",
     "经典库学习/langgraph.md",
     "经典库学习/psycopg3.md",
@@ -245,7 +242,6 @@
     "github项目",
     "windows.md",
     "报错.md",
-    "408/大模型.md",
     "人工智能",
     "408",
     "Pasted image 20260610145938.png",
