@@ -72,22 +72,12 @@
 			"height":140
 		},
 		{
-			"id":"71c8daeb5829aada",
-			"type":"text",
-			"text":"agent 记忆架构：dream 模式",
-			"styleAttributes":{},
-			"x":-3760,
-			"y":440,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"ce8f450312f7c2a5",
 			"type":"text",
 			"text":"antvG6 调用 GPU",
 			"styleAttributes":{},
-			"x":-3760,
-			"y":520,
+			"x":-4100,
+			"y":110,
 			"width":260,
 			"height":60
 		}

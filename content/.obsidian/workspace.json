@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3620,
-                  "y": -30,
-                  "zoom": -1.0500406824995954
+                  "x": -3642.963088420883,
+                  "y": 78.9139707776767,
+                  "zoom": -0.3833740158329288
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -218,8 +219,8 @@
   "active": "92e345c6a55d6d05",
   "lastOpenFiles": [
     "人工智能/智能体记忆.md",
-    "人工智能/RAG.md",
     "TODO.canvas",
+    "人工智能/RAG.md",
     "软件使用.md",
     "经典库学习/jinja2.md",
     "经典库学习/pymilvus.md",
