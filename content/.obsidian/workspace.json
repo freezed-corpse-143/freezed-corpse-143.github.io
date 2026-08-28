@@ -11,17 +11,14 @@
             "id": "c37593d81e441dd1",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3620,
-                  "y": 141.99681190223168,
-                  "zoom": -0.34956503068568695
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           }
         ]
@@ -161,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "软件使用.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -185,7 +182,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5
+    "width": 422.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -201,8 +199,8 @@
   },
   "active": "c37593d81e441dd1",
   "lastOpenFiles": [
-    "Python.md",
     "TODO.canvas",
+    "Python.md",
     "经典库学习/langgraph.md",
     "经典库学习/psycopg3.md",
     "经典库学习/langchain.md",
@@ -229,7 +227,6 @@
     "windows.md",
     "报错.md",
     "408/大模型.md",
-    "我的项目.md",
     "人工智能",
     "408",
     "Pasted image 20260610145938.png",
