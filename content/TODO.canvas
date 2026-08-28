@@ -42,16 +42,6 @@
 			"height":180
 		},
 		{
-			"id":"fb9deb4f9e08483f",
-			"type":"text",
-			"text":"更新简历、投递简历",
-			"styleAttributes":{},
-			"x":-3810,
-			"y":35,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"8fdf943f6150ef0e",
 			"type":"text",
 			"text":"C++的 QT 教程：https://doc.qt.io/qt-6/qtexamplesandtutorials.html",
@@ -116,8 +106,18 @@
 			"type":"text",
 			"text":"cuda-flash attention",
 			"styleAttributes":{},
-			"x":-3580,
-			"y":278,
+			"x":-4070,
+			"y":260,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fb9deb4f9e08483f",
+			"type":"text",
+			"text":"更新简历、投递简历",
+			"styleAttributes":{},
+			"x":-4100,
+			"y":100,
 			"width":260,
 			"height":60
 		}
