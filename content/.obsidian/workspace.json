@@ -20,6 +20,23 @@
               "icon": "lucide-file",
               "title": "langchain"
             }
+          },
+          {
+            "id": "1fa765c4bd7cdc9d",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3620,
+                  "y": -95,
+                  "zoom": -1.0500406824995954
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ]
       }
@@ -199,11 +216,11 @@
   },
   "active": "24adc9dc1b310965",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "经典库学习/langchain.md",
     "经典库学习/deep agents.md",
     "经典库学习/langsmith.md",
-    "TODO.canvas",
     "经典库学习/langgraph.md",
-    "经典库学习/langchain.md",
     "软件使用.md",
     "经典库学习/antv G6.md",
     "环境配置.md",
@@ -227,7 +244,6 @@
     "报错.md",
     "408/大模型.md",
     "我的项目.md",
-    "人工智能/Prompt.md",
     "人工智能",
     "408",
     "Pasted image 20260610145938.png",
