@@ -56,18 +56,8 @@
 			"type":"text",
 			"text":"pytorch 基础语法编写和 cuda",
 			"styleAttributes":{},
-			"x":-3720,
+			"x":-4100,
 			"y":280,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"32e4a2f3da345607",
-			"type":"text",
-			"text":"Dify 智能体",
-			"styleAttributes":{},
-			"x":-3460,
-			"y":220,
 			"width":260,
 			"height":60
 		}
