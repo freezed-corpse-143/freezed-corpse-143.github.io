@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -215,11 +216,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a02f345cb4cd892e",
+  "active": "92e345c6a55d6d05",
   "lastOpenFiles": [
+    "人工智能/智能体记忆.md",
     "TODO.canvas",
     "软件使用.md",
-    "人工智能/智能体记忆.md",
     "人工智能/RAG.md",
     "经典库学习/jinja2.md",
     "经典库学习/pymilvus.md",

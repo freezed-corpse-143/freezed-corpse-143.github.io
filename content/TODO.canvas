@@ -80,6 +80,16 @@
 			"y":110,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"96fcf1658291c426",
+			"type":"text",
+			"text":"headroom",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":300,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
