@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件使用.md",
+                "file": "环境配置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "软件使用"
+              "title": "环境配置"
             }
           },
           {
@@ -72,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "codegraph",
+                "query": "codex",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,7 +93,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -216,10 +217,10 @@
   },
   "active": "a02f345cb4cd892e",
   "lastOpenFiles": [
+    "软件使用.md",
     "环境配置.md",
     "人工智能/智能体记忆.md",
     "TODO.canvas",
-    "软件使用.md",
     "人工智能/RAG.md",
     "经典库学习/jinja2.md",
     "经典库学习/pymilvus.md",
