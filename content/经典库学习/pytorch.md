@@ -327,6 +327,47 @@ if __name__ == "__main__":
 
 # MLA 多头潜在注意力
 
+标准 MHA 每个 token 要缓存所有头的 K 和 V（$2 \times n_h \times d_h$
+个浮点数），序列一长 KV cache 就爆炸。MLA 的核心思路：
+把 K 和 V 联合压缩成一个低维潜在向量，只缓存它。
+
+对第 $t$ 个 token：
+
+$$
+c_t^{KV} = W^{DKV} h_t \qquad
+k_t^C = W^{UK} c_t^{KV}, \quad
+v_t^C = W^{UV} c_t^{KV}
+$$
+
+Query 同样先压缩再升维：
+
+$$
+c_t^Q = W^{DQ} h_t \qquad
+q_t^C = W^{UQ} c_t^Q
+$$
+
+RoPE 依赖位置、无法折进低秩压缩，所以 MLA 把旋转位置编码解耦出来：
+
+$$
+q_t^R = \text{RoPE}(W^{QR} c_t^Q), \qquad
+k_t^R = \text{RoPE}(W^{KR} h_t)
+$$
+
+最终拼接 content 与 rotary 两部分算注意力：
+
+$$
+q_t = [q_t^C;\, q_t^R], \quad k_t = [k_t^C;\, k_t^R], \qquad
+o_t = \sum_{i \le t} \text{softmax}_i\!\left(
+	\frac{q_t^\top k_i}{\sqrt{d_h + d_h^R}}
+\right) v_i^C
+$$
+
+缓存对比（每 token）：标准 MHA 缓存 $2 n_h d_h$；MLA 只缓存
+$c_t^{KV}$（$d_c$ 维）+ $k_t^R$（$n_h d_h^R$ 维），通常 $d_c \ll n_h d_h$。
+推理时还可把 $W^{UK}$ 吸收进 $W^{UQ}$（$q^{C\top} k^C =
+c^{Q\top}(W^{UQ\top}W^{UK})c^{KV}$），连升维都省掉。
+
+
 ```python
 import torch
 import torch.nn.functional as F
