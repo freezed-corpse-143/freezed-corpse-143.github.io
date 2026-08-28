@@ -11,17 +11,14 @@
             "id": "24adc9dc1b310965",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3701.9833340492933,
-                  "y": 31.32787371683237,
-                  "zoom": -0.3833740158329288
-                }
+                "file": "经典库学习/langsmith.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "langsmith"
             }
           }
         ]
@@ -202,9 +199,12 @@
   },
   "active": "24adc9dc1b310965",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "经典库学习/langsmith.md",
+    "经典库学习/langgraph.md",
+    "经典库学习/langchain.md",
     "软件使用.md",
     "经典库学习/antv G6.md",
-    "TODO.canvas",
     "环境配置.md",
     "人工智能/智能体记忆.md",
     "人工智能/RAG.md",
@@ -227,9 +227,6 @@
     "408/大模型.md",
     "我的项目.md",
     "人工智能/Prompt.md",
-    "人工智能/Prompt Engineer.md",
-    "人工智能/知识图谱.md",
-    "人工智能/多智能体设计.md",
     "人工智能",
     "408",
     "Pasted image 20260610145938.png",

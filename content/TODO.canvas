@@ -70,6 +70,16 @@
 			"y":280,
 			"width":260,
 			"height":140
+		},
+		{
+			"id":"32e4a2f3da345607",
+			"type":"text",
+			"text":"coze 智能体",
+			"styleAttributes":{},
+			"x":-3400,
+			"y":270,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
