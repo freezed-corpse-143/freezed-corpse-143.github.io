@@ -11,14 +11,17 @@
             "id": "a02f345cb4cd892e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "人工智能/RAG.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3706.651863338142,
+                  "y": 304.7908939173568,
+                  "zoom": -0.41312135922698107
+                }
               },
-              "icon": "lucide-file",
-              "title": "RAG"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -200,8 +203,8 @@
   },
   "active": "a02f345cb4cd892e",
   "lastOpenFiles": [
-    "TODO.canvas",
     "人工智能/RAG.md",
+    "TODO.canvas",
     "经典库学习/jinja2.md",
     "经典库学习/pymilvus.md",
     "环境配置.md",

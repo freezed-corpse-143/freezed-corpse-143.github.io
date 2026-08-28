@@ -52,16 +52,6 @@
 			"height":60
 		},
 		{
-			"id":"354a61675f30d51d",
-			"type":"text",
-			"text":"学习计划：\n- [ ] 检索 RAG:\n\t- [ ] 分块策略与检索粒度\n\t- [ ] 索引建立策略\n\t- [ ] 索引使用策略\n\t- [ ] 知识库元信息策略\n\t- [ ] 知识库更新策略\n\t- [ ] 查询重写、多样化、澄清\n\t- [ ] 检索策略。\n\t- [ ] RAG 评测策略。\n\t- [ ] 文本提取策略",
-			"styleAttributes":{},
-			"x":-3720,
-			"y":245,
-			"width":260,
-			"height":475
-		},
-		{
 			"id":"1e5963333d4aa3c7",
 			"type":"text",
 			"text":"学习前端 ui 与图形协议。\n- C++的 qt、flutter\n- rust 的 tauri\n- electron",
@@ -70,16 +60,6 @@
 			"y":200,
 			"width":260,
 			"height":150
-		},
-		{
-			"id":"ce8f450312f7c2a5",
-			"type":"text",
-			"text":"antvG6 调用 GPU",
-			"styleAttributes":{},
-			"x":-4100,
-			"y":690,
-			"width":260,
-			"height":60
 		},
 		{
 			"id":"524a95ce89e302d9",
@@ -96,8 +76,18 @@
 			"type":"text",
 			"text":"agent 记忆架构：dream 模式",
 			"styleAttributes":{},
-			"x":-4120,
-			"y":800,
+			"x":-3760,
+			"y":440,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"ce8f450312f7c2a5",
+			"type":"text",
+			"text":"antvG6 调用 GPU",
+			"styleAttributes":{},
+			"x":-3760,
+			"y":520,
 			"width":260,
 			"height":60
 		}
