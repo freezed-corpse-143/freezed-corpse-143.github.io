@@ -114,7 +114,7 @@
 		{
 			"id":"f0287cf59d2a5a0c",
 			"type":"text",
-			"text":"pytorch 基础编写\n多头潜在注意力、MOE 模型",
+			"text":"pytorch 基础编写\nMOE 模型",
 			"styleAttributes":{},
 			"x":-4070,
 			"y":260,
