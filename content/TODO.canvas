@@ -42,36 +42,6 @@
 			"height":180
 		},
 		{
-			"id":"1e5963333d4aa3c7",
-			"type":"text",
-			"text":"学习前端 ui 与图形协议。\n- rust 的 tauri\n- electron",
-			"styleAttributes":{},
-			"x":-4100,
-			"y":35,
-			"width":260,
-			"height":150
-		},
-		{
-			"id":"27c55458d5761900",
-			"type":"text",
-			"text":"cuda-flash attention",
-			"styleAttributes":{},
-			"x":-3680,
-			"y":360,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"f0287cf59d2a5a0c",
-			"type":"text",
-			"text":"pytorch 基础编写\nself-attention、多头、batch、mastk、\n多头潜在注意力、MOE 模型",
-			"styleAttributes":{},
-			"x":-4120,
-			"y":260,
-			"width":380,
-			"height":130
-		},
-		{
 			"id":"fb9deb4f9e08483f",
 			"type":"text",
 			"text":"更新简历、投递简历",
@@ -139,6 +109,26 @@
 			"x":-4060,
 			"y":1140,
 			"width":800,
+			"height":60
+		},
+		{
+			"id":"f0287cf59d2a5a0c",
+			"type":"text",
+			"text":"pytorch 基础编写\nself-attention、多头、batch、mastk、\n多头潜在注意力、MOE 模型",
+			"styleAttributes":{},
+			"x":-4070,
+			"y":260,
+			"width":380,
+			"height":130
+		},
+		{
+			"id":"27c55458d5761900",
+			"type":"text",
+			"text":"cuda-flash attention",
+			"styleAttributes":{},
+			"x":-3600,
+			"y":295,
+			"width":260,
 			"height":60
 		}
 	],

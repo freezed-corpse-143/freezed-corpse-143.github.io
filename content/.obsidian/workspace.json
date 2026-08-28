@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3574.0439384343313,
-                  "y": 751.6944264264706,
+                  "y": 266.46177361048746,
                   "zoom": -0.3833740158329288
                 }
               },
@@ -38,7 +38,8 @@
               "title": "pytorch"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -176,7 +177,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "经典库学习/pytorch.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -215,10 +216,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "b396bf38564ee1f5",
   "lastOpenFiles": [
-    "经典库学习/pytorch.md",
     "TODO.canvas",
+    "经典库学习/pytorch.md",
     "软件使用.md",
     "Python.md",
     "经典库学习/langgraph.md",
