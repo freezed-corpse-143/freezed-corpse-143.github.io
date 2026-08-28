@@ -42,22 +42,12 @@
 			"height":180
 		},
 		{
-			"id":"1e5963333d4aa3c7",
-			"type":"text",
-			"text":"学习前端 ui 与图形协议。\n- C++的 qt、flutter\n- rust 的 tauri\n- electron",
-			"styleAttributes":{},
-			"x":-3800,
-			"y":200,
-			"width":260,
-			"height":150
-		},
-		{
 			"id":"524a95ce89e302d9",
 			"type":"text",
 			"text":"学习多智能体编排流程\n- langchain\n- langgraph\n- langsmith",
 			"styleAttributes":{},
-			"x":-3900,
-			"y":-60,
+			"x":-4060,
+			"y":-10,
 			"width":260,
 			"height":140
 		},
@@ -66,10 +56,20 @@
 			"type":"text",
 			"text":"pytorch 基础语法编写和 cuda",
 			"styleAttributes":{},
-			"x":-3900,
-			"y":130,
+			"x":-4060,
+			"y":180,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"1e5963333d4aa3c7",
+			"type":"text",
+			"text":"学习前端 ui 与图形协议。\n- C++的 qt、flutter\n- rust 的 tauri\n- electron",
+			"styleAttributes":{},
+			"x":-4100,
+			"y":300,
+			"width":260,
+			"height":150
 		}
 	],
 	"edges":[],
