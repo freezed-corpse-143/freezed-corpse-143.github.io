@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经典库学习/pymilvus.md",
+                "file": "人工智能/RAG.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pymilvus"
+              "title": "RAG"
             }
           },
           {
@@ -35,8 +35,7 @@
               "title": "jinja2"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -95,8 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -213,12 +211,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4fad53f7c6be159a",
+  "active": "a02f345cb4cd892e",
   "lastOpenFiles": [
     "TODO.canvas",
+    "人工智能/RAG.md",
+    "经典库学习/pymilvus.md",
     "经典库学习/jinja2.md",
     "环境配置.md",
-    "经典库学习/pymilvus.md",
     "编程语言.md",
     "经典库学习/psycopg3.md",
     "软件使用.md",
@@ -243,7 +242,6 @@
     "数据库.md",
     "人工智能",
     "index.md",
-    "Python.md",
     "408",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
