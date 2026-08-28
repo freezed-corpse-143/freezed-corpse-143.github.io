@@ -52,16 +52,6 @@
 			"height":150
 		},
 		{
-			"id":"ce3a0f318bc08f98",
-			"type":"text",
-			"text":"pytorch 基础语法编写和 cuda",
-			"styleAttributes":{},
-			"x":-3800,
-			"y":80,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"524a95ce89e302d9",
 			"type":"text",
 			"text":"学习多智能体编排流程\n- langchain\n- langgraph\n- langsmith",
@@ -70,6 +60,16 @@
 			"y":-60,
 			"width":260,
 			"height":140
+		},
+		{
+			"id":"ce3a0f318bc08f98",
+			"type":"text",
+			"text":"pytorch 基础语法编写和 cuda",
+			"styleAttributes":{},
+			"x":-3900,
+			"y":130,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
