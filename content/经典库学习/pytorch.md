@@ -324,3 +324,250 @@ if __name__ == "__main__":
 
     print("\n全部断言通过 ✓")
 ```
+
+# MLA 多头潜在注意力
+
+```python
+import torch
+import torch.nn.functional as F
+
+from multi_head_attention import build_causal_mask  # 复用上一文件的因果 mask
+
+
+def rotary_embedding(x: torch.Tensor, theta: float = 10000.0) -> torch.Tensor:
+    r"""旋转位置编码 RoPE（Rotary Position Embedding）。
+
+    对最后一维按相邻两元素成对旋转。位置 $m$ 处、频率 $\theta_j$ 的旋转：
+
+    $$
+    \begin{pmatrix} x'_{2j} \\ x'_{2j+1} \end{pmatrix}
+    = \begin{pmatrix}
+        \cos(m\theta_j) & -\sin(m\theta_j) \\
+        \sin(m\theta_j) & \cos(m\theta_j)
+    \end{pmatrix}
+    \begin{pmatrix} x_{2j} \\ x_{2j+1} \end{pmatrix},
+    \qquad \theta_j = \theta^{-2j/d}
+    $$
+
+    关键性质：两个向量的内积只取决于**相对位置**，因此位置信息天然融入
+    注意力分数，且不增加可学习参数。
+
+    参数：
+        x: 输入张量 (..., seq_len, d)，d 必须为偶数。
+        theta: 基频（base），控制频率跨度。
+
+    返回：
+        旋转后的张量，形状不变。
+    """
+
+    d = x.size(-1)
+    seq_len = x.size(-2)
+    assert d % 2 == 0, "最后一维必须为偶数（按对旋转）"
+
+    # 频率: (d/2,)，位置: (seq_len,)，外积得到每个位置每对维度的旋转角
+    freqs = 1.0 / (theta ** (torch.arange(0, d, 2, dtype=torch.float32) / d))
+    positions = torch.arange(seq_len, dtype=torch.float32)
+    angles = positions[:, None] * freqs[None, :]  # (seq_len, d/2)
+    cos = angles.cos()
+    sin = angles.sin()
+
+    # 拆成相邻对: (..., seq_len, d/2, 2)
+    x_pairs = x.float().reshape(*x.shape[:-1], -1, 2)
+    x0, x1 = x_pairs[..., 0], x_pairs[..., 1]
+
+    # 旋转公式（cos/sin 自动广播到 batch/head 维）
+    rotated = torch.stack(
+        [x0 * cos - x1 * sin, x0 * sin + x1 * cos], dim=-1
+    )
+    return rotated.reshape_as(x).type_as(x)
+
+
+def multi_head_latent_attention(
+    X: torch.Tensor,  # 输入 (batch, seq_len, d_model)
+    W_dkv: torch.Tensor,  # KV 下投影 (d_model, d_c)，把 K/V 压缩到 d_c 维潜在空间
+    W_uk: torch.Tensor,  # Key 上投影 (d_c, n_h * d_h)
+    W_uv: torch.Tensor,  # Value 上投影 (d_c, n_h * d_h)
+    W_dq: torch.Tensor,  # Query 下投影 (d_model, d_c')
+    W_uq: torch.Tensor,  # Query 上投影 (d_c', n_h * d_h)
+    W_qr: torch.Tensor,  # 旋转 Query 投影 (d_c', n_h * d_h^R)
+    W_kr: torch.Tensor,  # 旋转 Key 投影 (d_model, n_h * d_h^R)
+    num_heads: int,  # 头数 n_h
+    head_dim: int,  # 每头内容维度 d_h
+    rotary_dim: int,  # 每头旋转位置编码维度 d_h^R
+    rope_theta: float = 10000.0,  # RoPE 基频
+    mask: torch.Tensor | None = None,  # 同前两个文件，1=允许 attend
+    W_o: torch.Tensor | None = None,  # 输出投影 (n_h*d_h, d_model)，None 则不投影
+) -> tuple[torch.Tensor, torch.Tensor]:
+    r"""多头潜在注意力 MLA（DeepSeek-V2 提出，V3/R1 沿用）。
+
+    标准 MHA 每个 token 要缓存所有头的 K 和 V（$2 \times n_h \times d_h$
+    个浮点数），序列一长 KV cache 就爆炸。MLA 的核心思路：
+    把 K 和 V 联合压缩成一个低维潜在向量，只缓存它。
+
+    对第 $t$ 个 token：
+
+    $$
+    c_t^{KV} = W^{DKV} h_t \qquad
+    k_t^C = W^{UK} c_t^{KV}, \quad
+    v_t^C = W^{UV} c_t^{KV}
+    $$
+
+    Query 同样先压缩再升维：
+
+    $$
+    c_t^Q = W^{DQ} h_t \qquad
+    q_t^C = W^{UQ} c_t^Q
+    $$
+
+    RoPE 依赖位置、无法折进低秩压缩，所以 MLA 把旋转位置编码解耦出来：
+
+    $$
+    q_t^R = \text{RoPE}(W^{QR} c_t^Q), \qquad
+    k_t^R = \text{RoPE}(W^{KR} h_t)
+    $$
+
+    最终拼接 content 与 rotary 两部分算注意力：
+
+    $$
+    q_t = [q_t^C;\, q_t^R], \quad k_t = [k_t^C;\, k_t^R], \qquad
+    o_t = \sum_{i \le t} \text{softmax}_i\!\left(
+        \frac{q_t^\top k_i}{\sqrt{d_h + d_h^R}}
+    \right) v_i^C
+    $$
+
+    缓存对比（每 token）：标准 MHA 缓存 $2 n_h d_h$；MLA 只缓存
+    $c_t^{KV}$（$d_c$ 维）+ $k_t^R$（$n_h d_h^R$ 维），通常 $d_c \ll n_h d_h$。
+    推理时还可把 $W^{UK}$ 吸收进 $W^{UQ}$（$q^{C\top} k^C =
+    c^{Q\top}(W^{UQ\top}W^{UK})c^{KV}$），连升维都省掉。
+
+    参数：
+        X: 输入 (batch, seq_len, d_model)。
+        W_dkv/W_uk/W_uv/W_dq/W_uq/W_qr/W_kr: 各投影权重，形状见签名注释。
+        num_heads/head_dim/rotary_dim: 结构参数。
+        rope_theta: RoPE 基频。
+        mask: 同前，自动广播到所有头。
+        W_o: 可选输出投影。
+
+    返回：
+        output: (batch, seq_len, n_h*d_h) 或投影后 (batch, seq_len, d_model)。
+        attn_weights: (batch, n_h, seq_len, seq_len)，每头每行和为 1。
+    """
+
+    batch, seq_len, _ = X.shape
+    n_h, d_h, d_h_r = num_heads, head_dim, rotary_dim
+    d_c = W_dkv.size(-1)  # KV 潜在维度
+    d_c_q = W_dq.size(-1)  # Query 潜在维度
+
+    # --- 1. KV 联合压缩（MLA 的核心）---
+    # c_t^KV 就是每个 token 需要缓存的潜在向量，后续 K/V 都由它升维还原
+    C_kv = X @ W_dkv  # (b, s, d_c)  ← 缓存它
+    K_c = (C_kv @ W_uk).view(batch, seq_len, n_h, d_h).transpose(1, 2)  # (b, n_h, s, d_h)
+    V_c = (C_kv @ W_uv).view(batch, seq_len, n_h, d_h).transpose(1, 2)
+
+    # --- 2. Query 压缩 ---
+    C_q = X @ W_dq  # (b, s, d_c')
+    Q_c = (C_q @ W_uq).view(batch, seq_len, n_h, d_h).transpose(1, 2)
+
+    # --- 3. 解耦的旋转 query/key（RoPE 只作用在这部分）---
+    Q_r = (C_q @ W_qr).view(batch, seq_len, n_h, d_h_r).transpose(1, 2)
+    K_r = (X @ W_kr).view(batch, seq_len, n_h, d_h_r).transpose(1, 2)
+    Q_r = rotary_embedding(Q_r, rope_theta)  # (b, n_h, s, d_h^R)
+    K_r = rotary_embedding(K_r, rope_theta)  # ← K_r 也需要缓存（配合未来的 query 算分数）
+
+    # --- 4. 拼接 content + rotary 两部分，计算注意力 ---
+    Q = torch.cat([Q_c, Q_r], dim=-1)  # (b, n_h, s, d_h + d_h^R)
+    K = torch.cat([K_c, K_r], dim=-1)
+    scores = Q @ K.mT / ((d_h + d_h_r) ** 0.5)  # (b, n_h, s, s)，缩放用总维度
+
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, float("-inf"))
+
+    attn_weights = F.softmax(scores, dim=-1)
+
+    # --- 5. 加权求和：只对 content 部分 V 求加权（rotary 维度不参与输出）---
+    heads = attn_weights @ V_c  # (b, n_h, s, d_h)
+
+    # --- 6. 拼接多头 + 可选输出投影 ---
+    concat = heads.transpose(1, 2).contiguous().view(batch, seq_len, n_h * d_h)
+    output = concat @ W_o if W_o is not None else concat
+
+    return output, attn_weights
+
+
+if __name__ == "__main__":
+    # ========== 测试输入 ==========
+    torch.manual_seed(0)
+    batch, seq_len, d_model = 2, 8, 32  # 输入形状
+    n_h, d_h, d_h_r = 4, 8, 4  # 4 头，每头内容 8 维、旋转 4 维
+    d_c, d_c_q = 16, 16  # KV/Query 潜在维度（远小于 n_h*d_h = 32，体现压缩）
+
+    X = torch.randn(batch, seq_len, d_model)
+    scale = 0.1  # 权重缩放，避免 softmax 过于尖锐
+    W_dkv = torch.randn(d_model, d_c) * scale
+    W_uk = torch.randn(d_c, n_h * d_h) * scale
+    W_uv = torch.randn(d_c, n_h * d_h) * scale
+    W_dq = torch.randn(d_model, d_c_q) * scale
+    W_uq = torch.randn(d_c_q, n_h * d_h) * scale
+    W_qr = torch.randn(d_c_q, n_h * d_h_r) * scale
+    W_kr = torch.randn(d_model, n_h * d_h_r) * scale
+
+    print("=" * 50)
+    print("测试 1：MLA 前向 + 因果 mask")
+    print("=" * 50)
+    causal = build_causal_mask(seq_len)
+    out, attn = multi_head_latent_attention(
+        X, W_dkv, W_uk, W_uv, W_dq, W_uq, W_qr, W_kr,
+        n_h, d_h, d_h_r, mask=causal,
+    )
+    print(f"output{out.shape}, attn{attn.shape}")
+    assert out.shape == (batch, seq_len, n_h * d_h)
+    assert attn.shape == (batch, n_h, seq_len, seq_len)
+    assert (torch.triu(attn, diagonal=1) == 0).all(), "因果 mask 下不能 attend 未来"
+    assert torch.allclose(attn.sum(-1), torch.ones(batch, n_h, seq_len), atol=1e-5)
+    print("✓ 形状正确、因果性正确、每行和为 1")
+
+    print("=" * 50)
+    print("测试 2：RoPE 性质（相对位置不变性 + 范数保持）")
+    print("=" * 50)
+    # 固定一对向量 q、k，让它们分别出现在位置 (5,3) 和 (2,0)——相对位置差都是 2
+    q_vec, k_vec = torch.randn(4), torch.randn(4)
+    v = torch.zeros(1, 6, 1, 4)
+    v[:, 5], v[:, 2] = q_vec, q_vec
+    v[:, 3], v[:, 0] = k_vec, k_vec
+    r = rotary_embedding(v)
+    # 内积只依赖相对位置：<q@5, k@3> 应等于 <q@2, k@0>（相对位置差都是 2）
+    rel_a = (r[:, 5] * r[:, 3]).sum()
+    rel_b = (r[:, 2] * r[:, 0]).sum()
+    assert torch.allclose(rel_a, rel_b, atol=1e-5)
+    print(f"相对位置差 2 的两组内积: {rel_a.item():.4f} == {rel_b.item():.4f}")
+    # 旋转不改变向量长度
+    assert torch.allclose(r.norm(dim=-1), v.norm(dim=-1), atol=1e-5)
+    print("✓ 内积仅依赖相对位置、旋转保持范数")
+
+    print("=" * 50)
+    print("测试 3：KV cache 对比")
+    print("=" * 50)
+    mha_cache = 2 * n_h * d_h
+    mla_cache = d_c + n_h * d_h_r
+    print(f"标准 MHA: 2×{n_h}×{d_h} = {mha_cache} floats/token")
+    print(f"MLA: d_c({d_c}) + n_h×d_h^R({n_h}×{d_h_r}) = {mla_cache} floats/token")
+    print(f"本示例节省 {mha_cache / mla_cache:.2f}×")
+    # DeepSeek-V2 论文真实配置（n_h=128, d_h=128, d_c=512, d_h^R=64）
+    real_mha = 2 * 128 * 128
+    real_mla = 512 + 128 * 64
+    print(f"DeepSeek-V2 真实配置: {real_mha} -> {real_mla} = {real_mha / real_mla:.2f}×")
+
+    print("=" * 50)
+    print("测试 4：输出投影 W_o")
+    print("=" * 50)
+    W_o = torch.randn(n_h * d_h, d_model) * scale
+    out4, _ = multi_head_latent_attention(
+        X, W_dkv, W_uk, W_uv, W_dq, W_uq, W_qr, W_kr,
+        n_h, d_h, d_h_r, mask=causal, W_o=W_o,
+    )
+    assert out4.shape == (batch, seq_len, d_model)
+    print(f"output{out4.shape}（投影回 {d_model} 维）✓")
+
+    print("\n全部断言通过 ✓")
+
+```

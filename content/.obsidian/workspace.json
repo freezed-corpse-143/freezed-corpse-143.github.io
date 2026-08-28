@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3574.0439384343313,
-                  "y": 873.0025896304664,
+                  "y": 509.078100018479,
                   "zoom": -0.3833740158329288
                 }
               },
@@ -38,7 +38,8 @@
               "title": "pytorch"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -72,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "codex",
+                "query": "neovi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,12 +94,12 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -176,7 +177,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "经典库学习/pytorch.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -215,10 +216,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "经典库学习/pytorch.md",
     "TODO.canvas",
+    "经典库学习/pytorch.md",
     "软件使用.md",
     "Python.md",
     "经典库学习/langgraph.md",
