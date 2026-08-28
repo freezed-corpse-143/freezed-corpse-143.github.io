@@ -29,16 +29,17 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3620,
-                  "y": -150,
-                  "zoom": -1.0500406824995954
+                  "x": -3603.435294117646,
+                  "y": -19.509806554457782,
+                  "zoom": -0.7167073491662621
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -97,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -175,7 +177,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软件使用.md",
+                "file": "TODO.canvas",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -214,10 +216,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "b396bf38564ee1f5",
   "lastOpenFiles": [
-    "TODO.canvas",
     "软件使用.md",
+    "TODO.canvas",
     "Python.md",
     "经典库学习/langgraph.md",
     "经典库学习/psycopg3.md",
