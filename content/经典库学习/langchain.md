@@ -33,3 +33,27 @@ result = agent.invoke(
 print(result["messages"][-1].content_blocks)
 ```
 
+## 模型
+
+```python
+from langchain.agents import create_agent
+
+agent = create_agent(
+	model = "google_genai:gemini-3.6-flash",
+	tools=tools
+)
+```
+
+## 工具
+
+```python
+from langchain.agents import create_agent
+from langchain.tools import tool
+
+@tool
+def search(query: str) -> str:
+	return f"Result for: {query}"
+	
+agent = 
+```
+
