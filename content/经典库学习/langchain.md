@@ -354,6 +354,338 @@ agent = create_agent(
 )
 ```
 
+# 工具
+
+工具扩展了[代理](/oss/python/langchain/agents)的能力——让它们获取实时数据、执行代码、查询外部数据库，并在真实世界中采取行动。
+
+在底层，工具是具有明确定义输入和输出的可调用函数，它们会被传递给[聊天模型](/oss/python/langchain/models)。模型根据对话上下文决定何时调用工具，以及提供什么输入参数。
+
+> 提示：关于模型如何处理工具调用，请参阅[工具调用](/oss/python/langchain/models#tool-calling)。可以使用 [LangSmith](https://smith.langchain.com) 追踪工具调用并调试错误。
+
+## 创建工具
+
+### 基本工具定义
+
+创建工具最简单的方式是使用 [`@tool`](https://reference.langchain.com/python/langchain-core/tools/convert/tool) 装饰器。默认情况下，函数的 docstring 会成为工具的描述，帮助模型理解何时使用它：
+
+```python
+from langchain.tools import tool
+
+@tool
+def search_database(query: str, limit: int = 10) -> str:
+    """Search the customer database for records matching the query.
+
+    Args:
+        query: Search terms to look for
+        limit: Maximum number of results to return
+    """
+    return f"Found {limit} results for '{query}'"
+```
+
+类型提示是**必需**的，因为它们定义了工具的输入 schema。docstring 应该简洁且信息丰富，帮助模型理解工具的用途。
+
+> 注意：**服务端工具调用**——某些聊天模型带有内置工具（网络搜索、代码解释器），这些工具在服务端执行。详见下文"服务端工具调用"。
+>
+> 警告：工具名称尽量使用 `snake_case`（例如 `web_search` 而不是 `Web Search`）。部分模型提供商对包含空格或特殊字符的名称会报错或直接拒绝。坚持使用字母数字、下划线和连字符有助于提高跨提供商的兼容性。
+
+### 自定义工具属性
+
+#### 自定义工具名称
+
+默认情况下，工具名称取自函数名。需要更具描述性的名称时可以覆盖：
+
+```python
+@tool("web_search")  # Custom name
+def search(query: str) -> str:
+    """Search the web for information."""
+    return f"Results for: {query}"
+
+print(search.name)  # web_search
+```
+
+#### 自定义工具描述
+
+覆盖自动生成的工具描述，为模型提供更清晰的指导：
+
+```python
+@tool("calculator", description="Performs arithmetic calculations. Use this for any math problems.")
+def calc(expression: str) -> str:
+    """Evaluate mathematical expressions."""
+    return str(eval(expression))
+```
+
+### 高级 schema 定义
+
+用 Pydantic 模型或 JSON schema 定义复杂输入：
+
+Pydantic 模型：
+
+```python
+from pydantic import BaseModel, Field
+from typing import Literal
+
+class WeatherInput(BaseModel):
+    """Input for weather queries."""
+    location: str = Field(description="City name or coordinates")
+    units: Literal["celsius", "fahrenheit"] = Field(
+        default="celsius",
+        description="Temperature unit preference"
+    )
+    include_forecast: bool = Field(
+        default=False,
+        description="Include 5-day forecast"
+    )
+
+@tool(args_schema=WeatherInput)
+def get_weather(location: str, units: str = "celsius", include_forecast: bool = False) -> str:
+    """Get current weather and optional forecast."""
+    temp = 22 if units == "celsius" else 72
+    result = f"Current weather in {location}: {temp} degrees {units[0].upper()}"
+    if include_forecast:
+        result += "\nNext 5 days: Sunny"
+    return result
+```
+
+JSON Schema：
+
+```python
+weather_schema = {
+    "type": "object",
+    "properties": {
+        "location": {"type": "string"},
+        "units": {"type": "string"},
+        "include_forecast": {"type": "boolean"}
+    },
+    "required": ["location", "units", "include_forecast"]
+}
+
+@tool(args_schema=weather_schema)
+def get_weather(location: str, units: str = "celsius", include_forecast: bool = False) -> str:
+    """Get current weather and optional forecast."""
+    temp = 22 if units == "celsius" else 72
+    result = f"Current weather in {location}: {temp} degrees {units[0].upper()}"
+    if include_forecast:
+        result += "\nNext 5 days: Sunny"
+    return result
+```
+
+### 保留参数名
+
+以下参数名被保留，不能用作工具参数。使用这些名称会导致运行时错误：
+
+| 参数名 | 用途 |
+| ------ | ---- |
+| `config` | 保留用于在内部向工具传递 `RunnableConfig` |
+| `runtime` | 保留给 `ToolRuntime` 参数（访问状态、上下文、存储） |
+
+要访问运行时信息，请使用 [`ToolRuntime`](https://reference.langchain.com/python/langchain/tools/#langchain.tools.ToolRuntime) 参数，而不是把自己的参数命名为 `config` 或 `runtime`。如果你使用 `InjectedState`、`InjectedStore`、`get_runtime()` 或 `InjectedToolCallId`，请参阅"从旧式注入模式迁移"。
+
+## 访问上下文
+
+工具在能够访问运行时信息（如对话历史、用户数据和持久化记忆）时最为强大。本节介绍如何在工具内访问和更新这些信息。
+
+工具可以通过 [`ToolRuntime`](https://reference.langchain.com/python/langchain/tools/#langchain.tools.ToolRuntime) 参数访问运行时信息，它提供：
+
+| 组件 | 描述 | 用例 |
+| ---- | ---- | ---- |
+| **状态（State）** | 短期记忆——当前对话期间存在的可变数据（消息、计数器、自定义字段） | 访问对话历史、跟踪工具调用次数 |
+| **上下文（Context）** | 调用时传入的不可变配置（用户 ID、会话信息） | 根据用户身份个性化响应 |
+| **存储（Store）** | 长期记忆——跨对话存活的持久化数据 | 保存用户偏好、维护知识库 |
+| **流写入器（Stream Writer）** | 在工具执行期间发出实时更新 | 为长时间运行的操作显示进度 |
+| **执行信息（Execution Info）** | 当前执行的身份与重试信息（线程 ID、运行 ID、尝试次数） | 访问线程/运行 ID、根据重试状态调整行为 |
+| **服务器信息（Server Info）** | 在 LangGraph Server 上运行时，服务器特定的元数据（assistant ID、graph ID、已认证用户） | 访问 assistant ID、graph ID 或已认证用户信息 |
+| **配置（Config）** | 执行的 [`RunnableConfig`](https://reference.langchain.com/python/langchain-core/runnables/config/RunnableConfig) | 访问回调、标签和元数据 |
+| **工具调用 ID** | 当前工具调用的唯一标识符 | 关联工具调用以进行日志记录和模型调用 |
+
+### 短期记忆（状态）
+
+状态代表对话期间存在的短期记忆，包括消息历史以及你在[图状态](/oss/python/langgraph/graph-api#state)中定义的任何自定义字段。
+
+#### 访问状态
+
+在工具签名中添加 `runtime: ToolRuntime` 即可访问状态。调用时，[`ToolNode`](https://reference.langchain.com/python/langgraph/agents/#langgraph.prebuilt.tool_node.ToolNode) 会自动注入该值；该参数不会出现在发送给模型的工具 schema 中。使用 `runtime.state` 读取当前对话状态：
+
+```python
+from langchain.tools import tool, ToolRuntime
+from langchain.messages import HumanMessage
+
+@tool
+def get_last_user_message(runtime: ToolRuntime) -> str:
+    """Get the most recent message from the user."""
+    messages = runtime.state["messages"]
+
+    # Find the last human message
+    for message in reversed(messages):
+        if isinstance(message, HumanMessage):
+            return message.content
+
+    return "No user messages found"
+
+# Access custom state fields
+@tool
+def get_user_preference(
+    pref_name: str,
+    runtime: ToolRuntime
+) -> str:
+    """Get a user preference value."""
+    preferences = runtime.state.get("user_preferences", {})
+    return preferences.get(pref_name, "Not set")
+```
+
+> 警告：`runtime` 参数对模型是隐藏的。在上面的例子中，模型在工具 schema 中只能看到 `pref_name`。
+
+#### 更新状态
+
+使用 [`Command`](https://reference.langchain.com/python/langgraph/types/Command) 更新代理状态。这对于需要更新自定义状态字段的工具很有用。请在更新中包含 `ToolMessage`，这样模型才能看到工具调用的结果：
+
+```python
+from langchain.agents import AgentState
+from langchain.messages import ToolMessage
+from langchain.tools import ToolRuntime, tool
+from langgraph.types import Command
+
+class CustomState(AgentState):
+    user_name: str
+
+@tool
+def set_user_name(new_name: str, runtime: ToolRuntime[None, CustomState]) -> Command:
+    """Set the user's name in the conversation state."""
+    return Command(
+        update={
+            "user_name": new_name,
+            "messages": [
+                ToolMessage(
+                    content=f"User name set to {new_name}.",
+                    tool_call_id=runtime.tool_call_id,
+                )
+            ],
+        }
+    )
+```
+
+> 提示：当工具更新状态变量时，请考虑为这些字段定义 [reducer](/oss/python/langgraph/graph-api#reducers)。由于 LLM 可以并行调用多个工具，当同一状态字段被并发工具调用更新时，reducer 决定了如何解决冲突。
+
+### 上下文
+
+上下文提供调用时传入的不可变配置数据。用于用户 ID、会话详情或对话期间不应改变的应用程序特定设置。
+
+> 注意：`thread_id`（通过 `config={"configurable": {"thread_id": ...}}` 传入）限定*对话*的范围——消息历史和检查点；而 `context` 携带*每次运行*的数据，工具和中间件在调用时读取。生产环境中通常两者同时传入：每个对话一个稳定的 `thread_id`，每次调用一个 `context` 对象。
+
+通过 `runtime.context` 访问上下文。将它与 `thread_id` 一起传入，使对话在回合之间保持持久：
+
+```python
+from dataclasses import dataclass
+
+from langchain.agents import create_agent
+from langchain.tools import tool, ToolRuntime
+from langchain_core.utils.uuid import uuid7
+from langchain_openai import ChatOpenAI
+
+USER_DATABASE = {
+    "user123": {
+        "name": "Alice Johnson",
+        "account_type": "Premium",
+        "balance": 5000,
+        "email": "alice@example.com",
+    },
+    "user456": {
+        "name": "Bob Smith",
+        "account_type": "Standard",
+        "balance": 1200,
+        "email": "bob@example.com",
+    },
+}
+
+@dataclass
+class UserContext:
+    user_id: str
+
+@tool
+def get_account_info(runtime: ToolRuntime[UserContext]) -> str:
+    """Get the current user's account information."""
+    user_id = runtime.context.user_id
+
+    if user_id in USER_DATABASE:
+        user = USER_DATABASE[user_id]
+        return (
+            f"Account holder: {user['name']}\n"
+            f"Type: {user['account_type']}\n"
+            f"Balance: ${user['balance']}"
+        )
+    return "User not found"
+
+model = ChatOpenAI(model="google_genai:gemini-3.6-flash")
+agent = create_agent(
+    model,
+    tools=[get_account_info],
+    context_schema=UserContext,
+    system_prompt="You are a financial assistant.",
+)
+
+result = agent.invoke(
+    {"messages": [{"role": "user", "content": "What's my current balance?"}]},
+    config={"configurable": {"thread_id": str(uuid7())}},
+    context=UserContext(user_id="user123"),
+)
+```
+
+（官方文档对 Google/OpenAI/Anthropic/OpenRouter/Fireworks/Baseten/Ollama 提供了 7 个相同示例，仅模型字符串不同；此处以 Google 为例，其他提供商只需替换 `model` 字符串。）
+
+### 长期记忆（存储）
+
+[`BaseStore`](https://reference.langchain.com/python/langchain-core/stores/BaseStore) 提供跨对话存活的持久化存储。与状态（短期记忆）不同，保存到存储中的数据在未来的会话中仍然可用。
+
+通过 `runtime.store` 访问存储。存储使用命名空间/键（namespace/key）模式组织数据：
+
+> 提示：生产环境请使用持久化存储实现，如 [`PostgresStore`](https://reference.langchain.com/python/langgraph/store/#langgraph.store.postgres.PostgresStore)、`MongoDBStore` 或 `RedisStore`，而不是 `InMemoryStore`。设置细节请参阅[记忆文档](/oss/python/langgraph/add-memory)。
+
+```python
+from typing import Any
+from langgraph.store.memory import InMemoryStore
+from langchain.agents import create_agent
+from langchain.tools import tool, ToolRuntime
+from langchain_openai import ChatOpenAI
+
+# Access memory
+@tool
+def get_user_info(user_id: str, runtime: ToolRuntime) -> str:
+    """Look up user info."""
+    store = runtime.store
+    user_info = store.get(("users",), user_id)
+    return str(user_info.value) if user_info else "Unknown user"
+
+# Update memory
+@tool
+def save_user_info(user_id: str, user_info: dict[str, Any], runtime: ToolRuntime) -> str:
+    """Save user info."""
+    store = runtime.store
+    store.put(("users",), user_id, user_info)
+    return "Successfully saved user info."
+
+model = ChatOpenAI(model="gpt-5.5")
+
+store = InMemoryStore()
+agent = create_agent(
+    model,
+    tools=[get_user_info, save_user_info],
+    store=store
+)
+
+# First session: save user info
+agent.invoke({
+    "messages": [{"role": "user", "content": "Save the following user: userid: abc123, name: Foo, age: 25, email: foo@langchain.dev"}]
+})
+
+# Second session: get user info
+agent.invoke({
+    "messages": [{"role": "user", "content": "Get user info for user with id 'abc123'"}]
+})
+# Here is the user info for user with ID "abc123":
+# - Name: Foo
+# - Age: 25
+# - Email: foo@langchain.dev
+```
+
 # 模型
 
 # 安装
