@@ -11,20 +11,35 @@
             "id": "1fa765c4bd7cdc9d",
             "type": "leaf",
             "state": {
+              "type": "markdown",
+              "state": {
+                "file": "经典库学习/langchain.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "langchain"
+            }
+          },
+          {
+            "id": "b95ce4db1a308f38",
+            "type": "leaf",
+            "state": {
               "type": "canvas",
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3620,
-                  "y": -95,
-                  "zoom": -1.0500406824995954
+                  "y": 141.99681190223168,
+                  "zoom": -0.34956503068568695
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -83,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -162,7 +176,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "数据库.md",
+                "file": "TODO.canvas",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -201,7 +215,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1fa765c4bd7cdc9d",
+  "active": "b95ce4db1a308f38",
   "lastOpenFiles": [
     "经典库学习/langchain.md",
     "TODO.canvas",
