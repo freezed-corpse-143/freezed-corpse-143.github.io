@@ -703,3 +703,270 @@ agent = create_agent(
 )
 ```
 
+# 消息
+
+## 基本用法
+
+```python
+from langchain.chat_models import init_chat_model
+from langchain.messages import HumanMessage, AIMessage, SystemMessage
+
+model = init_chat_model("gpt-5-nano")
+
+system_msg = SystemMessage("You are a helpful assistant.")
+human_msg = HumanMessage("Hello, how are you?")
+
+# Use with chat models
+messages = [system_msg, human_msg]
+response = model.invoke(messages)  # Returns AIMessage
+```
+
+## 文本提示
+
+文本提示是字符串——非常适合简单的生成任务，无需保留对话历史记录。
+
+```python
+response = model.invoke("Write a haiku about spring")
+```
+
+## 消息提示
+
+
+或者，您可以通过提供消息对象列表，将消息列表传递给模型。
+
+```python
+from langchain.messages import SystemMessage, HumanMessage, AIMessage
+
+messages = [
+    SystemMessage("You are a poetry expert"),
+    HumanMessage("Write a haiku about spring"),
+    AIMessage("Cherry blossoms bloom...")
+]
+response = model.invoke(messages)
+```
+
+## 字典格式
+
+```python
+messages = [
+    {"role": "system", "content": "You are a poetry expert"},
+    {"role": "user", "content": "Write a haiku about spring"},
+    {"role": "assistant", "content": "Cherry blossoms bloom..."}
+]
+response = model.invoke(messages)
+```
+
+## 系统消息
+
+```python
+system_msg = SystemMessage("You are a helpful coding assistant.")
+
+messages = [
+    system_msg,
+    HumanMessage("How do I create a REST API?")
+]
+response = model.invoke(messages)
+```
+
+```python
+
+from langchain.messages import SystemMessage, HumanMessage
+
+system_msg = SystemMessage("""
+You are a senior Python developer with expertise in web frameworks.
+Always provide code examples and explain your reasoning.
+Be concise but thorough in your explanations.
+""")
+
+messages = [
+    system_msg,
+    HumanMessage("How do I create a REST API?")
+]
+response = model.invoke(messages)
+```
+
+## 人类消息
+
+文本内容
+
+```python
+response = model.invoke([
+  HumanMessage("What is machine learning?")
+])
+```
+
+消息元数据
+
+```python
+human_msg = HumanMessage(
+    content="Hello!",
+    name="alice",  # Optional: identify different users
+    id="msg_123",  # Optional: unique identifier for tracing
+)
+```
+
+## AI 消息
+
+表示AIMessage模型调用的输出。它们可以包含多模态数据、工具调用和特定于提供商的元数据，您可以稍后访问这些元数据。
+
+```python
+response = model.invoke("Explain AI")
+print(type(response))  # <class 'langchain.messages.AIMessage'>
+```
+
+```python
+from langchain.messages import AIMessage, SystemMessage, HumanMessage
+
+# Create an AI message manually (e.g., for conversation history)
+ai_msg = AIMessage("I'd be happy to help you with that question!")
+
+# Add to conversation history
+messages = [
+    SystemMessage("You are a helpful assistant"),
+    HumanMessage("Can you help me?"),
+    ai_msg,  # Insert as if it came from the model
+    HumanMessage("Great! What's 2+2?")
+]
+
+response = model.invoke(messages)
+```
+
+## 工具调用
+
+```python
+from langchain.chat_models import init_chat_model
+
+model = init_chat_model("gpt-5-nano")
+
+def get_weather(location: str) -> str:
+    """Get the weather at a location."""
+    ...
+
+model_with_tools = model.bind_tools([get_weather])
+response = model_with_tools.invoke("What's the weather in Paris?")
+
+for tool_call in response.tool_calls:
+    print(f"Tool: {tool_call['name']}")
+    print(f"Args: {tool_call['args']}")
+    print(f"ID: {tool_call['id']}")
+```
+
+## token 使用
+
+```python
+from langchain.chat_models import init_chat_model
+
+model = init_chat_model("gpt-5-nano")
+
+response = model.invoke("Hello!")
+response.usage_metadata
+```
+
+```json
+{'input_tokens': 8,
+ 'output_tokens': 304,
+ 'total_tokens': 312,
+ 'input_token_details': {'audio': 0, 'cache_read': 0},
+ 'output_token_details': {'audio': 0, 'reasoning': 256}}
+```
+
+## 流式输出
+
+```python
+chunks = []
+full_message = None
+for chunk in model.stream("Hi"):
+    chunks.append(chunk)
+    print(chunk.text)
+    full_message = chunk if full_message is None else full_message + chunk
+```
+
+## 工具调用的消息
+
+```python
+from langchain.messages import AIMessage
+from langchain.messages import ToolMessage
+
+# After a model makes a tool call
+# (Here, we demonstrate manually creating the messages for brevity)
+ai_message = AIMessage(
+    content=[],
+    tool_calls=[{
+        "name": "get_weather",
+        "args": {"location": "San Francisco"},
+        "id": "call_123"
+    }]
+)
+
+# Execute tool and create result message
+weather_result = "Sunny, 72°F"
+tool_message = ToolMessage(
+    content=weather_result,
+    tool_call_id="call_123"  # Must match the call ID
+)
+
+# Continue conversation
+messages = [
+    HumanMessage("What's the weather in San Francisco?"),
+    ai_message,  # Model's tool call
+    tool_message,  # Tool execution result
+]
+response = model.invoke(messages)  # Model processes the result
+```
+
+## 多模态输入
+
+您可以将消息内容理解为发送到模型的数据有效载荷。消息具有一个content弱类型属性，支持字符串和无类型对象列表（例如字典）。这使得 LangChain 聊天模型能够直接支持提供者原生结构，例如多模态内容和其他数据。
+
+```python
+# From URL
+message = {
+    "role": "user",
+    "content": [
+        {"type": "text", "text": "Describe the content of this image."},
+        {"type": "image", "url": "https://example.com/path/to/image.jpg"},
+    ]
+}
+
+# From base64 data
+message = {
+    "role": "user",
+    "content": [
+        {"type": "text", "text": "Describe the content of this image."},
+        {
+            "type": "image",
+            "base64": "AAAAIGZ0eXBtcDQyAAAAAGlzb21tcDQyAAACAGlzb2...",
+            "mime_type": "image/jpeg",
+        },
+    ]
+}
+
+# From provider-managed File ID
+message = {
+    "role": "user",
+    "content": [
+        {"type": "text", "text": "Describe the content of this image."},
+        {"type": "image", "file_id": "file-abc123"},
+    ]
+}
+```
+
+
+## 序列化
+
+您可以将消息序列化为普通对象进行存储，并反序列化回消息实例。这对于持久化对话历史记录和恢复会话非常有用。
+
+```python
+from langchain.messages import HumanMessage
+from langchain_core.load import dumpd, load
+
+message = HumanMessage("What is the capital of France?")
+
+# Serialize to a plain dict
+serialized = dumpd(message)
+
+# Deserialize back to a message object
+restored = load(serialized)
+```
+
+#
