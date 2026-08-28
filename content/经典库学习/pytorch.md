@@ -327,8 +327,7 @@ if __name__ == "__main__":
 
 # MLA 多头潜在注意力
 
-标准 MHA 每个 token 要缓存所有头的 K 和 V（$2 \times n_h \times d_h$
-个浮点数），序列一长 KV cache 就爆炸。MLA 的核心思路：
+标准 MHA 每个 token 要缓存所有头的 K 和 V（$2 \times n_h \times d_h$ 个浮点数），序列一长 KV cache 就爆炸。MLA 的核心思路：
 把 K 和 V 联合压缩成一个低维潜在向量，只缓存它。
 
 对第 $t$ 个 token：
@@ -364,8 +363,7 @@ $$
 
 缓存对比（每 token）：标准 MHA 缓存 $2 n_h d_h$；MLA 只缓存
 $c_t^{KV}$（$d_c$ 维）+ $k_t^R$（$n_h d_h^R$ 维），通常 $d_c \ll n_h d_h$。
-推理时还可把 $W^{UK}$ 吸收进 $W^{UQ}$（$q^{C\top} k^C =
-c^{Q\top}(W^{UQ\top}W^{UK})c^{KV}$），连升维都省掉。
+推理时还可把 $W^{UK}$ 吸收进 $W^{UQ}$（$q^{C\top} k^C =c^{Q\top}(W^{UQ\top}W^{UK})c^{KV}$），连升维都省掉。
 
 
 ```python
