@@ -44,7 +44,7 @@
 		{
 			"id":"1e5963333d4aa3c7",
 			"type":"text",
-			"text":"学习前端 ui 与图形协议。\n- C++的 qt\n- rust 的 tauri\n- electron",
+			"text":"学习前端 ui 与图形协议。\n- rust 的 tauri\n- electron",
 			"styleAttributes":{},
 			"x":-4100,
 			"y":35,
@@ -79,6 +79,36 @@
 			"x":-3810,
 			"y":35,
 			"width":260,
+			"height":60
+		},
+		{
+			"id":"8fdf943f6150ef0e",
+			"type":"text",
+			"text":"C++的 QT 教程：https://doc.qt.io/qt-6/qtexamplesandtutorials.html",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":460,
+			"width":740,
+			"height":60
+		},
+		{
+			"id":"c35f1a146a62080a",
+			"type":"text",
+			"text":"C++ 的 TUI FTUI教程 https://github.com/ArthurSonzogni/FTXUI",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":580,
+			"width":740,
+			"height":60
+		},
+		{
+			"id":"47acec0b9821658f",
+			"type":"text",
+			"text":"rust 的 TUI ratatui教程 https://ratatui.rs/tutorials/",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":700,
+			"width":780,
 			"height":60
 		}
 	],
