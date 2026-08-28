@@ -11,31 +11,14 @@
             "id": "c37593d81e441dd1",
             "type": "leaf",
             "state": {
-              "type": "canvas",
-              "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3574.0439384343313,
-                  "y": 630.3862632224748,
-                  "zoom": -0.3833740158329288
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
-            }
-          },
-          {
-            "id": "b396bf38564ee1f5",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "经典库学习/pytorch.md",
+                "file": "语言/cuda学习.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pytorch"
+              "title": "cuda学习"
             }
           }
         ]
@@ -175,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "语言/cuda学习.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -217,9 +200,12 @@
   "active": "c37593d81e441dd1",
   "lastOpenFiles": [
     "经典库学习/pytorch.md",
+    "语言/cuda学习.md",
+    "语言",
+    "未命名.md",
     "TODO.canvas",
     "软件使用.md",
-    "Python.md",
+    "语言/Python.md",
     "经典库学习/langgraph.md",
     "经典库学习/psycopg3.md",
     "经典库学习/langchain.md",
@@ -242,8 +228,6 @@
     "经典库学习",
     "github项目/agentic-rag.md",
     "github项目",
-    "windows.md",
-    "报错.md",
     "人工智能",
     "408",
     "Pasted image 20260610145938.png",
@@ -260,7 +244,6 @@
     "Excalidraw",
     "软件使用.md.tmp.29076.e75c659617ff",
     "软件使用.md.tmp.29076.99ec8dfb3daa",
-    "经验之谈.md.tmp.29076.80d9c2b8ee80",
-    "环境配置.md.tmp.29076.504e06044194"
+    "经验之谈.md.tmp.29076.80d9c2b8ee80"
   ]
 }
