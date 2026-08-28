@@ -1,5 +1,5 @@
 
-# 单头，无 batch
+# 单头
 
 ```python
 import torch
@@ -86,5 +86,21 @@ if __name__ == "__main__":
     assert torch.allclose(attn.sum(dim=-1), torch.ones(seq_len), atol=1e-5)
     assert torch.allclose(attn_b.sum(dim=-1), torch.ones(batch, seq_len), atol=1e-5)
     print("全部断言通过 ✓")
+
+```
+
+# 带 Mask 的通用版本
+
+增加一个内容
+
+```
+
+def self_attention_batch(X, W_q, W_k, W_v, mask=None):
+...
+
+if mask is not None:
+    # 将 mask 中为 0 的位置设为 -inf
+    scores = scores.masked_fill(mask == 0, float('-inf'))
+...
 
 ```
