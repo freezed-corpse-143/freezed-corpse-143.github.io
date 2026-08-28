@@ -70,6 +70,16 @@
 			"y":260,
 			"width":380,
 			"height":130
+		},
+		{
+			"id":"fb9deb4f9e08483f",
+			"type":"text",
+			"text":"更新简历、投递简历",
+			"styleAttributes":{},
+			"x":-3810,
+			"y":35,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
