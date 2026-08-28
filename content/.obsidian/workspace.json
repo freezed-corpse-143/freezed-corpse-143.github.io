@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经典库学习/deep agents.md",
+                "file": "经典库学习/langchain.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "deep agents"
+              "title": "langchain"
             }
           }
         ]
@@ -199,8 +199,8 @@
   },
   "active": "24adc9dc1b310965",
   "lastOpenFiles": [
-    "经典库学习/langsmith.md",
     "经典库学习/deep agents.md",
+    "经典库学习/langsmith.md",
     "TODO.canvas",
     "经典库学习/langgraph.md",
     "经典库学习/langchain.md",
