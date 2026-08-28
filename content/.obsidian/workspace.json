@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经典库学习/langchain.md",
+                "file": "经典库学习/deep agents.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "langchain"
+              "title": "deep agents"
             }
           }
         ],
@@ -173,7 +173,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "经典库学习/langchain.md",
+                "file": "经典库学习/deep agents.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -213,11 +213,11 @@
   },
   "active": "b95ce4db1a308f38",
   "lastOpenFiles": [
-    "TODO.canvas",
-    "经典库学习/langchain.md",
-    "经典库学习/deep agents.md",
     "经典库学习/langsmith.md",
     "经典库学习/langgraph.md",
+    "经典库学习/langchain.md",
+    "TODO.canvas",
+    "经典库学习/deep agents.md",
     "软件使用.md",
     "经典库学习/antv G6.md",
     "环境配置.md",
