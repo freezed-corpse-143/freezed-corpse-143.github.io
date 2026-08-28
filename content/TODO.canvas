@@ -42,16 +42,6 @@
 			"height":180
 		},
 		{
-			"id":"ce3a0f318bc08f98",
-			"type":"text",
-			"text":"pytorch 基础语法编写和 cuda",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":180,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"1e5963333d4aa3c7",
 			"type":"text",
 			"text":"学习前端 ui 与图形协议。\n- C++的 qt、flutter\n- rust 的 tauri\n- electron",
@@ -62,22 +52,22 @@
 			"height":150
 		},
 		{
-			"id":"524a95ce89e302d9",
+			"id":"ce3a0f318bc08f98",
 			"type":"text",
-			"text":"学习多智能体编排流程\n- langgraph\n- langsmith",
+			"text":"pytorch 基础语法编写和 cuda",
 			"styleAttributes":{},
-			"x":-3760,
-			"y":280,
+			"x":-4100,
+			"y":160,
 			"width":260,
-			"height":140
+			"height":60
 		},
 		{
 			"id":"32e4a2f3da345607",
 			"type":"text",
 			"text":"coze 智能体",
 			"styleAttributes":{},
-			"x":-3400,
-			"y":270,
+			"x":-4100,
+			"y":50,
 			"width":260,
 			"height":60
 		}
