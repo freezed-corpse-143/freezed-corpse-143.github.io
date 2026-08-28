@@ -2004,7 +2004,7 @@ class MyState(AgentState):
 agent = create_agent(
     model="google_genai:gemini-3.6-flash",
     tools=[],
-    state_schema=MyState,  # [!code highlight]
+    state_schema=MyState,
 )
 ```
 
@@ -4859,12 +4859,12 @@ agent = create_agent(
     checkpointer=InMemorySaver()
 )
 config = {"configurable": {"thread_id": str(uuid7())}}
-stream = agent.stream_events(  # [!code highlight]
+stream = agent.stream_events(
     {"messages": [{"role": "user", "content": "What is the weather in SF?"}]},
     config=config,
-    version="v3",  # [!code highlight]
+    version="v3",
 )
-for kind, item in stream.interleave("messages", "tool_calls"):  # [!code highlight]
+for kind, item in stream.interleave("messages", "tool_calls"):
     if kind == "messages":
         for token in item.text:
             print(token, end="", flush=True)
@@ -4874,7 +4874,7 @@ for kind, item in stream.interleave("messages", "tool_calls"):  # [!code highlig
             print(delta, end="", flush=True)
         print(f"\nTool result: {item.output}")
 
-final_state = stream.output  # [!code highlight]
+final_state = stream.output
 ```
 
 ```shell
@@ -4904,13 +4904,13 @@ agent = create_agent(
     model="gpt-5-nano",
     tools=[get_weather],
 )
-for chunk in agent.stream(  # [!code highlight]
+for chunk in agent.stream(
     {"messages": [{"role": "user", "content": "What is the weather in SF?"}]},
     stream_mode="messages",
-    version="v2",  # [!code highlight]
+    version="v2",
 ):
-    if chunk["type"] == "messages":  # [!code highlight]
-        token, metadata = chunk["data"]  # [!code highlight]
+    if chunk["type"] == "messages":
+        token, metadata = chunk["data"]
         print(f"node: {metadata['langgraph_node']}")
         print(f"content: {token.content_blocks}")
         print("\n")
@@ -4998,11 +4998,11 @@ content: [{'type': 'text', 'text': '!"\n\n'}]
 
 ```python
 from langchain.agents import create_agent
-from langgraph.config import get_stream_writer  # [!code highlight]
+from langgraph.config import get_stream_writer
 
 def get_weather(city: str) -> str:
     """Get weather for a given city."""
-    writer = get_stream_writer()  # [!code highlight]
+    writer = get_stream_writer()
     # stream any arbitrary data
     writer(f"Looking up data for city: {city}")
     writer(f"Acquired data for city: {city}")
@@ -5015,11 +5015,11 @@ agent = create_agent(
 
 for chunk in agent.stream(
     {"messages": [{"role": "user", "content": "What is the weather in SF?"}]},
-    stream_mode="custom",  # [!code highlight]
-    version="v2",  # [!code highlight]
+    stream_mode="custom",
+    version="v2",
 ):
-    if chunk["type"] == "custom":  # [!code highlight]
-        print(chunk["data"])  # [!code highlight]
+    if chunk["type"] == "custom":
+        print(chunk["data"])
 ```
 
 ```shell
@@ -5051,13 +5051,13 @@ agent = create_agent(
     tools=[get_weather],
 )
 
-for chunk in agent.stream(  # [!code highlight]
+for chunk in agent.stream(
     {"messages": [{"role": "user", "content": "What is the weather in SF?"}]},
     stream_mode=["updates", "custom"],
-    version="v2",  # [!code highlight]
+    version="v2",
 ):
-    print(f"stream_mode: {chunk['type']}")  # [!code highlight]
-    print(f"content: {chunk['data']}")  # [!code highlight]
+    print(f"stream_mode: {chunk['type']}")
+    print(f"content: {chunk['data']}")
     print("\n")
 ```
 
@@ -5114,7 +5114,7 @@ agent: Runnable = create_agent(
     tools=[get_weather],
 )
 
-stream = agent.stream_events(  # [!code highlight]
+stream = agent.stream_events(
     {"messages": [{"role": "user", "content": "What is the weather in SF?"}]},
     version="v3",
 )
@@ -5179,17 +5179,17 @@ def _render_completed_message(message: AnyMessage) -> None:
 input_message = {"role": "user", "content": "What is the weather in Boston?"}
 for chunk in agent.stream(
     {"messages": [input_message]},
-    stream_mode=["messages", "updates"],  # [!code highlight]
-    version="v2",  # [!code highlight]
+    stream_mode=["messages", "updates"],
+    version="v2",
 ):
-    if chunk["type"] == "messages":  # [!code highlight]
-        token, metadata = chunk["data"]  # [!code highlight]
+    if chunk["type"] == "messages":
+        token, metadata = chunk["data"]
         if isinstance(token, AIMessageChunk):
-            _render_message_chunk(token)  # [!code highlight]
-    elif chunk["type"] == "updates":  # [!code highlight]
-        for source, update in chunk["data"].items():  # [!code highlight]
+            _render_message_chunk(token)
+    elif chunk["type"] == "updates":
+        for source, update in chunk["data"].items():
             if source in ("model", "tools"):  # `source` captures node name
-                _render_completed_message(update["messages"][-1])  # [!code highlight]
+                _render_completed_message(update["messages"][-1])
 ```
 
 ```shell
@@ -5219,7 +5219,7 @@ from langchain.agents.middleware import after_agent, AgentState
 from langgraph.runtime import Runtime
 from langchain.messages import AIMessage
 from langchain.chat_models import init_chat_model
-from langgraph.config import get_stream_writer  # [!code highlight]
+from langgraph.config import get_stream_writer
 from pydantic import BaseModel
 
 class ResponseSafety(BaseModel):
@@ -5231,7 +5231,7 @@ safety_model = init_chat_model("openai:gpt-5.5")
 @after_agent(can_jump_to=["end"])
 def safety_guardrail(state: AgentState, runtime: Runtime) -> dict[str, Any] | None:
     """Model-based guardrail: Use an LLM to evaluate response safety."""
-    stream_writer = get_stream_writer()  # [!code highlight]
+    stream_writer = get_stream_writer()
     # Get the model response
     if not state["messages"]:
         return None
@@ -5254,7 +5254,7 @@ def safety_guardrail(state: AgentState, runtime: Runtime) -> dict[str, Any] | No
             }
         ]
     )
-    stream_writer(result)  # [!code highlight]
+    stream_writer(result)
 
     tool_call = result.tool_calls[0]
     if tool_call["args"]["evaluation"] == "unsafe":
@@ -5279,7 +5279,7 @@ def get_weather(city: str) -> str:
 agent = create_agent(
     model="openai:gpt-5.5",
     tools=[get_weather],
-    middleware=[safety_guardrail],  # [!code highlight]
+    middleware=[safety_guardrail],
 )
 
 def _render_message_chunk(token: AIMessageChunk) -> None:
@@ -5297,20 +5297,20 @@ def _render_completed_message(message: AnyMessage) -> None:
 input_message = {"role": "user", "content": "What is the weather in Boston?"}
 for chunk in agent.stream(
     {"messages": [input_message]},
-    stream_mode=["messages", "updates", "custom"],  # [!code highlight]
-    version="v2",  # [!code highlight]
+    stream_mode=["messages", "updates", "custom"],
+    version="v2",
 ):
-    if chunk["type"] == "messages":  # [!code highlight]
-        token, metadata = chunk["data"]  # [!code highlight]
+    if chunk["type"] == "messages":
+        token, metadata = chunk["data"]
         if isinstance(token, AIMessageChunk):
             _render_message_chunk(token)
-    elif chunk["type"] == "updates":  # [!code highlight]
-        for source, update in chunk["data"].items():  # [!code highlight]
+    elif chunk["type"] == "updates":
+        for source, update in chunk["data"].items():
             if source in ("model", "tools"):
                 _render_completed_message(update["messages"][-1])
-    elif chunk["type"] == "custom":  # [!code highlight]
+    elif chunk["type"] == "custom":
         # access completed message in stream
-        print(f"Tool calls: {chunk['data'].tool_calls}")  # [!code highlight]
+        print(f"Tool calls: {chunk['data'].tool_calls}")
 ```
 
 ```shell
@@ -5335,23 +5335,23 @@ Tool calls: [{'name': 'ResponseSafety', 'args': {'evaluation': 'safe'}, 'id': 'c
 
 ```python
 input_message = {"role": "user", "content": "What is the weather in Boston?"}
-full_message = None  # [!code highlight]
+full_message = None
 for chunk in agent.stream(
     {"messages": [input_message]},
     stream_mode=["messages", "updates"],
-    version="v2",  # [!code highlight]
+    version="v2",
 ):
-    if chunk["type"] == "messages":  # [!code highlight]
-        token, metadata = chunk["data"]  # [!code highlight]
+    if chunk["type"] == "messages":
+        token, metadata = chunk["data"]
         if isinstance(token, AIMessageChunk):
             _render_message_chunk(token)
-            full_message = token if full_message is None else full_message + token  # [!code highlight]
-            if token.chunk_position == "last":  # [!code highlight]
-                if full_message.tool_calls:  # [!code highlight]
-                    print(f"Tool calls: {full_message.tool_calls}")  # [!code highlight]
-                full_message = None  # [!code highlight]
-    elif chunk["type"] == "updates":  # [!code highlight]
-        for source, update in chunk["data"].items():  # [!code highlight]
+            full_message = token if full_message is None else full_message + token
+            if token.chunk_position == "last":
+                if full_message.tool_calls:
+                    print(f"Tool calls: {full_message.tool_calls}")
+                full_message = None
+    elif chunk["type"] == "updates":
+        for source, update in chunk["data"].items():
             if source == "tools":
                 _render_completed_message(update["messages"][-1])
 ```
@@ -5383,10 +5383,10 @@ checkpointer = InMemorySaver()
 agent = create_agent(
     "openai:gpt-5.5",
     tools=[get_weather],
-    middleware=[  # [!code highlight]
-        HumanInTheLoopMiddleware(interrupt_on={"get_weather": True}),  # [!code highlight]
-    ],  # [!code highlight]
-    checkpointer=checkpointer,  # [!code highlight]
+    middleware=[
+        HumanInTheLoopMiddleware(interrupt_on={"get_weather": True}),
+    ],
+    checkpointer=checkpointer,
 )
 
 def _render_message_chunk(token: AIMessageChunk) -> None:
@@ -5401,10 +5401,10 @@ def _render_completed_message(message: AnyMessage) -> None:
     if isinstance(message, ToolMessage):
         print(f"Tool response: {message.content_blocks}")
 
-def _render_interrupt(interrupt: Interrupt) -> None:  # [!code highlight]
-    interrupts = interrupt.value  # [!code highlight]
-    for request in interrupts["action_requests"]:  # [!code highlight]
-        print(request["description"])  # [!code highlight]
+def _render_interrupt(interrupt: Interrupt) -> None:
+    interrupts = interrupt.value
+    for request in interrupts["action_requests"]:
+        print(request["description"])
 
 input_message = {
     "role": "user",
@@ -5412,25 +5412,25 @@ input_message = {
         "Can you look up the weather in Boston and San Francisco?"
     ),
 }
-config = {"configurable": {"thread_id": "some_id"}}  # [!code highlight]
-interrupts = []  # [!code highlight]
+config = {"configurable": {"thread_id": "some_id"}}
+interrupts = []
 for chunk in agent.stream(
     {"messages": [input_message]},
-    config=config,  # [!code highlight]
+    config=config,
     stream_mode=["messages", "updates"],
-    version="v2",  # [!code highlight]
+    version="v2",
 ):
-    if chunk["type"] == "messages":  # [!code highlight]
-        token, metadata = chunk["data"]  # [!code highlight]
+    if chunk["type"] == "messages":
+        token, metadata = chunk["data"]
         if isinstance(token, AIMessageChunk):
             _render_message_chunk(token)
-    elif chunk["type"] == "updates":  # [!code highlight]
-        for source, update in chunk["data"].items():  # [!code highlight]
+    elif chunk["type"] == "updates":
+        for source, update in chunk["data"].items():
             if source in ("model", "tools"):
                 _render_completed_message(update["messages"][-1])
-            if source == "__interrupt__":  # [!code highlight]
-                interrupts.extend(update)  # [!code highlight]
-                _render_interrupt(update[0])  # [!code highlight]
+            if source == "__interrupt__":
+                interrupts.extend(update)
+                _render_interrupt(update[0])
 ```
 
 ```shell
@@ -5507,18 +5507,18 @@ decisions
 ```python
 interrupts = []
 for chunk in agent.stream(
-    Command(resume=decisions),  # [!code highlight]
+    Command(resume=decisions),
     config=config,
     stream_mode=["messages", "updates"],
-    version="v2",  # [!code highlight]
+    version="v2",
 ):
     # Streaming loop is unchanged
-    if chunk["type"] == "messages":  # [!code highlight]
-        token, metadata = chunk["data"]  # [!code highlight]
+    if chunk["type"] == "messages":
+        token, metadata = chunk["data"]
         if isinstance(token, AIMessageChunk):
             _render_message_chunk(token)
-    elif chunk["type"] == "updates":  # [!code highlight]
-        for source, update in chunk["data"].items():  # [!code highlight]
+    elif chunk["type"] == "updates":
+        for source, update in chunk["data"].items():
             if source in ("model", "tools"):
                 _render_completed_message(update["messages"][-1])
             if source == "__interrupt__":
@@ -5566,7 +5566,7 @@ weather_model = init_chat_model("openai:gpt-5.5")
 weather_agent = create_agent(
     model=weather_model,
     tools=[get_weather],
-    name="weather_agent",  # [!code highlight]
+    name="weather_agent",
 )
 
 def call_weather_agent(query: str) -> str:
@@ -5580,7 +5580,7 @@ supervisor_model = init_chat_model("openai:gpt-5.5")
 agent = create_agent(
     model=supervisor_model,
     tools=[call_weather_agent],
-    name="supervisor",  # [!code highlight]
+    name="supervisor",
 )
 ```
 
@@ -5600,23 +5600,23 @@ def _render_completed_message(message: AnyMessage) -> None:
         print(f"Tool response: {message.content_blocks}")
 
 input_message = {"role": "user", "content": "What is the weather in Boston?"}
-current_agent = None  # [!code highlight]
+current_agent = None
 for chunk in agent.stream(
     {"messages": [input_message]},
     stream_mode=["messages", "updates"],
-    subgraphs=True,  # [!code highlight]
-    version="v2",  # [!code highlight]
+    subgraphs=True,
+    version="v2",
 ):
-    if chunk["type"] == "messages":  # [!code highlight]
-        token, metadata = chunk["data"]  # [!code highlight]
-        if agent_name := metadata.get("lc_agent_name"):  # [!code highlight]
-            if agent_name != current_agent:  # [!code highlight]
-                print(f"🤖 {agent_name}: ")  # [!code highlight]
-                current_agent = agent_name  # [!code highlight]
+    if chunk["type"] == "messages":
+        token, metadata = chunk["data"]
+        if agent_name := metadata.get("lc_agent_name"):
+            if agent_name != current_agent:
+                print(f"🤖 {agent_name}: ")
+                current_agent = agent_name
         if isinstance(token, AIMessageChunk):
             _render_message_chunk(token)
-    elif chunk["type"] == "updates":  # [!code highlight]
-        for source, update in chunk["data"].items():  # [!code highlight]
+    elif chunk["type"] == "updates":
+        for source, update in chunk["data"].items():
             if source in ("model", "tools"):
                 _render_completed_message(update["messages"][-1])
 ```
@@ -5669,7 +5669,7 @@ from langchain_openai import ChatOpenAI
 
 model = ChatOpenAI(
     model="gpt-5.5",
-    streaming=False  # [!code highlight]
+    streaming=False
 )
 ```
 
@@ -6457,7 +6457,7 @@ response_format = ToolStrategy(
 
 ```python
 from langchain.agents import create_agent
-from langgraph.checkpoint.memory import InMemorySaver  # [!code highlight]
+from langgraph.checkpoint.memory import InMemorySaver
 
 def get_user_info() -> str:
     """Look up information about the current user."""
@@ -6466,20 +6466,20 @@ def get_user_info() -> str:
 agent = create_agent(
     model="google_genai:gemini-3.6-flash",
     tools=[get_user_info],
-    checkpointer=InMemorySaver(),  # [!code highlight]
+    checkpointer=InMemorySaver(),
 )
 
 thread_config = {"configurable": {"thread_id": "1"}}
 response = agent.invoke(
     {"messages": [{"role": "user", "content": "Hi! My name is Bob."}]},
-    thread_config,  # [!code highlight]
+    thread_config,
 )["messages"][-1].content
 
 print(response)  # "Hi Bob! Nice to see you here. How are you doing?"
 
 response = agent.invoke(
     {"messages": [{"role": "user", "content": "What's my name?"}]},
-    thread_config,  # [!code highlight]
+    thread_config,
 )["messages"][-1].content
 
 print(response)  # "You are Bob!"
@@ -6503,7 +6503,7 @@ uv add langgraph-checkpoint-postgres "psycopg[binary]"
 
 ```python
 from langchain.agents import create_agent
-from langgraph.checkpoint.postgres import PostgresSaver  # [!code highlight]
+from langgraph.checkpoint.postgres import PostgresSaver
 
 def get_user_info() -> str:
     """Look up information about the current user."""
@@ -6515,7 +6515,7 @@ with PostgresSaver.from_conn_string(DB_URI) as checkpointer:
     agent = create_agent(
         "gpt-5.5",
         tools=[get_user_info],
-        checkpointer=checkpointer,  # [!code highlight]
+        checkpointer=checkpointer,
     )
 ```
 
@@ -6531,14 +6531,14 @@ with PostgresSaver.from_conn_string(DB_URI) as checkpointer:
 from langchain.agents import create_agent, AgentState
 from langgraph.checkpoint.memory import InMemorySaver
 
-class CustomAgentState(AgentState):  # [!code highlight]
-    user_id: str  # [!code highlight]
-    preferences: dict  # [!code highlight]
+class CustomAgentState(AgentState):
+    user_id: str
+    preferences: dict
 
 agent = create_agent(
     "gpt-5.5",
     tools=[get_user_info],
-    state_schema=CustomAgentState,  # [!code highlight]
+    state_schema=CustomAgentState,
     checkpointer=InMemorySaver(),
 )
 
@@ -6546,8 +6546,8 @@ agent = create_agent(
 result = agent.invoke(
     {
         "messages": [{"role": "user", "content": "Hello"}],
-        "user_id": "user_123",  # [!code highlight]
-        "preferences": {"theme": "dark"}  # [!code highlight]
+        "user_id": "user_123",
+        "preferences": {"theme": "dark"}
     },
     {"configurable": {"thread_id": "1"}})
 ```
@@ -6638,22 +6638,22 @@ If you'd like me to call you a nickname or use a different name, just say the wo
 要删除特定消息：
 
 ```python
-from langchain.messages import RemoveMessage  # [!code highlight]
+from langchain.messages import RemoveMessage
 
 def delete_messages(state):
     messages = state["messages"]
     if len(messages) > 2:
         # remove the earliest two messages
-        return {"messages": [RemoveMessage(id=m.id) for m in messages[:2]]}  # [!code highlight]
+        return {"messages": [RemoveMessage(id=m.id) for m in messages[:2]]}
 ```
 
 要删除**所有**消息：
 
 ```python
-from langgraph.graph.message import REMOVE_ALL_MESSAGES  # [!code highlight]
+from langgraph.graph.message import REMOVE_ALL_MESSAGES
 
 def delete_messages(state):
-    return {"messages": [RemoveMessage(id=REMOVE_ALL_MESSAGES)]}  # [!code highlight]
+    return {"messages": [RemoveMessage(id=REMOVE_ALL_MESSAGES)]}
 ```
 
 > 警告：删除消息时，**务必确保**生成的消息历史是有效的。请检查你所使用的 LLM 提供商的限制。例如：
@@ -6825,7 +6825,7 @@ from langchain.agents import create_agent, AgentState
 from langgraph.types import Command
 from pydantic import BaseModel
 
-class CustomState(AgentState):  # [!code highlight]
+class CustomState(AgentState):
     user_name: str
 
 class CustomContext(BaseModel):
@@ -6838,7 +6838,7 @@ def update_user_info(
     """Look up and update user info."""
     user_id = runtime.context.user_id
     name = "John Smith" if user_id == "user_123" else "Unknown user"
-    return Command(update={  # [!code highlight]
+    return Command(update={
         "user_name": name,
         # update the message history
         "messages": [
@@ -6869,7 +6869,7 @@ def greet(
 agent = create_agent(
     model="gpt-5-nano",
     tools=[update_user_info, greet],
-    state_schema=CustomState, # [!code highlight]
+    state_schema=CustomState,
     context_schema=CustomContext,
 )
 
@@ -7398,11 +7398,11 @@ with PostgresStore.from_conn_string(DB_URI) as store:
 **Accessing multiple MCP servers**
 ```python
 import asyncio
-from langchain_mcp_adapters.client import MultiServerMCPClient  # [!code highlight]
+from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain.agents import create_agent
 
 async def main():
-    client = MultiServerMCPClient(  # [!code highlight]
+    client = MultiServerMCPClient(
         {
             "math": {
                 "transport": "stdio",  # Local subprocess communication
@@ -7418,10 +7418,10 @@ async def main():
         }
     )
 
-    tools = await client.get_tools()  # [!code highlight]
+    tools = await client.get_tools()
     agent = create_agent(
         "claude-sonnet-4-6",
-        tools  # [!code highlight]
+        tools
     )
     math_response = await agent.ainvoke(
         {"messages": [{"role": "user", "content": "what's (3 + 5) x 12?"}]}
@@ -7546,10 +7546,10 @@ client = MultiServerMCPClient(
         "weather": {
             "transport": "http",
             "url": "http://localhost:8000/mcp",
-            "headers": {  # [!code highlight]
-                "Authorization": "Bearer YOUR_TOKEN",  # [!code highlight]
-                "X-Custom-Header": "custom-value"  # [!code highlight]
-            },  # [!code highlight]
+            "headers": {
+                "Authorization": "Bearer YOUR_TOKEN",
+                "X-Custom-Header": "custom-value"
+            },
         }
     }
 )
@@ -7570,7 +7570,7 @@ client = MultiServerMCPClient(
         "weather": {
             "transport": "http",
             "url": "http://localhost:8000/mcp",
-            "auth": auth, # [!code highlight]
+            "auth": auth,
         }
     }
 )
@@ -7612,9 +7612,9 @@ from langchain.agents import create_agent
 client = MultiServerMCPClient({...})
 
 # Create a session explicitly
-async with client.session("server_name") as session:  # [!code highlight]
+async with client.session("server_name") as session:
     # Pass the session to load tools, resources, or prompts
-    tools = await load_mcp_tools(session)  # [!code highlight]
+    tools = await load_mcp_tools(session)
     agent = create_agent(
         "google_genai:gemini-3.6-flash",
         tools
@@ -7636,7 +7636,7 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain.agents import create_agent
 
 client = MultiServerMCPClient({...})
-tools = await client.get_tools()  # [!code highlight]
+tools = await client.get_tools()
 agent = create_agent("claude-sonnet-4-6", tools)
 ```
 
@@ -7721,13 +7721,13 @@ async def access_multimodal_tool_content():
             # Raw content in provider-native format
             print(f"Raw content: {message.content}")
 
-            # Standardized content blocks  # [!code highlight]
-            for block in message.content_blocks:  # [!code highlight]
-                if block["type"] == "text":  # [!code highlight]
-                    print(f"Text: {block['text']}")  # [!code highlight]
-                elif block["type"] == "image":  # [!code highlight]
-                    print(f"Image URL: {block.get('url')}")  # [!code highlight]
-                    print(f"Image base64: {block.get('base64', '')[:50]}...")  # [!code highlight]
+            # Standardized content blocks
+            for block in message.content_blocks:
+                if block["type"] == "text":
+                    print(f"Text: {block['text']}")
+                elif block["type"] == "image":
+                    print(f"Image URL: {block.get('url')}")
+                    print(f"Image base64: {block.get('base64', '')[:50]}...")
 ```
 
 这使你可以以与提供商无关的方式处理多模态工具响应，无论底层 MCP 服务器如何格式化其内容。
@@ -7746,10 +7746,10 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 client = MultiServerMCPClient({...})
 
 # Load all resources from a server
-blobs = await client.get_resources("server_name")  # [!code highlight]
+blobs = await client.get_resources("server_name")
 
 # Or load specific resources by URI
-blobs = await client.get_resources("server_name", uris=["file:///path/to/file.txt"])  # [!code highlight]
+blobs = await client.get_resources("server_name", uris=["file:///path/to/file.txt"])
 
 for blob in blobs:
     print(f"URI: {blob.metadata['uri']}, MIME type: {blob.mimetype}")
@@ -7786,14 +7786,14 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 client = MultiServerMCPClient({...})
 
 # Load a prompt by name
-messages = await client.get_prompt("server_name", "summarize")  # [!code highlight]
+messages = await client.get_prompt("server_name", "summarize")
 
 # Load a prompt with arguments
-messages = await client.get_prompt(  # [!code highlight]
-    "server_name",  # [!code highlight]
-    "code_review",  # [!code highlight]
-    arguments={"language": "python", "focus": "security"}  # [!code highlight]
-)  # [!code highlight]
+messages = await client.get_prompt(
+    "server_name",
+    "code_review",
+    arguments={"language": "python", "focus": "security"}
+)
 
 # Use the messages in your workflow
 for message in messages:
@@ -7860,8 +7860,8 @@ async def inject_user_context(
 ):
     """Inject user credentials into MCP tool calls."""
     runtime = request.runtime
-    user_id = runtime.context.user_id  # [!code highlight]
-    api_key = runtime.context.api_key  # [!code highlight]
+    user_id = runtime.context.user_id
+    api_key = runtime.context.api_key
 
     # Add user context to tool arguments
     modified_request = request.override(
@@ -7906,10 +7906,10 @@ async def personalize_search(
     """Personalize MCP tool calls using stored preferences."""
     runtime = request.runtime
     user_id = runtime.context.user_id
-    store = runtime.store  # [!code highlight]
+    store = runtime.store
 
     # Read user preferences from store
-    prefs = store.get(("preferences",), user_id)  # [!code highlight]
+    prefs = store.get(("preferences",), user_id)
 
     if prefs and request.name == "search":
         # Apply user's preferred language and result limit
@@ -7951,8 +7951,8 @@ async def require_authentication(
 ):
     """Block sensitive MCP tools if user is not authenticated."""
     runtime = request.runtime
-    state = runtime.state  # [!code highlight]
-    is_authenticated = state.get("authenticated", False)  # [!code highlight]
+    state = runtime.state
+    is_authenticated = state.get("authenticated", False)
 
     sensitive_tools = ["delete_file", "update_settings", "export_data"]
 
@@ -7987,13 +7987,13 @@ async def rate_limit_interceptor(
 ):
     """Rate limit expensive MCP tool calls."""
     runtime = request.runtime
-    tool_call_id = runtime.tool_call_id  # [!code highlight]
+    tool_call_id = runtime.tool_call_id
 
     # Check rate limit (simplified example)
     if is_rate_limited(request.name):
         return ToolMessage(
             content="Rate limit exceeded. Please try again later.",
-            tool_call_id=tool_call_id,  # [!code highlight]
+            tool_call_id=tool_call_id,
         )
 
     result = await handler(request)
@@ -8033,9 +8033,9 @@ async def handle_task_completion(
         return Command(
             update={
                 "messages": [result] if isinstance(result, ToolMessage) else [],
-                "task_status": "completed",  # [!code highlight]
+                "task_status": "completed",
             },
-            goto="summary_agent",  # [!code highlight]
+            goto="summary_agent",
         )
 
     return result
@@ -8055,7 +8055,7 @@ async def end_on_success(
     if request.name == "mark_complete":
         return Command(
             update={"messages": [result], "status": "done"},
-            goto="__end__",  # [!code highlight]
+            goto="__end__",
         )
 
     return result
@@ -8086,7 +8086,7 @@ async def logging_interceptor(
 
 client = MultiServerMCPClient(
     {"math": {"transport": "stdio", "command": "python", "args": ["/path/to/server.py"]}},
-    tool_interceptors=[logging_interceptor],  # [!code highlight]
+    tool_interceptors=[logging_interceptor],
 )
 ```
 
@@ -8102,7 +8102,7 @@ async def double_args_interceptor(
 ):
     """Double all numeric arguments before execution."""
     modified_args = {k: v * 2 for k, v in request.args.items()}
-    modified_request = request.override(args=modified_args)  # [!code highlight]
+    modified_request = request.override(args=modified_args)
     return await handler(modified_request)
 
 # Original call: add(a=2, b=3) becomes add(a=4, b=6)
@@ -8121,7 +8121,7 @@ async def auth_header_interceptor(
     """Add authentication headers based on the tool being called."""
     token = get_token_for_tool(request.name)
     modified_request = request.override(
-        headers={"Authorization": f"Bearer {token}"}  # [!code highlight]
+        headers={"Authorization": f"Bearer {token}"}
     )
     return await handler(modified_request)
 ```
@@ -8146,7 +8146,7 @@ async def inner_interceptor(request, handler):
 
 client = MultiServerMCPClient(
     {...},
-    tool_interceptors=[outer_interceptor, inner_interceptor],  # [!code highlight]
+    tool_interceptors=[outer_interceptor, inner_interceptor],
 )
 
 # Execution order:
@@ -8182,7 +8182,7 @@ async def retry_interceptor(
 
 client = MultiServerMCPClient(
     {...},
-    tool_interceptors=[retry_interceptor],  # [!code highlight]
+    tool_interceptors=[retry_interceptor],
 )
 ```
 
@@ -8225,7 +8225,7 @@ async def on_progress(
 
 client = MultiServerMCPClient(
     {...},
-    callbacks=Callbacks(on_progress=on_progress),  # [!code highlight]
+    callbacks=Callbacks(on_progress=on_progress),
 )
 ```
 
@@ -8253,7 +8253,7 @@ async def on_logging_message(
 
 client = MultiServerMCPClient(
     {...},
-    callbacks=Callbacks(on_logging_message=on_logging_message),  # [!code highlight]
+    callbacks=Callbacks(on_logging_message=on_logging_message),
 )
 ```
 
@@ -8279,10 +8279,10 @@ class UserDetails(BaseModel):
 @server.tool()
 async def create_profile(name: str, ctx: Context) -> str:
     """Create a user profile, requesting details via elicitation."""
-    result = await ctx.elicit(  # [!code highlight]
-        message=f"Please provide details for {name}'s profile:",  # [!code highlight]
-        schema=UserDetails,  # [!code highlight]
-    )  # [!code highlight]
+    result = await ctx.elicit(
+        message=f"Please provide details for {name}'s profile:",
+        schema=UserDetails,
+    )
     if result.action == "accept" and result.data:
         return f"Created profile for {name}: email={result.data.email}, age={result.data.age}"
     if result.action == "decline":
@@ -8312,10 +8312,10 @@ async def on_elicitation(
     """Handle elicitation requests from MCP servers."""
     # In a real application, you would prompt the user for input
     # based on params.message and params.requestedSchema
-    return ElicitResult(  # [!code highlight]
-        action="accept",  # [!code highlight]
-        content={"email": "user@example.com", "age": 25},  # [!code highlight]
-    )  # [!code highlight]
+    return ElicitResult(
+        action="accept",
+        content={"email": "user@example.com", "age": 25},
+    )
 
 client = MultiServerMCPClient(
     {
@@ -8324,7 +8324,7 @@ client = MultiServerMCPClient(
             "transport": "http",
         }
     },
-    callbacks=Callbacks(on_elicitation=on_elicitation),  # [!code highlight]
+    callbacks=Callbacks(on_elicitation=on_elicitation),
 )
 ```
 
@@ -8518,7 +8518,7 @@ Use fetch_url when you need to fetch information from a web-page; quote relevant
 
 agent = create_agent(
     model="claude-sonnet-4-6",
-    tools=[fetch_url], # A tool for retrieval [!code highlight]
+    tools=[fetch_url], # A tool for retrieval
     system_prompt=system_prompt,
 )
 ```
@@ -8539,7 +8539,7 @@ agent = create_agent(
   LLMS_TXT = 'https://langchain-ai.github.io/langgraph/llms.txt'
 
   @tool
-  def fetch_documentation(url: str) -> str:  # [!code highlight]
+  def fetch_documentation(url: str) -> str:
       """Fetch and convert documentation from a URL"""
       if not any(url.startswith(domain) for domain in ALLOWED_DOMAINS):
           return (
@@ -8583,8 +8583,8 @@ agent = create_agent(
 
   agent = create_agent(
       model=model,
-      tools=tools,  # [!code highlight]
-      system_prompt=system_prompt,  # [!code highlight]
+      tools=tools,
+      system_prompt=system_prompt,
       name="Agentic RAG",
   )
 
@@ -9104,14 +9104,14 @@ agent = create_agent(
 
 ```python
 from langchain.agents import create_agent
-from langchain.agents.middleware import HumanInTheLoopMiddleware # [!code highlight]
-from langgraph.checkpoint.memory import InMemorySaver # [!code highlight]
+from langchain.agents.middleware import HumanInTheLoopMiddleware
+from langgraph.checkpoint.memory import InMemorySaver
 
 agent = create_agent(
     model="gpt-5.5",
     tools=[write_file, execute_sql, read_data],
     middleware=[
-        HumanInTheLoopMiddleware( # [!code highlight]
+        HumanInTheLoopMiddleware(
             interrupt_on={
                 "write_file": True,  # All decisions (approve, edit, reject, respond) allowed
                 "execute_sql": {"allowed_decisions": ["approve", "reject"]},  # No editing allowed
@@ -9125,7 +9125,7 @@ agent = create_agent(
     ],
     # Human-in-the-loop requires checkpointing to handle interrupts.
     # In production, use a persistent checkpointer like AsyncPostgresSaver or MongoDBSaver.
-    checkpointer=InMemorySaver(),  # [!code highlight]
+    checkpointer=InMemorySaver(),
 )
 ```
 
@@ -9202,7 +9202,7 @@ from langgraph.types import Command
 # Human-in-the-loop leverages LangGraph's persistence layer.
 # You must provide a thread ID to associate the execution with a conversation thread,
 # so the conversation can be paused and resumed (as is needed for human review).
-config = {"configurable": {"thread_id": "some_id"}} # [!code highlight]
+config = {"configurable": {"thread_id": "some_id"}}
 # Run the graph until the interrupt is hit.
 result = agent.invoke(
     {
@@ -9213,12 +9213,12 @@ result = agent.invoke(
             }
         ]
     },
-    config=config, # [!code highlight]
-    version="v2", # [!code highlight]
+    config=config,
+    version="v2",
 )
 
 # result is a GraphOutput with .value and .interrupts
-print(result.interrupts)  # [!code highlight]
+print(result.interrupts)
 # > (
 # >    Interrupt(
 # >       value={
@@ -9241,9 +9241,9 @@ print(result.interrupts)  # [!code highlight]
 
 # Resume with approval decision
 agent.invoke(
-    Command( # [!code highlight]
-        resume={"decisions": [{"type": "approve"}]}  # or "reject" [!code highlight]
-    ), # [!code highlight]
+    Command(
+        resume={"decisions": [{"type": "approve"}]}  # or "reject"
+    ),
     config=config, # Same thread ID to resume the paused conversation
     version="v2",
 )
@@ -9399,23 +9399,23 @@ config = {"configurable": {"thread_id": "some_id"}}
 stream = agent.stream_events(
     {"messages": [{"role": "user", "content": "Delete old records from the database"}]},
     config=config,
-    version="v3",  # [!code highlight]
+    version="v3",
 )
-for message in stream.messages:  # [!code highlight]
-    for token in message.text:  # [!code highlight]
+for message in stream.messages:
+    for token in message.text:
         print(token, end="", flush=True)
 
 # Check whether the run paused for human input
-if stream.interrupted:  # [!code highlight]
-    print(f"\n\nInterrupt: {stream.interrupts}")  # [!code highlight]
+if stream.interrupted:
+    print(f"\n\nInterrupt: {stream.interrupts}")
 
 # Resume with streaming after human decision
 stream = agent.stream_events(
     Command(resume={"decisions": [{"type": "approve"}]}),
     config=config,
-    version="v3",  # [!code highlight]
+    version="v3",
 )
-for message in stream.messages:  # [!code highlight]
+for message in stream.messages:
     for token in message.text:
         print(token, end="", flush=True)
 ```
@@ -9660,9 +9660,9 @@ def transfer_to_specialist(runtime) -> Command:
     return Command(
         update={
             "messages": [
-                ToolMessage(  # [!code highlight]
+                ToolMessage(
                     content="Transferred to specialist",
-                    tool_call_id=runtime.tool_call_id  # [!code highlight]
+                    tool_call_id=runtime.tool_call_id
                 )
             ],
             "current_step": "specialist"  # Triggers behavior change
@@ -9719,9 +9719,9 @@ from langgraph.types import Command
 from typing import Callable
 
 # 1. Define state with current_step tracker
-class SupportState(AgentState):  # [!code highlight]
+class SupportState(AgentState):
     """Track which step is currently active."""
-    current_step: str = "triage"  # [!code highlight]
+    current_step: str = "triage"
     warranty_status: str | None = None
 
 # 2. Tools update current_step via Command
@@ -9729,10 +9729,10 @@ class SupportState(AgentState):  # [!code highlight]
 def record_warranty_status(
     status: str,
     runtime: ToolRuntime[None, SupportState]
-) -> Command:  # [!code highlight]
+) -> Command:
     """Record warranty status and transition to next step."""
-    return Command(update={  # [!code highlight]
-        "messages": [  # [!code highlight]
+    return Command(update={
+        "messages": [
             ToolMessage(
                 content=f"Warranty status recorded: {status}",
                 tool_call_id=runtime.tool_call_id
@@ -9740,17 +9740,17 @@ def record_warranty_status(
         ],
         "warranty_status": status,
         # Transition to next step
-        "current_step": "specialist"    # [!code highlight]
+        "current_step": "specialist"
     })
 
 # 3. Middleware applies dynamic configuration based on current_step
-@wrap_model_call  # [!code highlight]
+@wrap_model_call
 def apply_step_config(
     request: ModelRequest,
     handler: Callable[[ModelRequest], ModelResponse]
 ) -> ModelResponse:
     """Configure agent behavior based on current_step."""
-    step = request.state.get("current_step", "triage")  # [!code highlight]
+    step = request.state.get("current_step", "triage")
 
     # Map steps to their configurations
     configs = {
@@ -9765,9 +9765,9 @@ def apply_step_config(
     }
 
     config = configs[step]
-    request = request.override(  # [!code highlight]
-        system_prompt=config["prompt"].format(**request.state),  # [!code highlight]
-        tools=config["tools"]  # [!code highlight]
+    request = request.override(
+        system_prompt=config["prompt"].format(**request.state),
+        tools=config["tools"]
     )
     return handler(request)
 
@@ -9776,8 +9776,8 @@ agent = create_agent(
     model,
     tools=[record_warranty_status, provide_solution, escalate],
     state_schema=SupportState,
-    middleware=[apply_step_config],  # [!code highlight]
-    checkpointer=InMemorySaver()  # Persist state across turns  # [!code highlight]
+    middleware=[apply_step_config],
+    checkpointer=InMemorySaver()  # Persist state across turns
 )
 ```
 
@@ -9797,18 +9797,18 @@ def transfer_to_sales(
     runtime: ToolRuntime,
 ) -> Command:
     """Transfer to the sales agent."""
-    last_ai_message = next(  # [!code highlight]
-        msg for msg in reversed(runtime.state["messages"]) if isinstance(msg, AIMessage)  # [!code highlight]
-    )  # [!code highlight]
-    transfer_message = ToolMessage(  # [!code highlight]
-        content="Transferred to sales agent",  # [!code highlight]
-        tool_call_id=runtime.tool_call_id,  # [!code highlight]
-    )  # [!code highlight]
+    last_ai_message = next(
+        msg for msg in reversed(runtime.state["messages"]) if isinstance(msg, AIMessage)
+    )
+    transfer_message = ToolMessage(
+        content="Transferred to sales agent",
+        tool_call_id=runtime.tool_call_id,
+    )
     return Command(
         goto="sales_agent",
         update={
             "active_agent": "sales_agent",
-            "messages": [last_ai_message, transfer_message],  # [!code highlight]
+            "messages": [last_ai_message, transfer_message],
         },
         graph=Command.PARENT
     )
@@ -9837,18 +9837,18 @@ def transfer_to_sales(
     runtime: ToolRuntime,
 ) -> Command:
     """Transfer to the sales agent."""
-    last_ai_message = next(  # [!code highlight]
-        msg for msg in reversed(runtime.state["messages"]) if isinstance(msg, AIMessage)  # [!code highlight]
-    )  # [!code highlight]
-    transfer_message = ToolMessage(  # [!code highlight]
-        content="Transferred to sales agent from support agent",  # [!code highlight]
-        tool_call_id=runtime.tool_call_id,  # [!code highlight]
-    )  # [!code highlight]
+    last_ai_message = next(
+        msg for msg in reversed(runtime.state["messages"]) if isinstance(msg, AIMessage)
+    )
+    transfer_message = ToolMessage(
+        content="Transferred to sales agent from support agent",
+        tool_call_id=runtime.tool_call_id,
+    )
     return Command(
         goto="sales_agent",
         update={
             "active_agent": "sales_agent",
-            "messages": [last_ai_message, transfer_message],  # [!code highlight]
+            "messages": [last_ai_message, transfer_message],
         },
         graph=Command.PARENT,
     )
@@ -9858,18 +9858,18 @@ def transfer_to_support(
     runtime: ToolRuntime,
 ) -> Command:
     """Transfer to the support agent."""
-    last_ai_message = next(  # [!code highlight]
-        msg for msg in reversed(runtime.state["messages"]) if isinstance(msg, AIMessage)  # [!code highlight]
-    )  # [!code highlight]
-    transfer_message = ToolMessage(  # [!code highlight]
-        content="Transferred to support agent from sales agent",  # [!code highlight]
-        tool_call_id=runtime.tool_call_id,  # [!code highlight]
-    )  # [!code highlight]
+    last_ai_message = next(
+        msg for msg in reversed(runtime.state["messages"]) if isinstance(msg, AIMessage)
+    )
+    transfer_message = ToolMessage(
+        content="Transferred to support agent from sales agent",
+        tool_call_id=runtime.tool_call_id,
+    )
     return Command(
         goto="support_agent",
         update={
             "active_agent": "support_agent",
-            "messages": [last_ai_message, transfer_message],  # [!code highlight]
+            "messages": [last_ai_message, transfer_message],
         },
         graph=Command.PARENT,
     )
@@ -9908,8 +9908,8 @@ def route_after_agent(
     # Check the last message - if it's an AIMessage without tool calls, we're done
     if messages:
         last_msg = messages[-1]
-        if isinstance(last_msg, AIMessage) and not last_msg.tool_calls:  # [!code highlight]
-            return "__end__"  # [!code highlight]
+        if isinstance(last_msg, AIMessage) and not last_msg.tool_calls:
+            return "__end__"
 
     # Otherwise route to the active agent
     active = state.get("active_agent", "sales_agent")
@@ -10108,7 +10108,7 @@ def route_query(state: State):
 @tool
 def search_docs(query: str) -> str:
     """Search across multiple documentation sources."""
-    result = workflow.invoke({"query": query})  # [!code highlight]
+    result = workflow.invoke({"query": query})
     return result["final_answer"]
 
 # Conversational agent uses the router as a tool
@@ -10320,16 +10320,16 @@ from langchain.tools import tool
 from langchain.agents import create_agent
 
 # Create a sub-agent
-subagent = create_agent(model="...", tools=[...])  # [!code highlight]
+subagent = create_agent(model="...", tools=[...])
 
-# Wrap it as a tool  # [!code highlight]
-@tool("subagent_name", description="subagent_description")  # [!code highlight]
-def call_subagent(query: str):  # [!code highlight]
+# Wrap it as a tool
+@tool("subagent_name", description="subagent_description")
+def call_subagent(query: str):
     result = subagent.invoke({"messages": [{"role": "user", "content": query}]})
     return result["messages"][-1].content
 
-# Main agent with subagent as a tool  # [!code highlight]
-main_agent = create_agent(model="...", tools=[call_subagent])  # [!code highlight]
+# Main agent with subagent as a tool
+main_agent = create_agent(model="...", tools=[call_subagent])
 ```
 
 主代理在判断任务与子代理描述匹配时调用子代理工具，接收结果并继续编排。参见[上下文工程](#context-engineering)以获得细粒度控制。
@@ -10951,9 +10951,9 @@ agent = create_agent("claude-sonnet-4-6", tools=[get_weather])
 > `strict` 模式确保轨迹包含相同顺序的相同消息和相同的工具调用，但允许消息内容不同。当需要强制执行特定的操作序列（例如在授权操作前先进行策略查询）时，这很有用。
 
 ```python
-evaluator = create_trajectory_match_evaluator(  # [!code highlight]
-    trajectory_match_mode="strict",  # [!code highlight]
-)  # [!code highlight]
+evaluator = create_trajectory_match_evaluator(
+    trajectory_match_mode="strict",
+)
 
 def test_weather_tool_called_strict():
     result = agent.invoke({
@@ -10993,9 +10993,9 @@ def get_events(city: str):
 
 agent = create_agent("claude-sonnet-4-6", tools=[get_weather, get_events])
 
-evaluator = create_trajectory_match_evaluator(  # [!code highlight]
-    trajectory_match_mode="unordered",  # [!code highlight]
-)  # [!code highlight]
+evaluator = create_trajectory_match_evaluator(
+    trajectory_match_mode="unordered",
+)
 
 def test_multiple_tools_any_order():
     result = agent.invoke({
@@ -11032,9 +11032,9 @@ def get_detailed_forecast(city: str):
 
 agent = create_agent("claude-sonnet-4-6", tools=[get_weather, get_detailed_forecast])
 
-evaluator = create_trajectory_match_evaluator(  # [!code highlight]
-    trajectory_match_mode="superset",  # [!code highlight]
-)  # [!code highlight]
+evaluator = create_trajectory_match_evaluator(
+    trajectory_match_mode="superset",
+)
 
 def test_agent_calls_required_tools_plus_extra():
     result = agent.invoke({
@@ -11069,10 +11069,10 @@ def test_agent_calls_required_tools_plus_extra():
 ```python
 from agentevals.trajectory.llm import create_trajectory_llm_as_judge, TRAJECTORY_ACCURACY_PROMPT
 
-evaluator = create_trajectory_llm_as_judge(  # [!code highlight]
-    model="openai:o3-mini",  # [!code highlight]
-    prompt=TRAJECTORY_ACCURACY_PROMPT,  # [!code highlight]
-)  # [!code highlight]
+evaluator = create_trajectory_llm_as_judge(
+    model="openai:o3-mini",
+    prompt=TRAJECTORY_ACCURACY_PROMPT,
+)
 
 def test_trajectory_quality():
     result = agent.invoke({
@@ -11382,12 +11382,12 @@ class Context:
 agent = create_agent(
     model="gpt-5-nano",
     tools=[...],
-    context_schema=Context  # [!code highlight]
+    context_schema=Context
 )
 
 agent.invoke(
     {"messages": [{"role": "user", "content": "What's my name?"}]},
-    context=Context(user_name="John Smith")  # [!code highlight]
+    context=Context(user_name="John Smith")
 )
 ```
 
@@ -11403,20 +11403,20 @@ agent.invoke(
 
 ```python
 from dataclasses import dataclass
-from langchain.tools import tool, ToolRuntime  # [!code highlight]
+from langchain.tools import tool, ToolRuntime
 
 @dataclass
 class Context:
     user_id: str
 
 @tool
-def fetch_user_email_preferences(runtime: ToolRuntime[Context]) -> str:  # [!code highlight]
+def fetch_user_email_preferences(runtime: ToolRuntime[Context]) -> str:
     """Fetch the user's email preferences from the store."""
-    user_id = runtime.context.user_id  # [!code highlight]
+    user_id = runtime.context.user_id
 
     preferences: str = "The user prefers you to write a brief and polite email."
-    if runtime.store:  # [!code highlight]
-        if memory := runtime.store.get(("users",), user_id):  # [!code highlight]
+    if runtime.store:
+        if memory := runtime.store.get(("users",), user_id):
             preferences = memory.value["preferences"]
 
     return preferences
@@ -11434,14 +11434,14 @@ def context_aware_tool(runtime: ToolRuntime) -> str:
     """A tool that uses execution and server info."""
     # Access thread and run IDs
     info = runtime.execution_info
-    print(f"Thread: {info.thread_id}, Run: {info.run_id}")  # [!code highlight]
+    print(f"Thread: {info.thread_id}, Run: {info.run_id}")
 
     # Access server info (only available on LangGraph Server)
     server = runtime.server_info
     if server is not None:
-        print(f"Assistant: {server.assistant_id}")  # [!code highlight]
+        print(f"Assistant: {server.assistant_id}")
         if server.user is not None:
-            print(f"User: {server.user.identity}")  # [!code highlight]
+            print(f"User: {server.user.identity}")
 
     return "done"
 ```
@@ -11471,26 +11471,26 @@ class Context:
 # Dynamic prompts
 @dynamic_prompt
 def dynamic_system_prompt(request: ModelRequest) -> str:
-    user_name = request.runtime.context.user_name  # [!code highlight]
+    user_name = request.runtime.context.user_name
     system_prompt = f"You are a helpful assistant. Address the user as {user_name}."
     return system_prompt
 
 # Before model hook
 @before_model
-def log_before_model(state: AgentState, runtime: Runtime[Context]) -> dict | None:  # [!code highlight]
-    print(f"Processing request for user: {runtime.context.user_name}")  # [!code highlight]
+def log_before_model(state: AgentState, runtime: Runtime[Context]) -> dict | None:
+    print(f"Processing request for user: {runtime.context.user_name}")
     return None
 
 # After model hook
 @after_model
-def log_after_model(state: AgentState, runtime: Runtime[Context]) -> dict | None:  # [!code highlight]
-    print(f"Completed request for user: {runtime.context.user_name}")  # [!code highlight]
+def log_after_model(state: AgentState, runtime: Runtime[Context]) -> dict | None:
+    print(f"Completed request for user: {runtime.context.user_name}")
     return None
 
 agent = create_agent(
     model="gpt-5-nano",
     tools=[...],
-    middleware=[dynamic_system_prompt, log_before_model, log_after_model],  # [!code highlight]
+    middleware=[dynamic_system_prompt, log_before_model, log_after_model],
     context_schema=Context
 )
 
@@ -11513,9 +11513,9 @@ from langgraph.runtime import Runtime
 def auth_gate(state: AgentState, runtime: Runtime) -> dict | None:
     """Block unauthenticated users when running on LangGraph Server."""
     server = runtime.server_info
-    if server is not None and server.user is None:  # [!code highlight]
+    if server is not None and server.user is None:
         raise ValueError("Authentication required")
-    print(f"Thread: {runtime.execution_info.thread_id}")  # [!code highlight]
+    print(f"Thread: {runtime.execution_info.thread_id}")
     return None
 ```
 
@@ -12216,7 +12216,7 @@ def inject_file_context(
 ) -> ModelResponse:
     """Inject context about files user has uploaded this session."""
     # Read from State: get uploaded files metadata
-    uploaded_files = request.state.get("uploaded_files", [])  # [!code highlight]
+    uploaded_files = request.state.get("uploaded_files", [])
 
     if uploaded_files:
         # Build context about available files
@@ -12232,11 +12232,11 @@ def inject_file_context(
 Reference these files when answering questions."""
 
         # Inject file context before recent messages
-        messages = [  # [!code highlight]
+        messages = [
             *request.messages,
             {"role": "user", "content": file_context},
         ]
-        request = request.override(messages=messages)  # [!code highlight]
+        request = request.override(messages=messages)
 
     return handler(request)
 
@@ -12268,11 +12268,11 @@ def inject_writing_style(
     handler: Callable[[ModelRequest], ModelResponse]
 ) -> ModelResponse:
     """Inject user's email writing style from Store."""
-    user_id = request.runtime.context.user_id  # [!code highlight]
+    user_id = request.runtime.context.user_id
 
     # Read from Store: get user's writing style examples
-    store = request.runtime.store  # [!code highlight]
-    writing_style = store.get(("writing_style",), user_id)  # [!code highlight]
+    store = request.runtime.store
+    writing_style = store.get(("writing_style",), user_id)
 
     if writing_style:
         style = writing_style.value
@@ -12289,7 +12289,7 @@ def inject_writing_style(
             *request.messages,
             {"role": "user", "content": style_context}
         ]
-        request = request.override(messages=messages)  # [!code highlight]
+        request = request.override(messages=messages)
 
     return handler(request)
 
@@ -12325,9 +12325,9 @@ def inject_compliance_rules(
 ) -> ModelResponse:
     """Inject compliance constraints from Runtime Context."""
     # Read from Runtime Context: get compliance requirements
-    jurisdiction = request.runtime.context.user_jurisdiction  # [!code highlight]
-    industry = request.runtime.context.industry  # [!code highlight]
-    frameworks = request.runtime.context.compliance_frameworks  # [!code highlight]
+    jurisdiction = request.runtime.context.user_jurisdiction
+    industry = request.runtime.context.industry
+    frameworks = request.runtime.context.compliance_frameworks
 
     # Build compliance constraints
     rules = []
@@ -12349,7 +12349,7 @@ def inject_compliance_rules(
             *request.messages,
             {"role": "user", "content": compliance_context}
         ]
-        request = request.override(messages=messages)  # [!code highlight]
+        request = request.override(messages=messages)
 
     return handler(request)
 
@@ -12423,18 +12423,18 @@ def state_based_tools(
 ) -> ModelResponse:
     """Filter tools based on conversation State."""
     # Read from State: check if user has authenticated
-    state = request.state  # [!code highlight]
-    is_authenticated = state.get("authenticated", False)  # [!code highlight]
+    state = request.state
+    is_authenticated = state.get("authenticated", False)
     message_count = len(state["messages"])
 
     # Only enable sensitive tools after authentication
     if not is_authenticated:
         tools = [t for t in request.tools if t.name.startswith("public_")]
-        request = request.override(tools=tools)  # [!code highlight]
+        request = request.override(tools=tools)
     elif message_count < 5:
         # Limit tools early in conversation
         tools = [t for t in request.tools if t.name != "advanced_search"]
-        request = request.override(tools=tools)  # [!code highlight]
+        request = request.override(tools=tools)
 
     return handler(request)
 
@@ -12562,7 +12562,7 @@ def state_based_model(
 ) -> ModelResponse:
     """Select model based on State conversation length."""
     # request.messages is a shortcut for request.state["messages"]
-    message_count = len(request.messages)  # [!code highlight]
+    message_count = len(request.messages)
 
     if message_count > 20:
         # Long conversation - use model with larger context window
@@ -12574,7 +12574,7 @@ def state_based_model(
         # Short conversation - use efficient model
         model = efficient_model
 
-    request = request.override(model=model)  # [!code highlight]
+    request = request.override(model=model)
 
     return handler(request)
 
@@ -12752,14 +12752,14 @@ def state_based_output(
 ) -> ModelResponse:
     """Select output format based on State."""
     # request.messages is a shortcut for request.state["messages"]
-    message_count = len(request.messages)  # [!code highlight]
+    message_count = len(request.messages)
 
     if message_count < 3:
         # Early conversation - use simple format
-        request = request.override(response_format=SimpleResponse)  # [!code highlight]
+        request = request.override(response_format=SimpleResponse)
     else:
         # Established conversation - use detailed format
-        request = request.override(response_format=DetailedResponse)  # [!code highlight]
+        request = request.override(response_format=DetailedResponse)
 
     return handler(request)
 
@@ -15149,20 +15149,20 @@ LangChain 代理支持内置的 [人机协同中间件](/oss/python/langchain/hu
 
 ```python
 from langchain.agents import create_agent
-from langchain.agents.middleware import HumanInTheLoopMiddleware # [!code highlight]
-from langgraph.checkpoint.memory import InMemorySaver # [!code highlight]
+from langchain.agents.middleware import HumanInTheLoopMiddleware
+from langgraph.checkpoint.memory import InMemorySaver
 
 agent = create_agent(
     model,
     tools,
     system_prompt=system_prompt,
-    middleware=[ # [!code highlight]
-        HumanInTheLoopMiddleware( # [!code highlight]
-            interrupt_on={"sql_db_query": True}, # [!code highlight]
-            description_prefix="Tool execution pending approval", # [!code highlight]
-        ), # [!code highlight]
-    ], # [!code highlight]
-    checkpointer=InMemorySaver(), # [!code highlight]
+    middleware=[
+        HumanInTheLoopMiddleware(
+            interrupt_on={"sql_db_query": True},
+            description_prefix="Tool execution pending approval",
+        ),
+    ],
+    checkpointer=InMemorySaver(),
 )
 ```
 
@@ -15172,11 +15172,11 @@ agent = create_agent(
 
 ```python
 question = "Which genre on average has the longest tracks?"
-config = {"configurable": {"thread_id": "1"}} # [!code highlight]
+config = {"configurable": {"thread_id": "1"}}
 
-stream = agent.stream_events( # [!code highlight]
+stream = agent.stream_events(
     {"messages": [{"role": "user", "content": question}]},
-    config, # [!code highlight]
+    config,
     version="v3",
 )
 for kind, item in stream.interleave("messages", "tool_calls"):
@@ -15185,11 +15185,11 @@ for kind, item in stream.interleave("messages", "tool_calls"):
             print(token, end="", flush=True)
     elif kind == "tool_calls":
         print(f"\nTool call: {item.tool_name}({item.input})")
-if stream.interrupted: # [!code highlight]
-    print("INTERRUPTED:") # [!code highlight]
-    interrupt = stream.interrupts[0] # [!code highlight]
-    for request in interrupt.value["action_requests"]: # [!code highlight]
-        print(request["description"]) # [!code highlight]
+if stream.interrupted:
+    print("INTERRUPTED:")
+    interrupt = stream.interrupts[0]
+    for request in interrupt.value["action_requests"]:
+        print(request["description"])
 ```
 
 ```
@@ -15205,10 +15205,10 @@ Args: {'query': 'SELECT g.Name AS Genre, AVG(t.Milliseconds) AS AvgTrackLength F
 我们可以使用 [Command](/oss/python/langgraph/use-graph-api#combine-control-flow-and-state-updates-with-command) 恢复执行，本例中为接受查询：
 
 ```python
-from langgraph.types import Command # [!code highlight]
+from langgraph.types import Command
 
-stream = agent.stream_events( # [!code highlight]
-    Command(resume={"decisions": [{"type": "approve"}]}), # [!code highlight]
+stream = agent.stream_events(
+    Command(resume={"decisions": [{"type": "approve"}]}),
     config,
     version="v3",
 )
@@ -16169,11 +16169,11 @@ from typing_extensions import NotRequired
 from typing import Literal
 
 # Define the possible workflow steps
-SupportStep = Literal["warranty_collector", "issue_classifier", "resolution_specialist"]  # [!code highlight]
+SupportStep = Literal["warranty_collector", "issue_classifier", "resolution_specialist"]
 
-class SupportState(AgentState):  # [!code highlight]
+class SupportState(AgentState):
     """State for customer support workflow."""
-    current_step: NotRequired[SupportStep]  # [!code highlight]
+    current_step: NotRequired[SupportStep]
     warranty_status: NotRequired[Literal["in_warranty", "out_of_warranty"]]
     issue_type: NotRequired[Literal["hardware", "software"]]
 ```
@@ -16195,10 +16195,10 @@ from langgraph.types import Command
 def record_warranty_status(
     status: Literal["in_warranty", "out_of_warranty"],
     runtime: ToolRuntime[None, SupportState],
-) -> Command:  # [!code highlight]
+) -> Command:
     """Record the customer's warranty status and transition to issue classification."""
-    return Command(  # [!code highlight]
-        update={  # [!code highlight]
+    return Command(
+        update={
             "messages": [
                 ToolMessage(
                     content=f"Warranty status recorded as: {status}",
@@ -16206,7 +16206,7 @@ def record_warranty_status(
                 )
             ],
             "warranty_status": status,
-            "current_step": "issue_classifier",  # [!code highlight]
+            "current_step": "issue_classifier",
         }
     )
 
@@ -16214,10 +16214,10 @@ def record_warranty_status(
 def record_issue_type(
     issue_type: Literal["hardware", "software"],
     runtime: ToolRuntime[None, SupportState],
-) -> Command:  # [!code highlight]
+) -> Command:
     """Record the type of issue and transition to resolution specialist."""
-    return Command(  # [!code highlight]
-        update={  # [!code highlight]
+    return Command(
+        update={
             "messages": [
                 ToolMessage(
                     content=f"Issue type recorded as: {issue_type}",
@@ -16225,7 +16225,7 @@ def record_issue_type(
                 )
             ],
             "issue_type": issue_type,
-            "current_step": "resolution_specialist",  # [!code highlight]
+            "current_step": "resolution_specialist",
         }
     )
 
@@ -16326,17 +16326,17 @@ STEP_CONFIG = {
 from langchain.agents.middleware import wrap_model_call, ModelRequest, ModelResponse
 from typing import Callable
 
-@wrap_model_call  # [!code highlight]
+@wrap_model_call
 def apply_step_config(
     request: ModelRequest,
     handler: Callable[[ModelRequest], ModelResponse],
 ) -> ModelResponse:
     """Configure agent behavior based on the current step."""
     # Get current step (defaults to warranty_collector for first interaction)
-    current_step = request.state.get("current_step", "warranty_collector")  # [!code highlight]
+    current_step = request.state.get("current_step", "warranty_collector")
 
     # Look up step configuration
-    stage_config = STEP_CONFIG[current_step]  # [!code highlight]
+    stage_config = STEP_CONFIG[current_step]
 
     # Validate required state exists
     for key in stage_config["requires"]:
@@ -16347,9 +16347,9 @@ def apply_step_config(
     system_prompt = stage_config["prompt"].format(**request.state)
 
     # Inject system prompt and step-specific tools
-    request = request.override(  # [!code highlight]
-        system_prompt=system_prompt,  # [!code highlight]
-        tools=stage_config["tools"],  # [!code highlight]
+    request = request.override(
+        system_prompt=system_prompt,
+        tools=stage_config["tools"],
     )
 
     return handler(request)
@@ -16385,9 +16385,9 @@ all_tools = [
 agent = create_agent(
     model,
     tools=all_tools,
-    state_schema=SupportState,  # [!code highlight]
-    middleware=[apply_step_config],  # [!code highlight]
-    checkpointer=InMemorySaver(),  # [!code highlight]
+    state_schema=SupportState,
+    middleware=[apply_step_config],
+    checkpointer=InMemorySaver(),
 )
 ```
 
@@ -16508,7 +16508,7 @@ Command(update={
 
 ```python
 from langchain.agents import create_agent
-from langchain.agents.middleware import SummarizationMiddleware  # [!code highlight]
+from langchain.agents.middleware import SummarizationMiddleware
 from langgraph.checkpoint.memory import InMemorySaver
 
 agent = create_agent(
@@ -16517,7 +16517,7 @@ agent = create_agent(
     state_schema=SupportState,
     middleware=[
         apply_step_config,
-        SummarizationMiddleware(  # [!code highlight]
+        SummarizationMiddleware(
             model="gpt-5.4-mini",
             trigger=("tokens", 4000),
             keep=("messages", 10)
@@ -16539,14 +16539,14 @@ agent = create_agent(
 
 ```python
 @tool
-def go_back_to_warranty() -> Command:  # [!code highlight]
+def go_back_to_warranty() -> Command:
     """Go back to warranty verification step."""
-    return Command(update={"current_step": "warranty_collector"})  # [!code highlight]
+    return Command(update={"current_step": "warranty_collector"})
 
 @tool
-def go_back_to_classification() -> Command:  # [!code highlight]
+def go_back_to_classification() -> Command:
     """Go back to issue classification step."""
-    return Command(update={"current_step": "issue_classifier"})  # [!code highlight]
+    return Command(update={"current_step": "issue_classifier"})
 
 # Update the resolution_specialist configuration to include these tools
 STEP_CONFIG["resolution_specialist"]["tools"].extend([
@@ -17075,7 +17075,7 @@ from langgraph.types import Send
 router_llm = init_chat_model("openai:gpt-5.4-mini")
 
 # Define structured output schema for the classifier
-class ClassificationResult(BaseModel):  # [!code highlight]
+class ClassificationResult(BaseModel):
     """Result of classifying a user query into agent-specific sub-questions."""
     classifications: list[Classification] = Field(
         description="List of agents to invoke with their targeted sub-questions"
@@ -17083,7 +17083,7 @@ class ClassificationResult(BaseModel):  # [!code highlight]
 
 def classify_query(state: RouterState) -> dict:
     """Classify query and determine which agents to invoke."""
-    structured_llm = router_llm.with_structured_output(ClassificationResult)  # [!code highlight]
+    structured_llm = router_llm.with_structured_output(ClassificationResult)
 
     result = structured_llm.invoke([
         {
@@ -17112,28 +17112,28 @@ Example for "How do I authenticate API requests?":
 def route_to_agents(state: RouterState) -> list[Send]:
     """Fan out to agents based on classifications."""
     return [
-        Send(c["source"], {"query": c["query"]})  # [!code highlight]
+        Send(c["source"], {"query": c["query"]})
         for c in state["classifications"]
     ]
 
 def query_github(state: AgentInput) -> dict:
     """Query the GitHub agent."""
     result = github_agent.invoke({
-        "messages": [{"role": "user", "content": state["query"]}]  # [!code highlight]
+        "messages": [{"role": "user", "content": state["query"]}]
     })
     return {"results": [{"source": "github", "result": result["messages"][-1].content}]}
 
 def query_notion(state: AgentInput) -> dict:
     """Query the Notion agent."""
     result = notion_agent.invoke({
-        "messages": [{"role": "user", "content": state["query"]}]  # [!code highlight]
+        "messages": [{"role": "user", "content": state["query"]}]
     })
     return {"results": [{"source": "notion", "result": result["messages"][-1].content}]}
 
 def query_slack(state: AgentInput) -> dict:
     """Query the Slack agent."""
     result = slack_agent.invoke({
-        "messages": [{"role": "user", "content": state["query"]}]  # [!code highlight]
+        "messages": [{"role": "user", "content": state["query"]}]
     })
     return {"results": [{"source": "slack", "result": result["messages"][-1].content}]}
 
@@ -17727,7 +17727,7 @@ model = ChatGoogleGenerativeAI(model="gemini-3.6-flash")
 ```python
 from typing import TypedDict
 
-class Skill(TypedDict):  # [!code highlight]
+class Skill(TypedDict):
     """A skill that can be progressively disclosed to the agent."""
     name: str  # Unique identifier for the skill
     description: str  # 1-2 sentence description to show in system prompt
@@ -17874,7 +17874,7 @@ ORDER BY units_to_reorder DESC;
 ```python
 from langchain.tools import tool
 
-@tool  # [!code highlight]
+@tool
 def load_skill(skill_name: str) -> str:
     """Load the full content of a skill into the agent's context.
 
@@ -17888,7 +17888,7 @@ def load_skill(skill_name: str) -> str:
     # Find and return the requested skill
     for skill in SKILLS:
         if skill["name"] == skill_name:
-            return f"Loaded skill: {skill_name}\n\n{skill['content']}"  # [!code highlight]
+            return f"Loaded skill: {skill_name}\n\n{skill['content']}"
 
     # Skill not found
     available = ", ".join(s["name"] for s in SKILLS)
@@ -17908,11 +17908,11 @@ from langchain.agents.middleware import ModelRequest, ModelResponse, AgentMiddle
 from langchain.messages import SystemMessage
 from typing import Callable
 
-class SkillMiddleware(AgentMiddleware):  # [!code highlight]
+class SkillMiddleware(AgentMiddleware):
     """Middleware that injects skill descriptions into the system prompt."""
 
     # Register the load_skill tool as a class variable
-    tools = [load_skill]  # [!code highlight]
+    tools = [load_skill]
 
     def __init__(self):
         """Initialize and generate the skills prompt from SKILLS."""
@@ -17931,10 +17931,10 @@ class SkillMiddleware(AgentMiddleware):  # [!code highlight]
     ) -> ModelResponse:
         """Sync: Inject skill descriptions into system prompt."""
         # Build the skills addendum
-        skills_addendum = ( # [!code highlight]
-            f"\n\n## Available Skills\n\n{self.skills_prompt}\n\n" # [!code highlight]
-            "Use the load_skill tool when you need detailed information " # [!code highlight]
-            "about handling a specific type of request." # [!code highlight]
+        skills_addendum = (
+            f"\n\n## Available Skills\n\n{self.skills_prompt}\n\n"
+            "Use the load_skill tool when you need detailed information "
+            "about handling a specific type of request."
         )
 
         # Append to system message content blocks
@@ -17965,7 +17965,7 @@ agent = create_agent(
         "You are a SQL query assistant that helps users "
         "write queries against business databases."
     ),
-    middleware=[SkillMiddleware()],  # [!code highlight]
+    middleware=[SkillMiddleware()],
     checkpointer=InMemorySaver(),
 )
 ```
@@ -17984,7 +17984,7 @@ thread_id = str(uuid7())
 config = {"configurable": {"thread_id": thread_id}}
 
 # Ask for a SQL query
-result = agent.invoke(  # [!code highlight]
+result = agent.invoke(
     {
         "messages": [
             {
@@ -18092,8 +18092,8 @@ This query:
 ```python
 from langchain.agents.middleware import AgentState
 
-class CustomState(AgentState):  # [!code highlight]
-    skills_loaded: NotRequired[list[str]]  # Track which skills have been loaded  # [!code highlight]
+class CustomState(AgentState):
+    skills_loaded: NotRequired[list[str]]  # Track which skills have been loaded
 ```
 
 #### 更新 load_skill 以修改状态
@@ -18101,12 +18101,12 @@ class CustomState(AgentState):  # [!code highlight]
 修改 `load_skill` 工具，使其在技能加载时更新状态：
 
 ```python
-from langgraph.types import Command  # [!code highlight]
+from langgraph.types import Command
 from langchain.tools import tool, ToolRuntime
-from langchain.messages import ToolMessage  # [!code highlight]
+from langchain.messages import ToolMessage
 
 @tool
-def load_skill(skill_name: str, runtime: ToolRuntime) -> Command:  # [!code highlight]
+def load_skill(skill_name: str, runtime: ToolRuntime) -> Command:
     """Load the full content of a skill into the agent's context.
 
     Use this when you need detailed information about how to handle a specific
@@ -18122,17 +18122,17 @@ def load_skill(skill_name: str, runtime: ToolRuntime) -> Command:  # [!code high
             skill_content = f"Loaded skill: {skill_name}\n\n{skill['content']}"
 
             # Update state to track loaded skill
-            return Command(  # [!code highlight]
-                update={  # [!code highlight]
-                    "messages": [  # [!code highlight]
-                        ToolMessage(  # [!code highlight]
-                            content=skill_content,  # [!code highlight]
-                            tool_call_id=runtime.tool_call_id,  # [!code highlight]
-                        )  # [!code highlight]
-                    ],  # [!code highlight]
-                    "skills_loaded": [skill_name],  # [!code highlight]
-                }  # [!code highlight]
-            )  # [!code highlight]
+            return Command(
+                update={
+                    "messages": [
+                        ToolMessage(
+                            content=skill_content,
+                            tool_call_id=runtime.tool_call_id,
+                        )
+                    ],
+                    "skills_loaded": [skill_name],
+                }
+            )
 
     # Skill not found
     available = ", ".join(s["name"] for s in SKILLS)
@@ -18154,7 +18154,7 @@ def load_skill(skill_name: str, runtime: ToolRuntime) -> Command:  # [!code high
 
 ````python
 @tool
-def write_sql_query(  # [!code highlight]
+def write_sql_query(
     query: str,
     vertical: str,
     runtime: ToolRuntime,
@@ -18169,14 +18169,14 @@ def write_sql_query(  # [!code highlight]
         vertical: The business vertical (sales_analytics or inventory_management)
     """
     # Check if the required skill has been loaded
-    skills_loaded = runtime.state.get("skills_loaded", [])  # [!code highlight]
+    skills_loaded = runtime.state.get("skills_loaded", [])
 
-    if vertical not in skills_loaded:  # [!code highlight]
-        return (  # [!code highlight]
-            f"Error: You must load the '{vertical}' skill first "  # [!code highlight]
-            f"to understand the database schema before writing queries. "  # [!code highlight]
-            f"Use load_skill('{vertical}') to load the schema."  # [!code highlight]
-        )  # [!code highlight]
+    if vertical not in skills_loaded:
+        return (
+            f"Error: You must load the '{vertical}' skill first "
+            f"to understand the database schema before writing queries. "
+            f"Use load_skill('{vertical}') to load the schema."
+        )
 
     # Validate and format the query
     return (
@@ -18192,11 +18192,11 @@ def write_sql_query(  # [!code highlight]
 更新中间件以使用自定义状态模式：
 
 ```python
-class SkillMiddleware(AgentMiddleware[CustomState]):  # [!code highlight]
+class SkillMiddleware(AgentMiddleware[CustomState]):
     """Middleware that injects skill descriptions into the system prompt."""
 
-    state_schema = CustomState  # [!code highlight]
-    tools = [load_skill, write_sql_query]  # [!code highlight]
+    state_schema = CustomState
+    tools = [load_skill, write_sql_query]
 
     # ... rest of the middleware implementation stays the same
 ```
@@ -18210,7 +18210,7 @@ agent = create_agent(
         "You are a SQL query assistant that helps users "
         "write queries against business databases."
     ),
-    middleware=[SkillMiddleware()],  # [!code highlight]
+    middleware=[SkillMiddleware()],
     checkpointer=InMemorySaver(),
 )
 ```
@@ -19182,38 +19182,38 @@ if __name__ == "__main__":
 
 ```python
 from langchain.agents import create_agent
-from langchain.agents.middleware import HumanInTheLoopMiddleware # [!code highlight]
-from langgraph.checkpoint.memory import InMemorySaver # [!code highlight]
+from langchain.agents.middleware import HumanInTheLoopMiddleware
+from langgraph.checkpoint.memory import InMemorySaver
 
 calendar_agent = create_agent(
     model,
     tools=[create_calendar_event, get_available_time_slots],
     system_prompt=CALENDAR_AGENT_PROMPT,
-    middleware=[ # [!code highlight]
-        HumanInTheLoopMiddleware( # [!code highlight]
-            interrupt_on={"create_calendar_event": True}, # [!code highlight]
-            description_prefix="Calendar event pending approval", # [!code highlight]
-        ), # [!code highlight]
-    ], # [!code highlight]
+    middleware=[
+        HumanInTheLoopMiddleware(
+            interrupt_on={"create_calendar_event": True},
+            description_prefix="Calendar event pending approval",
+        ),
+    ],
 )
 
 email_agent = create_agent(
     model,
     tools=[send_email],
     system_prompt=EMAIL_AGENT_PROMPT,
-    middleware=[ # [!code highlight]
-        HumanInTheLoopMiddleware( # [!code highlight]
-            interrupt_on={"send_email": True}, # [!code highlight]
-            description_prefix="Outbound email pending approval", # [!code highlight]
-        ), # [!code highlight]
-    ], # [!code highlight]
+    middleware=[
+        HumanInTheLoopMiddleware(
+            interrupt_on={"send_email": True},
+            description_prefix="Outbound email pending approval",
+        ),
+    ],
 )
 
 supervisor_agent = create_agent(
     model,
     tools=[schedule_event, manage_email],
     system_prompt=SUPERVISOR_PROMPT,
-    checkpointer=InMemorySaver(), # [!code highlight]
+    checkpointer=InMemorySaver(),
 )
 ```
 
@@ -19288,7 +19288,7 @@ Args: {'to': ['designteam@example.com'], 'subject': 'Reminder: Review New Mockup
 我们可以通过引用中断 ID，用 [`Command`](https://reference.langchain.com/python/langgraph/types/Command) 为每个中断指定决策。更多细节请参阅[人机协同指南](/oss/python/langchain/human-in-the-loop)。出于演示目的，这里我们将批准日历事件，但编辑外发邮件的主题：
 
 ```python
-from langgraph.types import Command # [!code highlight]
+from langgraph.types import Command
 
 resume = {}
 for interrupt_ in interrupts:
@@ -19304,7 +19304,7 @@ for interrupt_ in interrupts:
 
 interrupts = []
 stream = supervisor_agent.stream_events(
-    Command(resume=resume), # [!code highlight]
+    Command(resume=resume),
     config,
     version="v3",
 )
