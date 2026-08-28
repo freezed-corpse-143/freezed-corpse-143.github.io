@@ -798,3 +798,33 @@ if __name__ == "__main__":
     print("\n全部断言通过 ✓")
 
 ```
+
+
+```mermaid
+flowchart TD
+    A["输入 X: (T, d_model)"] --> B["Router: X @ W_g"]
+    B --> C["Softmax 得到概率 p"]
+    C --> D["Top-k 选择: 取概率最大的 k 个专家"]
+    D --> E["对选中的 k 个概率重新归一化得到权重 w"]
+    
+    E --> F{"遍历每个专家 e"}
+    F --> G["找到所有选中专家 e 的 token 索引"]
+    G --> H{"是否为空?"}
+    H -- 是 --> F
+    H -- 否 --> I["升维: GELU(X @ W_e1[e] + b_e1[e])"]
+    I --> J["降维: h @ W_e2[e] + b_e2[e]"]
+    J --> K["加权: y * w"]
+    K --> L["累加到输出 out 对应 token 位置"]
+    L --> F
+    
+    F --> M["输出 out: (T, d_model)"]
+    
+    E --> N["计算辅助损失"]
+    N --> O["f_i = 各专家被选占比"]
+    N --> P["P_i = 平均路由概率"]
+    O --> Q["aux_loss = E * sum(f_i * P_i)"]
+    P --> Q
+    
+    M --> R["返回 out, aux_loss, topk_idx, weights"]
+    Q --> R
+```

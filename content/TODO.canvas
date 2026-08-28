@@ -112,16 +112,6 @@
 			"height":60
 		},
 		{
-			"id":"f0287cf59d2a5a0c",
-			"type":"text",
-			"text":"pytorch 基础编写\nMOE 模型",
-			"styleAttributes":{},
-			"x":-4070,
-			"y":260,
-			"width":380,
-			"height":95
-		},
-		{
 			"id":"27c55458d5761900",
 			"type":"text",
 			"text":"cuda-flash attention",
