@@ -66,8 +66,8 @@
 			"type":"text",
 			"text":"Dify 智能体",
 			"styleAttributes":{},
-			"x":-3720,
-			"y":380,
+			"x":-3460,
+			"y":220,
 			"width":260,
 			"height":60
 		}
