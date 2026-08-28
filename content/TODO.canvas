@@ -47,7 +47,7 @@
 			"text":"学习前端 ui 与图形协议。\n- C++的 qt、flutter\n- rust 的 tauri\n- electron",
 			"styleAttributes":{},
 			"x":-4100,
-			"y":300,
+			"y":35,
 			"width":260,
 			"height":150
 		},
@@ -56,18 +56,18 @@
 			"type":"text",
 			"text":"pytorch 基础语法编写和 cuda",
 			"styleAttributes":{},
-			"x":-4100,
-			"y":160,
+			"x":-3720,
+			"y":280,
 			"width":260,
 			"height":60
 		},
 		{
 			"id":"32e4a2f3da345607",
 			"type":"text",
-			"text":"coze 智能体",
+			"text":"Dify 智能体",
 			"styleAttributes":{},
-			"x":-4100,
-			"y":50,
+			"x":-3720,
+			"y":380,
 			"width":260,
 			"height":60
 		}
