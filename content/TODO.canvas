@@ -110,6 +110,36 @@
 			"y":700,
 			"width":780,
 			"height":60
+		},
+		{
+			"id":"53294f0134237d6d",
+			"type":"text",
+			"text":"rust 的 GUI 教程：\nslint 教程： https://docs.slint.dev/latest/docs/slint/\ntauri 教程  https://v2.tauri.app/start/\n",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":820,
+			"width":800,
+			"height":120
+		},
+		{
+			"id":"d9736499ed2f4750",
+			"type":"text",
+			"text":"Typescript 的 GUI electron 教程： https://www.electronjs.org/docs/latest",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1020,
+			"width":800,
+			"height":60
+		},
+		{
+			"id":"7135c49943c1a2ef",
+			"type":"text",
+			"text":"Typescript 的 TUI Ink 教程：",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1140,
+			"width":800,
+			"height":60
 		}
 	],
 	"edges":[],
