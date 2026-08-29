@@ -120,16 +120,6 @@
 			"y":180,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"ebd766ae58545422",
-			"type":"text",
-			"text":"软件开发的文档管理",
-			"styleAttributes":{},
-			"x":-3000,
-			"y":1060,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
