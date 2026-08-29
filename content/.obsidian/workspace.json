@@ -15,9 +15,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3304.635532481192,
-                  "y": 580.6580587992794,
-                  "zoom": -0.10494266196577373
+                  "x": -3218.3743903773084,
+                  "y": 364.94203863802926,
+                  "zoom": -0.43827599529910705
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -38,7 +38,8 @@
               "title": "软件使用"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -93,8 +94,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -215,11 +215,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件使用.md",
     "环境配置.md",
-    "TODO.canvas",
     "语言/cuda学习.md",
     "经典库学习/pytorch.md",
     "语言",
