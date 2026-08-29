@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [x] 408\n- [ ] 行测\n- [x] 编程","x":-3740,"y":-640,"width":260,"height":180,"color":"1"},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 行测\n- [ ] 编程","x":-3740,"y":-640,"width":260,"height":140,"color":"1"},
 		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
@@ -99,16 +99,6 @@
 			"x":-4060,
 			"y":1140,
 			"width":800,
-			"height":60
-		},
-		{
-			"id":"27c55458d5761900",
-			"type":"text",
-			"text":"cuda-flash attention",
-			"styleAttributes":{},
-			"x":-4070,
-			"y":260,
-			"width":260,
 			"height":60
 		},
 		{
