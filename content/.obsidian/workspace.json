@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3568.822051153464,
-                  "y": -79.15604240912059,
+                  "x": -3620,
+                  "y": 280,
                   "zoom": -1.1049426619657736
                 }
               },
@@ -58,7 +58,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "neovim",
+                "query": "headroom",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -83,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -203,11 +202,12 @@
   },
   "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "环境配置.md",
+    "TODO.canvas",
     "语言/cuda学习.md",
     "经典库学习/pytorch.md",
     "语言",
     "未命名.md",
-    "TODO.canvas",
     "软件使用.md",
     "语言/Python.md",
     "经典库学习/langgraph.md",
@@ -216,7 +216,6 @@
     "经典库学习/langsmith.md",
     "经典库学习/deep agents.md",
     "经典库学习/antv G6.md",
-    "环境配置.md",
     "人工智能/智能体记忆.md",
     "人工智能/RAG.md",
     "经典库学习/jinja2.md",
