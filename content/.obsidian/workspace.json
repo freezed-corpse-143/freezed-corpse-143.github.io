@@ -31,15 +31,14 @@
                 "viewState": {
                   "x": -3044.894930835553,
                   "y": 765.2373331233955,
-                  "zoom": 0.5617240047008929
+                  "zoom": -0.43827599529910705
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -215,11 +214,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "73281d32292ebfaf",
+  "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件使用.md",
     "经验之谈.md",
-    "TODO.canvas",
     "环境配置.md",
     "语言/cuda学习.md",
     "经典库学习/pytorch.md",
