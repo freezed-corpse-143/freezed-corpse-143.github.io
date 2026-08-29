@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3044.894930835553,
-                  "y": 765.2373331233955,
+                  "y": 387.1967501311343,
                   "zoom": -0.43827599529910705
                 }
               },
@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,11 +215,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "73281d32292ebfaf",
   "lastOpenFiles": [
+    "经验之谈.md",
     "TODO.canvas",
     "软件使用.md",
-    "经验之谈.md",
     "环境配置.md",
     "语言/cuda学习.md",
     "经典库学习/pytorch.md",
