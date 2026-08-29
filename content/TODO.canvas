@@ -110,6 +110,16 @@
 			"y":100,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"9751bcc38bd1052d",
+			"type":"text",
+			"text":"更新投递计划：\n- 辅导员群\n- 牛客服务号\n- 牛客网\n- 临港",
+			"styleAttributes":{},
+			"x":-3120,
+			"y":460,
+			"width":560,
+			"height":460
 		}
 	],
 	"edges":[],
