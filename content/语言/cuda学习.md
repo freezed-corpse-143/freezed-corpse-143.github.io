@@ -383,7 +383,30 @@ int fprintf(FILE *stream, const char *format, ...);
 - 语句完整性：宏总是表现为一个完整的语句
 - 分号安全：宏的分号是安全的。
 
+`__global__`：在 CUDA 中的定义为：
 
+```cpp
+// 在CUDA头文件中（简化版本）
+#define __global__ __attribute__((global))
+```
+
+告诉编译器，这是一个设备端启动的核函数，从 CPU 启动，在 GPU 执行。
+
+`__restrict__`：用于表示指针是访问其所指向数据块的唯一方式。为什么需要?假如没有它，编译器需要保守处理
+
+```cpp
+void add_arrays(float* a, float* b, float* c, int n) {
+    for (int i = 0; i < n; i++) {
+        c[i] = a[i] + b[i];
+    }
+}
+```
+
+问题：编译器无法确定 a、b、c 是否指向同一块内存区域
+
+有了 `__restrict__`：编译器就可以放心加载，激进优化。GPU 对内存访问非常敏感，常常多个线程同时访问内存，编译器可以更好利用 GPU 缓存
+
+blockDim：每个 block 的大小（线程数）
 ## 运行
 
 ```powershell
