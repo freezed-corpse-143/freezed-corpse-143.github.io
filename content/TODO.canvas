@@ -116,10 +116,20 @@
 			"type":"text",
 			"text":"学习 QT 项目和 Slint 项目",
 			"styleAttributes":{},
-			"x":-3620,
+			"x":-3840,
 			"y":280,
-			"width":260,
+			"width":480,
 			"height":60
+		},
+		{
+			"id":"d689a6a47c77515d",
+			"type":"text",
+			"text":"学习 QT 知名项目\n学习 Typescript 知名项目：deepseek-harness\n学习 cuda 代码：",
+			"styleAttributes":{},
+			"x":-2960,
+			"y":640,
+			"width":560,
+			"height":120
 		}
 	],
 	"edges":[],
