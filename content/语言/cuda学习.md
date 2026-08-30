@@ -118,7 +118,7 @@ void native_attention(const float* Q, const float* K, const float* V, float* O,
     int threads = 256;
     // 只用了dim3.x，所以是隐式1维
     // + threads - 1是为了向上取整，/默认向下取整。
-    dim3 gS((N * N + threads - 1) / threads); // S 矩阵：
+    dim3 gS((N * N + threads - 1) / threads); // S 矩阵：⌈ N×Nchu ⌉
     dim3 gP((N + threads - 1) / threads);
     dim3 gO((N * d + threads - 1) / threads);
     cudaEvent_t e0, e1, e2, e3;
