@@ -358,6 +358,28 @@ nvcc -O3 -arch=sm_86 -std=c++17 attention.cu -o bench.exe
 #include <string>			// 字符串处理
 #include <cuda_runtime.h>	// CUDA 运行时API
 ```
+
+`cudaError_t` 是 CUDA 运行时 API 定义的一个**枚举类型**，用于表示 CUDA 函数调用的返回状态。
+
+fprintf 函数原型
+
+```cpp
+int fprintf(FILE *stream, const char *format, ...);
+```
+
+- stderr：标准错误输出流，用于输出错误信息
+- format：格式字符串
+
+`__FILE__`：预定义宏，在编译时被自动替换，当前源文件的名称（字符串字面量）
+
+`__LINE__`：当前源代码行号。
+
+`do {...} while (0)`：确保宏在任何上下文中都能正常工作。
+- 块作用域：确保宏内变量不会泄露
+- 语句完整性：宏总是表现为一个完整的语句
+- 分号安全：宏的分号是安全的。
+
+
 ## 运行
 
 ```powershell
