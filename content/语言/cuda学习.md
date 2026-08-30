@@ -467,3 +467,58 @@ compute-sanitizer .\bench.exe 256 64 1     # memcheck：越界、未初始化、
 
 性能调试用 nsys/ncu 的瓶颈分类：memory-bound（native_scores，L 1 ~97%）→ 考虑共享内存复用；网格过小（native_softmax，0.06 waves）→ 提高并行粒度；占用率被寄存器/共享内存压死（flash_attn，167 regs，25% 理论占用）→ 降寄存器/调 tile 尺寸。
 
+# GPU 架构
+
+```mermaid
+graph TD
+    subgraph GPU[GPU]
+        subgraph Grid[Grid - 线程网格]
+            direction TB
+            
+            subgraph Block0[Block 0]
+                direction LR
+                T00[Thread 0<br/>ID: 0]
+                T01[Thread 1<br/>ID: 1]
+                T02[Thread 2<br/>ID: 2]
+                T03[Thread ...]
+                T04[Thread M-1<br/>ID: M-1]
+            end
+            
+            subgraph Block1[Block 1]
+                direction LR
+                T10[Thread 0<br/>ID: M]
+                T11[Thread 1<br/>ID: M+1]
+                T12[Thread 2<br/>ID: M+2]
+                T13[Thread ...]
+                T14[Thread M-1<br/>ID: 2M-1]
+            end
+            
+            subgraph Block2[Block 2]
+                direction LR
+                T20[Thread 0<br/>ID: 2M]
+                T21[Thread 1<br/>ID: 2M+1]
+                T22[Thread 2<br/>ID: 2M+2]
+                T23[Thread ...]
+                T24[Thread M-1<br/>ID: 3M-1]
+            end
+            
+            subgraph BlockN[Block N-1]
+                direction LR
+                TN0[Thread 0<br/>ID: N*M]
+                TN1[Thread 1<br/>ID: N*M+1]
+                TN2[Thread ...]
+                TN3[Thread M-1<br/>ID: N*M+M-1]
+            end
+        end
+    end
+    
+    Grid -.-> Formula[公式计算<br/>global_id = blockIdx.x * blockDim.x + threadIdx.x]
+    
+    style GPU fill:#f9f,stroke:#333,stroke-width:4px
+    style Grid fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style Block0 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Block1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Block2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style BlockN fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Formula fill:#fff3e0,stroke:#e65100,stroke-width:2px
+```
