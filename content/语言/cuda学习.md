@@ -156,6 +156,7 @@ template <int Br, int Bc, int D>
 __global__ void flash_attn(const float* __restrict__ Q, const float* __restrict__ K,
                            const float* __restrict__ V, float* __restrict__ O,
                            float scale, int N) {
+	// 声明共享数组
     __shared__ float Ks[Bc][D];
     __shared__ float Vs[Bc][D];
     int i = blockIdx.x * Br + threadIdx.x;
