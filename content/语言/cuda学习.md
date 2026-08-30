@@ -116,6 +116,7 @@ void native_attention(const float* Q, const float* K, const float* V, float* O,
                       float* S, float* P, float scale, int N, int d, int iters,
                       float* per_kernel_ms, cudaStream_t st) {
     int threads = 256;
+    // 只用了dim3.x，所以是隐式1维
     dim3 gS((N * N + threads - 1) / threads);
     dim3 gP((N + threads - 1) / threads);
     dim3 gO((N * d + threads - 1) / threads);
