@@ -84,20 +84,22 @@ __global__ void native_scores(const float* __restrict__ Q, const float* __restri
 }
 
 // Row-wise softmax over global S (max -> sum -> normalize, 3 passes over row).
+// 逐行归一化
 __global__ void native_softmax(const float* __restrict__ S, float* __restrict__ P, int N) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= N) return;
-    const float* s = S + (size_t)i * N;
-    float* p = P + (size_t)i * N;
+    const float* s = S + (size_t)i * N; // 输入矩阵第i行
+    float* p = P + (size_t)i * N;		// 输出矩阵第i行
     float mx = -INFINITY;
-    for (int j = 0; j < N; ++j) mx = fmaxf(mx, s[j]);
+    for (int j = 0; j < N; ++j) mx = fmaxf(mx, s[j]); // 求第i行最大值
     float sum = 0.f;
-    for (int j = 0; j < N; ++j) sum += __expf(s[j] - mx);
+    for (int j = 0; j < N; ++j) sum += __expf(s[j] - mx); // 求softmax分母
     float inv = 1.f / sum;
-    for (int j = 0; j < N; ++j) p[j] = __expf(s[j] - mx) * inv;
+    for (int j = 0; j < N; ++j) p[j] = __expf(s[j] - mx) * inv; // 逐元素归一化
 }
 
 // O[i][j] = sum_k P[i][k] * V[k][j]
+// 本质矩阵乘法
 __global__ void native_output(const float* __restrict__ P, const float* __restrict__ V,
                               float* __restrict__ O, int N, int d) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
