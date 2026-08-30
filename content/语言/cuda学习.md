@@ -126,10 +126,12 @@ void native_attention(const float* Q, const float* K, const float* V, float* O,
     cudaEventCreate(&e1); 						// 创建/初始化事件
     cudaEventCreate(&e2); 						// 创建/初始化事件
     cudaEventCreate(&e3);						// 创建/初始化事件
-    // warmup
+    // warmup，预热，消除首次运行的额外开销
     native_scores<<<gS, threads, 0, st>>>(Q, K, S, scale, N, d);
+    // kernel_name<<<网格维度, 块维度, 共享内存大小, CUDA 流>>>(args)
     native_softmax<<<gP, threads, 0, st>>>(S, P, N);
     native_output<<<gO, threads, 0, st>>>(P, V, O, N, d);
+    // 正式计时，求平均提高精度。
     cudaEventRecord(e0, st);
     for (int it = 0; it < iters; ++it) native_scores<<<gS, threads, 0, st>>>(Q, K, S, scale, N, d);
     cudaEventRecord(e1, st);
@@ -143,6 +145,7 @@ void native_attention(const float* Q, const float* K, const float* V, float* O,
     cudaEventElapsedTime(&t, e1, e2); per_kernel_ms[1] = t / iters;
     cudaEventElapsedTime(&t, e2, e3); per_kernel_ms[2] = t / iters;
     cudaEventElapsedTime(&t, e0, e3); per_kernel_ms[3] = t / iters;
+    // 销毁事件，释放内存
     cudaEventDestroy(e0); cudaEventDestroy(e1); cudaEventDestroy(e2); cudaEventDestroy(e3);
 }
 
@@ -412,6 +415,46 @@ void add_arrays(float* a, float* b, float* c, int n) {
 有了 `__restrict__`：编译器就可以放心加载，激进优化。GPU 对内存访问非常敏感，常常多个线程同时访问内存，编译器可以更好利用 GPU 缓存
 
 blockDim：每个 block 的大小（线程数）
+
+dim 3：CUDA 定义的一个结构体类型，用于表示三维尺寸
+
+```cpp
+// 在CUDA头文件中的定义（简化）
+struct dim3 {
+    unsigned int x;  // X维度
+    unsigned int y;  // Y维度
+    unsigned int z;  // Z维度
+    
+    // 构造函数
+    dim3(unsigned int vx = 1, unsigned int vy = 1, unsigned int vz = 1) 
+        : x(vx), y(vy), z(vz) {}
+};
+```
+
+- 包含三个 `unsigned int` 成员：`x`, `y`, `z`
+- 默认值是 `(1, 1, 1)`
+- 用于表示三维空间的大小
+
+为什么需要 dim 3？GPU 的线程是三维组织的：
+
+```cpp
+// 一维：处理向量
+dim3 threads(256, 1, 1);    // 256个线程，一维排列
+
+// 二维：处理图像/矩阵
+dim3 threads(16, 16, 1);    // 16×16=256个线程，二维网格
+
+// 三维：处理3D数据
+dim3 threads(8, 8, 8);      // 8×8×8=512个线程，三维立方体
+```
+
+cudaEvent_t 是 CUDA 之中定义的一个事件句柄类型，用于在 GPU 执行流中标记特定时间点。
+
+```cpp
+cudaEvent_t e0;  // 声明一个事件变量（类似指针）
+```
+
+**本质**：它是一个不透明的指针类型，指向 GPU 内部的一个事件对象。
 ## 运行
 
 ```powershell
