@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "需求",
+                "query": "config",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -94,7 +94,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -215,7 +216,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "73281d32292ebfaf",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
     "经验之谈.md",
     "TODO.canvas",
