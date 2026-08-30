@@ -25,17 +25,14 @@
             "id": "73281d32292ebfaf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3044.894930835553,
-                  "y": 639.2238054593084,
-                  "zoom": -0.43827599529910705
-                }
+                "file": "语言/cuda学习.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "cuda学习"
             }
           }
         ],
@@ -94,8 +91,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -219,8 +215,8 @@
   },
   "active": "73281d32292ebfaf",
   "lastOpenFiles": [
-    "经验之谈.md",
     "TODO.canvas",
+    "经验之谈.md",
     "软件使用.md",
     "环境配置.md",
     "语言/cuda学习.md",

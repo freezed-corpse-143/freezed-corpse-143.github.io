@@ -339,6 +339,25 @@ int main(int argc, char** argv) {
 ```
 
 
+编译命令：
+
+```powershell
+nvcc -O3 -arch=sm_86 -std=c++17 attention.cu -o bench.exe
+```
+
+- 使用 nvcc 编译
+- 目标架构为 sm_86（适用于 RTX 30 系列显卡）
+
+导入必要的头文件：
+
+```cpp
+#include <cstdio>			// 标准I/O
+#include <cstdlib>			// 标准库
+#include <cmath>			// 数学函数
+#include <vector>			// STL 容器
+#include <string>			// 字符串处理
+#include <cuda_runtime.h>	// CUDA 运行时API
+```
 ## 运行
 
 ```powershell
