@@ -71,6 +71,8 @@ Write-Host "OK: bench.exe built. Try: .\bench.exe 0 64 20"
 // S[i][j] = scale * sum_k Q[i][k] * K[j][k]        (NxN materialized)
 __global__ void native_scores(const float* __restrict__ Q, const float* __restrict__ K,
                               float* __restrict__ S, float scale, int N, int d) {
+    // Q,K \in \R^{N \times d}, S \in \R^{N \times N}
+    // scale = 1 / \sqrt{d}
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx >= N * N) return;
     int i = idx / N, j = idx % N;
