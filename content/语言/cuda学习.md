@@ -473,48 +473,54 @@ compute-sanitizer .\bench.exe 256 64 1     # memcheck：越界、未初始化、
 
 ```mermaid
 graph TD
-    subgraph GPU[GPU]
+    subgraph GPU[GPU设备]
         subgraph Grid[Grid - 线程网格]
             direction TB
             
-            subgraph Block0[Block 0]
+            subgraph Block0["Block 0 (blockIdx.x=0)"]
                 direction LR
-                T00[Thread 0<br/>ID: 0]
-                T01[Thread 1<br/>ID: 1]
-                T02[Thread 2<br/>ID: 2]
-                T03[Thread ...]
-                T04[Thread M-1<br/>ID: M-1]
+                T00["Thread 0<br/>threadIdx.x=0<br/>global_id=0"]
+                T01["Thread 1<br/>threadIdx.x=1<br/>global_id=1"]
+                T02["Thread 2<br/>threadIdx.x=2<br/>global_id=2"]
+                T03["..."]
+                T04["Thread M-1<br/>threadIdx.x=M-1<br/>global_id=M-1"]
             end
             
-            subgraph Block1[Block 1]
+            subgraph Block1["Block 1 (blockIdx.x=1)"]
                 direction LR
-                T10[Thread 0<br/>ID: M]
-                T11[Thread 1<br/>ID: M+1]
-                T12[Thread 2<br/>ID: M+2]
-                T13[Thread ...]
-                T14[Thread M-1<br/>ID: 2M-1]
+                T10["Thread 0<br/>threadIdx.x=0<br/>global_id=M"]
+                T11["Thread 1<br/>threadIdx.x=1<br/>global_id=M+1"]
+                T12["Thread 2<br/>threadIdx.x=2<br/>global_id=M+2"]
+                T13["..."]
+                T14["Thread M-1<br/>threadIdx.x=M-1<br/>global_id=2M-1"]
             end
             
-            subgraph Block2[Block 2]
+            subgraph Block2["Block 2 (blockIdx.x=2)"]
                 direction LR
-                T20[Thread 0<br/>ID: 2M]
-                T21[Thread 1<br/>ID: 2M+1]
-                T22[Thread 2<br/>ID: 2M+2]
-                T23[Thread ...]
-                T24[Thread M-1<br/>ID: 3M-1]
+                T20["Thread 0<br/>threadIdx.x=0<br/>global_id=2M"]
+                T21["Thread 1<br/>threadIdx.x=1<br/>global_id=2M+1"]
+                T22["Thread 2<br/>threadIdx.x=2<br/>global_id=2M+2"]
+                T23["..."]
+                T24["Thread M-1<br/>threadIdx.x=M-1<br/>global_id=3M-1"]
             end
             
-            subgraph BlockN[Block N-1]
+            subgraph BlockN["Block N-1 (blockIdx.x=N-1)"]
                 direction LR
-                TN0[Thread 0<br/>ID: N*M]
-                TN1[Thread 1<br/>ID: N*M+1]
-                TN2[Thread ...]
-                TN3[Thread M-1<br/>ID: N*M+M-1]
+                TN0["Thread 0<br/>threadIdx.x=0<br/>global_id=(N-1)*M"]
+                TN1["Thread 1<br/>threadIdx.x=1<br/>global_id=(N-1)*M+1"]
+                TN2["..."]
+                TN3["Thread M-1<br/>threadIdx.x=M-1<br/>global_id=N*M-1"]
             end
+        end
+        
+        subgraph Config["配置参数"]
+            P1["blockDim.x = M<br/>(每个Block有M个线程)"]
+            P2["gridDim.x = N<br/>(Grid有N个Block)"]
+            P3["总线程数 = N × M"]
         end
     end
     
-    Grid -.-> Formula[公式计算<br/>global_id = blockIdx.x * blockDim.x + threadIdx.x]
+    Grid -.-> Formula["公式计算<br/>global_id = blockIdx.x * blockDim.x + threadIdx.x<br/><br/>示例:<br/>Block 2, Thread 5<br/>global_id = 2*M + 5"]
     
     style GPU fill:#f9f,stroke:#333,stroke-width:4px
     style Grid fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
@@ -522,5 +528,9 @@ graph TD
     style Block1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style Block2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style BlockN fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Config fill:#ffe0b2,stroke:#e65100,stroke-width:2px
     style Formula fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style P1 fill:#ffcc80,stroke:#f57c00,stroke-width:2px
+    style P2 fill:#ffcc80,stroke:#f57c00,stroke-width:2px
+    style P3 fill:#ffcc80,stroke:#f57c00,stroke-width:2px
 ```
