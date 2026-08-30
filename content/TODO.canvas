@@ -109,7 +109,17 @@
 			"x":-3120,
 			"y":460,
 			"width":560,
-			"height":460
+			"height":120
+		},
+		{
+			"id":"ef6c1d1937dc6fd7",
+			"type":"text",
+			"text":"学习 QT 项目和 Slint 项目",
+			"styleAttributes":{},
+			"x":-3620,
+			"y":280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],

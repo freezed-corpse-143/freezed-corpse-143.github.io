@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3044.894930835553,
-                  "y": 387.1967501311343,
+                  "y": 891.2508607874826,
                   "zoom": -0.43827599529910705
                 }
               },
@@ -99,7 +99,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -216,7 +217,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "73281d32292ebfaf",
   "lastOpenFiles": [
     "经验之谈.md",
     "TODO.canvas",
