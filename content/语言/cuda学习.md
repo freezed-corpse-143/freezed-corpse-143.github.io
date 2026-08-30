@@ -121,8 +121,11 @@ void native_attention(const float* Q, const float* K, const float* V, float* O,
     dim3 gS((N * N + threads - 1) / threads); 	// S 矩阵：⌈ N×N÷threads ⌉
     dim3 gP((N + threads - 1) / threads);		// P 矩阵：⌈ N÷threads ⌉
     dim3 gO((N * d + threads - 1) / threads);	// O 矩阵：⌈ N×d÷threads ⌉
-    cudaEvent_t e0, e1, e2, e3;
-    cudaEventCreate(&e0); cudaEventCreate(&e1); cudaEventCreate(&e2); cudaEventCreate(&e3);
+    cudaEvent_t e0, e1, e2, e3;					// 声明四个时间变量
+    cudaEventCreate(&e0); 						// 创建/初始化事件
+    cudaEventCreate(&e1); 						// 创建/初始化事件
+    cudaEventCreate(&e2); 						// 创建/初始化事件
+    cudaEventCreate(&e3);						// 创建/初始化事件
     // warmup
     native_scores<<<gS, threads, 0, st>>>(Q, K, S, scale, N, d);
     native_softmax<<<gP, threads, 0, st>>>(S, P, N);
