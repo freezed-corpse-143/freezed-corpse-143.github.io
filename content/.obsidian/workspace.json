@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "408/大模型.md",
+                "file": "人工智能/大模型推理加速.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "大模型"
+              "title": "大模型推理加速"
             }
           },
           {
@@ -211,8 +211,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "408/大模型.md",
+    "人工智能/大模型推理加速.md",
     "开发日记/Visor/模块设计.md",
     "需求.md",
     "开发日记/Visor",
@@ -241,8 +243,6 @@
     "经典库学习/sqlite3.md",
     "经典库学习/SQLAlchemy.md",
     "经典库学习/PyJWT.md",
-    "经典库学习/fastapi.md",
-    "经典库学习/asyncpg.md",
     "经典库学习",
     "github项目",
     "人工智能",
