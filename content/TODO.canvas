@@ -12,16 +12,6 @@
 			"height":80
 		},
 		{
-			"id":"8f60e205fdbaffe5",
-			"type":"text",
-			"text":"临港地区企业简历投递 https://lgcyq.shlingang.com/chanyequ/survey/enterprise/",
-			"styleAttributes":{},
-			"x":-3540,
-			"y":60,
-			"width":400,
-			"height":100
-		},
-		{
 			"id":"f9000f77656388dd",
 			"type":"text",
 			"text":"国聘网简历投递 https://www.iguopin.com/",
@@ -30,16 +20,6 @@
 			"y":-40,
 			"width":400,
 			"height":60
-		},
-		{
-			"id":"9727a4171074a483",
-			"type":"text",
-			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
-			"styleAttributes":{},
-			"x":-4100,
-			"y":-220,
-			"width":260,
-			"height":180
 		},
 		{
 			"id":"8fdf943f6150ef0e",
@@ -120,6 +100,16 @@
 			"y":250,
 			"width":560,
 			"height":120
+		},
+		{
+			"id":"9727a4171074a483",
+			"type":"text",
+			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
+			"styleAttributes":{},
+			"x":-3900,
+			"y":70,
+			"width":260,
+			"height":180
 		}
 	],
 	"edges":[],
