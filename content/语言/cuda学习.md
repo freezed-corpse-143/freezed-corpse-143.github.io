@@ -156,33 +156,43 @@ template <int Br, int Bc, int D>
 __global__ void flash_attn(const float* __restrict__ Q, const float* __restrict__ K,
                            const float* __restrict__ V, float* __restrict__ O,
                            float scale, int N) {
-	// 声明共享数组
-    __shared__ float Ks[Bc][D];
-    __shared__ float Vs[Bc][D];
+	// 1. 共享内存声明（缓存K和V的分块）
+    __shared__ float Ks[Bc][D];		// 缓存K的一个分块 (Bc行 × D列)
+    __shared__ float Vs[Bc][D];		// 缓存K的一个分块 (Bc行 × D列)
+	// i: 当前线程处理的Q行索引
+	// 每个线程处理一行，每个Block处理 Br 行
     int i = blockIdx.x * Br + threadIdx.x;
     if (i >= N) return;
+    // q: 指向Q的第i行（当前线程负责的行）
     const float* q = Q + (size_t)i * D;
-    float acc[D];
-#pragma unroll
+    float acc[D];	// 累加器：存储当前行的加权和（在寄存器中）
+#pragma unroll	// 循环展开命令
     for (int k = 0; k < D; ++k) acc[k] = 0.f;
     float m = -INFINITY, l = 0.f;
-
+    // 4. 计算需要多少个分块（向上取整）
     int ncols = (N + Bc - 1) / Bc;
     for (int cb = 0; cb < ncols; ++cb) {
+    	// 当前分块的起始行索引
         int j0 = cb * Bc;
+        // 5.1 加载K和V的分块到共享内存
         for (int idx = threadIdx.x; idx < Bc * D; idx += Br) {
             int jj = j0 + idx / D, kk = idx % D;
+            // 从全局内存加载到共享内存（边界检查）
             Ks[idx / D][kk] = (jj < N) ? K[(size_t)jj * D + kk] : 0.f;
             Vs[idx / D][kk] = (jj < N) ? V[(size_t)jj * D + kk] : 0.f;
         }
+        // 同步：确保所有线程都完成加载，共享内存数据完整
         __syncthreads();
 #pragma unroll
         for (int j = 0; j < Bc; ++j) {
             if (j0 + j >= N) break;
+            // 5.2.1 计算注意力分数 s = Q[i] · K[j]
             float s = 0.f;
 #pragma unroll
             for (int k = 0; k < D; ++k) s += q[k] * Ks[j][k];
             s *= scale;
+            
+            // 5.2.2 在线Softmax更新（Flash Attention的核心算法）
             float m_new = fmaxf(m, s);
             float alpha = __expf(m - m_new);      // rescale previous accumulator
             float p = __expf(s - m_new);
@@ -191,6 +201,8 @@ __global__ void flash_attn(const float* __restrict__ Q, const float* __restrict_
             for (int k = 0; k < D; ++k) acc[k] = acc[k] * alpha + p * Vs[j][k];
             m = m_new;
         }
+        // 6. 归一化并写入输出
+        // 同步：确保所有线程完成当前分块的计算
         __syncthreads();
     }
     float inv = 1.f / l;
