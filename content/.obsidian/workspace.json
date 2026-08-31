@@ -11,14 +11,17 @@
             "id": "c37593d81e441dd1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "经验之谈.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2907.0971030287565,
+                  "y": 650.4074419658803,
+                  "zoom": -0.10494266196577373
+                }
               },
-              "icon": "lucide-file",
-              "title": "经验之谈"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -35,8 +38,7 @@
               "title": "cuda学习"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -95,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -213,13 +214,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "73281d32292ebfaf",
+  "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "index.md",
     "TODO.canvas",
     "经验之谈.md",
+    "语言/cuda学习.md",
     "软件使用.md",
     "环境配置.md",
-    "语言/cuda学习.md",
     "经典库学习/pytorch.md",
     "语言",
     "未命名.md",
@@ -242,7 +244,6 @@
     "经典库学习/asyncpg.md",
     "github项目/SuperMew.md",
     "经典库学习",
-    "github项目/agentic-rag.md",
     "github项目",
     "人工智能",
     "408",

@@ -653,4 +653,13 @@ graph TD
 	- 静态编译 vs 动态编译
 	- JIT 即时编译
 	- 特定架构优化 sm_XX
-	- 
+- 调试资源：
+	- cuda-gdb 调试器
+	- computer-sanitizer 内存检查
+	- 断言 Assert
+	- 异常处理
+- 物理资源
+	- 功耗墙 TDP
+	- 温度管理 降频
+	- 显存带宽 瓶颈
+	- PCIe 带宽 传输带宽
