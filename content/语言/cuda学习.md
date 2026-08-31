@@ -620,3 +620,37 @@ graph TD
     style P2 fill:#ffcc80,stroke:#f57c00,stroke-width:2px
     style P3 fill:#ffcc80,stroke:#f57c00,stroke-width:2px
 ```
+
+# GPU 编程的考虑因素
+
+- 计算资源：
+	- 线程层次 Grid/Block/Thread
+	- 寄存器数量
+	- Warp 调度与占用率
+	- 指令级并行 ILP
+- 内存资源：
+	- 全局内存 慢/大
+	- 共享内存 快/小
+	- 寄存器 最快/私有
+	- 常量内存 只读缓存
+	- 纹理内存 特殊缓存
+- 通信资源：
+	- 合并访问 Coalesced
+	- Bank Conflict 共享内存冲突
+	- 同步 __syncthreads
+	- Peer-to-Peer 多卡通信
+- 时间资源：
+	- 流 Stream 异步
+	- 事件 Events 计时
+	- 并发 Kernel 执行
+	- 数据传输与计算 Overlap
+- 精度资源：
+	- 数值稳定性 防止溢出
+	- 浮点结合律 累加顺序
+	- NaN / Inf 处理
+- 编译资源：
+	- PTX 中间语言
+	- 静态编译 vs 动态编译
+	- JIT 即时编译
+	- 特定架构优化 sm_XX
+	- 
