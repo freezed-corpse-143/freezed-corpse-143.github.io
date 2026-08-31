@@ -11,17 +11,14 @@
             "id": "c37593d81e441dd1",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2863.193857656403,
-                  "y": 553.5564124112243,
-                  "zoom": -0.10494266196577373
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           },
           {
@@ -72,7 +69,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "config",
+                "query": "headroo",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,7 +90,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -214,10 +212,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "index.md",
     "TODO.canvas",
+    "index.md",
     "经验之谈.md",
     "语言/cuda学习.md",
     "软件使用.md",
