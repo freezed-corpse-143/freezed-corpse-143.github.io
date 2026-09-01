@@ -90,8 +90,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -212,7 +211,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
     "软件使用.md",
     "语言/cuda学习.md",
