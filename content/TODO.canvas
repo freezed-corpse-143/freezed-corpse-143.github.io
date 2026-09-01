@@ -130,6 +130,16 @@
 			"y":780,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"8f012fc7bf672475",
+			"type":"text",
+			"text":"leetcuda 技术博客",
+			"styleAttributes":{},
+			"x":-3000,
+			"y":1000,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
