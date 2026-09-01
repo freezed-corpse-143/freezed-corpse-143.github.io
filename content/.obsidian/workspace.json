@@ -11,14 +11,17 @@
             "id": "c37593d81e441dd1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "环境配置.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3177.861699351263,
+                  "y": 532.8563899829941,
+                  "zoom": -0.7716093286324404
+                }
               },
-              "icon": "lucide-file",
-              "title": "环境配置"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -90,8 +93,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -214,8 +216,9 @@
   },
   "active": "c37593d81e441dd1",
   "lastOpenFiles": [
-    "人工智能/智能体记忆.md",
     "环境配置.md",
+    "语言/cuda学习.md",
+    "人工智能/智能体记忆.md",
     "人工智能/大模型推理加速.md",
     "408/大模型.md",
     "开发日记/Visor/模块设计.md",
@@ -226,7 +229,6 @@
     "TODO.canvas",
     "index.md",
     "经验之谈.md",
-    "语言/cuda学习.md",
     "经典库学习/pytorch.md",
     "语言",
     "未命名.md",
