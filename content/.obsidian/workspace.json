@@ -34,8 +34,26 @@
               "icon": "lucide-file",
               "title": "软件使用"
             }
+          },
+          {
+            "id": "89418d22c12fa900",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3227.9693191027327,
+                  "y": 410.01849496433965,
+                  "zoom": -0.43827599529910705
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -211,11 +229,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "89418d22c12fa900",
   "lastOpenFiles": [
+    "人工智能/大模型推理加速.md",
     "软件使用.md",
     "语言/cuda学习.md",
-    "人工智能/大模型推理加速.md",
     "TODO.canvas",
     "环境配置.md",
     "人工智能/智能体记忆.md",
