@@ -11,17 +11,14 @@
             "id": "c37593d81e441dd1",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3177.861699351263,
-                  "y": 532.8563899829941,
-                  "zoom": -0.7716093286324404
-                }
+                "file": "人工智能/大模型推理加速.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "大模型推理加速"
             }
           },
           {
@@ -97,7 +94,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -216,6 +214,7 @@
   },
   "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "TODO.canvas",
     "环境配置.md",
     "语言/cuda学习.md",
     "人工智能/智能体记忆.md",
@@ -226,7 +225,6 @@
     "开发日记/Visor",
     "开发日记",
     "软件使用.md",
-    "TODO.canvas",
     "index.md",
     "经验之谈.md",
     "经典库学习/pytorch.md",
@@ -245,7 +243,6 @@
     "编程语言.md",
     "经典库学习/sqlite3.md",
     "经典库学习/SQLAlchemy.md",
-    "经典库学习/PyJWT.md",
     "经典库学习",
     "github项目",
     "人工智能",
