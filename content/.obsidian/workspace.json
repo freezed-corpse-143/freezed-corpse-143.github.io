@@ -35,8 +35,7 @@
               "title": "软件使用"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -213,8 +212,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "73281d32292ebfaf",
+  "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "软件使用.md",
     "语言/cuda学习.md",
     "人工智能/大模型推理加速.md",
     "TODO.canvas",
@@ -225,7 +225,6 @@
     "需求.md",
     "开发日记/Visor",
     "开发日记",
-    "软件使用.md",
     "index.md",
     "经验之谈.md",
     "经典库学习/pytorch.md",
