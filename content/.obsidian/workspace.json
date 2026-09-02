@@ -49,8 +49,7 @@
               "title": "软件使用"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -226,12 +225,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "73281d32292ebfaf",
+  "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "软件使用.md",
     "环境配置.md",
     "TODO.canvas",
     "人工智能/大模型推理加速.md",
-    "软件使用.md",
     "语言/cuda学习.md",
     "人工智能/智能体记忆.md",
     "408/大模型.md",
