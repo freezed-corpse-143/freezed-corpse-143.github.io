@@ -25,17 +25,14 @@
             "id": "73281d32292ebfaf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3063.256509493721,
-                  "y": 998.8284272494373,
-                  "zoom": -0.10494266196577373
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           },
           {
@@ -231,9 +228,9 @@
   },
   "active": "73281d32292ebfaf",
   "lastOpenFiles": [
+    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "软件使用.md",
-    "TODO.canvas",
     "语言/cuda学习.md",
     "环境配置.md",
     "人工智能/智能体记忆.md",
