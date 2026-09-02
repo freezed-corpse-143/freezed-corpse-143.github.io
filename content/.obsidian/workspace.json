@@ -25,20 +25,18 @@
             "id": "89418d22c12fa900",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3300,
-                  "y": 280,
-                  "zoom": -1.1049426619657736
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,12 +212,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "89418d22c12fa900",
   "lastOpenFiles": [
-    "TODO.canvas",
-    "index.md",
-    "软件使用.md",
     "环境配置.md",
+    "TODO.canvas",
+    "软件使用.md",
+    "index.md",
     "经验之谈.md",
     "人工智能/大模型推理加速.md",
     "实习.md",
