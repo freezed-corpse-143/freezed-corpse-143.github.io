@@ -25,17 +25,14 @@
             "id": "73281d32292ebfaf",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3300,
-                  "y": 280,
-                  "zoom": -1.1049426619657736
-                }
+                "file": "人工智能/大模型推理加速.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "大模型推理加速"
             }
           },
           {
@@ -112,7 +109,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -231,12 +229,12 @@
   },
   "active": "73281d32292ebfaf",
   "lastOpenFiles": [
+    "TODO.canvas",
     "实习.md",
     "数据库.md",
     "软件使用.md",
     "人工智能/大模型推理加速.md",
     "环境配置.md",
-    "TODO.canvas",
     "语言/cuda学习.md",
     "人工智能/智能体记忆.md",
     "408/大模型.md",
@@ -260,7 +258,6 @@
     "经典库学习/jinja2.md",
     "经典库学习/pymilvus.md",
     "编程语言.md",
-    "经典库学习/sqlite3.md",
     "经典库学习",
     "github项目",
     "人工智能",
