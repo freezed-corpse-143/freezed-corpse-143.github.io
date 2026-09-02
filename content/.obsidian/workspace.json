@@ -13,29 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "软件使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
-            }
-          },
-          {
-            "id": "73281d32292ebfaf",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3190,
-                  "y": 280,
-                  "zoom": -1.1049426619657736
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "title": "软件使用"
             }
           },
           {
@@ -46,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3190,
+                  "x": -3300,
                   "y": 280,
-                  "zoom": -1.908021677627168
+                  "zoom": -1.1049426619657736
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -234,11 +217,11 @@
   "active": "c37593d81e441dd1",
   "lastOpenFiles": [
     "TODO.canvas",
+    "index.md",
+    "软件使用.md",
     "环境配置.md",
     "经验之谈.md",
     "人工智能/大模型推理加速.md",
-    "软件使用.md",
-    "index.md",
     "实习.md",
     "数据库.md",
     "语言/cuda学习.md",
