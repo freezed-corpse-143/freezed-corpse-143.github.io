@@ -130,6 +130,16 @@
 			"y":880,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"048863479e5f8e07",
+			"type":"text",
+			"text":"本地看图器",
+			"styleAttributes":{},
+			"x":-2580,
+			"y":780,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],

@@ -25,14 +25,17 @@
             "id": "73281d32292ebfaf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "人工智能/大模型推理加速.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3063.256509493721,
+                  "y": 998.8284272494373,
+                  "zoom": -0.10494266196577373
+                }
               },
-              "icon": "lucide-file",
-              "title": "大模型推理加速"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -50,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -226,7 +229,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "89418d22c12fa900",
+  "active": "73281d32292ebfaf",
   "lastOpenFiles": [
     "人工智能/大模型推理加速.md",
     "软件使用.md",
