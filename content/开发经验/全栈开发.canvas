@@ -39,6 +39,36 @@
 			"y":140,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f64cf0f7c4226cc5",
+			"type":"text",
+			"text":"目录设计",
+			"styleAttributes":{},
+			"x":-300,
+			"y":260,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"c9856d3655219d2a",
+			"type":"text",
+			"text":"配置开发环境、工具、依赖",
+			"styleAttributes":{},
+			"x":-300,
+			"y":380,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"c5b52ef83a68a3be",
+			"type":"text",
+			"text":"配置 mock API 的发起和结果，方便前端和后端独立开发",
+			"styleAttributes":{},
+			"x":-300,
+			"y":500,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
@@ -67,6 +97,33 @@
 			"fromNode":"e2875703572f37d9",
 			"fromSide":"bottom",
 			"toNode":"0de68bac4f8f6c80",
+			"toSide":"top"
+		},
+		{
+			"id":"24896aba5bb8aee8",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"0de68bac4f8f6c80",
+			"fromSide":"bottom",
+			"toNode":"f64cf0f7c4226cc5",
+			"toSide":"top"
+		},
+		{
+			"id":"17c76574f8a7ea07",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"f64cf0f7c4226cc5",
+			"fromSide":"bottom",
+			"toNode":"c9856d3655219d2a",
+			"toSide":"top"
+		},
+		{
+			"id":"03ba8f5631a11558",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"c9856d3655219d2a",
+			"fromSide":"bottom",
+			"toNode":"c5b52ef83a68a3be",
 			"toSide":"top"
 		}
 	],
