@@ -130,6 +130,16 @@
 			"y":880,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"dfc3191f36cff536",
+			"type":"text",
+			"text":"生产环境和测试环境分离",
+			"styleAttributes":{},
+			"x":-2580,
+			"y":840,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
