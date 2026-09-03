@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件使用.md",
+                "file": "环境配置.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "软件使用"
+              "title": "环境配置"
             }
           },
           {
@@ -34,9 +34,25 @@
               "icon": "lucide-file",
               "title": "经验之谈"
             }
+          },
+          {
+            "id": "fdfd07e03472fdf3",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3122.203616663797,
+                  "y": 480.34413341181113,
+                  "zoom": -0.43827599529910705
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -95,7 +111,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -212,15 +229,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "89418d22c12fa900",
+  "active": "c37593d81e441dd1",
   "lastOpenFiles": [
-    "开发经验/全栈开发.canvas",
+    "服务使用.md",
     "软件使用.md",
+    "TODO.canvas",
+    "经验之谈.md",
+    "开发经验/全栈开发.canvas",
     "开发经验/未命名.md",
     "开发经验",
     "环境配置.md",
-    "经验之谈.md",
-    "TODO.canvas",
     "index.md",
     "人工智能/大模型推理加速.md",
     "实习.md",
