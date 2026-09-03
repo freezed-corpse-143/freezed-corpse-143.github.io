@@ -25,17 +25,14 @@
             "id": "89418d22c12fa900",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "开发经验/全栈开发.canvas",
-                "viewState": {
-                  "x": 0,
-                  "y": 279,
-                  "zoom": 0
-                }
+                "file": "经验之谈.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "全栈开发"
+              "icon": "lucide-file",
+              "title": "经验之谈"
             }
           }
         ],
@@ -217,8 +214,8 @@
   },
   "active": "89418d22c12fa900",
   "lastOpenFiles": [
-    "软件使用.md",
     "开发经验/全栈开发.canvas",
+    "软件使用.md",
     "开发经验/未命名.md",
     "开发经验",
     "环境配置.md",
