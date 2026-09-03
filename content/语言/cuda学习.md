@@ -721,3 +721,6 @@ graph TD
 | **Thread（线程）**         | **SP（流式处理器）**   | 多个Thread映射到多个SP  | 寄存器 + 局部内存（Thread私有） |
 
 wrap 是 SIMT 的实现载体
+
+# CUDA 算子编写与编译流程
+
