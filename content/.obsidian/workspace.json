@@ -67,7 +67,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -244,10 +244,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7820528a41ca0d8f",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
-    "语言/cuda学习.md",
     "TODO.canvas",
+    "语言/cuda学习.md",
     "经典库学习/pytorch.md",
     "人工智能/未命名.md",
     "环境配置.md",
