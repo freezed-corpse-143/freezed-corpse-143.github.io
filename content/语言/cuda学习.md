@@ -663,3 +663,20 @@ graph TD
 	- 温度管理 降频
 	- 显存带宽 瓶颈
 	- PCIe 带宽 传输带宽
+
+# GPU 的内存结构
+
+```mermaid
+graph TD
+    GPU["GPU 设备 (1)"] --> SM["SM 流式多处理器 (多个)"]
+    GPU --> GlobalMem["全局内存 Global Memory (1)"]
+    GPU --> ConstMem["常量内存 Constant Memory (1)"]
+    GPU --> TexMem["纹理内存 Texture Memory (1)"]
+
+    SM --> SP["SP 流式处理器 (多个)"]
+    SM --> SharedMem["共享内存 Shared Memory (1)"]
+
+    SP --> Reg["寄存器 Register (多个)"]
+    SP --> LocalMem["局部内存 Local Memory (1)"]
+```
+

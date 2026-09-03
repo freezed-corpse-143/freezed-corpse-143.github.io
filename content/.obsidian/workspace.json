@@ -39,17 +39,14 @@
             "id": "fdfd07e03472fdf3",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3122.203616663797,
-                  "y": 858.3847164040723,
-                  "zoom": -0.43827599529910705
-                }
+                "file": "语言/cuda学习.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "cuda学习"
             }
           }
         ],
@@ -112,8 +109,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -232,10 +228,12 @@
   },
   "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "经典库学习/pytorch.md",
+    "人工智能/未命名.md",
+    "TODO.canvas",
     "环境配置.md",
     "服务使用.md",
     "软件使用.md",
-    "TODO.canvas",
     "经验之谈.md",
     "开发经验/全栈开发.canvas",
     "开发经验/未命名.md",
@@ -251,7 +249,6 @@
     "需求.md",
     "开发日记/Visor",
     "开发日记",
-    "经典库学习/pytorch.md",
     "语言",
     "未命名.md",
     "语言/Python.md",
@@ -263,7 +260,6 @@
     "经典库学习/antv G6.md",
     "人工智能/RAG.md",
     "经典库学习/jinja2.md",
-    "经典库学习/pymilvus.md",
     "经典库学习",
     "github项目",
     "人工智能",
