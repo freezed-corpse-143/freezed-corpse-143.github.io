@@ -48,9 +48,26 @@
               "icon": "lucide-file",
               "title": "cuda学习"
             }
+          },
+          {
+            "id": "7820528a41ca0d8f",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3270,
+                  "y": 880.1020191285868,
+                  "zoom": -1.1049426619657736
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -226,8 +243,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fdfd07e03472fdf3",
+  "active": "7820528a41ca0d8f",
   "lastOpenFiles": [
+    "语言/cuda学习.md",
     "经典库学习/pytorch.md",
     "人工智能/未命名.md",
     "TODO.canvas",
@@ -242,7 +260,6 @@
     "人工智能/大模型推理加速.md",
     "实习.md",
     "数据库.md",
-    "语言/cuda学习.md",
     "人工智能/智能体记忆.md",
     "408/大模型.md",
     "开发日记/Visor/模块设计.md",
