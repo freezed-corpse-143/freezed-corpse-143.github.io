@@ -92,16 +92,6 @@
 			"height":120
 		},
 		{
-			"id":"9727a4171074a483",
-			"type":"text",
-			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
-			"styleAttributes":{},
-			"x":-3900,
-			"y":70,
-			"width":260,
-			"height":180
-		},
-		{
 			"id":"d689a6a47c77515d",
 			"type":"text",
 			"text":"学习 QT 知名项目 https://github.com/clementine-player/clementine\n学习 Typescript 知名项目： https://github.com/deepseek-ai/deepseek-harness\nhttps://github.com/earendil-works/pi.git\n学习 cuda 代码： https://github.com/NVIDIA/cuda-samples.git",
@@ -140,6 +130,16 @@
 			"y":820,
 			"width":260,
 			"height":200
+		},
+		{
+			"id":"9727a4171074a483",
+			"type":"text",
+			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":250,
+			"width":260,
+			"height":180
 		}
 	],
 	"edges":[],
