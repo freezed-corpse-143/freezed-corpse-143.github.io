@@ -694,3 +694,28 @@ graph TD
     Warp --> Thread["Thread 线程 (32个)"]
     Warp --> DispatchUnit["指令分发单元 Dispatch Unit (1)"]
 ```
+
+# CUDA 映射的软件结构
+
+```mermaid
+graph TD
+    Kernel["Kernel 内核函数 (1)"] --> Grid["Grid 网格 (1)"]
+    
+    Grid --> Block["Thread Block 线程块 (多个)"]
+    Grid --> GridMem["Grid 级别内存<br/>(全局内存/常量内存/纹理内存)"]
+
+    Block --> Thread["Thread 线程 (多个)"]
+    Block --> SharedMem["共享内存 Shared Memory (1)<br/>(Block 级别)"]
+
+    Thread --> Reg["寄存器 Register (多个)<br/>(Thread 私有)"]
+    Thread --> LocalMem["局部内存 Local Memory (1)<br/>(Thread 私有)"]
+```
+
+# CUDA 软硬件映射表
+
+| 软件抽象                   | 硬件实体               | 数量关系                | 内存可见范围                    |
+| :------------------------- | :--------------------- | :---------------------- | :------------------------------ |
+| **Kernel（内核函数）**     | **GPU 设备**           | 1个Kernel启动在1个GPU上 | —                               |
+| **Grid（网格）**           | **GPU 设备**           | 1个Grid对应1个GPU       | 全部内存（全局/常量/纹理）      |
+| **Thread Block（线程块）** | **SM（流式多处理器）** | 多个Block分配到多个SM   | 共享内存（Block内线程可见）     |
+| **Thread（线程）**         | **SP（流式处理器）**   | 多个Thread映射到多个SP  | 寄存器 + 局部内存（Thread私有） |
