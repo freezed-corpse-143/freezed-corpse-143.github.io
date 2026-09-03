@@ -44,7 +44,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3122.203616663797,
-                  "y": 480.34413341181113,
+                  "y": 858.3847164040723,
                   "zoom": -0.43827599529910705
                 }
               },
@@ -52,7 +52,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -229,8 +230,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "环境配置.md",
     "服务使用.md",
     "软件使用.md",
     "TODO.canvas",
@@ -238,7 +240,6 @@
     "开发经验/全栈开发.canvas",
     "开发经验/未命名.md",
     "开发经验",
-    "环境配置.md",
     "index.md",
     "人工智能/大模型推理加速.md",
     "实习.md",

@@ -109,7 +109,7 @@
 			"x":-3100,
 			"y":460,
 			"width":560,
-			"height":240
+			"height":200
 		},
 		{
 			"id":"bec55918971be267",
@@ -130,6 +130,16 @@
 			"y":880,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"56b9f0a8a4dc2a15",
+			"type":"text",
+			"text":"实习项目全解：\n- 环境\n- 代码\n- 量化结果。\n- 目标",
+			"styleAttributes":{},
+			"x":-2740,
+			"y":820,
+			"width":260,
+			"height":160
 		}
 	],
 	"edges":[],
