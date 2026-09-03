@@ -786,3 +786,156 @@ flowchart LR
     *   在 Python 端，就可以通过 `torch.ops.my_extension.my_op()` 来调用它了。这种方式为算子带来了自动微分（Autograd）等更强大的框架能力。
 
 # GPU 程序的启动
+
+GPU 是 CPU 的**协处理器**，自身无法主动执行任务。整个流程是这样的：
+
+1.  **CPU 发起**：CPU 执行主程序，当运行到调用 CUDA Kernel 的代码时，CPU 会向 GPU 的调度器发送一个**启动命令**。
+2.  **CPU 配置**：CPU 通过 `<<<grid, block>>>` 语法，明确告诉 GPU“开多少个线程、启动哪个函数”。
+3.  **CPU 继续运行**：下发命令后，CPU 会立即继续执行后面的代码（默认是异步的），而 GPU 则开始忙活计算。
+4.  **数据同步**：如果需要把计算结果传回内存，CPU 会执行 `cudaMemcpy` 这样的同步操作，此时 CPU 会阻塞等待，直到 GPU 计算完成。
+
+---
+
+## 🧪 示例：纯 CUDA C++实现
+
+这个例子完全使用 CUDA 运行时 API，能清晰展示“CPU 启动 GPU”的完整过程。
+
+**1. 编写源码（`add.cu`）**
+
+```cpp
+// add.cu
+#include <cuda_runtime.h>
+#include <stdio.h>
+
+// 1. 定义GPU Kernel (由GPU执行)
+__global__ void addKernel(float *a, float *b, float *c, int N) {
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    if (idx < N) {
+        c[idx] = a[idx] + b[idx];
+    }
+}
+
+// 2. 主机端(CPU)启动函数
+void launchAdd(float *a, float *b, float *c, int N) {
+    // 配置线程块: 假设每个块256个线程
+    int threadsPerBlock = 256;
+    int blocksPerGrid = (N + threadsPerBlock - 1) / threadsPerBlock;
+    
+    // 3. CPU执行启动命令!
+    addKernel<<<blocksPerGrid, threadsPerBlock>>>(a, b, c, N);
+    
+    // 同步GPU设备，确保Kernel执行完毕 (CPU阻塞等待)
+    cudaDeviceSynchronize();
+}
+
+int main() {
+    int N = 100000;
+    size_t bytes = N * sizeof(float);
+    
+    // 分配主机(CPU)内存
+    float *h_a = (float*)malloc(bytes);
+    float *h_b = (float*)malloc(bytes);
+    float *h_c = (float*)malloc(bytes);
+    for (int i = 0; i < N; i++) { h_a[i] = 1.0f; h_b[i] = 2.0f; }
+
+    // 分配设备(GPU)内存
+    float *d_a, *d_b, *d_c;
+    cudaMalloc(&d_a, bytes);
+    cudaMalloc(&d_b, bytes);
+    cudaMalloc(&d_c, bytes);
+
+    // CPU将数据复制到GPU (同步操作)
+    cudaMemcpy(d_a, h_a, bytes, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_b, h_b, bytes, cudaMemcpyHostToDevice);
+
+    // ！！！关键点：这里由CPU发起，启动GPU Kernel ！！！
+    launchAdd(d_a, d_b, d_c, N);
+
+    // CPU将结果从GPU复制回来 (同步操作)
+    cudaMemcpy(h_c, d_c, bytes, cudaMemcpyDeviceToHost);
+
+    // 验证结果 (应全为3.0f)
+    printf("Result[0] = %f\n", h_c[0]);
+
+    // 释放资源
+    cudaFree(d_a); cudaFree(d_b); cudaFree(d_c);
+    free(h_a); free(h_b); free(h_c);
+    return 0;
+}
+```
+
+**编译与运行命令：**
+
+```bash
+nvcc add.cu -o add
+./add
+```
+
+# Pytorch 调用 CUDA 示例
+
+这个例子演示了如何在 PyTorch 框架中，通过我们编译的 C++扩展来调用 CUDA 加法。
+
+**步骤 1：编写 CUDA 源文件（`add_kernel.cu`）**
+
+```cpp
+// add_kernel.cu
+#include <torch/extension.h>
+
+// GPU Kernel定义
+__global__ void add_kernel(const float* a, const float* b, float* out, int N) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < N) out[idx] = a[idx] + b[idx];
+}
+
+// CPU端的启动函数，接收torch::Tensor
+torch::Tensor torch_add(torch::Tensor a, torch::Tensor b) {
+    int N = a.numel();
+    auto out = torch::zeros_like(a);
+    
+    int threads = 256;
+    int blocks = (N + threads - 1) / threads;
+    
+    // CPU启动GPU Kernel (PyTorch会自动管理流和同步)
+    add_kernel<<<blocks, threads>>>(
+        a.data_ptr<float>(),
+        b.data_ptr<float>(),
+        out.data_ptr<float>(),
+        N
+    );
+    
+    return out;
+}
+
+// 使用pybind11绑定
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+    m.def("torch_add", &torch_add, "A CUDA add function");
+}
+```
+
+**步骤 2：Python 端即时编译并调用**
+
+```python
+# test.py
+import torch
+from torch.utils.cpp_extension import load
+
+# 在当前目录下即时编译，返回一个Python模块
+add_module = load(
+    name="add_extension",
+    sources=["add_kernel.cu"],
+    extra_cuda_cflags=["-O2"],
+    verbose=True
+)
+
+# 创建两个在GPU上的随机向量
+a = torch.randn(100000, device='cuda')
+b = torch.randn(100000, device='cuda')
+
+# 调用算子（内部由CPU触发GPU执行）
+c = add_module.torch_add(a, b)
+
+# 验证
+print((c - (a + b)).abs().max())  # 应接近0
+```
+
+运行这个 Python 脚本，你会看到 `load` 函数在首次运行时自动调用 `nvcc` 编译，并成功执行加法。
