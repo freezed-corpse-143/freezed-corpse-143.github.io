@@ -719,3 +719,5 @@ graph TD
 | **Grid（网格）**           | **GPU 设备**           | 1个Grid对应1个GPU       | 全部内存（全局/常量/纹理）      |
 | **Thread Block（线程块）** | **SM（流式多处理器）** | 多个Block分配到多个SM   | 共享内存（Block内线程可见）     |
 | **Thread（线程）**         | **SP（流式处理器）**   | 多个Thread映射到多个SP  | 寄存器 + 局部内存（Thread私有） |
+
+wrap 是 SIMT 的实现载体
