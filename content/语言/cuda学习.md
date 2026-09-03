@@ -680,3 +680,17 @@ graph TD
     SP --> LocalMem["局部内存 Local Memory (1)"]
 ```
 
+
+# GPU 的控制结构
+
+```mermaid
+graph TD
+    GPU["GPU 设备 (1)"] --> SM["SM 流式多处理器 (多个)"]
+
+    SM --> CtrlUnit["控制单元 Control Unit (1)"]
+    SM --> WarpScheduler["线程束调度器 Warp Scheduler (多个)"]
+
+    WarpScheduler --> Warp["线程束 Warp (多个)"]
+    Warp --> Thread["Thread 线程 (32个)"]
+    Warp --> DispatchUnit["指令分发单元 Dispatch Unit (1)"]
+```
