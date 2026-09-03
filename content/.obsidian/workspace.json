@@ -67,7 +67,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -243,12 +243,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7820528a41ca0d8f",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "TODO.canvas",
     "语言/cuda学习.md",
     "经典库学习/pytorch.md",
     "人工智能/未命名.md",
-    "TODO.canvas",
     "环境配置.md",
     "服务使用.md",
     "软件使用.md",
@@ -276,7 +276,6 @@
     "经典库学习/deep agents.md",
     "经典库学习/antv G6.md",
     "人工智能/RAG.md",
-    "经典库学习/jinja2.md",
     "经典库学习",
     "github项目",
     "人工智能",

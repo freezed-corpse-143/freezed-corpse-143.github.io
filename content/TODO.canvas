@@ -140,26 +140,6 @@
 			"y":250,
 			"width":260,
 			"height":180
-		},
-		{
-			"id":"d65c0b1308b00a58",
-			"type":"text",
-			"text":"cuda 算子编写流程",
-			"styleAttributes":{},
-			"x":-2940,
-			"y":1220,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"0c6a27c55bb32aba",
-			"type":"text",
-			"text":"Torch 使用 CUDA 算子流程",
-			"styleAttributes":{},
-			"x":-2860,
-			"y":1400,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
