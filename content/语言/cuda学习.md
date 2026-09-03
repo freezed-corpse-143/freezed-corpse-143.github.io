@@ -724,3 +724,65 @@ wrap 是 SIMT 的实现载体
 
 # CUDA 算子编写与编译流程
 
+这个流程的核心是，用 CUDA C++编写 GPU 核心计算代码，并通过编译生成 Python 可以调用的动态链接库（`.so` 或 `.dll` 文件）。
+
+```mermaid
+flowchart TD
+    A[编写CUDA算子代码] --> B[编译为动态链接库]
+    
+    subgraph A [编写CUDA算子代码]
+        direction LR
+        A1[.cu文件<br>（CUDA Kernel实现）] --> A2[.cpp文件<br>（C++封装与绑定）]
+        A2 --> A3[.h文件<br>（函数声明）]
+    end
+
+    subgraph B [编译为动态链接库]
+        direction LR
+        B1[JIT即时编译<br>（`load`函数）] 
+        B2[Setuptools打包<br>（`setup.py`）]
+    end
+    
+    B1 --> C[生成.so/.dll库文件]
+    B2 --> C
+```
+
+*   **第一步：编写 CUDA 核心代码（`.cu` 文件）**
+    *   在此文件中，你需要使用 CUDA C++编写 ** `__global__` 函数（即 Kernel）**，这是将在 GPU 上大规模并行执行的函数。
+    *   同时，需要编写一个 C++风格的**主机端（Host）启动函数**，它通过 `<<<grid, block>>>` 语法来配置和启动 Kernel。
+
+*   **第二步：编写 C++封装与绑定代码（`.cpp` 文件）**
+    *   这个文件是连接 CUDA 世界和 Python 世界的桥梁。
+    *   它主要做两件事：一是将上一步的 CUDA 启动函数封装成一个接收 `torch::Tensor` 类型参数的 C++函数；二是使用 ** `pybind11` ** 库将这个 C++函数绑定为 Python 模块。
+
+*   **第三步：选择编译方式**
+    *   **JIT 编译（Just-In-Time）**：最方便快捷，适合开发和调试。使用 PyTorch 提供的 `torch.utils.cpp_extension.load()` 函数，在 Python 代码中直接指定源文件路径，程序运行时就会自动调用 `nvcc` 和 `c++` 编译器进行编译。
+    *   **Setuptools 打包**：适合项目发布和集成。编写一个 `setup.py` 文件，利用 `torch.utils.cpp_extension.CUDAExtension` 来构建一个 Python 包，之后可以通过 `pip install -e .` 安装并导入。
+
+# Pytorch 调用 CUDA 算子
+
+当编译好的动态库准备好后，PyTorch 端就可以通过几种方式来调用它了。
+
+```mermaid
+flowchart LR
+    A[编译好的<br>动态链接库] --> B{在PyTorch中调用}
+    
+    B --> C[方式一：<br>JIT加载调用<br>（`load`函数）]
+    B --> D[方式二：<br>打包为Python模块导入<br>（`import`）]
+    B --> E[方式三：<br>注册为`torch.ops`算子<br>（`torch.library`）]
+
+    C --> F[执行GPU计算]
+    D --> F
+    E --> F
+```
+*   **方式一：JIT 加载调用**
+    *   如果在编译阶段使用了 `load()` 函数，它会返回一个 Python 模块对象。你可以直接调用这个模块里的函数。
+
+*   **方式二：作为 Python 模块导入**
+    *   如果使用 Setuptools 将算子安装为包，就可以像导入其他 Python 库一样，直接 `import` 然后使用。
+
+*   **方式三：注册为 `torch.ops` 算子（更高级的集成）**
+    *   这是 PyTorch 官方更推荐的方式，能让你的算子成为 PyTorch 生态的一等公民。
+    *   在 C++端，使用 `TORCH_LIBRARY` 宏将算子定义（如 `m.def("my_op(...) -> Tensor")`）和实现（`m.impl(...)`）注册到 `torch.ops` 命名空间下。
+    *   在 Python 端，就可以通过 `torch.ops.my_extension.my_op()` 来调用它了。这种方式为算子带来了自动微分（Autograd）等更强大的框架能力。
+
+# GPU 程序的启动
