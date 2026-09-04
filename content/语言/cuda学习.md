@@ -989,6 +989,8 @@ dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 
 ## Shared Memory 优化
 
+### 整体目标
+
 我们要计算 **C = A × B**。
 
 - A 的大小：**M × K**
@@ -998,6 +1000,8 @@ dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 在 naive 版本中，每个线程负责 C 的 **1 个元素**，每次都要从 Global Memory 读 A 的一行和 B 的一列，访存开销巨大。
 
 **优化思路**：用 Shared Memory 做**数据复用**，减少 Global Memory 访问。
+
+### 分块策略
 
 把矩阵划分成 **Block Tile**：
 
@@ -1013,3 +1017,6 @@ dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 - 每个 Block 负责 **128×128** 的 C
 - 每个 Block 有 `(BM/TM) × (BN/TN) = 16 × 16 = 256` 个线程
 - 每个线程负责 **8×8=64** 个 C 元素
+
+### Shared Memory 的加载方式
+
