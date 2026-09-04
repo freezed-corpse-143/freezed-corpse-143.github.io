@@ -944,4 +944,14 @@ print((c - (a + b)).abs().max())  # 应接近0
 
 通用矩阵乘法 (General Matrix Multiplication，GEMM) 是各种模型和计算中的核心部分，同时也是评估计算硬件性能 (FLOPS) 的标准技术。本文将通过对 GEMM 的实现和优化，来试图理解高性能计算和软硬件系统。
 
-## GEMM 计算过程及复杂度
+## GEMM 计算过程及复杂
+
+GEMM 的定义为
+
+$$
+C\leftarrow \alpha AB+\beta C
+$$
+
+假设 $A\in \mathbb{R}^{M\times K}, B\in \mathbb{R}^{K\times N}$
+
+
