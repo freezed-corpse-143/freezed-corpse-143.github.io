@@ -1032,3 +1032,6 @@ dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 计算访存比：${BM\cdot BN\over 2(BM+BN)}$
 
 由上式可知 BM 和 BN 越大，计算访存比越高，性能就会越好。但是由于 Shared Memory 容量的限制(V 100 1 个 SM 仅 96 KB)，而一个 Block 需要占用 BK * (BM + BN) * 4 Bytes 大小。
+
+### 线程计算策略
+
