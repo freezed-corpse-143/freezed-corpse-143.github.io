@@ -104,12 +104,12 @@
 		{
 			"id":"8f012fc7bf672475",
 			"type":"text",
-			"text":"leetcuda 技术博客",
+			"text":"leetcuda 技术博客：\n- Triton 编程\n- vllm 实践",
 			"styleAttributes":{},
 			"x":-3100,
 			"y":880,
 			"width":260,
-			"height":60
+			"height":140
 		},
 		{
 			"id":"56b9f0a8a4dc2a15",
