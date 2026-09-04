@@ -987,5 +987,5 @@ dim3 blockDim(BN, BM);
 dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 ```
 
-实际上，由于 GPU 的指令执行的最小单元
+实际上，由于 GPU 的指令执行的最小单元是 Warp(32 个 thread)，
 
