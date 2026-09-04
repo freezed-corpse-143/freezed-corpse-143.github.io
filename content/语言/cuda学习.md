@@ -965,6 +965,26 @@ $$
 使用 CUDA 实现最简单的矩阵乘法，使用 M * N 个线程完成整个矩阵乘法。每个线程负责矩阵中一个元素的计算，需要 K 次累乘。矩阵 A，B，C 均存放于全局内存中（由修饰符 `__global__` 确定），完整代码见如下：
 
 ```cuda
+__global__ void naiveSgemm(
+    float * __restrict__ a, float * __restrict__ b, float * __restrict__ c,
+    const int M, const int N, const int K) {
 
+    int n = blockIdx.x * blockDim.x + threadIdx.x;
+    int m = blockIdx.y * blockDim.y + threadIdx.y;
+    if (m < M && n < N) {
+        float psum = 0.0;
+        #pragma unroll
+        for (int k = 0; k < K; k++) {
+            psum += a[OFFSET(m, k, K)] * b[OFFSET(k, n, N)];
+        }
+        c[OFFSET(m, n, N)] = psum;
+    }
+}
+
+const int BM = 32, BN = 32;
+const int M = 512, N = 512, K = 512;
+dim3 blockDim(BN, BM);
+dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 ```
+
 
