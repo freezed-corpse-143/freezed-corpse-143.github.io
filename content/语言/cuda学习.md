@@ -1179,4 +1179,12 @@ FLOAT4(r_comp_a[4]) = FLOAT4(s_a[tk][ty * TM / 2 + BM / 2]);  // 下半块
 
 # 双缓冲优化
 
-在 V1 版和 V2 版
+在 V1 版和 V2 版，每次 K 维循环的执行顺序是：
+
+1. 从 Global Memory 加载数据到 Shared Memory  ← 慢（几百个时钟周期）
+2. __syncthreads() 同步等待所有线程加载完成
+3. 从 Shared Memory 读取数据，进行计算        ← 快
+4. __syncthreads() 同步
+5. 回到步骤 1，加载下一批数据
+
+问题：在步骤 1 加载数据时，**计算单元（CUDA Core）是空闲的**，在等数据从 Global Memory 过来。
