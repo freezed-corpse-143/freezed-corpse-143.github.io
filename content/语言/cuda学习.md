@@ -960,4 +960,7 @@ $$
 a_{i,1}b_{1, j}+\cdots + a_{i,K}b_{K,j}
 $$
 
-要B计算ji'suanji'suaji'suji'sjij
+计算 AB 需要执行 $(2K-1)MN$ 次浮点运算
+
+计算
+
