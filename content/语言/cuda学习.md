@@ -1025,3 +1025,10 @@ dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 - 从 Global Memory 加载 **A 的一个 128×8 分块** 到 Shared Memory `s_a`
 - 从 Global Memory 加载 **B 的一个 8×128 分块** 到 Shared Memory `s_b`
 - 然后 256 个线程用 `s_a` 和 `s_b` 计算各自的 8×8 结果
+
+计算量：$BM\times BN\times N\times 2$
+访存量：$(BM+BN)\times K\times 4$
+
+计算访存比：${BM\cdot BN\over 2(BM+BN)}$
+
+由上式可知 BM 和 BN 越大，计算访存比越高，性能就会越好。但是由于 Shared Memory 容量的限制(V 100 1 个 SM 仅 96 KB)，而一个 Block 需要占用 BK * (BM + BN) * 4 Bytes 大小。
