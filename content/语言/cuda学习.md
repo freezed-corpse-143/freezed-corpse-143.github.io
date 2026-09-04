@@ -939,3 +939,9 @@ print((c - (a + b)).abs().max())  # 应接近0
 ```
 
 运行这个 Python 脚本，你会看到 `load` 函数在首次运行时自动调用 `nvcc` 编译，并成功执行加法。
+
+# GEMM 
+
+通用矩阵乘法 (General Matrix Multiplication，GEMM) 是各种模型和计算中的核心部分，同时也是评估计算硬件性能 (FLOPS) 的标准技术。本文将通过对 GEMM 的实现和优化，来试图理解高性能计算和软硬件系统。
+
+## GEMM 计算过程及复杂度
