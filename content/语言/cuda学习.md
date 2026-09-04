@@ -954,4 +954,10 @@ $$
 
 假设 $A\in \mathbb{R}^{M\times K}, B\in \mathbb{R}^{K\times N}$
 
+AB 的第 i 行第 j 列元素，需要 K 次乘法和 K-1 次加法
 
+$$
+a_{i,1}b_{1, j}+\cdots + a_{i,K}b_{K,j}
+$$
+
+要B计算ji'suanji'suaji'suji'sjij
