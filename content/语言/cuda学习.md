@@ -1020,3 +1020,8 @@ dim3 gridDim((N + BN - 1) / BN, (M + BM - 1) / BM);
 
 ### Shared Memory 的加载方式
 
+在每次 K 维循环中：
+
+- 从 Global Memory 加载 **A 的一个 128×8 分块** 到 Shared Memory `s_a`
+- 从 Global Memory 加载 **B 的一个 8×128 分块** 到 Shared Memory `s_b`
+- 然后 256 个线程用 `s_a` 和 `s_b` 计算各自的 8×8 结果
