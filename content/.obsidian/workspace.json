@@ -34,9 +34,26 @@
               "icon": "lucide-file",
               "title": "cuda学习"
             }
+          },
+          {
+            "id": "c9ecd2d654758592",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2879.1024136288006,
+                  "y": 671.1324554399207,
+                  "zoom": -0.7716093286324404
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -95,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -213,10 +229,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fdfd07e03472fdf3",
+  "active": "c9ecd2d654758592",
   "lastOpenFiles": [
-    "TODO.canvas",
     "语言/cuda学习.md",
+    "TODO.canvas",
     "经验之谈.md",
     "服务使用.md",
     "经典库学习/pytorch.md",

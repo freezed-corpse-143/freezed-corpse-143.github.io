@@ -1355,3 +1355,48 @@ Buffer 1:                     [===== 加载数据 =====] [== 计算 ==] ...
 | 已定位到某个内核，想优化内部细节 | **Nsight Compute (ncu)** |
 | 想开发自己的定制分析工具 | **CUPTI** |
 | 维护旧的 CUDA 10.0 以下项目 | **nvprof / nvvp** |
+
+# vLLM 算子开发流程
+
+1. Pytorch 实现：作为基准，方便后边和 CUDA、Triton 算子对数值精度。
+2. Triton 基础算子实现
+3. Triton 算子分析：
+	1. 基本分析
+	2. Gen code(PTX)分析：分析生成的中间 IR 文件，可以用上 ncu 和 nsys。
+4. CUDA 算子优化
+5. NCU Profile 分析
+
+- 编译选项
+
+```python
+lib = load(
+    name='merge_attn_states_cuda', 
+    sources=['cuda_merge_attn_states.cu'], 
+    extra_cuda_cflags=[
+        "-O3",
+        "-U__CUDA_NO_HALF_OPERATORS__",
+        "-U__CUDA_NO_HALF_CONVERSIONS__",
+        "-U__CUDA_NO_HALF2_OPERATORS__",
+        "-U__CUDA_NO_BFLOAT16_CONVERSIONS__",
+        "--expt-relaxed-constexpr",
+        "--expt-extended-lambda",
+        "--generate-line-info -g", # for NCU debugging
+        # "--use_fast_math"
+    ], 
+    extra_cflags=['-std=c++17'],
+    verbose=True
+)
+```
+- ncu profile
+
+```bash
+ncu -o merge_attn_states.prof -f pytest -s test_merge_attn_states.py
+```
+
+6. Dispatch 逻辑：CUDA开发完，我们还要考虑对于不同数据类型的支持，比如至少要支持float32、half和bfloat16这三种基本的数据类型。
+7. PyTorch binding：为了能够在PyTorch中使用，我们需要把kernel进行binding，首先，需要在vllm/csrc/ops.h头文件中增加函数定义，并且要考虑支持的硬件限制。
+8. custom ops：pybind搞定后，我们需要在vllm/\_custom\_ops.py中将kernel封装成统一的python的api，
+9. fallback 逻辑：由于我们写的kernel，只支持部分数据类型，不支持FP8等；并且，强行使用了向量化，导致对headsize有要求，必须要pack_size的整倍数（大部分情况下都会满足这个要求）。
+10. 单元测试：写算子，单测肯定是必不可少的，我们需要确保自定义的CUDA算子，性能比Triton好，并且数值精度一致，才有意义。
+11. 性能评估：跑完测试脚本自动生成一个包含性能对比的markdown表格。使用 CUDA kernel而非 Triton，可以最大程度减少 CPU 开销并提升kernel性能。
+12. 精度评估：除了算子级别的精度评估，我们还可以用evalscope来跑一跑端到端的精度回归，比如CEval benchmark。
