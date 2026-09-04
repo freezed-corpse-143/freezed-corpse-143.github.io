@@ -25,14 +25,17 @@
             "id": "89418d22c12fa900",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "经验之谈.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3270,
+                  "y": 280,
+                  "zoom": -1.7575878176205224
+                }
               },
-              "icon": "lucide-file",
-              "title": "经验之谈"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -230,13 +233,13 @@
   "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
     "TODO.canvas",
-    "服务使用.md",
+    "经验之谈.md",
     "语言/cuda学习.md",
+    "服务使用.md",
     "经典库学习/pytorch.md",
     "人工智能/未命名.md",
     "环境配置.md",
     "软件使用.md",
-    "经验之谈.md",
     "开发经验/全栈开发.canvas",
     "开发经验/未命名.md",
     "开发经验",
