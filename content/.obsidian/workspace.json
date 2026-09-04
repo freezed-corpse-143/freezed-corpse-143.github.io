@@ -48,23 +48,6 @@
               "icon": "lucide-file",
               "title": "cuda学习"
             }
-          },
-          {
-            "id": "7820528a41ca0d8f",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3270,
-                  "y": 880.1020191285868,
-                  "zoom": -1.1049426619657736
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
-            }
           }
         ],
         "currentTab": 2
