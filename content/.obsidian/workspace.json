@@ -25,17 +25,14 @@
             "id": "fdfd07e03472fdf3",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3020.266524406975,
-                  "y": 906.8104068630215,
-                  "zoom": 0.22839067136755958
-                }
+                "file": "语言/cuda学习.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "cuda学习"
             }
           }
         ],
@@ -217,8 +214,8 @@
   },
   "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
-    "语言/cuda学习.md",
     "TODO.canvas",
+    "语言/cuda学习.md",
     "经验之谈.md",
     "服务使用.md",
     "经典库学习/pytorch.md",
