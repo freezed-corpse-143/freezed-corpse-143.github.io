@@ -43,3 +43,47 @@
 - 写法：`动词短语，说清对象`。
 - 例：`Add g/c flags to vim substitution`（edamame #25 同类）、
   `Allow a separate model for automatic auto-learn capture`（#10889）。
+## 提交后预期
+
+- roboomp（自动化分类机器人）会：打 label、验证前提（"premise checks out against
+  the current tree"）、评估可行性、指认源码落点、**查重并折叠重复项**。
+- 所以：贴源码行号且说清与既有 issue 区别的 issue 会被快速确认；
+  重复或泛泛的会被折叠或冷落。
+
+## 模板速查
+
+```markdown
+## Description
+
+<要什么。附具体配置/API 语法示例：>
+
+\```yaml / toml / 代码
+<示例>
+\```
+
+## Use case
+
+<真实场景、版本号、量化数据。诚实划清因果边界。>
+
+## Current implementation
+
+<验证过的源码位置，贴 commit 锚定行号链接。>
+
+## Requested behavior
+
+1. <可测验收点>
+2. …
+
+本请求不：<scope 边界声明>。
+
+## Related work
+
+- #NNN：<相邻 issue>，与本请求的区别：…
+- #NNN：<相邻 issue>，与本请求的区别：…
+
+## Alternative
+
+<workaround 及其代价>
+
+<收尾姿态：不抢 PR、待批准。>
+```

@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -230,11 +230,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c9ecd2d654758592",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "git/Git 指导.md",
     "TODO.canvas",
     "语言/cuda学习.md",
-    "git/Git 指导.md",
     "未命名.md",
     "git",
     "经验之谈.md",
