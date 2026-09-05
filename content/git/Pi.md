@@ -17,3 +17,8 @@
 - tui-plan.md：TUI 开发计划文档
 - .npmrc：save-exact=true、min-release-age=2（npm 解析防当日依赖）
 - .gitattributes：忽略规则与属性
+- packages：monorepo 结构
+
+# package 结构
+
+- 
