@@ -120,6 +120,26 @@
 			"y":720,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"4a6079dc738e8d91",
+			"type":"text",
+			"text":"GIT 提交规范",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":700,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"03d04d26c6ee61e8",
+			"type":"text",
+			"text":"下载歌曲，并编辑",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":820,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
