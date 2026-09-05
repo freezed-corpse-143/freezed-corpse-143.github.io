@@ -44,16 +44,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "git/Git 指导.md",
+                "file": "git/Pi.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Git 指导"
+              "title": "Pi"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -112,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -230,9 +229,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fdfd07e03472fdf3",
+  "active": "c9ecd2d654758592",
   "lastOpenFiles": [
     "git/Git 指导.md",
+    "git/Pi.md",
     "TODO.canvas",
     "语言/cuda学习.md",
     "未命名.md",
