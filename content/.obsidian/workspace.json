@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "人工智能/大模型推理加速.md",
+                "file": "github项目/Pi.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "大模型推理加速"
+              "title": "Pi"
             }
           },
           {
@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3035.1861768748454,
-                  "y": 1005.4295489216448,
-                  "zoom": -0.43827599529910705
+                  "x": -3260,
+                  "y": 1045.3304994686503,
+                  "zoom": -1.2538060478802562
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -44,7 +44,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "git/Pi.md",
+                "file": "github项目/Pi.md",
                 "mode": "source",
                 "source": false
               },
@@ -52,8 +52,7 @@
               "title": "Pi"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -87,7 +86,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "huggingface",
+                "query": "split",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -229,22 +228,26 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fdfd07e03472fdf3",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
+    "github项目/agentic-rag.md",
+    "github项目/SuperMew.md",
     "人工智能/大模型推理加速.md",
-    "人工智能/智能体记忆.md",
-    "环境配置.md",
-    "git/Pi.md",
-    "git/Git 指导.md",
     "TODO.canvas",
+    "windows.md",
+    "github项目/Pi.md",
+    "软件使用.md",
+    "经验之谈.md",
+    "报错.md",
+    "环境配置.md",
+    "人工智能/智能体记忆.md",
+    "git/Git 指导.md",
     "语言/cuda学习.md",
     "未命名.md",
     "git",
-    "经验之谈.md",
     "服务使用.md",
     "经典库学习/pytorch.md",
     "人工智能/未命名.md",
-    "软件使用.md",
     "开发经验/全栈开发.canvas",
     "开发经验/未命名.md",
     "开发经验",
@@ -260,10 +263,6 @@
     "语言/Python.md",
     "经典库学习/langgraph.md",
     "经典库学习/psycopg3.md",
-    "经典库学习/langchain.md",
-    "经典库学习/langsmith.md",
-    "经典库学习/deep agents.md",
-    "经典库学习/antv G6.md",
     "经典库学习",
     "github项目",
     "人工智能",

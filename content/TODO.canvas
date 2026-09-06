@@ -122,26 +122,6 @@
 			"height":180
 		},
 		{
-			"id":"80e5466cad6e1266",
-			"type":"text",
-			"text":"KV 项目进入 wsl2二次优化",
-			"styleAttributes":{},
-			"x":-3040,
-			"y":1340,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"dff9e5d2d631ff2c",
-			"type":"text",
-			"text":"wsl 2 环境更新",
-			"styleAttributes":{},
-			"x":-3040,
-			"y":1200,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"4a28eba16bec4e42",
 			"type":"text",
 			"text":"ttydown 优化原项目",
@@ -152,17 +132,7 @@
 			"height":60
 		}
 	],
-	"edges":[
-		{
-			"id":"5c8b838536efc2ed",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"dff9e5d2d631ff2c",
-			"fromSide":"bottom",
-			"toNode":"80e5466cad6e1266",
-			"toSide":"top"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
