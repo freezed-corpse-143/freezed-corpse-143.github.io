@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "人工智能/大模型推理加速.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
+              "title": "大模型推理加速"
             }
           },
           {
@@ -52,8 +52,7 @@
               "title": "Pi"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -112,8 +111,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -230,10 +228,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c9ecd2d654758592",
+  "active": "c37593d81e441dd1",
   "lastOpenFiles": [
-    "git/Git 指导.md",
+    "人工智能/智能体记忆.md",
+    "环境配置.md",
     "git/Pi.md",
+    "git/Git 指导.md",
     "TODO.canvas",
     "语言/cuda学习.md",
     "未命名.md",
@@ -242,7 +242,6 @@
     "服务使用.md",
     "经典库学习/pytorch.md",
     "人工智能/未命名.md",
-    "环境配置.md",
     "软件使用.md",
     "开发经验/全栈开发.canvas",
     "开发经验/未命名.md",
@@ -251,7 +250,6 @@
     "人工智能/大模型推理加速.md",
     "实习.md",
     "数据库.md",
-    "人工智能/智能体记忆.md",
     "408/大模型.md",
     "开发日记/Visor/模块设计.md",
     "需求.md",
