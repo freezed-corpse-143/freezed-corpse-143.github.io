@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3260,
-                  "y": 1045.3304994686503,
-                  "zoom": -1.2538060478802562
+                  "x": -2960.0340286256383,
+                  "y": 538.9278087326022,
+                  "zoom": -0.5871393812135897
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -52,7 +52,8 @@
               "title": "Pi"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -228,14 +229,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "github项目/Pi.md",
     "github项目/agentic-rag.md",
     "github项目/SuperMew.md",
     "人工智能/大模型推理加速.md",
     "TODO.canvas",
     "windows.md",
-    "github项目/Pi.md",
     "软件使用.md",
     "经验之谈.md",
     "报错.md",
