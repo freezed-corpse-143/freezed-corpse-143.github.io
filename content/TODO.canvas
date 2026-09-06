@@ -150,6 +150,16 @@
 			"y":1060,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"dff9e5d2d631ff2c",
+			"type":"text",
+			"text":"wsl 2 环境更新",
+			"styleAttributes":{},
+			"x":-2670,
+			"y":1170,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
