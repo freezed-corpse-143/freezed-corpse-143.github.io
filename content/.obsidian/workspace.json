@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3287.094580233794,
-                  "y": 685.8037986309445,
-                  "zoom": -1.1049426619657736
+                  "x": -3035.1861768748454,
+                  "y": 1257.4566042498188,
+                  "zoom": -0.43827599529910705
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -52,7 +52,8 @@
               "title": "Pi"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -228,8 +229,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "人工智能/大模型推理加速.md",
     "人工智能/智能体记忆.md",
     "环境配置.md",
     "git/Pi.md",
@@ -247,7 +249,6 @@
     "开发经验/未命名.md",
     "开发经验",
     "index.md",
-    "人工智能/大模型推理加速.md",
     "实习.md",
     "数据库.md",
     "408/大模型.md",

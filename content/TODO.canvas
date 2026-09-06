@@ -122,12 +122,32 @@
 			"height":180
 		},
 		{
-			"id":"03d04d26c6ee61e8",
+			"id":"80e5466cad6e1266",
 			"type":"text",
-			"text":"下载歌曲，并编辑",
+			"text":"KV 项目进入 wsl2二次优化",
 			"styleAttributes":{},
-			"x":-2720,
-			"y":820,
+			"x":-3000,
+			"y":1170,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"4a28eba16bec4e42",
+			"type":"text",
+			"text":"ttydown 优化原项目",
+			"styleAttributes":{},
+			"x":-3000,
+			"y":1300,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"62a24e39796c106f",
+			"type":"text",
+			"text":"nusheel 配置优化",
+			"styleAttributes":{},
+			"x":-2670,
+			"y":1060,
 			"width":260,
 			"height":60
 		}
