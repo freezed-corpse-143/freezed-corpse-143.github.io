@@ -95,3 +95,5 @@ graph TD
 - test：测试；含 suite/ （集成测试 harness，用假 provider 跑真实 agent 流程）
 - docs/：用户文档，extensions.md、rpc、md、tui.md、keybindings.md、themes.md、models.md、skills.md、containerization.md、compaction.md 等
 - expamples/：示例 extensions/（自定义 provider/sandbox/gondolin 等）、plugins/、sdk/，rpc-extension-ui.ts
+- install-lock：独立安装验证锁，package.json、package-lock.json（对应 check:install-lock:coding-agent）
+- WZMARK-8471
