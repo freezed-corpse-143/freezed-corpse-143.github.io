@@ -150,6 +150,16 @@
 			"y":1200,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"c24532f8506fc423",
+			"type":"text",
+			"text":"wezterm 更新编译",
+			"styleAttributes":{},
+			"x":-2580,
+			"y":1360,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
