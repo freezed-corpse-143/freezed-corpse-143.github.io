@@ -11,17 +11,14 @@
             "id": "c37593d81e441dd1",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3081.52019993039,
-                  "y": 736.6114319666804,
-                  "zoom": -0.43827599529910705
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           },
           {
@@ -216,9 +213,10 @@
   },
   "active": "c37593d81e441dd1",
   "lastOpenFiles": [
+    "服务使用.md",
+    "TODO.canvas",
     "github项目/Pi.md",
     "环境配置.md",
-    "TODO.canvas",
     "github项目/agentic-rag.md",
     "github项目/SuperMew.md",
     "人工智能/大模型推理加速.md",
@@ -231,7 +229,6 @@
     "语言/cuda学习.md",
     "未命名.md",
     "git",
-    "服务使用.md",
     "经典库学习/pytorch.md",
     "人工智能/未命名.md",
     "开发经验/全栈开发.canvas",
