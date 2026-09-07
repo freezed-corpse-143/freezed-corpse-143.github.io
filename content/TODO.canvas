@@ -102,36 +102,6 @@
 			"height":200
 		},
 		{
-			"id":"9727a4171074a483",
-			"type":"text",
-			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":250,
-			"width":260,
-			"height":180
-		},
-		{
-			"id":"56b9f0a8a4dc2a15",
-			"type":"text",
-			"text":"实习项目全解：\n- 环境\n- 代码\n- 量化结果。\n- 目标",
-			"styleAttributes":{},
-			"x":-2700,
-			"y":760,
-			"width":260,
-			"height":180
-		},
-		{
-			"id":"9acc9ba007d85d56",
-			"type":"text",
-			"text":"测试两个 子 agent 通信",
-			"styleAttributes":{},
-			"x":-3140,
-			"y":730,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"827446c14c5f972b",
 			"type":"text",
 			"text":"通过信息隔离，一个扮演面试官，一个扮演 deffend 保卫者",
@@ -140,18 +110,29 @@
 			"y":850,
 			"width":260,
 			"height":100
+		},
+		{
+			"id":"56b9f0a8a4dc2a15",
+			"type":"text",
+			"text":"实习项目全解：\n- 环境\n- 代码\n- 量化结果。\n- 目标",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":810,
+			"width":260,
+			"height":180
+		},
+		{
+			"id":"9727a4171074a483",
+			"type":"text",
+			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
+			"styleAttributes":{},
+			"x":-3760,
+			"y":220,
+			"width":260,
+			"height":180
 		}
 	],
 	"edges":[
-		{
-			"id":"a3df3b3f8558b875",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"9acc9ba007d85d56",
-			"fromSide":"bottom",
-			"toNode":"827446c14c5f972b",
-			"toSide":"top"
-		},
 		{
 			"id":"8ec86bf0b41b46f5",
 			"styleAttributes":{},
