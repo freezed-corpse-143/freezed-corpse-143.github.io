@@ -116,13 +116,52 @@
 			"type":"text",
 			"text":"实习项目全解：\n- 环境\n- 代码\n- 量化结果。\n- 目标",
 			"styleAttributes":{},
-			"x":-3080,
-			"y":720,
+			"x":-2700,
+			"y":760,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"9acc9ba007d85d56",
+			"type":"text",
+			"text":"测试两个 子 agent 通信",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":730,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"827446c14c5f972b",
+			"type":"text",
+			"text":"通过信息隔离，一个扮演面试官，一个扮演 deffend 保卫者",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":850,
+			"width":260,
+			"height":100
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"a3df3b3f8558b875",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"9acc9ba007d85d56",
+			"fromSide":"bottom",
+			"toNode":"827446c14c5f972b",
+			"toSide":"top"
+		},
+		{
+			"id":"8ec86bf0b41b46f5",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"827446c14c5f972b",
+			"fromSide":"right",
+			"toNode":"56b9f0a8a4dc2a15",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
