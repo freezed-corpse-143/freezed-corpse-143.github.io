@@ -30,15 +30,16 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -2842.2879219218585,
-                  "y": 1041.4650658308515,
-                  "zoom": 0.5617240047008929
+                  "y": 789.4380105026771,
+                  "zoom": 0.22839067136755958
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -215,12 +216,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "软件使用.md",
     "TODO.canvas",
     "index.md",
     "环境配置.md",
-    "软件使用.md",
     "服务使用.md",
     "github项目/Pi.md",
     "github项目/agentic-rag.md",
