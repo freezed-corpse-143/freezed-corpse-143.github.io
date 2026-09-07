@@ -130,6 +130,16 @@
 			"y":220,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"0348b12d919a304c",
+			"type":"text",
+			"text":"整理投递经验，开发投递工具和投递流程",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":1080,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
