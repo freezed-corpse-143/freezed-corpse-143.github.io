@@ -30,16 +30,15 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -2842.2879219218585,
-                  "y": 868.8215585404237,
-                  "zoom": 0.22839067136755958
+                  "y": 789.4380105026771,
+                  "zoom": -0.10494266196577373
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -73,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "split",
+                "query": "oh-my",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -94,12 +93,12 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -216,10 +215,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fdfd07e03472fdf3",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
-    "软件使用.md",
     "TODO.canvas",
+    "软件使用.md",
     "index.md",
     "环境配置.md",
     "服务使用.md",
