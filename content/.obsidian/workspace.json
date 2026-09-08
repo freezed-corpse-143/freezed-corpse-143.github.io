@@ -25,17 +25,14 @@
             "id": "fdfd07e03472fdf3",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2975.0514098634776,
-                  "y": 1307.008139959073,
-                  "zoom": -0.25380604788025635
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           }
         ],
@@ -217,13 +214,13 @@
   },
   "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
-    "软件使用.md",
+    "环境配置.md",
     "TODO.canvas",
+    "软件使用.md",
     "需求.md",
     "git/移植.md",
     "git/Git 指导.md",
     "index.md",
-    "环境配置.md",
     "服务使用.md",
     "github项目/Pi.md",
     "github项目/agentic-rag.md",
