@@ -29,8 +29,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -2842.2879219218585,
-                  "y": 789.4380105026771,
+                  "x": -2840.8539426320403,
+                  "y": 1006.6792432338141,
                   "zoom": -0.10494266196577373
                 }
               },
@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -215,10 +216,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "504b9f88bb46bf79",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
-    "TODO.canvas",
     "软件使用.md",
+    "TODO.canvas",
     "index.md",
     "环境配置.md",
     "服务使用.md",

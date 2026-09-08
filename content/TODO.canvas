@@ -130,6 +130,26 @@
 			"y":220,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"d9e2ea22cfa42bf0",
+			"type":"text",
+			"text":"回复 PR",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":1050,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"64b9a638e0ed3ac4",
+			"type":"text",
+			"text":"根据项目 owner 意见，重新开始开发",
+			"styleAttributes":{},
+			"x":-3060,
+			"y":1180,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
