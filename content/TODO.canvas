@@ -180,6 +180,16 @@
 			"y":1400,
 			"width":460,
 			"height":60
+		},
+		{
+			"id":"29ec5e9f4d32320e",
+			"type":"text",
+			"text":"算法 hot 100：\n- 链表\n- ",
+			"styleAttributes":{},
+			"x":-3740,
+			"y":1550,
+			"width":260,
+			"height":150
 		}
 	],
 	"edges":[],
