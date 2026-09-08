@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3196.904884712601,
-                  "y": 1168.135333466094,
+                  "y": 1028.4246832298236,
                   "zoom": -0.5871393812135897
                 }
               },
@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,11 +215,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
+    "环境配置.md",
     "软件使用.md",
     "TODO.canvas",
-    "环境配置.md",
     "需求.md",
     "git/移植.md",
     "git/Git 指导.md",
