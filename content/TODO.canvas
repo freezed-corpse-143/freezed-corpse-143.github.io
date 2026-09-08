@@ -160,6 +160,16 @@
 			"y":1220,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"19cae5eeb9f0cc5e",
+			"type":"text",
+			"text":"helix 提示版",
+			"styleAttributes":{},
+			"x":-3060,
+			"y":1520,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
