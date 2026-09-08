@@ -160,6 +160,26 @@
 			"y":1170,
 			"width":260,
 			"height":110
+		},
+		{
+			"id":"33eca06e5c18b705",
+			"type":"text",
+			"text":"已投的做测试",
+			"styleAttributes":{},
+			"x":-2600,
+			"y":720,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3caadd78c9eefaf5",
+			"type":"text",
+			"text":"未投的，计划投递",
+			"styleAttributes":{},
+			"x":-2560,
+			"y":840,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
