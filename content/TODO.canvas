@@ -170,6 +170,16 @@
 			"y":1520,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"418a36bd402180e8",
+			"type":"text",
+			"text":"\\jobhunt\\mature_data 更新投递计划",
+			"styleAttributes":{},
+			"x":-3860,
+			"y":1400,
+			"width":460,
+			"height":60
 		}
 	],
 	"edges":[],

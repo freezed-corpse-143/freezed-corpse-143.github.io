@@ -29,16 +29,17 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3127.5964045713536,
-                  "y": 1102.9105229834636,
-                  "zoom": -0.9204727145469229
+                  "x": -3196.904884712601,
+                  "y": 1168.135333466094,
+                  "zoom": -0.5871393812135897
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -215,10 +216,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c37593d81e441dd1",
+  "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
-    "TODO.canvas",
     "软件使用.md",
+    "TODO.canvas",
     "环境配置.md",
     "需求.md",
     "git/移植.md",
