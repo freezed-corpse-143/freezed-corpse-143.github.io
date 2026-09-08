@@ -25,17 +25,14 @@
             "id": "fdfd07e03472fdf3",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2840.8539426320403,
-                  "y": 1006.6792432338141,
-                  "zoom": -0.10494266196577373
-                }
+                "file": "git/移植.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "移植"
             }
           }
         ],
@@ -94,12 +91,12 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -218,8 +215,10 @@
   },
   "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
-    "软件使用.md",
+    "git/Git 指导.md",
+    "git/移植.md",
     "TODO.canvas",
+    "软件使用.md",
     "index.md",
     "环境配置.md",
     "服务使用.md",
@@ -231,7 +230,6 @@
     "经验之谈.md",
     "报错.md",
     "人工智能/智能体记忆.md",
-    "git/Git 指导.md",
     "语言/cuda学习.md",
     "未命名.md",
     "git",
