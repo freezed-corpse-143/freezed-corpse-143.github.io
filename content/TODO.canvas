@@ -130,6 +130,36 @@
 			"y":220,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"3afa8f514f06d167",
+			"type":"text",
+			"text":"edamame 图片复制粘贴",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":1080,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"a080bb15719529f9",
+			"type":"text",
+			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":1340,
+			"width":780,
+			"height":60
+		},
+		{
+			"id":"612f0af6ed586e90",
+			"type":"text",
+			"text":"edamame 嵌入式 latex",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":1220,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
