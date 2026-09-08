@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -2803.6964557804213,
-                  "y": 1151.8416603391402,
-                  "zoom": 0.22839067136755958
+                  "x": -2975.0514098634776,
+                  "y": 1307.008139959073,
+                  "zoom": -0.25380604788025635
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "oh-my",
+                "query": "oh-my-pi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -217,11 +217,11 @@
   },
   "active": "fdfd07e03472fdf3",
   "lastOpenFiles": [
-    "需求.md",
+    "软件使用.md",
     "TODO.canvas",
+    "需求.md",
     "git/移植.md",
     "git/Git 指导.md",
-    "软件使用.md",
     "index.md",
     "环境配置.md",
     "服务使用.md",

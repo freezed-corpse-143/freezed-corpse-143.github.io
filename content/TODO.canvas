@@ -160,6 +160,16 @@
 			"y":1220,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"52a9a13737517f97",
+			"type":"text",
+			"text":"随着终端页面缩放",
+			"styleAttributes":{},
+			"x":-2700,
+			"y":1200,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
