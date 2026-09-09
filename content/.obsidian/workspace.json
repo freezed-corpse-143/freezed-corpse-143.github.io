@@ -11,14 +11,17 @@
             "id": "4807e86af7eae752",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "环境配置.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2994.7917759331413,
+                  "y": 1108.1279281622712,
+                  "zoom": -0.10602836770299928
+                }
               },
-              "icon": "lucide-file",
-              "title": "环境配置"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -199,8 +202,8 @@
   },
   "active": "4807e86af7eae752",
   "lastOpenFiles": [
-    "TODO.canvas",
     "环境配置.md",
+    "TODO.canvas",
     "软件使用.md",
     "需求.md",
     "git/移植.md",

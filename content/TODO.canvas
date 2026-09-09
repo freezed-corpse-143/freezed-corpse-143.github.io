@@ -180,16 +180,6 @@
 			"y":940,
 			"width":260,
 			"height":110
-		},
-		{
-			"id":"38defab7041e1f60",
-			"type":"text",
-			"text":"模板化：\n- 反向提问",
-			"styleAttributes":{},
-			"x":-3020,
-			"y":1160,
-			"width":260,
-			"height":100
 		}
 	],
 	"edges":[
