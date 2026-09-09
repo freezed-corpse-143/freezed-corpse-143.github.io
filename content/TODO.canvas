@@ -162,16 +162,6 @@
 			"height":60
 		},
 		{
-			"id":"29ec5e9f4d32320e",
-			"type":"text",
-			"text":"算法 hot 100：\n- 链表",
-			"styleAttributes":{},
-			"x":-3080,
-			"y":1030,
-			"width":260,
-			"height":110
-		},
-		{
 			"id":"3caadd78c9eefaf5",
 			"type":"text",
 			"text":"未投的，计划投递",
@@ -190,6 +180,16 @@
 			"y":730,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"29ec5e9f4d32320e",
+			"type":"text",
+			"text":"算法 hot 100：\n- 链表",
+			"styleAttributes":{},
+			"x":-3060,
+			"y":995,
+			"width":260,
+			"height":110
 		}
 	],
 	"edges":[
