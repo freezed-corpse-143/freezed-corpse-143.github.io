@@ -92,46 +92,6 @@
 			"height":200
 		},
 		{
-			"id":"52a9a13737517f97",
-			"type":"text",
-			"text":"edamame随着终端页面缩放",
-			"styleAttributes":{},
-			"x":-3100,
-			"y":730,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3afa8f514f06d167",
-			"type":"text",
-			"text":"edamame 图片复制粘贴",
-			"styleAttributes":{},
-			"x":-3100,
-			"y":850,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"612f0af6ed586e90",
-			"type":"text",
-			"text":"edamame 嵌入式 latex",
-			"styleAttributes":{},
-			"x":-3100,
-			"y":960,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"a080bb15719529f9",
-			"type":"text",
-			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
-			"styleAttributes":{},
-			"x":-3100,
-			"y":1050,
-			"width":780,
-			"height":60
-		},
-		{
 			"id":"33eca06e5c18b705",
 			"type":"text",
 			"text":"已投的做测试",
@@ -172,17 +132,104 @@
 			"height":120
 		},
 		{
+			"id":"52a9a13737517f97",
+			"type":"text",
+			"text":"edamame随着终端页面缩放",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":1290,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3afa8f514f06d167",
+			"type":"text",
+			"text":"edamame 图片复制粘贴",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":1380,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"612f0af6ed586e90",
+			"type":"text",
+			"text":"edamame 嵌入式 latex",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":1480,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"a080bb15719529f9",
+			"type":"text",
+			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
+			"styleAttributes":{},
+			"x":-3670,
+			"y":1620,
+			"width":780,
+			"height":60
+		},
+		{
+			"id":"5449baf0265e24de",
+			"type":"text",
+			"text":"\\$$ 渲染 PR 被接收后",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1420,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
 			"text":"算法 hot 100：\n- 链表",
 			"styleAttributes":{},
-			"x":-3100,
-			"y":1140,
+			"x":-3080,
+			"y":750,
 			"width":260,
 			"height":110
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"75bd346de1b854c6",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"5449baf0265e24de",
+			"fromSide":"right",
+			"toNode":"3afa8f514f06d167",
+			"toSide":"left"
+		},
+		{
+			"id":"6e8305f9739e96cb",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"5449baf0265e24de",
+			"fromSide":"right",
+			"toNode":"52a9a13737517f97",
+			"toSide":"left"
+		},
+		{
+			"id":"95ee78f1a759827c",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"5449baf0265e24de",
+			"fromSide":"right",
+			"toNode":"612f0af6ed586e90",
+			"toSide":"left"
+		},
+		{
+			"id":"15eab8cbb09670e9",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"5449baf0265e24de",
+			"fromSide":"right",
+			"toNode":"a080bb15719529f9",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
