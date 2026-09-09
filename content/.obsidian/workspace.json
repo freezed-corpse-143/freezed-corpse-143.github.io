@@ -80,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -199,13 +200,15 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
+    "我的项目.md",
+    "数据库.md",
     "TODO.canvas",
+    "index.md",
+    "需求.md",
     "环境配置.md",
     "软件使用.md",
-    "需求.md",
     "git/移植.md",
     "git/Git 指导.md",
-    "index.md",
     "服务使用.md",
     "github项目/Pi.md",
     "github项目/agentic-rag.md",
@@ -224,7 +227,6 @@
     "开发经验/未命名.md",
     "开发经验",
     "实习.md",
-    "数据库.md",
     "408/大模型.md",
     "开发日记/Visor/模块设计.md",
     "开发日记/Visor",
