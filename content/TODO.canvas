@@ -92,26 +92,6 @@
 			"height":200
 		},
 		{
-			"id":"33eca06e5c18b705",
-			"type":"text",
-			"text":"已投的做测试",
-			"styleAttributes":{},
-			"x":-2600,
-			"y":720,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3caadd78c9eefaf5",
-			"type":"text",
-			"text":"未投的，计划投递",
-			"styleAttributes":{},
-			"x":-2600,
-			"y":850,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9727a4171074a483",
 			"type":"text",
 			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
@@ -187,9 +167,29 @@
 			"text":"算法 hot 100：\n- 链表",
 			"styleAttributes":{},
 			"x":-3080,
-			"y":750,
+			"y":1030,
 			"width":260,
 			"height":110
+		},
+		{
+			"id":"3caadd78c9eefaf5",
+			"type":"text",
+			"text":"未投的，计划投递",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":870,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"33eca06e5c18b705",
+			"type":"text",
+			"text":"已投的做测试",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":730,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
