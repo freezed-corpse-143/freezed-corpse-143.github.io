@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "81d9a7985951e5da",
+        "id": "d2e75e1f677adce5",
         "type": "tabs",
         "children": [
           {
-            "id": "4807e86af7eae752",
+            "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "需求.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
+              "title": "需求"
             }
           }
         ]
@@ -80,8 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -198,7 +197,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4807e86af7eae752",
+  "active": "e684acae9d3d7310",
   "lastOpenFiles": [
     "TODO.canvas",
     "环境配置.md",
