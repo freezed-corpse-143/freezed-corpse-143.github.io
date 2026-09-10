@@ -211,6 +211,16 @@
 			"y":1290,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"2200c464ab17889c",
+			"type":"text",
+			"text":"直接读取资源管理器",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":1420,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
