@@ -200,6 +200,16 @@
 			"y":1340,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"cea6d15496cef707",
+			"type":"text",
+			"text":"更新投递计划",
+			"styleAttributes":{},
+			"x":-2760,
+			"y":780,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
