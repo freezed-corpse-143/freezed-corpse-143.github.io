@@ -211,16 +211,6 @@
 			"y":1290,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"641e5b9b7d526b23",
-			"type":"text",
-			"text":"爬取脚本升级",
-			"styleAttributes":{},
-			"x":-3080,
-			"y":1230,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
