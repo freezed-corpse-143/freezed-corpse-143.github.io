@@ -192,22 +192,22 @@
 			"height":60
 		},
 		{
-			"id":"8d270dfea6b85e01",
-			"type":"text",
-			"text":"周期性记录每日饮食、运动、体重等等信息",
-			"styleAttributes":{},
-			"x":-2920,
-			"y":1340,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"cea6d15496cef707",
 			"type":"text",
 			"text":"更新投递计划",
 			"styleAttributes":{},
 			"x":-2760,
 			"y":780,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"8d270dfea6b85e01",
+			"type":"text",
+			"text":"周期性记录每日饮食、运动、体重等等信息",
+			"styleAttributes":{},
+			"x":-3100,
+			"y":1320,
 			"width":260,
 			"height":60
 		}
