@@ -180,6 +180,16 @@
 			"y":940,
 			"width":260,
 			"height":80
+		},
+		{
+			"id":"74cc212f14af0d99",
+			"type":"text",
+			"text":"9 月 17 日去杨浦校区听中国核电线下宣讲",
+			"styleAttributes":{},
+			"x":-3120,
+			"y":1180,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
