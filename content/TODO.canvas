@@ -193,22 +193,22 @@
 			"height":60
 		},
 		{
-			"id":"52a9a13737517f97",
-			"type":"text",
-			"text":"edamame 表格随着终端页面缩放",
-			"styleAttributes":{},
-			"x":-3700,
-			"y":1290,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"e318ec2f1b4ce2a1",
 			"type":"text",
 			"text":"图片的不完全渲染问题",
 			"styleAttributes":{},
 			"x":-3670,
 			"y":1400,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"52a9a13737517f97",
+			"type":"text",
+			"text":"edamame 表格随着终端页面缩放",
+			"styleAttributes":{},
+			"x":-3670,
+			"y":1290,
 			"width":260,
 			"height":60
 		}
