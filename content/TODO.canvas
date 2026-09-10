@@ -118,7 +118,7 @@
 			"styleAttributes":{},
 			"x":-3670,
 			"y":1620,
-			"width":780,
+			"width":690,
 			"height":60
 		},
 		{
@@ -215,11 +215,11 @@
 		{
 			"id":"2200c464ab17889c",
 			"type":"text",
-			"text":"直接读取资源管理器",
+			"text":"直接读取资源管理器 CF_HDROP",
 			"styleAttributes":{},
 			"x":-3200,
 			"y":1420,
-			"width":260,
+			"width":280,
 			"height":60
 		}
 	],
