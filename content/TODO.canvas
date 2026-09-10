@@ -152,16 +152,6 @@
 			"height":60
 		},
 		{
-			"id":"5449baf0265e24de",
-			"type":"text",
-			"text":"\\$$ 渲染 PR 被接收后",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":1420,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"3caadd78c9eefaf5",
 			"type":"text",
 			"text":"未投的，计划投递",
@@ -210,36 +200,19 @@
 			"y":1110,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"5449baf0265e24de",
+			"type":"text",
+			"text":"\\$$ 渲染 PR 被接收后",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1620,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
-		{
-			"id":"75bd346de1b854c6",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"5449baf0265e24de",
-			"fromSide":"right",
-			"toNode":"3afa8f514f06d167",
-			"toSide":"left"
-		},
-		{
-			"id":"6e8305f9739e96cb",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"5449baf0265e24de",
-			"fromSide":"right",
-			"toNode":"52a9a13737517f97",
-			"toSide":"left"
-		},
-		{
-			"id":"95ee78f1a759827c",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"5449baf0265e24de",
-			"fromSide":"right",
-			"toNode":"612f0af6ed586e90",
-			"toSide":"left"
-		},
 		{
 			"id":"15eab8cbb09670e9",
 			"styleAttributes":{},
