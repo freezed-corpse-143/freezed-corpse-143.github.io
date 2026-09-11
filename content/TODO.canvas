@@ -227,8 +227,8 @@
 			"type":"text",
 			"text":"学位论文的 latex模板",
 			"styleAttributes":{},
-			"x":-3240,
-			"y":1200,
+			"x":-3325,
+			"y":1320,
 			"width":260,
 			"height":60
 		},
@@ -237,8 +237,8 @@
 			"type":"text",
 			"text":"更新投递计划",
 			"styleAttributes":{},
-			"x":-2860,
-			"y":1320,
+			"x":-3325,
+			"y":1450,
 			"width":260,
 			"height":60
 		}
