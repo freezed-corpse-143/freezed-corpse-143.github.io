@@ -143,26 +143,6 @@
 			"height":60
 		},
 		{
-			"id":"8d270dfea6b85e01",
-			"type":"text",
-			"text":"周期性记录每日饮食、运动、体重等等信息",
-			"styleAttributes":{},
-			"x":-4040,
-			"y":1290,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"e318ec2f1b4ce2a1",
-			"type":"text",
-			"text":"图片的不完全渲染问题",
-			"styleAttributes":{},
-			"x":-4040,
-			"y":1420,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"612f0af6ed586e90",
 			"type":"text",
 			"text":"edamame 嵌入式 latex",
@@ -183,16 +163,6 @@
 			"height":70
 		},
 		{
-			"id":"a080bb15719529f9",
-			"type":"text",
-			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
-			"styleAttributes":{},
-			"x":-4005,
-			"y":1680,
-			"width":690,
-			"height":60
-		},
-		{
 			"id":"3a2960ecdc5108b1",
 			"type":"text",
 			"text":"docx 的变量化",
@@ -209,6 +179,36 @@
 			"styleAttributes":{},
 			"x":-3150,
 			"y":1390,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"a080bb15719529f9",
+			"type":"text",
+			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
+			"styleAttributes":{},
+			"x":-4040,
+			"y":1290,
+			"width":690,
+			"height":60
+		},
+		{
+			"id":"3df10b0c118aefb2",
+			"type":"text",
+			"text":"粘贴图片解决 PR 冲突问题",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":1520,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"e318ec2f1b4ce2a1",
+			"type":"text",
+			"text":"图片的不完全渲染问题",
+			"styleAttributes":{},
+			"x":-4040,
+			"y":1410,
 			"width":260,
 			"height":60
 		}
