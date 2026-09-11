@@ -11,14 +11,17 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "经验之谈.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3363.720185881201,
+                  "y": 1207.2230294847625,
+                  "zoom": -0.19056187791466733
+                }
               },
-              "icon": "lucide-file",
-              "title": "经验之谈"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -209,6 +212,7 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
+    "经验之谈.md",
     "TODO.canvas",
     "Pasted image 20260910174013.png",
     "需求.md",
@@ -226,7 +230,6 @@
     "github项目/SuperMew.md",
     "人工智能/大模型推理加速.md",
     "windows.md",
-    "经验之谈.md",
     "报错.md",
     "人工智能/智能体记忆.md",
     "语言/cuda学习.md",

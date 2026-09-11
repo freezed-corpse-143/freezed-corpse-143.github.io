@@ -193,36 +193,6 @@
 			"height":60
 		},
 		{
-			"id":"e318ec2f1b4ce2a1",
-			"type":"text",
-			"text":"图片的不完全渲染问题",
-			"styleAttributes":{},
-			"x":-3670,
-			"y":1400,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"52a9a13737517f97",
-			"type":"text",
-			"text":"edamame 表格随着终端页面缩放",
-			"styleAttributes":{},
-			"x":-3670,
-			"y":1290,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"2200c464ab17889c",
-			"type":"text",
-			"text":"直接读取资源管理器 CF_HDROP",
-			"styleAttributes":{},
-			"x":-3325,
-			"y":1400,
-			"width":280,
-			"height":60
-		},
-		{
 			"id":"25adb2002cac824e",
 			"type":"text",
 			"text":"学位论文的 latex模板",
@@ -259,6 +229,26 @@
 			"styleAttributes":{},
 			"x":-3320,
 			"y":1760,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"e318ec2f1b4ce2a1",
+			"type":"text",
+			"text":"图片的不完全渲染问题",
+			"styleAttributes":{},
+			"x":-4040,
+			"y":1420,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"52a9a13737517f97",
+			"type":"text",
+			"text":"edamame 表格随着终端页面缩放",
+			"styleAttributes":{},
+			"x":-3670,
+			"y":1420,
 			"width":260,
 			"height":60
 		}
