@@ -241,6 +241,16 @@
 			"y":1450,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"6303de53cb750a82",
+			"type":"text",
+			"text":"头插法和尾插法的可视化",
+			"styleAttributes":{},
+			"x":-2980,
+			"y":1460,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
