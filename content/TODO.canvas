@@ -143,16 +143,6 @@
 			"height":80
 		},
 		{
-			"id":"cea6d15496cef707",
-			"type":"text",
-			"text":"更新投递计划",
-			"styleAttributes":{},
-			"x":-2760,
-			"y":780,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"74cc212f14af0d99",
 			"type":"text",
 			"text":"9 月 17 日去杨浦校区听中国核电线下宣讲",
@@ -237,8 +227,18 @@
 			"type":"text",
 			"text":"学位论文的 latex模板",
 			"styleAttributes":{},
-			"x":-3160,
-			"y":1390,
+			"x":-3240,
+			"y":1200,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"cea6d15496cef707",
+			"type":"text",
+			"text":"更新投递计划",
+			"styleAttributes":{},
+			"x":-2860,
+			"y":1320,
 			"width":260,
 			"height":60
 		}
