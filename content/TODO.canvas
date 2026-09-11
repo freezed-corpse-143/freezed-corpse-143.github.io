@@ -223,11 +223,21 @@
 			"height":60
 		},
 		{
+			"id":"d638cceffb0576da",
+			"type":"text",
+			"text":"",
+			"styleAttributes":{},
+			"x":-3120,
+			"y":1480,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"25adb2002cac824e",
 			"type":"text",
-			"text":"学位论文模板",
+			"text":"学位论文的 latex模板",
 			"styleAttributes":{},
-			"x":-3660,
+			"x":-4060,
 			"y":1740,
 			"width":260,
 			"height":60
