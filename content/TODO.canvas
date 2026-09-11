@@ -233,16 +233,6 @@
 			"height":60
 		},
 		{
-			"id":"cea6d15496cef707",
-			"type":"text",
-			"text":"更新投递计划",
-			"styleAttributes":{},
-			"x":-3325,
-			"y":1450,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"6303de53cb750a82",
 			"type":"text",
 			"text":"头插法和尾插法的可视化",
