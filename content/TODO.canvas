@@ -241,6 +241,26 @@
 			"y":1520,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"883ffeccaea3ae79",
+			"type":"text",
+			"text":"开发后，清理测试代码和测试资源路径",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":1740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"ce09b28f6a95bb4c",
+			"type":"text",
+			"text":"提交前查看文件修改",
+			"styleAttributes":{},
+			"x":-3320,
+			"y":1760,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

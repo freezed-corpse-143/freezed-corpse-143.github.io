@@ -11,17 +11,14 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3468.771052230296,
-                  "y": 1407.0319387620414,
-                  "zoom": -0.10602836770299928
-                }
+                "file": "经验之谈.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "经验之谈"
             }
           }
         ]
@@ -212,8 +209,8 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
-    "Pasted image 20260910174013.png",
     "TODO.canvas",
+    "Pasted image 20260910174013.png",
     "需求.md",
     "2026-09-17.md",
     "我的项目.md",
