@@ -183,32 +183,12 @@
 			"height":60
 		},
 		{
-			"id":"52a9a13737517f97",
-			"type":"text",
-			"text":"edamame 表格随着终端页面缩放",
-			"styleAttributes":{},
-			"x":-3660,
-			"y":1420,
-			"width":260,
-			"height":100
-		},
-		{
 			"id":"612f0af6ed586e90",
 			"type":"text",
 			"text":"edamame 嵌入式 latex",
 			"styleAttributes":{},
 			"x":-4040,
 			"y":1520,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"25adb2002cac824e",
-			"type":"text",
-			"text":"学位论文的 latex模板",
-			"styleAttributes":{},
-			"x":-3325,
-			"y":1320,
 			"width":260,
 			"height":60
 		},
@@ -221,6 +201,26 @@
 			"y":1460,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"25adb2002cac824e",
+			"type":"text",
+			"text":"学位论文的 latex模板",
+			"styleAttributes":{},
+			"x":-3640,
+			"y":1320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"52a9a13737517f97",
+			"type":"text",
+			"text":"edamame 表格随着终端页面缩放",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":1410,
+			"width":260,
+			"height":70
 		}
 	],
 	"edges":[
