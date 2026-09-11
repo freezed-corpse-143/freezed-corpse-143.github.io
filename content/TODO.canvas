@@ -183,56 +183,6 @@
 			"height":60
 		},
 		{
-			"id":"612f0af6ed586e90",
-			"type":"text",
-			"text":"edamame 嵌入式 latex",
-			"styleAttributes":{},
-			"x":-3670,
-			"y":1520,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"25adb2002cac824e",
-			"type":"text",
-			"text":"学位论文的 latex模板",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":1740,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"d638cceffb0576da",
-			"type":"text",
-			"text":"",
-			"styleAttributes":{},
-			"x":-3325,
-			"y":1520,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"883ffeccaea3ae79",
-			"type":"text",
-			"text":"开发后，清理测试代码和测试资源路径",
-			"styleAttributes":{},
-			"x":-3660,
-			"y":1740,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"ce09b28f6a95bb4c",
-			"type":"text",
-			"text":"提交前查看文件修改",
-			"styleAttributes":{},
-			"x":-3320,
-			"y":1760,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"e318ec2f1b4ce2a1",
 			"type":"text",
 			"text":"图片的不完全渲染问题",
@@ -247,7 +197,47 @@
 			"type":"text",
 			"text":"edamame 表格随着终端页面缩放",
 			"styleAttributes":{},
-			"x":-3670,
+			"x":-3660,
+			"y":1420,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"612f0af6ed586e90",
+			"type":"text",
+			"text":"edamame 嵌入式 latex",
+			"styleAttributes":{},
+			"x":-4040,
+			"y":1520,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"883ffeccaea3ae79",
+			"type":"text",
+			"text":"开发后，清理测试代码和测试资源路径",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1730,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"ce09b28f6a95bb4c",
+			"type":"text",
+			"text":"提交前查看文件修改",
+			"styleAttributes":{},
+			"x":-3660,
+			"y":1730,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"25adb2002cac824e",
+			"type":"text",
+			"text":"学位论文的 latex模板",
+			"styleAttributes":{},
+			"x":-3180,
 			"y":1420,
 			"width":260,
 			"height":60
