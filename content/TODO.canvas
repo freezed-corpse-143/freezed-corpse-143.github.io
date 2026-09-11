@@ -203,16 +203,6 @@
 			"height":60
 		},
 		{
-			"id":"25adb2002cac824e",
-			"type":"text",
-			"text":"学位论文的 latex模板",
-			"styleAttributes":{},
-			"x":-3640,
-			"y":1320,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"52a9a13737517f97",
 			"type":"text",
 			"text":"edamame 表格随着终端页面缩放",
@@ -221,6 +211,16 @@
 			"y":1410,
 			"width":260,
 			"height":70
+		},
+		{
+			"id":"25adb2002cac824e",
+			"type":"text",
+			"text":"学位论文的 latex模板",
+			"styleAttributes":{},
+			"x":-3670,
+			"y":1260,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
