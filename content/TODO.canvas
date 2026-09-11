@@ -217,8 +217,8 @@
 			"type":"text",
 			"text":"直接读取资源管理器 CF_HDROP",
 			"styleAttributes":{},
-			"x":-3200,
-			"y":1420,
+			"x":-3325,
+			"y":1400,
 			"width":280,
 			"height":60
 		}
