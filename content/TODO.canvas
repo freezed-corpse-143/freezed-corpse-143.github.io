@@ -211,6 +211,16 @@
 			"y":1410,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"3115b0d829cb78ae",
+			"type":"text",
+			"text":"学习 git worktrees",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1550,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
