@@ -11,14 +11,17 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "环境配置.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3534.8249116180023,
+                  "y": 1789.7574995376115,
+                  "zoom": 0.23979590981353088
+                }
               },
-              "icon": "lucide-file",
-              "title": "环境配置"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -76,8 +79,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -210,6 +212,7 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
+    "环境配置.md",
     "TODO.canvas",
     "images/smart-paste.gif",
     "算法/链表.md",
@@ -229,7 +232,6 @@
     "我的项目.md",
     "数据库.md",
     "index.md",
-    "环境配置.md",
     "软件使用.md",
     "服务使用.md",
     "github项目/Pi.md",

@@ -191,6 +191,16 @@
 			"y":1600,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"c82fb3baea3e024c",
+			"type":"text",
+			"text":"edamame 打开位置光标记忆",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1740,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
