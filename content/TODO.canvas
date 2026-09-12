@@ -153,16 +153,6 @@
 			"height":60
 		},
 		{
-			"id":"3a2960ecdc5108b1",
-			"type":"text",
-			"text":"docx 的变量化",
-			"styleAttributes":{},
-			"x":-4080,
-			"y":1600,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"52a9a13737517f97",
 			"type":"text",
 			"text":"edamame 表格随着终端页面缩放",
@@ -173,21 +163,31 @@
 			"height":70
 		},
 		{
-			"id":"612f0af6ed586e90",
-			"type":"text",
-			"text":"edamame 嵌入式 latex",
-			"styleAttributes":{},
-			"x":-4040,
-			"y":1380,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"b4298695ba73e74c",
 			"type":"text",
 			"text":"latex 模板的 typst 化",
 			"styleAttributes":{},
 			"x":-3760,
+			"y":1600,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"612f0af6ed586e90",
+			"type":"text",
+			"text":"edamame 嵌入式 latex",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1475,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3a2960ecdc5108b1",
+			"type":"text",
+			"text":"docx 的变量化",
+			"styleAttributes":{},
+			"x":-4060,
 			"y":1600,
 			"width":260,
 			"height":60
