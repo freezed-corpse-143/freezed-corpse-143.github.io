@@ -163,26 +163,6 @@
 			"height":60
 		},
 		{
-			"id":"b4298695ba73e74c",
-			"type":"text",
-			"text":"latex 模板的 typst 化",
-			"styleAttributes":{},
-			"x":-4080,
-			"y":1610,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3a2960ecdc5108b1",
-			"type":"text",
-			"text":"docx 的变量化",
-			"styleAttributes":{},
-			"x":-4080,
-			"y":1740,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"612f0af6ed586e90",
 			"type":"text",
 			"text":"edamame 嵌入式 latex",
@@ -201,6 +181,26 @@
 			"y":1415,
 			"width":260,
 			"height":70
+		},
+		{
+			"id":"b4298695ba73e74c",
+			"type":"text",
+			"text":"latex 模板的 typst 化",
+			"styleAttributes":{},
+			"x":-3000,
+			"y":1660,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3a2960ecdc5108b1",
+			"type":"text",
+			"text":"docx 的变量化",
+			"styleAttributes":{},
+			"x":-4080,
+			"y":1600,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
