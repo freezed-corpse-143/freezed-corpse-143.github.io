@@ -143,46 +143,6 @@
 			"height":60
 		},
 		{
-			"id":"612f0af6ed586e90",
-			"type":"text",
-			"text":"edamame 嵌入式 latex",
-			"styleAttributes":{},
-			"x":-4040,
-			"y":1520,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"52a9a13737517f97",
-			"type":"text",
-			"text":"edamame 表格随着终端页面缩放",
-			"styleAttributes":{},
-			"x":-3660,
-			"y":1410,
-			"width":260,
-			"height":70
-		},
-		{
-			"id":"3a2960ecdc5108b1",
-			"type":"text",
-			"text":"docx 的变量化",
-			"styleAttributes":{},
-			"x":-3150,
-			"y":1290,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"b4298695ba73e74c",
-			"type":"text",
-			"text":"latex 模板的 typst 化",
-			"styleAttributes":{},
-			"x":-3150,
-			"y":1390,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"a080bb15719529f9",
 			"type":"text",
 			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
@@ -197,10 +157,50 @@
 			"type":"text",
 			"text":"图片的不完全渲染问题",
 			"styleAttributes":{},
-			"x":-4040,
-			"y":1410,
+			"x":-4080,
+			"y":1480,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"b4298695ba73e74c",
+			"type":"text",
+			"text":"latex 模板的 typst 化",
+			"styleAttributes":{},
+			"x":-4080,
+			"y":1610,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3a2960ecdc5108b1",
+			"type":"text",
+			"text":"docx 的变量化",
+			"styleAttributes":{},
+			"x":-4080,
+			"y":1740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"612f0af6ed586e90",
+			"type":"text",
+			"text":"edamame 嵌入式 latex",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":1420,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"52a9a13737517f97",
+			"type":"text",
+			"text":"edamame 表格随着终端页面缩放",
+			"styleAttributes":{},
+			"x":-3460,
+			"y":1415,
+			"width":260,
+			"height":70
 		}
 	],
 	"edges":[],
