@@ -193,32 +193,12 @@
 			"height":60
 		},
 		{
-			"id":"3df10b0c118aefb2",
-			"type":"text",
-			"text":"粘贴图片解决 PR 冲突问题",
-			"styleAttributes":{},
-			"x":-3660,
-			"y":1520,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"e318ec2f1b4ce2a1",
 			"type":"text",
 			"text":"图片的不完全渲染问题",
 			"styleAttributes":{},
 			"x":-4040,
 			"y":1410,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3115b0d829cb78ae",
-			"type":"text",
-			"text":"学习 git worktrees",
-			"styleAttributes":{},
-			"x":-3150,
-			"y":1550,
 			"width":260,
 			"height":60
 		}
