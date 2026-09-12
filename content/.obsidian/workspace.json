@@ -15,9 +15,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3534.8249116180023,
-                  "y": 1789.7574995376115,
-                  "zoom": 0.23979590981353088
+                  "x": -3130.971780807692,
+                  "y": 704.3766910788136,
+                  "zoom": -0.42687075685313575
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -83,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
