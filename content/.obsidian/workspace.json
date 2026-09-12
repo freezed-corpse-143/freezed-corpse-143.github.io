@@ -11,14 +11,17 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "算法/链表.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3148.1627598390864,
+                  "y": 1375.3319504917906,
+                  "zoom": -0.42687075685313575
+                }
               },
-              "icon": "lucide-file",
-              "title": "链表"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -207,8 +210,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "e684acae9d3d7310",
   "lastOpenFiles": [
+    "算法/链表.md",
     "images/image-render-fix.gif",
     "images/latex-render.png",
     "images/latex-reveal-editing.png",
@@ -217,7 +221,6 @@
     "git/git worktree.md",
     "git/移植.md",
     "git/Git 指导.md",
-    "算法/链表.md",
     "人工智能/深度学习.md",
     "算法",
     "经验之谈.md",
@@ -255,7 +258,6 @@
     "Pasted image 20260610145846.png",
     "Pasted image 20260610145812.png",
     "Pasted image 20260610145752.png",
-    "Pasted image 20260610145708.png",
-    "Pasted image 20260610145646.png"
+    "Pasted image 20260610145708.png"
   ]
 }

@@ -153,16 +153,6 @@
 			"height":60
 		},
 		{
-			"id":"e318ec2f1b4ce2a1",
-			"type":"text",
-			"text":"图片的不完全渲染问题",
-			"styleAttributes":{},
-			"x":-4080,
-			"y":1480,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"3a2960ecdc5108b1",
 			"type":"text",
 			"text":"docx 的变量化",
