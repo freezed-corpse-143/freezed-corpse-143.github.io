@@ -11,17 +11,14 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3221.1152022852707,
-                  "y": 1185.124113200744,
-                  "zoom": -0.3951618971257977
-                }
+                "file": "算法/链表.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "链表"
             }
           }
         ]
@@ -210,10 +207,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e684acae9d3d7310",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
-    "git/git worktree.md",
+    "images",
     "TODO.canvas",
+    "git/git worktree.md",
     "git/移植.md",
     "git/Git 指导.md",
     "算法/链表.md",
