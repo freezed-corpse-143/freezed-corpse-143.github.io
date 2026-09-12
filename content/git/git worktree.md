@@ -146,3 +146,29 @@ project-hotfix/             ← 额外 worktree 的工作目录
 ├── .git                    ← 这是一个「文件」，不是目录！
 └── src/...
 ```
+
+# 本质
+
+是的。每个 worktree 对应一个独立的物理目录（真实的文件系统路径），彼此完全隔离；但它们共享同一个 `.git` 仓库数据。
+
+示例：
+
+```text
+/home/user/project/          ← 物理目录 1（main）
+/home/user/project-dev/      ← 物理目录 2（dev）
+/home/user/project-hotfix/   ← 物理目录 3（hotfix）
+```
+
+```text
+project/          ← main 分支的工作目录
+├── .git/
+└── src/          ← main 的文件
+
+project-dev/      ← dev 分支的工作目录
+├── .git          ← 文件，指向 .git/worktrees/dev
+└── src/          ← dev 的文件（另一份！）
+
+project-hotfix/   ← hotfix 分支的工作目录
+├── .git
+└── src/          ← hotfix 的文件（又一份）
+```

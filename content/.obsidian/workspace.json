@@ -11,14 +11,17 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "git/git worktree.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3013.6561045307235,
+                  "y": 1297.9038238422606,
+                  "zoom": -0.061828563792464375
+                }
               },
-              "icon": "lucide-file",
-              "title": "git worktree"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -80,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -210,10 +212,10 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
-    "git/移植.md",
     "git/git worktree.md",
-    "git/Git 指导.md",
     "TODO.canvas",
+    "git/移植.md",
+    "git/Git 指导.md",
     "算法/链表.md",
     "人工智能/深度学习.md",
     "算法",
@@ -241,7 +243,6 @@
     "开发经验/全栈开发.canvas",
     "开发经验/未命名.md",
     "开发经验",
-    "实习.md",
     "开发日记/Visor",
     "开发日记",
     "语言",
