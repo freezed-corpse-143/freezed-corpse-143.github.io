@@ -11,17 +11,14 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3148.1627598390864,
-                  "y": 1375.3319504917906,
-                  "zoom": -0.42687075685313575
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           }
         ]
@@ -58,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "oh-my-pi",
+                "query": "GUI.",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -79,7 +76,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -212,13 +210,13 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
+    "TODO.canvas",
     "images/smart-paste.gif",
     "算法/链表.md",
     "images/image-render-fix.gif",
     "images/latex-render.png",
     "images/latex-reveal-editing.png",
     "images",
-    "TODO.canvas",
     "git/git worktree.md",
     "git/移植.md",
     "git/Git 指导.md",
@@ -258,7 +256,6 @@
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
     "Pasted image 20260610145812.png",
-    "Pasted image 20260610145752.png",
-    "Pasted image 20260610145708.png"
+    "Pasted image 20260610145752.png"
   ]
 }
