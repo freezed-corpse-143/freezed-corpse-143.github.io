@@ -11,17 +11,14 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3332.715534385063,
-                  "y": 1324.1074836366083,
-                  "zoom": -0.4393617010363326
-                }
+                "file": "git/git worktree.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "git worktree"
             }
           }
         ]
@@ -212,10 +209,13 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
+    "git/移植.md",
+    "git/git worktree.md",
+    "git/Git 指导.md",
+    "TODO.canvas",
     "算法/链表.md",
     "人工智能/深度学习.md",
     "算法",
-    "TODO.canvas",
     "经验之谈.md",
     "Pasted image 20260910174013.png",
     "需求.md",
@@ -225,8 +225,6 @@
     "index.md",
     "环境配置.md",
     "软件使用.md",
-    "git/移植.md",
-    "git/Git 指导.md",
     "服务使用.md",
     "github项目/Pi.md",
     "github项目/agentic-rag.md",
@@ -243,7 +241,6 @@
     "开发经验/未命名.md",
     "开发经验",
     "实习.md",
-    "408/大模型.md",
     "开发日记/Visor",
     "开发日记",
     "语言",
