@@ -183,16 +183,6 @@
 			"height":60
 		},
 		{
-			"id":"13089f6248ba8456",
-			"type":"text",
-			"text":"edamae 部分加载图片，泛化到 windows terminals 中",
-			"styleAttributes":{},
-			"x":-3760,
-			"y":1600,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"c82fb3baea3e024c",
 			"type":"text",
 			"text":"edamame 打开位置光标记忆",
@@ -203,12 +193,23 @@
 			"height":60
 		},
 		{
+			"id":"13089f6248ba8456",
+			"type":"text",
+			"text":"edamae 部分加载图片，泛化到 windows terminals 中",
+			"styleAttributes":{},
+			"x":-4060,
+			"y":1710,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
 			"id":"a080bb15719529f9",
 			"type":"text",
 			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
 			"styleAttributes":{},
 			"x":-4060,
-			"y":1360,
+			"y":1840,
 			"width":690,
 			"height":60
 		}
