@@ -153,26 +153,6 @@
 			"height":60
 		},
 		{
-			"id":"b4298695ba73e74c",
-			"type":"text",
-			"text":"latex 模板的 typst 化",
-			"styleAttributes":{},
-			"x":-3340,
-			"y":1600,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3a2960ecdc5108b1",
-			"type":"text",
-			"text":"docx 的变量化",
-			"styleAttributes":{},
-			"x":-3320,
-			"y":1740,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"c82fb3baea3e024c",
 			"type":"text",
 			"text":"edamame 打开位置光标记忆",
@@ -195,12 +175,32 @@
 		{
 			"id":"52a9a13737517f97",
 			"type":"text",
-			"text":"edamame 表格随着终端页面缩放",
+			"text":"edamame 表格随着终端页面缩放，表格的缩放算法",
 			"styleAttributes":{},
 			"x":-4060,
 			"y":1705,
-			"width":260,
+			"width":520,
 			"height":70
+		},
+		{
+			"id":"b4298695ba73e74c",
+			"type":"text",
+			"text":"latex 模板的 typst 化",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1600,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3a2960ecdc5108b1",
+			"type":"text",
+			"text":"docx 的变量化",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1715,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
