@@ -183,16 +183,6 @@
 			"height":70
 		},
 		{
-			"id":"b4298695ba73e74c",
-			"type":"text",
-			"text":"latex 模板的 typst 化",
-			"styleAttributes":{},
-			"x":-3080,
-			"y":1600,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"3a2960ecdc5108b1",
 			"type":"text",
 			"text":"docx 的变量化",
@@ -201,16 +191,6 @@
 			"y":1715,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"ae3978b6e07a2bd5",
-			"type":"text",
-			"text":"正文：\n- 多个段落注\n- 图片注入\n- 表格注入\n- 独立数学公式注入\n- 嵌入数学公式注入\n- 多级标题注入",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1715,
-			"width":260,
-			"height":265
 		}
 	],
 	"edges":[],
