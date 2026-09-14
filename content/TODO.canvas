@@ -201,26 +201,6 @@
 			"y":1715,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"129af610dda93db0",
-			"type":"text",
-			"text":"环境变量注入脚本优化",
-			"styleAttributes":{},
-			"x":-2800,
-			"y":1320,
-			"width":500,
-			"height":60
-		},
-		{
-			"id":"35916dd7b240e7d4",
-			"type":"text",
-			"text":"：改为 所有命令统一后端。只调用",
-			"styleAttributes":{},
-			"x":-2810,
-			"y":1415,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
