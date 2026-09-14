@@ -201,6 +201,16 @@
 			"y":1715,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"129af610dda93db0",
+			"type":"text",
+			"text":"环境变量注入脚本优化",
+			"styleAttributes":{},
+			"x":-2800,
+			"y":1320,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
