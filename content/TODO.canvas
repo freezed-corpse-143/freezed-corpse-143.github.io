@@ -200,17 +200,17 @@
 			"x":-3080,
 			"y":1715,
 			"width":260,
-			"height":185
+			"height":60
 		},
 		{
 			"id":"ae3978b6e07a2bd5",
 			"type":"text",
-			"text":"正文：\n- 多个段落注",
+			"text":"正文：\n- 多个段落注\n- 图片注入\n- 表格注入\n- 独立数学公式注入\n- 嵌入数学公式注入\n- 多级标题注入",
 			"styleAttributes":{},
 			"x":-2720,
 			"y":1715,
 			"width":260,
-			"height":185
+			"height":265
 		}
 	],
 	"edges":[],
