@@ -201,6 +201,16 @@
 			"y":1715,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"fbdec0f33efe1c4b",
+			"type":"text",
+			"text":"windows 中",
+			"styleAttributes":{},
+			"x":-2980,
+			"y":1380,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
