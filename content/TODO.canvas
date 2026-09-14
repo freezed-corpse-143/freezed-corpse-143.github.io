@@ -200,17 +200,17 @@
 			"x":-3080,
 			"y":1715,
 			"width":260,
-			"height":60
+			"height":185
 		},
 		{
-			"id":"fbdec0f33efe1c4b",
+			"id":"ae3978b6e07a2bd5",
 			"type":"text",
-			"text":"windows 中",
+			"text":"正文：\n- 多个段落注",
 			"styleAttributes":{},
-			"x":-2980,
-			"y":1380,
+			"x":-2720,
+			"y":1715,
 			"width":260,
-			"height":60
+			"height":185
 		}
 	],
 	"edges":[],
