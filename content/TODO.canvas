@@ -181,16 +181,6 @@
 			"y":1705,
 			"width":520,
 			"height":70
-		},
-		{
-			"id":"3a2960ecdc5108b1",
-			"type":"text",
-			"text":"docx 的变量化",
-			"styleAttributes":{},
-			"x":-3080,
-			"y":1715,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
