@@ -181,6 +181,26 @@
 			"y":1705,
 			"width":520,
 			"height":70
+		},
+		{
+			"id":"835e0a6200687f1d",
+			"type":"text",
+			"text":"完成测试",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":1540,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"65f7895fe752c56b",
+			"type":"text",
+			"text":"AI 自动搜索国聘：",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":1675,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
