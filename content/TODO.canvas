@@ -191,16 +191,6 @@
 			"y":1540,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"65f7895fe752c56b",
-			"type":"text",
-			"text":"AI 自动搜索国聘：",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":1675,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
