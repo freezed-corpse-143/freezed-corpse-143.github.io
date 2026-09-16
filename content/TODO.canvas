@@ -180,6 +180,16 @@
 			"y":1360,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"18b8e78efe307bd3",
+			"type":"text",
+			"text":"KV-Cache 与完整推理过程",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1540,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
