@@ -201,16 +201,6 @@
 			"y":1675,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"0687a089384b6490",
-			"type":"text",
-			"text":"日历清单替代品",
-			"styleAttributes":{},
-			"x":-3120,
-			"y":1880,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
