@@ -11,17 +11,14 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3116.647732813117,
-                  "y": 1305.8254401571166,
-                  "zoom": -0.6148037074462112
-                }
+                "file": "人工智能/大模型推理加速.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "大模型推理加速"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -212,8 +210,8 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
-    "软件使用.md",
     "TODO.canvas",
+    "软件使用.md",
     "环境配置.md",
     "images/smart-paste.gif",
     "算法/链表.md",
