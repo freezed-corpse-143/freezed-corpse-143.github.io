@@ -176,8 +176,8 @@
 			"type":"text",
 			"text":"完成测试",
 			"styleAttributes":{},
-			"x":-3160,
-			"y":1540,
+			"x":-3080,
+			"y":1360,
 			"width":260,
 			"height":60
 		}
