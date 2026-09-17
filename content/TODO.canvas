@@ -142,24 +142,24 @@
 			"height":60
 		},
 		{
-			"id":"a080bb15719529f9",
-			"type":"text",
-			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":1840,
-			"width":690,
-			"height":60
-		},
-		{
 			"id":"52a9a13737517f97",
 			"type":"text",
 			"text":"edamame 表格随着终端页面缩放，表格的缩放算法",
 			"styleAttributes":{},
-			"x":-4060,
-			"y":1705,
+			"x":-3740,
+			"y":1470,
 			"width":520,
 			"height":70
+		},
+		{
+			"id":"a080bb15719529f9",
+			"type":"text",
+			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
+			"styleAttributes":{},
+			"x":-3740,
+			"y":1600,
+			"width":690,
+			"height":60
 		}
 	],
 	"edges":[],
