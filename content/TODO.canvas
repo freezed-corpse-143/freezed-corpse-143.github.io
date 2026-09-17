@@ -180,16 +180,6 @@
 			"y":1475,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"94c0f32a801b335f",
-			"type":"text",
-			"text":"为 edamame 生成代码结构图 archfy",
-			"styleAttributes":{},
-			"x":-3460,
-			"y":1475,
-			"width":380,
-			"height":60
 		}
 	],
 	"edges":[],
