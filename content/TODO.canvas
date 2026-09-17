@@ -156,8 +156,8 @@
 			"type":"text",
 			"text":"投递简历",
 			"styleAttributes":{},
-			"x":-3120,
-			"y":1280,
+			"x":-3160,
+			"y":1300,
 			"width":260,
 			"height":60
 		},
@@ -167,7 +167,7 @@
 			"text":"学习可拔插插件系统设计",
 			"styleAttributes":{},
 			"x":-3160,
-			"y":1415,
+			"y":1390,
 			"width":260,
 			"height":60
 		}
