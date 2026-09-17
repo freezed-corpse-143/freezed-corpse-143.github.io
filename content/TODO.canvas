@@ -160,16 +160,6 @@
 			"y":1705,
 			"width":520,
 			"height":70
-		},
-		{
-			"id":"835e0a6200687f1d",
-			"type":"text",
-			"text":"完成测试",
-			"styleAttributes":{},
-			"x":-3180,
-			"y":1380,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
