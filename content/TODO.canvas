@@ -172,16 +172,6 @@
 			"height":70
 		},
 		{
-			"id":"ec370d783e901b6c",
-			"type":"text",
-			"text":"9 月 20 日下午两点，浙江电力公司 103 报告厅",
-			"styleAttributes":{},
-			"x":-3260,
-			"y":1675,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"835e0a6200687f1d",
 			"type":"text",
 			"text":"完成测试",
