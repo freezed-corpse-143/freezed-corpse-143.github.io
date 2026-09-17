@@ -184,12 +184,12 @@
 		{
 			"id":"e2f0d572e26c897e",
 			"type":"text",
-			"text":"学习提交 feature",
+			"text":"学习提交 feature：\n\n1. 避免从头写\n2. 避免乱写\n3. 避免写入隐私或硬编码信息。\n4. 避免写了不管不审计",
 			"styleAttributes":{},
 			"x":-3680,
 			"y":1600,
 			"width":260,
-			"height":60
+			"height":260
 		},
 		{
 			"id":"68c73d56428753a9",
