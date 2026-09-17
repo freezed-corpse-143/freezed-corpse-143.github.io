@@ -170,6 +170,16 @@
 			"y":1720,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"68c73d56428753a9",
+			"type":"text",
+			"text":"弄懂项目中的论文",
+			"styleAttributes":{},
+			"x":-3280,
+			"y":1720,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
