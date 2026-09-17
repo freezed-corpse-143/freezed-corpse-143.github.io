@@ -172,23 +172,13 @@
 			"height":60
 		},
 		{
-			"id":"68c73d56428753a9",
-			"type":"text",
-			"text":"弄懂项目中的论文",
-			"styleAttributes":{},
-			"x":-3140,
-			"y":1505,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"94c0f32a801b335f",
 			"type":"text",
-			"text":"为 edamame 生成代码结构图",
+			"text":"为 edamame 生成代码结构图 archfy",
 			"styleAttributes":{},
 			"x":-3680,
 			"y":1475,
-			"width":260,
+			"width":380,
 			"height":60
 		},
 		{
@@ -198,6 +188,16 @@
 			"styleAttributes":{},
 			"x":-3680,
 			"y":1600,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"68c73d56428753a9",
+			"type":"text",
+			"text":"弄懂项目中的论文",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":1475,
 			"width":260,
 			"height":60
 		}
