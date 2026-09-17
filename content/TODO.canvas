@@ -160,6 +160,16 @@
 			"y":1600,
 			"width":690,
 			"height":60
+		},
+		{
+			"id":"d705e65048e49efc",
+			"type":"text",
+			"text":"学习可拔插插件系统设计",
+			"styleAttributes":{},
+			"x":-3720,
+			"y":1720,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
