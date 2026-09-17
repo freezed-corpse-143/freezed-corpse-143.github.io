@@ -122,26 +122,6 @@
 			"height":80
 		},
 		{
-			"id":"612f0af6ed586e90",
-			"type":"text",
-			"text":"edamame 嵌入式 latex",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":1475,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"c82fb3baea3e024c",
-			"type":"text",
-			"text":"edamame 打开位置光标记忆",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":1600,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"38c16250e2142f79",
 			"type":"text",
 			"text":"更新投递",
@@ -172,22 +152,22 @@
 			"height":60
 		},
 		{
-			"id":"94c0f32a801b335f",
+			"id":"c82fb3baea3e024c",
 			"type":"text",
-			"text":"为 edamame 生成代码结构图 archfy",
+			"text":"edamame 打开位置光标记忆",
 			"styleAttributes":{},
-			"x":-3680,
+			"x":-4060,
 			"y":1475,
-			"width":380,
+			"width":260,
 			"height":60
 		},
 		{
 			"id":"e2f0d572e26c897e",
 			"type":"text",
-			"text":"学习提交 feature：\n\n1. 避免从头写\n2. 避免乱写\n3. 避免写入隐私或硬编码信息。\n4. 避免写了不管不审计",
+			"text":"学习提交 feature：\n\n1. 避免从头写\n2. 避免乱写\n3. 避免写入隐私或硬编码信息。\n4. 避免写了不管不审计\n5. 不要冲突写。",
 			"styleAttributes":{},
-			"x":-3680,
-			"y":1600,
+			"x":-3760,
+			"y":1475,
 			"width":260,
 			"height":260
 		},
@@ -196,9 +176,19 @@
 			"type":"text",
 			"text":"弄懂项目中的论文",
 			"styleAttributes":{},
-			"x":-3140,
+			"x":-2950,
 			"y":1475,
 			"width":260,
+			"height":60
+		},
+		{
+			"id":"94c0f32a801b335f",
+			"type":"text",
+			"text":"为 edamame 生成代码结构图 archfy",
+			"styleAttributes":{},
+			"x":-3460,
+			"y":1475,
+			"width":380,
 			"height":60
 		}
 	],
