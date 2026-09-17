@@ -152,13 +152,13 @@
 			"height":60
 		},
 		{
-			"id":"68c73d56428753a9",
+			"id":"a080bb15719529f9",
 			"type":"text",
-			"text":"弄懂项目中的论文",
+			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
 			"styleAttributes":{},
-			"x":-3140,
-			"y":1760,
-			"width":260,
+			"x":-4060,
+			"y":1360,
+			"width":690,
 			"height":60
 		},
 		{
@@ -167,18 +167,18 @@
 			"text":"学习可拔插插件系统设计",
 			"styleAttributes":{},
 			"x":-3140,
-			"y":1630,
+			"y":1360,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"a080bb15719529f9",
+			"id":"68c73d56428753a9",
 			"type":"text",
-			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
+			"text":"弄懂项目中的论文",
 			"styleAttributes":{},
-			"x":-4060,
-			"y":1360,
-			"width":690,
+			"x":-3140,
+			"y":1600,
+			"width":260,
 			"height":60
 		}
 	],
