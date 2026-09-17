@@ -170,6 +170,16 @@
 			"y":1720,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"38c16250e2142f79",
+			"type":"text",
+			"text":"更新投递",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1140,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
