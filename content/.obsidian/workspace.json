@@ -11,17 +11,14 @@
             "id": "e684acae9d3d7310",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3393.452984397139,
-                  "y": 1424.6407559971408,
-                  "zoom": -0.23673205934759317
-                }
+                "file": "开发经验/设计模式.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "设计模式"
             }
           }
         ]
@@ -212,9 +209,13 @@
   },
   "active": "e684acae9d3d7310",
   "lastOpenFiles": [
+    "开发经验/全栈开发.canvas",
+    "开发经验/设计模式.md",
+    "开发日记/Visor/模块设计.md",
+    "开发日记/edaname",
+    "TODO.canvas",
     "images/inline-math-render.gif",
     "人工智能/大模型推理加速.md",
-    "TODO.canvas",
     "软件使用.md",
     "环境配置.md",
     "images/smart-paste.gif",
@@ -245,20 +246,15 @@
     "语言/cuda学习.md",
     "未命名.md",
     "git",
-    "经典库学习/pytorch.md",
-    "开发经验/全栈开发.canvas",
-    "开发经验/未命名.md",
     "开发经验",
     "开发日记/Visor",
     "开发日记",
     "语言",
     "经典库学习",
     "github项目",
-    "人工智能",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
-    "Pasted image 20260610145812.png",
-    "Pasted image 20260610145752.png"
+    "Pasted image 20260610145812.png"
   ]
 }
