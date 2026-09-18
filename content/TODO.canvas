@@ -172,24 +172,14 @@
 			"height":60
 		},
 		{
-			"id":"1aadb8564d1a08b6",
-			"type":"text",
-			"text":"修复 pi",
-			"styleAttributes":{},
-			"x":-3140,
-			"y":1700,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"b01f10158eac6bc8",
 			"type":"text",
-			"text":"lean-ctx 替换 headroom",
+			"text":"lean-ctx 替换 headroom:\n\n1. 安装 lean-ctx\n2. 卸载 headroom",
 			"styleAttributes":{},
 			"x":-3560,
 			"y":1700,
 			"width":260,
-			"height":60
+			"height":160
 		}
 	],
 	"edges":[],
