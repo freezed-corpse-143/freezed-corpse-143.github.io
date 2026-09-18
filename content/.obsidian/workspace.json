@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "设计模式"
             }
+          },
+          {
+            "id": "9d17ecee2dbf8ad9",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3103.983171254058,
+                  "y": 1506.3606544025388,
+                  "zoom": -0.5471649905708478
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -207,10 +225,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e684acae9d3d7310",
+  "active": "9d17ecee2dbf8ad9",
   "lastOpenFiles": [
-    "开发经验/全栈开发.canvas",
     "开发经验/设计模式.md",
+    "开发经验/全栈开发.canvas",
     "开发日记/Visor/模块设计.md",
     "开发日记/edaname",
     "TODO.canvas",
