@@ -122,16 +122,6 @@
 			"height":80
 		},
 		{
-			"id":"38c16250e2142f79",
-			"type":"text",
-			"text":"投递简历",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":1380,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"68c73d56428753a9",
 			"type":"text",
 			"text":"弄懂项目中的论文",
