@@ -132,36 +132,6 @@
 			"height":60
 		},
 		{
-			"id":"68c73d56428753a9",
-			"type":"text",
-			"text":"弄懂项目中的论文",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":1505,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"38c16250e2142f79",
-			"type":"text",
-			"text":"投递简历",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":1300,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"d705e65048e49efc",
-			"type":"text",
-			"text":"学习可拔插插件系统设计",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":1390,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"a080bb15719529f9",
 			"type":"text",
 			"text":"edamame 作者提议的 作者提议的 bonus（mermaid CJK + math CJK fallback）",
@@ -180,6 +150,36 @@
 			"y":1700,
 			"width":260,
 			"height":160
+		},
+		{
+			"id":"68c73d56428753a9",
+			"type":"text",
+			"text":"弄懂项目中的论文",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":1580,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d705e65048e49efc",
+			"type":"text",
+			"text":"学习可拔插插件系统设计",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":1475,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"38c16250e2142f79",
+			"type":"text",
+			"text":"投递简历",
+			"styleAttributes":{},
+			"x":-3520,
+			"y":1475,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
