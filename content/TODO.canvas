@@ -170,16 +170,6 @@
 			"y":1475,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"6b3990c2b050e5d6",
-			"type":"text",
-			"text":"headroom 切换回 lean-ctx",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":1740,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
