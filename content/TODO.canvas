@@ -156,8 +156,8 @@
 			"type":"text",
 			"text":"投递简历",
 			"styleAttributes":{},
-			"x":-3520,
-			"y":1475,
+			"x":-3160,
+			"y":1380,
 			"width":260,
 			"height":60
 		}
