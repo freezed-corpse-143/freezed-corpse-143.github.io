@@ -112,32 +112,32 @@
 			"height":120
 		},
 		{
-			"id":"29ec5e9f4d32320e",
-			"type":"text",
-			"text":"算法 hot 100：\n- 链表",
-			"styleAttributes":{},
-			"x":-3760,
-			"y":1320,
-			"width":260,
-			"height":80
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
-			"x":-3140,
-			"y":1330,
+			"x":-3080,
+			"y":1110,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"29ec5e9f4d32320e",
+			"type":"text",
+			"text":"算法 hot 100：\n- 链表",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1340,
+			"width":260,
+			"height":80
 		},
 		{
 			"id":"68c73d56428753a9",
 			"type":"text",
 			"text":"弄懂项目中的论文",
 			"styleAttributes":{},
-			"x":-3720,
-			"y":1460,
+			"x":-3080,
+			"y":1480,
 			"width":260,
 			"height":60
 		}
