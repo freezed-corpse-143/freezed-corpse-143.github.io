@@ -11,14 +11,17 @@
             "id": "9d17ecee2dbf8ad9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "游戏速通/泰拉瑞亚.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3106.6954679355604,
+                  "y": 894.0943542081448,
+                  "zoom": -0.722068961299698
+                }
               },
-              "icon": "lucide-file",
-              "title": "泰拉瑞亚"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -209,8 +212,8 @@
   },
   "active": "9d17ecee2dbf8ad9",
   "lastOpenFiles": [
-    "TODO.canvas",
     "游戏速通/泰拉瑞亚.md",
+    "TODO.canvas",
     "游戏速通",
     "开发经验/设计模式.md",
     "开发经验/全栈开发.canvas",
