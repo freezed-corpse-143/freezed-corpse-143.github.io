@@ -122,12 +122,42 @@
 			"height":80
 		},
 		{
+			"id":"63ed843636db675b",
+			"type":"text",
+			"text":"申请国奖",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1080,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"68c73d56428753a9",
 			"type":"text",
 			"text":"弄懂项目中的论文",
 			"styleAttributes":{},
-			"x":-3460,
-			"y":1380,
+			"x":-3080,
+			"y":1200,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d73d64e25289ddfa",
+			"type":"text",
+			"text":"自己准备 AI 面试",
+			"styleAttributes":{},
+			"x":-3080,
+			"y":1340,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d0939c7828f9bcd9",
+			"type":"text",
+			"text":"lean-ctx",
+			"styleAttributes":{},
+			"x":-3200,
+			"y":1540,
 			"width":260,
 			"height":60
 		}
