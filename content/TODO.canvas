@@ -142,16 +142,6 @@
 			"height":60
 		},
 		{
-			"id":"d0939c7828f9bcd9",
-			"type":"text",
-			"text":"lean-ctx",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":1540,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
 			"text":"算法 hot 100：\n- 链表",
