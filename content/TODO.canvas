@@ -122,26 +122,6 @@
 			"height":60
 		},
 		{
-			"id":"68c73d56428753a9",
-			"type":"text",
-			"text":"弄懂项目中的论文",
-			"styleAttributes":{},
-			"x":-3080,
-			"y":1200,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"d73d64e25289ddfa",
-			"type":"text",
-			"text":"自己准备 AI 面试",
-			"styleAttributes":{},
-			"x":-3080,
-			"y":1340,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
 			"text":"算法 hot 100：\n- 链表",
@@ -150,6 +130,26 @@
 			"y":1320,
 			"width":260,
 			"height":80
+		},
+		{
+			"id":"d73d64e25289ddfa",
+			"type":"text",
+			"text":"自己准备 AI 面试",
+			"styleAttributes":{},
+			"x":-3020,
+			"y":1400,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"68c73d56428753a9",
+			"type":"text",
+			"text":"弄懂项目中的论文",
+			"styleAttributes":{},
+			"x":-3340,
+			"y":1430,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
