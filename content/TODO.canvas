@@ -122,22 +122,22 @@
 			"height":80
 		},
 		{
-			"id":"68c73d56428753a9",
-			"type":"text",
-			"text":"弄懂项目中的论文",
-			"styleAttributes":{},
-			"x":-3790,
-			"y":1460,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
 			"x":-3140,
 			"y":1330,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"68c73d56428753a9",
+			"type":"text",
+			"text":"弄懂项目中的论文",
+			"styleAttributes":{},
+			"x":-3720,
+			"y":1460,
 			"width":260,
 			"height":60
 		}
