@@ -140,6 +140,16 @@
 			"y":1480,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"0cfb3ad208dc75d9",
+			"type":"text",
+			"text":"学习 neovim 或者 helix 中点击跳转功能",
+			"styleAttributes":{},
+			"x":-3670,
+			"y":1310,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
