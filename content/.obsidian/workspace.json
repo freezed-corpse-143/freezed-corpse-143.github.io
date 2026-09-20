@@ -11,17 +11,14 @@
             "id": "9d17ecee2dbf8ad9",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3106.6954679355604,
-                  "y": 1200.9098998250522,
-                  "zoom": -0.722068961299698
-                }
+                "file": "经验之谈.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "经验之谈"
             }
           }
         ]
@@ -212,8 +209,8 @@
   },
   "active": "9d17ecee2dbf8ad9",
   "lastOpenFiles": [
-    "游戏速通/泰拉瑞亚.md",
     "TODO.canvas",
+    "游戏速通/泰拉瑞亚.md",
     "游戏速通",
     "开发经验/设计模式.md",
     "开发经验/全栈开发.canvas",
