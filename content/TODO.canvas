@@ -132,22 +132,12 @@
 			"height":60
 		},
 		{
-			"id":"9b5d6bf210ba7f64",
-			"type":"text",
-			"text":"下午投递简历。\n完成测评",
-			"styleAttributes":{},
-			"x":-2780,
-			"y":1080,
-			"width":260,
-			"height":90
-		},
-		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
 			"text":"算法 hot 100：\n- 链表",
 			"styleAttributes":{},
-			"x":-3620,
-			"y":1200,
+			"x":-3660,
+			"y":1300,
 			"width":380,
 			"height":100
 		}
