@@ -11,14 +11,17 @@
             "id": "9d17ecee2dbf8ad9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "报错.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3136.7709883103084,
+                  "y": 1072.9617839249745,
+                  "zoom": -0.32284769230990745
+                }
               },
-              "icon": "lucide-file",
-              "title": "报错"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -76,8 +79,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -210,6 +212,7 @@
   },
   "active": "9d17ecee2dbf8ad9",
   "lastOpenFiles": [
+    "报错.md",
     "软件使用.md",
     "服务使用.md",
     "TODO.canvas",
@@ -247,7 +250,6 @@
     "github项目/agentic-rag.md",
     "github项目/SuperMew.md",
     "windows.md",
-    "报错.md",
     "git",
     "开发经验",
     "开发日记/Visor",
