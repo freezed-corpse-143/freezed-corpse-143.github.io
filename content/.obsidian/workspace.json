@@ -11,17 +11,14 @@
             "id": "9d17ecee2dbf8ad9",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3136.7709883103084,
-                  "y": 840.313537378747,
-                  "zoom": -0.32284769230990745
-                }
+                "file": "算法/堆.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "堆"
             }
           }
         ]
@@ -210,12 +207,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "9d17ecee2dbf8ad9",
   "lastOpenFiles": [
+    "算法/链表.md",
+    "算法/堆.md",
+    "TODO.canvas",
     "报错.md",
     "软件使用.md",
     "服务使用.md",
-    "TODO.canvas",
     "杂项/充值.md",
     "经验之谈.md",
     "杂项/helix-neovim使用指南.md",
@@ -230,7 +229,6 @@
     "人工智能/大模型推理加速.md",
     "环境配置.md",
     "images/smart-paste.gif",
-    "算法/链表.md",
     "images/image-render-fix.gif",
     "images/latex-render.png",
     "images/latex-reveal-editing.png",
