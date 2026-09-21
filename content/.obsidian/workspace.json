@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "经验之谈.md",
+                "file": "杂项/充值.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "经验之谈"
+              "title": "充值"
             }
           }
         ]
@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "自动编号",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -209,6 +209,10 @@
   },
   "active": "9d17ecee2dbf8ad9",
   "lastOpenFiles": [
+    "经验之谈.md",
+    "杂项/充值.md",
+    "杂项/helix-neovim使用指南.md",
+    "杂项",
     "TODO.canvas",
     "游戏速通/泰拉瑞亚.md",
     "游戏速通",
@@ -231,7 +235,6 @@
     "git/Git 指导.md",
     "人工智能/深度学习.md",
     "算法",
-    "经验之谈.md",
     "Pasted image 20260910174013.png",
     "需求.md",
     "2026-09-17.md",
@@ -245,13 +248,11 @@
     "windows.md",
     "报错.md",
     "人工智能/智能体记忆.md",
-    "语言/cuda学习.md",
     "git",
     "开发经验",
     "开发日记/Visor",
     "开发日记",
     "语言",
-    "经典库学习",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
