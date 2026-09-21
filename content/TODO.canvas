@@ -122,16 +122,6 @@
 			"height":60
 		},
 		{
-			"id":"0cfb3ad208dc75d9",
-			"type":"text",
-			"text":"学习 neovim 或者 helix 中点击跳转功能",
-			"styleAttributes":{},
-			"x":-3670,
-			"y":1310,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"68c73d56428753a9",
 			"type":"text",
 			"text":"弄懂项目中的论文",
@@ -146,30 +136,10 @@
 			"type":"text",
 			"text":"算法 hot 100：\n- 链表",
 			"styleAttributes":{},
-			"x":-3690,
-			"y":1560,
+			"x":-3260,
+			"y":1420,
 			"width":260,
 			"height":80
-		},
-		{
-			"id":"35cbead00f54d22a",
-			"type":"text",
-			"text":"jev +browseruse",
-			"styleAttributes":{},
-			"x":-3020,
-			"y":1500,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3b1568001f59597b",
-			"type":"text",
-			"text":"search provider 添加 codex",
-			"styleAttributes":{},
-			"x":-2980,
-			"y":1620,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
