@@ -160,6 +160,16 @@
 			"y":1500,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"3b1568001f59597b",
+			"type":"text",
+			"text":"search provider 添加 codex",
+			"styleAttributes":{},
+			"x":-2980,
+			"y":1620,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
