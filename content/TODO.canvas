@@ -146,10 +146,10 @@
 			"type":"text",
 			"text":"算法 hot 100：\n- 链表",
 			"styleAttributes":{},
-			"x":-3600,
-			"y":1300,
-			"width":260,
-			"height":80
+			"x":-3620,
+			"y":1200,
+			"width":380,
+			"height":100
 		}
 	],
 	"edges":[],
