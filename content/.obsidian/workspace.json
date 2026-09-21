@@ -11,10 +11,17 @@
             "id": "815459de12f4901f",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3142.6005043748924,
+                  "y": 964.6653109702746,
+                  "zoom": -0.59419413874754
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -76,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -206,11 +212,12 @@
   },
   "active": "815459de12f4901f",
   "lastOpenFiles": [
+    "index.md",
+    "TODO.canvas",
     "算法/栈.md",
     "算法/堆.md",
     "算法/位算法.md",
     "算法/链表.md",
-    "TODO.canvas",
     "报错.md",
     "软件使用.md",
     "服务使用.md",
@@ -242,9 +249,7 @@
     "2026-09-17.md",
     "我的项目.md",
     "数据库.md",
-    "index.md",
     "github项目/Pi.md",
-    "github项目/agentic-rag.md",
     "git",
     "开发经验",
     "开发日记/Visor",
