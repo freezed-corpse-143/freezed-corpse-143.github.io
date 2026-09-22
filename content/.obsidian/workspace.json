@@ -25,17 +25,14 @@
             "id": "56fa91136592c33f",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3128.5291733060226,
-                  "y": 1060.9073937978997,
-                  "zoom": -0.6082009967414193
-                }
+                "file": "人工智能/大模型推理加速.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "大模型推理加速"
             }
           }
         ],
@@ -98,7 +95,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -227,8 +225,9 @@
   },
   "active": "56fa91136592c33f",
   "lastOpenFiles": [
-    "index.md",
+    "人工智能/知识图谱.md",
     "TODO.canvas",
+    "index.md",
     "游戏速通/泰拉瑞亚.md",
     "windows.md",
     "环境配置.md",
