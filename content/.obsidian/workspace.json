@@ -11,17 +11,14 @@
             "id": "815459de12f4901f",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3240.3460187790247,
-                  "y": 783.7955063056279,
-                  "zoom": -0.9415343300747525
-                }
+                "file": "游戏速通/泰拉瑞亚.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "泰拉瑞亚"
             }
           }
         ]
@@ -212,9 +209,9 @@
   },
   "active": "815459de12f4901f",
   "lastOpenFiles": [
+    "TODO.canvas",
     "windows.md",
     "环境配置.md",
-    "TODO.canvas",
     "index.md",
     "算法/栈.md",
     "算法/堆.md",
@@ -250,7 +247,6 @@
     "2026-09-17.md",
     "我的项目.md",
     "数据库.md",
-    "github项目/Pi.md",
     "git",
     "开发经验",
     "开发日记/Visor",
