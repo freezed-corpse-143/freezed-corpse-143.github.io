@@ -11,14 +11,17 @@
             "id": "815459de12f4901f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "环境配置.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3240.3460187790247,
+                  "y": 783.7955063056279,
+                  "zoom": -0.9415343300747525
+                }
               },
-              "icon": "lucide-file",
-              "title": "环境配置"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -76,8 +79,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -210,6 +212,8 @@
   },
   "active": "815459de12f4901f",
   "lastOpenFiles": [
+    "windows.md",
+    "环境配置.md",
     "TODO.canvas",
     "index.md",
     "算法/栈.md",
@@ -231,7 +235,6 @@
     "开发日记/edaname",
     "images/inline-math-render.gif",
     "人工智能/大模型推理加速.md",
-    "环境配置.md",
     "images/smart-paste.gif",
     "images/image-render-fix.gif",
     "images/latex-render.png",
