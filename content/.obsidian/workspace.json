@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "泰拉瑞亚"
             }
+          },
+          {
+            "id": "56fa91136592c33f",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3128.5291733060226,
+                  "y": 1060.9073937978997,
+                  "zoom": -0.6082009967414193
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -207,12 +225,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "815459de12f4901f",
+  "active": "56fa91136592c33f",
   "lastOpenFiles": [
+    "index.md",
     "TODO.canvas",
+    "游戏速通/泰拉瑞亚.md",
     "windows.md",
     "环境配置.md",
-    "index.md",
     "算法/栈.md",
     "算法/堆.md",
     "算法/位算法.md",
@@ -224,7 +243,6 @@
     "经验之谈.md",
     "杂项/helix-neovim使用指南.md",
     "杂项",
-    "游戏速通/泰拉瑞亚.md",
     "游戏速通",
     "开发经验/设计模式.md",
     "开发经验/全栈开发.canvas",
