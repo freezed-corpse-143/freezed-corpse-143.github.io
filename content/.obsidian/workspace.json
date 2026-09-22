@@ -11,17 +11,14 @@
             "id": "815459de12f4901f",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3142.6005043748924,
-                  "y": 964.6653109702746,
-                  "zoom": -0.59419413874754
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           }
         ]
@@ -58,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "websearch",
+                "query": "lazyvim",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -79,7 +76,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -212,8 +210,8 @@
   },
   "active": "815459de12f4901f",
   "lastOpenFiles": [
-    "index.md",
     "TODO.canvas",
+    "index.md",
     "算法/栈.md",
     "算法/堆.md",
     "算法/位算法.md",
