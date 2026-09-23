@@ -35,8 +35,7 @@
               "title": "泰拉瑞亚"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -222,10 +221,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "263216cf87fd08c1",
+  "active": "9dc70e84fce0e930",
   "lastOpenFiles": [
-    "人工智能/大模型推理加速.md",
     "游戏速通/泰拉瑞亚.md",
+    "人工智能/大模型推理加速.md",
     "TODO.canvas",
     "人工智能/知识图谱.md",
     "index.md",
