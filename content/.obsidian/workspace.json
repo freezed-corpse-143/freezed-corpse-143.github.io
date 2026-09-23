@@ -11,14 +11,17 @@
             "id": "9dc70e84fce0e930",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "游戏速通/泰拉瑞亚.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3508.2675935184498,
+                  "y": 1435.278158497987,
+                  "zoom": -0.25380604788025635
+                }
               },
-              "icon": "lucide-file",
-              "title": "泰拉瑞亚"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
