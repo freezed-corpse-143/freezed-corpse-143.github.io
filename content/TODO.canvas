@@ -146,8 +146,8 @@
 			"type":"text",
 			"text":"edamame：终端在 windows，运行在 linux，能否所见即所得",
 			"styleAttributes":{},
-			"x":-4040,
-			"y":1520,
+			"x":-4080,
+			"y":1300,
 			"width":260,
 			"height":100
 		}
