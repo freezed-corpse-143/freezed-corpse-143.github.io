@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件工程/泛型与抽象.md",
+                "file": "软件工程/学习之路.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "泛型与抽象"
+              "title": "学习之路"
             }
           }
         ]
@@ -210,9 +210,9 @@
   },
   "active": "9dc70e84fce0e930",
   "lastOpenFiles": [
+    "软件工程/泛型与抽象.md",
     "软件工程/高性能编程.md",
     "软件工程/类型系统.md",
-    "软件工程/泛型与抽象.md",
     "软件工程/学习之路.md",
     "游戏速通/泰拉瑞亚.md",
     "TODO.canvas",
