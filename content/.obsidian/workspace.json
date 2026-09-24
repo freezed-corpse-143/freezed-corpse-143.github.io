@@ -69,7 +69,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "oh-my-pi",
+                "query": "codex",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -222,7 +222,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9dc70e84fce0e930",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
     "TODO.canvas",
     "人工智能/大模型推理加速.md",
