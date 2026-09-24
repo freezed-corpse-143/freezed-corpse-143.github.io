@@ -11,14 +11,17 @@
             "id": "9dc70e84fce0e930",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "人工智能/大模型推理加速.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3169.2520841319197,
+                  "y": 810.9500005498783,
+                  "zoom": -0.5871393812135897
+                }
               },
-              "icon": "lucide-file",
-              "title": "大模型推理加速"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -35,8 +38,7 @@
               "title": "泰拉瑞亚"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -95,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,7 +224,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "263216cf87fd08c1",
+  "active": "9dc70e84fce0e930",
   "lastOpenFiles": [
     "人工智能/大模型推理加速.md",
     "游戏速通/泰拉瑞亚.md",
