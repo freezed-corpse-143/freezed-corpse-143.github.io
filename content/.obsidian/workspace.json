@@ -80,8 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -210,8 +209,9 @@
   },
   "active": "9dc70e84fce0e930",
   "lastOpenFiles": [
-    "游戏速通/泰拉瑞亚.md",
+    "软件工程/高性能编程.md",
     "软件工程/类型系统.md",
+    "游戏速通/泰拉瑞亚.md",
     "软件工程/学习之路.md",
     "TODO.canvas",
     "软件工程",
@@ -249,7 +249,6 @@
     "算法",
     "Pasted image 20260910174013.png",
     "需求.md",
-    "2026-09-17.md",
     "git",
     "开发经验",
     "开发日记/Visor",
