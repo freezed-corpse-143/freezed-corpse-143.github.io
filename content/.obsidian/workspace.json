@@ -11,17 +11,14 @@
             "id": "9dc70e84fce0e930",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3402.21415177564,
-                  "y": 1057.4349317895194,
-                  "zoom": -0.5871393812135897
-                }
+                "file": "软件工程/学习之路.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "学习之路"
             }
           },
           {
@@ -226,8 +223,10 @@
   },
   "active": "9dc70e84fce0e930",
   "lastOpenFiles": [
-    "软件使用.md",
     "TODO.canvas",
+    "软件工程/学习之路.md",
+    "软件工程",
+    "软件使用.md",
     "人工智能/大模型推理加速.md",
     "游戏速通/泰拉瑞亚.md",
     "人工智能/知识图谱.md",
@@ -263,12 +262,10 @@
     "Pasted image 20260910174013.png",
     "需求.md",
     "2026-09-17.md",
-    "我的项目.md",
     "git",
     "开发经验",
     "开发日记/Visor",
     "开发日记",
-    "语言",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
