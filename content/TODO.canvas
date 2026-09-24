@@ -126,20 +126,10 @@
 			"type":"text",
 			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
-			"x":-3140,
-			"y":1300,
+			"x":-3000,
+			"y":1400,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"c1866c4ef6be3880",
-			"type":"text",
-			"text":"edamame：终端在 windows，运行在 linux，能否所见即所得",
-			"styleAttributes":{},
-			"x":-4080,
-			"y":1300,
-			"width":260,
-			"height":100
 		}
 	],
 	"edges":[],
