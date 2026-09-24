@@ -11,17 +11,14 @@
             "id": "9dc70e84fce0e930",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3169.2520841319197,
-                  "y": 810.9500005498783,
-                  "zoom": -0.5871393812135897
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           },
           {
@@ -72,7 +69,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "lazyvim",
+                "query": "oh-my-pi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,7 +90,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -226,9 +224,9 @@
   },
   "active": "9dc70e84fce0e930",
   "lastOpenFiles": [
+    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "游戏速通/泰拉瑞亚.md",
-    "TODO.canvas",
     "人工智能/知识图谱.md",
     "index.md",
     "windows.md",
