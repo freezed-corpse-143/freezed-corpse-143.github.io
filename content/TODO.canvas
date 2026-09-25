@@ -164,7 +164,7 @@
 		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
-			"text":"算法 hot 100：\n- [ ] 链表",
+			"text":"算法 hot 100：\n- [x] 链表\n- [ ] 二分查找",
 			"styleAttributes":{},
 			"x":-3220,
 			"y":1310,
