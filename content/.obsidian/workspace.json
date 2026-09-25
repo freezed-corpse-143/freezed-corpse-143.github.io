@@ -25,20 +25,18 @@
             "id": "cae9a431e81eb1d5",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -2929.0919576168253,
-                  "y": 1393.3966682726323,
-                  "zoom": -0.4640237552706021
-                }
+                "file": "软件工程/学习之路.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "学习之路"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -225,12 +223,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d27c65975f090f34",
+  "active": "cae9a431e81eb1d5",
   "lastOpenFiles": [
-    "软件工程/学习之路.md",
-    "软件工程/分布式系统.md",
-    "软件工程/领域驱动设计.md",
     "TODO.canvas",
+    "软件工程/分布式系统.md",
+    "软件工程/学习之路.md",
+    "软件工程/领域驱动设计.md",
     "index.md",
     "软件工程/并发模型.md",
     "软件工程/高性能编程.md",
@@ -255,7 +253,6 @@
     "windows.md",
     "算法/栈.md",
     "算法/堆.md",
-    "算法/位算法.md",
     "杂项",
     "游戏速通",
     "开发经验/全栈开发.canvas",
