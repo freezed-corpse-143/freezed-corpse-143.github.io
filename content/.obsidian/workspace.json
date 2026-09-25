@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件工程/依赖管理.md",
+                "file": "软件工程/学习之路.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "依赖管理"
+              "title": "学习之路"
             }
           }
         ]
@@ -210,9 +210,9 @@
   },
   "active": "7fde5813258aa4ec",
   "lastOpenFiles": [
+    "软件工程/依赖管理.md",
     "TODO.canvas",
     "小说idea/火影同人.md",
-    "软件工程/依赖管理.md",
     "小说idea",
     "软件工程/学习之路.md",
     "index.md",
