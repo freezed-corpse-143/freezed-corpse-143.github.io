@@ -180,6 +180,16 @@
 			"y":1600,
 			"width":240,
 			"height":120
+		},
+		{
+			"id":"c247ed78c307f986",
+			"type":"text",
+			"text":"IO 复用",
+			"styleAttributes":{},
+			"x":-3000,
+			"y":1180,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

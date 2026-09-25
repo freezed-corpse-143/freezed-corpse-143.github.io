@@ -8,20 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e62c452bec969000",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "软件工程/学习之路.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "学习之路"
-            }
-          },
-          {
             "id": "e31b4ddaabad5225",
             "type": "leaf",
             "state": {
@@ -33,6 +19,23 @@
               },
               "icon": "lucide-file",
               "title": "并发模型"
+            }
+          },
+          {
+            "id": "d27c65975f090f34",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3147.195766488172,
+                  "y": 781.9846446318829,
+                  "zoom": -0.7973570886039354
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ],
@@ -95,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,15 +225,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e31b4ddaabad5225",
+  "active": "d27c65975f090f34",
   "lastOpenFiles": [
+    "软件工程/并发模型.md",
+    "TODO.canvas",
     "软件工程/学习之路.md",
     "软件工程/控制流模式.md",
-    "软件工程/并发模型.md",
     "软件工程/模块化.md",
     "软件工程/架构边界.md",
     "软件工程/副作用边界.md",
-    "TODO.canvas",
     "环境配置.md",
     "服务使用.md",
     "经验之谈.md",
@@ -253,7 +255,6 @@
     "算法/堆.md",
     "算法/位算法.md",
     "算法/链表.md",
-    "报错.md",
     "杂项",
     "游戏速通",
     "开发经验/全栈开发.canvas",
