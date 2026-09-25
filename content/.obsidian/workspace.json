@@ -34,8 +34,26 @@
               "icon": "lucide-file",
               "title": "学习之路"
             }
+          },
+          {
+            "id": "abd5502d9f0d327a",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2992.9360646947293,
+                  "y": 1319.4319994454831,
+                  "zoom": -0.13069042193726876
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -94,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -222,12 +239,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d27c65975f090f34",
+  "active": "abd5502d9f0d327a",
   "lastOpenFiles": [
-    "软件工程/类型系统.md",
-    "软件工程/架构风格.md",
-    "软件工程/分布式系统.md",
     "软件工程/学习之路.md",
+    "软件工程/架构风格.md",
+    "软件工程/类型系统.md",
+    "软件工程/分布式系统.md",
     "TODO.canvas",
     "软件工程/领域驱动设计.md",
     "index.md",
