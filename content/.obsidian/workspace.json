@@ -44,7 +44,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -2929.0919576168253,
-                  "y": 880.2659562641306,
+                  "y": 1393.3966682726323,
                   "zoom": -0.4640237552706021
                 }
               },
@@ -52,8 +52,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -112,7 +111,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -239,10 +239,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cae9a431e81eb1d5",
+  "active": "e31b4ddaabad5225",
   "lastOpenFiles": [
-    "index.md",
     "TODO.canvas",
+    "index.md",
     "软件工程/领域驱动设计.md",
     "软件工程/并发模型.md",
     "软件工程/学习之路.md",
