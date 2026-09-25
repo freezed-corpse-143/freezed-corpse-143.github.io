@@ -25,6 +25,23 @@
             "id": "5d41a5411220bd52",
             "type": "leaf",
             "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3125.745619188958,
+                  "y": 1287.8074700434652,
+                  "zoom": -0.6696015414055625
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
+          },
+          {
+            "id": "f4eefd037f579a50",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
                 "file": "软件使用.md",
@@ -36,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -91,8 +108,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -223,9 +239,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5d41a5411220bd52",
+  "active": "f4eefd037f579a50",
   "lastOpenFiles": [
     "TODO.canvas",
+    "软件使用.md",
     "软件工程/学习之路.md",
     "软件工程/组合.md",
     "软件工程/泛型与抽象.md",
@@ -233,7 +250,6 @@
     "软件工程/类型系统.md",
     "游戏速通/泰拉瑞亚.md",
     "软件工程",
-    "软件使用.md",
     "人工智能/大模型推理加速.md",
     "人工智能/知识图谱.md",
     "index.md",
