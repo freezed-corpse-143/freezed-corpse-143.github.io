@@ -11,14 +11,17 @@
             "id": "cae9a431e81eb1d5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "软件工程/学习之路.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3066.720517851547,
+                  "y": 1640.9419003662417,
+                  "zoom": -0.13069042193726876
+                }
               },
-              "icon": "lucide-file",
-              "title": "学习之路"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -35,8 +38,7 @@
               "title": "高性能编程"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -95,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,17 +224,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "abd5502d9f0d327a",
+  "active": "cae9a431e81eb1d5",
   "lastOpenFiles": [
+    "软件工程/高性能编程.md",
     "TODO.canvas",
+    "index.md",
     "软件工程/学习之路.md",
     "软件工程/架构风格.md",
     "软件工程/类型系统.md",
     "软件工程/分布式系统.md",
     "软件工程/领域驱动设计.md",
-    "index.md",
     "软件工程/并发模型.md",
-    "软件工程/高性能编程.md",
     "软件工程/控制流模式.md",
     "软件工程/模块化.md",
     "软件工程/架构边界.md",
