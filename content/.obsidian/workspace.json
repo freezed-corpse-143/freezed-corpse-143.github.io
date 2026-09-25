@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件工程/架构边界.md",
+                "file": "经验之谈.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "架构边界"
+              "title": "经验之谈"
             }
           }
         ]
@@ -80,8 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
