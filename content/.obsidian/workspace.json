@@ -25,17 +25,14 @@
             "id": "d27c65975f090f34",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3147.195766488172,
-                  "y": 781.9846446318829,
-                  "zoom": -0.7973570886039354
-                }
+                "file": "软件工程/学习之路.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "学习之路"
             }
           }
         ],
@@ -98,7 +95,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -227,8 +225,9 @@
   },
   "active": "d27c65975f090f34",
   "lastOpenFiles": [
-    "软件工程/并发模型.md",
     "TODO.canvas",
+    "软件工程/并发模型.md",
+    "软件工程/高性能编程.md",
     "软件工程/学习之路.md",
     "软件工程/控制流模式.md",
     "软件工程/模块化.md",
@@ -244,7 +243,6 @@
     "软件使用.md",
     "软件工程/组合.md",
     "软件工程/泛型与抽象.md",
-    "软件工程/高性能编程.md",
     "软件工程/类型系统.md",
     "游戏速通/泰拉瑞亚.md",
     "软件工程",
