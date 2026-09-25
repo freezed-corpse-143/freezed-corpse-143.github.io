@@ -170,6 +170,26 @@
 			"y":1310,
 			"width":240,
 			"height":120
+		},
+		{
+			"id":"3bd7b1b7e6524e7b",
+			"type":"text",
+			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",
+			"styleAttributes":{},
+			"x":-4000,
+			"y":1510,
+			"width":470,
+			"height":90
+		},
+		{
+			"id":"2e63f5b8bb9afb15",
+			"type":"text",
+			"text":"edamame 侧面大纲",
+			"styleAttributes":{},
+			"x":-4000,
+			"y":1640,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
