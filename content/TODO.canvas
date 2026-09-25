@@ -126,8 +126,28 @@
 			"type":"text",
 			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
-			"x":-3000,
-			"y":1400,
+			"x":-3600,
+			"y":1460,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"da95de9f9495142f",
+			"type":"text",
+			"text":"评分、KDD 日期",
+			"styleAttributes":{},
+			"x":-3040,
+			"y":1320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"2d4a6524b6185623",
+			"type":"text",
+			"text":"omp 接入 jev",
+			"styleAttributes":{},
+			"x":-3040,
+			"y":1460,
 			"width":260,
 			"height":60
 		}

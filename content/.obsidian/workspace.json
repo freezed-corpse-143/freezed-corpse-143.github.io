@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "学习之路"
             }
+          },
+          {
+            "id": "5d41a5411220bd52",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3181.4556323570982,
+                  "y": 1003.3683242510435,
+                  "zoom": -0.6289595569082167
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -207,10 +225,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3e53f0776e52bb7a",
+  "active": "5d41a5411220bd52",
   "lastOpenFiles": [
-    "软件工程/组合.md",
     "软件工程/学习之路.md",
+    "软件工程/组合.md",
     "软件工程/泛型与抽象.md",
     "软件工程/高性能编程.md",
     "软件工程/类型系统.md",
