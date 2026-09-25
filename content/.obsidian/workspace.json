@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "8e829b9b08629bb8",
+        "id": "d179033402b87853",
         "type": "tabs",
         "children": [
           {
-            "id": "7fde5813258aa4ec",
+            "id": "7a1e4888f3b3e8e2",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -208,13 +208,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7fde5813258aa4ec",
+  "active": "7a1e4888f3b3e8e2",
   "lastOpenFiles": [
+    "软件工程/副作用边界.md",
+    "软件工程/学习之路.md",
     "软件工程/依赖管理.md",
     "TODO.canvas",
     "小说idea/火影同人.md",
     "小说idea",
-    "软件工程/学习之路.md",
     "index.md",
     "软件使用.md",
     "软件工程/组合.md",
