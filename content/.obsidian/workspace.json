@@ -34,8 +34,26 @@
               "icon": "lucide-file",
               "title": "学习之路"
             }
+          },
+          {
+            "id": "cae9a431e81eb1d5",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2929.0919576168253,
+                  "y": 880.2659562641306,
+                  "zoom": -0.4640237552706021
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -221,12 +239,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e31b4ddaabad5225",
+  "active": "cae9a431e81eb1d5",
   "lastOpenFiles": [
-    "软件工程/并发模型.md",
-    "软件工程/领域驱动设计.md",
-    "软件工程/学习之路.md",
+    "index.md",
     "TODO.canvas",
+    "软件工程/领域驱动设计.md",
+    "软件工程/并发模型.md",
+    "软件工程/学习之路.md",
     "软件工程/高性能编程.md",
     "软件工程/控制流模式.md",
     "软件工程/模块化.md",
@@ -238,7 +257,6 @@
     "软件工程/依赖管理.md",
     "小说idea/火影同人.md",
     "小说idea",
-    "index.md",
     "软件使用.md",
     "软件工程/组合.md",
     "软件工程/泛型与抽象.md",
@@ -251,7 +269,6 @@
     "算法/栈.md",
     "算法/堆.md",
     "算法/位算法.md",
-    "算法/链表.md",
     "杂项",
     "游戏速通",
     "开发经验/全栈开发.canvas",

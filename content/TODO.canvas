@@ -190,6 +190,16 @@
 			"y":1180,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"6365b3d4f89fafc8",
+			"type":"text",
+			"text":"单态化",
+			"styleAttributes":{},
+			"x":-3000,
+			"y":1080,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
