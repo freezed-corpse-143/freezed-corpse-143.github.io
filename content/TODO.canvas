@@ -112,16 +112,6 @@
 			"height":120
 		},
 		{
-			"id":"29ec5e9f4d32320e",
-			"type":"text",
-			"text":"算法 hot 100：\n- 链表",
-			"styleAttributes":{},
-			"x":-3660,
-			"y":1300,
-			"width":380,
-			"height":100
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
@@ -130,9 +120,106 @@
 			"y":1460,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"389cffe35078515f",
+			"type":"text",
+			"text":"个人全栈项目",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":1320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"442451f3bce9c90f",
+			"type":"text",
+			"text":"教育部系统项目：重构",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":1430,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"90c46fccf34c9ef0",
+			"type":"text",
+			"text":"崇明项目重构",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":1540,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"509d9aafb46b0233",
+			"type":"text",
+			"text":"知识图谱项目：重构",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":1630,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"08a529054bbcf373",
+			"type":"text",
+			"text":"学习之路",
+			"styleAttributes":{},
+			"x":-3100,
+			"y":1400,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"29ec5e9f4d32320e",
+			"type":"text",
+			"text":"算法 hot 100：\n- [ ] 链表",
+			"styleAttributes":{},
+			"x":-3590,
+			"y":1600,
+			"width":240,
+			"height":120
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"5bdb7a79cba02d27",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"08a529054bbcf373",
+			"fromSide":"right",
+			"toNode":"389cffe35078515f",
+			"toSide":"left"
+		},
+		{
+			"id":"419dd08514757565",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"08a529054bbcf373",
+			"fromSide":"right",
+			"toNode":"442451f3bce9c90f",
+			"toSide":"left"
+		},
+		{
+			"id":"712452f9e68833a9",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"08a529054bbcf373",
+			"fromSide":"right",
+			"toNode":"90c46fccf34c9ef0",
+			"toSide":"left"
+		},
+		{
+			"id":"5807aeef355a6c6c",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"08a529054bbcf373",
+			"fromSide":"right",
+			"toNode":"509d9aafb46b0233",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
