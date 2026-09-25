@@ -172,22 +172,32 @@
 			"height":120
 		},
 		{
-			"id":"6365b3d4f89fafc8",
-			"type":"text",
-			"text":"单态化",
-			"styleAttributes":{},
-			"x":-3000,
-			"y":1080,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"c247ed78c307f986",
 			"type":"text",
 			"text":"IO 在哪，复用模型",
 			"styleAttributes":{},
 			"x":-3100,
 			"y":1460,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3269daf51f5b4e27",
+			"type":"text",
+			"text":"同步中的函数染色问题",
+			"styleAttributes":{},
+			"x":-3100,
+			"y":1350,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"6365b3d4f89fafc8",
+			"type":"text",
+			"text":"单态化",
+			"styleAttributes":{},
+			"x":-3100,
+			"y":1220,
 			"width":260,
 			"height":60
 		}
