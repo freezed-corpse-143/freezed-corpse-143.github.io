@@ -38,7 +38,8 @@
               "title": "高性能编程"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -225,10 +226,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cae9a431e81eb1d5",
+  "active": "abd5502d9f0d327a",
   "lastOpenFiles": [
-    "软件工程/高性能编程.md",
     "TODO.canvas",
+    "软件工程/高性能编程.md",
     "index.md",
     "软件工程/学习之路.md",
     "软件工程/架构风格.md",
