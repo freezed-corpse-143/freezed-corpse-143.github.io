@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件工程/并发模型.md",
+                "file": "软件工程/领域驱动设计.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "并发模型"
+              "title": "领域驱动设计"
             }
           },
           {
@@ -35,8 +35,7 @@
               "title": "学习之路"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -95,8 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,12 +221,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d27c65975f090f34",
+  "active": "e31b4ddaabad5225",
   "lastOpenFiles": [
-    "TODO.canvas",
     "软件工程/并发模型.md",
-    "软件工程/高性能编程.md",
+    "软件工程/领域驱动设计.md",
     "软件工程/学习之路.md",
+    "TODO.canvas",
+    "软件工程/高性能编程.md",
     "软件工程/控制流模式.md",
     "软件工程/模块化.md",
     "软件工程/架构边界.md",
