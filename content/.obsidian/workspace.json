@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件工程/依赖管理.md",
+                "file": "小说idea/火影同人.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "依赖管理"
+              "title": "火影同人"
             }
           },
           {
@@ -226,8 +226,10 @@
   },
   "active": "3e53f0776e52bb7a",
   "lastOpenFiles": [
-    "软件工程/学习之路.md",
     "软件工程/依赖管理.md",
+    "小说idea/火影同人.md",
+    "小说idea",
+    "软件工程/学习之路.md",
     "TODO.canvas",
     "index.md",
     "软件使用.md",
@@ -263,13 +265,11 @@
     "images/latex-reveal-editing.png",
     "images",
     "git/git worktree.md",
-    "git/移植.md",
     "算法",
     "Pasted image 20260910174013.png",
     "git",
     "开发经验",
     "开发日记/Visor",
-    "开发日记",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
