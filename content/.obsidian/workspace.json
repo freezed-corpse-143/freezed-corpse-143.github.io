@@ -25,17 +25,14 @@
             "id": "5d41a5411220bd52",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3181.4556323570982,
-                  "y": 1003.3683242510435,
-                  "zoom": -0.6289595569082167
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           }
         ],
@@ -94,7 +91,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -227,13 +225,13 @@
   },
   "active": "5d41a5411220bd52",
   "lastOpenFiles": [
+    "TODO.canvas",
     "软件工程/学习之路.md",
     "软件工程/组合.md",
     "软件工程/泛型与抽象.md",
     "软件工程/高性能编程.md",
     "软件工程/类型系统.md",
     "游戏速通/泰拉瑞亚.md",
-    "TODO.canvas",
     "软件工程",
     "软件使用.md",
     "人工智能/大模型推理加速.md",
@@ -264,7 +262,6 @@
     "images",
     "git/git worktree.md",
     "git/移植.md",
-    "git/Git 指导.md",
     "算法",
     "Pasted image 20260910174013.png",
     "git",
