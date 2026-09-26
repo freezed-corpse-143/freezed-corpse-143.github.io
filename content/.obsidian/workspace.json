@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3512.3913049218313,
-                  "y": 1884.8254577159607,
+                  "x": -3144.692048811311,
+                  "y": 1588.8502817388273,
                   "zoom": -0.44556685056304096
                 }
               },
@@ -210,7 +210,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "cae9a431e81eb1d5",
   "lastOpenFiles": [
     "软件工程/架构边界.md",
     "TODO.canvas",
