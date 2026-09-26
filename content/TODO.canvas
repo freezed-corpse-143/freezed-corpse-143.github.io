@@ -118,7 +118,8 @@
 			"x":-2720,
 			"y":1320,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"442451f3bce9c90f",
@@ -240,6 +241,16 @@
 			"y":1860,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"111fdaf9215936ef",
+			"type":"text",
+			"text":"neovim 增加插件，增加 deepseek api 编辑猜测的候选的插件",
+			"styleAttributes":{},
+			"x":-3000,
+			"y":1920,
+			"width":260,
+			"height":120
 		}
 	],
 	"edges":[],
