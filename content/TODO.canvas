@@ -1,6 +1,5 @@
 {
 	"nodes":[
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 行测\n- [ ] 编程","x":-3740,"y":-640,"width":260,"height":140,"color":"1"},
 		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
@@ -188,6 +187,47 @@
 			"styleAttributes":{},
 			"x":-4000,
 			"y":1640,
+			"width":260,
+			"height":60
+		},
+		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 行测","x":-4060,"y":-320,"width":260,"height":140,"color":"1"},
+		{
+			"id":"7e50bf26077072d1",
+			"type":"text",
+			"text":"diffusion 的推理引擎",
+			"styleAttributes":{},
+			"x":-3670,
+			"y":1640,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"4cad00e25979e923",
+			"type":"text",
+			"text":"高斯溅射的推理引擎",
+			"styleAttributes":{},
+			"x":-3350,
+			"y":1640,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"25b346b3bc7fb79d",
+			"type":"text",
+			"text":"决策模型的推理引擎",
+			"styleAttributes":{},
+			"x":-3670,
+			"y":1740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"65bab444a43688ac",
+			"type":"text",
+			"text":"世界模型的推理引擎",
+			"styleAttributes":{},
+			"x":-3360,
+			"y":1740,
 			"width":260,
 			"height":60
 		}
