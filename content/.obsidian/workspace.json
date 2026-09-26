@@ -11,17 +11,14 @@
             "id": "cae9a431e81eb1d5",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3144.692048811311,
-                  "y": 1588.8502817388273,
-                  "zoom": -0.44556685056304096
-                }
+                "file": "动画特效/缩写特效.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "缩写特效"
             }
           }
         ]
@@ -79,13 +76,11 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -214,9 +209,11 @@
   },
   "active": "cae9a431e81eb1d5",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "动画特效/缩写特效.md",
+    "动画特效",
     "软件使用.md",
     "编程语言/Typescript.md",
-    "TODO.canvas",
     "软件工程/架构边界.md",
     "软件工程/高性能编程.md",
     "index.md",
@@ -241,8 +238,6 @@
     "软件工程",
     "人工智能/大模型推理加速.md",
     "人工智能/知识图谱.md",
-    "windows.md",
-    "算法/栈.md",
     "杂项",
     "游戏速通",
     "开发经验/全栈开发.canvas",
@@ -257,7 +252,6 @@
     "Pasted image 20260910174013.png",
     "git",
     "开发经验",
-    "开发日记/Visor",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
     "Pasted image 20260610145846.png",
