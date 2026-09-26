@@ -164,12 +164,12 @@
 		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
-			"text":"算法 hot 100：\n- [x] 链表\n- [ ] 二分查找",
+			"text":"算法 hot 100：\n- [x] 链表\n- [x] 二分查找\n- [ ] 二叉树",
 			"styleAttributes":{},
 			"x":-3220,
 			"y":1310,
 			"width":240,
-			"height":120
+			"height":200
 		},
 		{
 			"id":"3bd7b1b7e6524e7b",
