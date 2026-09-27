@@ -72,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "neovim",
+                "query": "tag:#app",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,12 +93,12 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,7 +225,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8738bbe86d435cbf",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
     "TODO.canvas",
     "index.md",
