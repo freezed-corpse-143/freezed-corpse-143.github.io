@@ -123,4 +123,104 @@ components/ 子组件递归渲染
 2. **组件状态变化**（`ref` / `reactive` / `props` 变化）→ Vue 响应式系统 → 局部重渲染
 3. **接口数据回来**（`lib/` 请求 resolve）→ 更新 `stores/` 或组件内 state → 触发渲染
 
-# 
+# 页面跳转方式
+
+Vue 是 **SPA（单页应用）**，跳转不会刷新浏览器，只是替换 `<RouterView />` 里渲染的组件。
+
+**1）声明式 —— `<RouterLink>`（模板里用）**
+```vue
+<RouterLink to="/user">用户中心</RouterLink>
+```
+渲染成 `<a>`，点击被 Vue 拦截，调用 `router.push`。
+
+**2）编程式 —— `router.push`（JS 里用）**
+```ts
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+router.push('/user')                    // 普通跳转
+router.push({ name: 'user', params: { id: 1 } })
+router.replace('/login')                // 不留历史记录
+router.back()                           // 返回
+```
+
+**3）守卫里 —— `next('/login')` **
+```ts
+router.beforeEach((to, from, next) => {
+  if (需要登录 && !store.token) next('/login')
+  else next()
+})
+```
+
+## 跳转的完整链路
+
+```
+点击 / router.push
+   ▼
+匹配路由表 → 找到目标组件
+   ▼
+beforeEach 全局前置守卫（router/）
+   ▼
+组件内 beforeRouteLeave（可选）
+   ▼
+旧组件 onUnmounted → 新组件 setup → onMounted
+   ▼
+<RouterView /> 渲染新组件
+```
+
+# 页面渲染方式
+
+Vue 的渲染是 **"数据驱动"**，你不操作 DOM，只改数据。
+
+渲染三阶段
+
+```
+① 编译：template → render 函数 → 虚拟 DOM（VNode）
+② 挂载：VNode → 真实 DOM（首次渲染）
+③ 更新：数据变 → 生成新 VNode → diff 对比 → 只 patch 变化的 DOM
+```
+
+## 与目录的关系
+
+| 层级  | 文件            | 渲染职责                                  |
+| --- | ------------- | ------------------------------------- |
+| 根   | `App.vue`     | 渲染全局布局 + `<RouterView />`             |
+| 路由  | `router/`     | 决定 `<RouterView />` 里渲染哪个 `views/` 页面 |
+| 页面  | `views/`      | 页面级渲染，编排 `components/`                |
+| 复用  | `components/` | 接收 `props`，通过 `emit` 向上通信             |
+| 数据  | `stores/`     | 全局状态，变化即触发依赖它的组件重渲染                   |
+| 请求  | `lib/`        | 拉数据 → 写进 store / 组件 state → 触发渲染      |
+# 一个典型渲染流
+
+```ts
+// views/UserList.vue
+const list = ref([])
+onMounted(async () => {
+  list.value = await lib.getUsers()   // ① 请求回来
+})                                     // ② list 变化
+```
+
+```vue
+<template>
+  <UserCard v-for="u in list" :key="u.id" :user="u" />
+</template>
+```
+`list` 一变 → Vue 重新执行 `render` → diff 出新增的 `UserCard` → 只创建这几张卡片 DOM。删除同理，只移除对应节点。
+
+
+# 总结
+
+```
+【初始化，只走一次】
+index.html → main.ts → App.vue → router 守卫 → views 页面 → components
+
+【运行时，循环往复】
+用户操作 → 数据变化 ─┬─ 路由跳转 → 守卫 → 卸载旧页 → 挂载新页
+                    └─ 状态更新 → diff → patch 局部 DOM
+
+【跳转】RouterLink / router.push / next()
+【渲染】template → VNode → 真实 DOM；数据变 → diff → 最小更新
+```
+
+**一句话记住：**
+> `main.ts` 负责"起"，`router/` 负责"去哪"，`stores/` 负责"记什么"，`lib/` 负责"取什么"，`views/` 和 `components/` 负责"画什么"；数据一变，Vue 自动把变化的地方重画一遍。
