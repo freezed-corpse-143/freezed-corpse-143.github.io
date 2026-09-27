@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "2770994f9299825f",
+        "id": "5fdba26c8fe6b7f3",
         "type": "tabs",
         "children": [
           {
-            "id": "cae9a431e81eb1d5",
+            "id": "8738bbe86d435cbf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "开发经验/杂项.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "杂项"
+              "title": "新标签页"
             }
           }
         ]
@@ -80,8 +76,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -208,18 +203,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cae9a431e81eb1d5",
+  "active": "8738bbe86d435cbf",
   "lastOpenFiles": [
-    "经验之谈.md",
-    "开发经验/杂项.md",
-    "软件使用.md",
     "TODO.canvas",
+    "windows.md",
+    "index.md",
+    "开发经验/杂项.md",
+    "经验之谈.md",
+    "软件使用.md",
     "动画特效/开头动画.md",
     "动画特效",
     "编程语言/Typescript.md",
     "软件工程/架构边界.md",
     "软件工程/高性能编程.md",
-    "index.md",
     "软件工程/学习之路.md",
     "软件工程/架构风格.md",
     "软件工程/类型系统.md",
@@ -238,8 +234,6 @@
     "软件工程/泛型与抽象.md",
     "游戏速通/泰拉瑞亚.md",
     "软件工程",
-    "人工智能/大模型推理加速.md",
-    "人工智能/知识图谱.md",
     "杂项",
     "游戏速通",
     "开发经验/全栈开发.canvas",
