@@ -20,6 +20,23 @@
               "icon": "lucide-file",
               "title": "Vue"
             }
+          },
+          {
+            "id": "a8dd9bce95ec1dda",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3187.651095974388,
+                  "y": 1603.8207168809502,
+                  "zoom": -0.3887356279663647
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ]
       }
@@ -209,11 +226,11 @@
   },
   "active": "8738bbe86d435cbf",
   "lastOpenFiles": [
-    "软件工程/领域驱动设计.md",
-    "编程语言/Vue.md",
     "TODO.canvas",
-    "windows.md",
     "index.md",
+    "编程语言/Vue.md",
+    "软件工程/领域驱动设计.md",
+    "windows.md",
     "开发经验/杂项.md",
     "经验之谈.md",
     "软件使用.md",
@@ -237,7 +254,6 @@
     "小说idea",
     "软件工程/组合.md",
     "软件工程/泛型与抽象.md",
-    "游戏速通/泰拉瑞亚.md",
     "软件工程",
     "杂项",
     "游戏速通",
