@@ -1,3 +1,47 @@
+# 文件结构
+
+
+
 # 初始化声明周期
 
-从浏览器加载到页面可见
+从浏览器加载到页面可见，是第一次打开网站发生的事情，只走一遍。
+
+```text
+index.html
+   │  ① 加载 <script type="module" src="/src/main.ts">
+   ▼
+main.ts
+   │  ② createApp(App)
+   │  ③ app.use(router)     ← 装路由插件
+   │  ④ app.use(pinia)      ← 装状态管理（stores/）
+   │  ⑤ app.mount('#app')   ← 挂载
+   ▼
+App.vue 根组件
+   │  ⑥ 渲染根模板（里面通常有 <RouterView />）
+   ▼
+router/ (路由守卫)
+   │  ⑦ beforeEach 守卫执行：读 stores/ 里的登录态
+   │     - 已登录 / 无需鉴权 → next()
+   │     - 未登录 → 重定向到 /login
+   ▼
+views/ 匹配到的页面组件
+   │  ⑧ 页面 setup() 执行 → onMounted 触发
+   │  ⑨ 需要数据 → 走 lib/ 的请求出口（axios 封装）拉接口
+   ▼
+components/ 子组件递归渲染
+   ▼
+🖥 页面可见
+```
+
+| 环节       | 位置         | 做的事                                           |
+| ---------- | ------------ | ------------------------------------------------ |
+| ① 加载入口 | `index.html` | 只保留一个 `<div id="app">` + 引入 `main.ts`     |
+| ② 创建实例 | `main.ts`    | `createApp(App)` 生成应用实例                    |
+| ③④ 装插件  | `main.ts`    | `router`、`pinia` 必须在 `mount` **之前**注册    |
+| ⑤ 挂载     | `main.ts`    | `app.mount('#app')` 把虚拟 DOM 渲染到真实 DOM    |
+| ⑥ 根组件   | `App.vue`    | 通常只有布局 + `<RouterView />`，不放业务        |
+| ⑦ 路由解析 | `router/`    | `beforeEach` 做权限判断（登录态来自 `stores/`）  |
+| ⑧ 页面挂载 | `views/`     | 对应路由的组件被创建，`onMounted` 发请求         |
+| ⑨ 数据请求 | `lib/`       | 统一封装 axios：baseURL、拦截器、token、错误文案 |
+
+> 关键点：**挂载顺序 = 插件 → mount → 路由守卫 → 页面组件**。`router` 和 `pinia` 没注册就 mount，页面里用 `useRouter()` / `useStore()` 会直接报错。
