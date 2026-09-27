@@ -111,37 +111,6 @@
 			"height":120
 		},
 		{
-			"id":"389cffe35078515f",
-			"type":"text",
-			"text":"个人全栈项目",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1320,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
-			"id":"442451f3bce9c90f",
-			"type":"text",
-			"text":"教育部系统项目：重构",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1430,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"90c46fccf34c9ef0",
-			"type":"text",
-			"text":"崇明项目重构",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1540,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"509d9aafb46b0233",
 			"type":"text",
 			"text":"知识图谱项目：重构",
@@ -213,22 +182,42 @@
 			"height":60
 		},
 		{
+			"id":"4cad00e25979e923",
+			"type":"text",
+			"text":"高斯溅射的推理引擎",
+			"styleAttributes":{},
+			"x":-3220,
+			"y":1610,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"9a2de047452f454b",
 			"type":"text",
 			"text":"学习 tilelang",
 			"styleAttributes":{},
-			"x":-3670,
+			"x":-3660,
 			"y":1860,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"4cad00e25979e923",
+			"id":"442451f3bce9c90f",
 			"type":"text",
-			"text":"高斯溅射的推理引擎",
+			"text":"教育部系统项目：重构",
 			"styleAttributes":{},
-			"x":-3240,
-			"y":1640,
+			"x":-2720,
+			"y":1320,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"90c46fccf34c9ef0",
+			"type":"text",
+			"text":"崇明项目重构",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":1450,
 			"width":260,
 			"height":60
 		},
@@ -237,8 +226,8 @@
 			"type":"text",
 			"text":"世界模型的推理引擎",
 			"styleAttributes":{},
-			"x":-3260,
-			"y":1770,
+			"x":-3220,
+			"y":1740,
 			"width":260,
 			"height":60
 		}

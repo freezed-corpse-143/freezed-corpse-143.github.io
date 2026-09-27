@@ -11,10 +11,17 @@
             "id": "35a79df8ba2fe47b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2925.051751036451,
+                  "y": 1596.7669664730481,
+                  "zoom": -0.05540229463303137
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -76,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -206,11 +212,11 @@
   },
   "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
+    "index.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
     "编程语言/Vue.md",
     "TODO.canvas",
-    "index.md",
     "软件工程/领域驱动设计.md",
     "windows.md",
     "开发经验/杂项.md",
