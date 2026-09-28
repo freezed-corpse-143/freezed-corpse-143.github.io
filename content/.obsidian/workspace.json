@@ -80,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -207,7 +208,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
     "TODO.canvas",
     "游戏速通/星露谷.md",
