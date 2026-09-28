@@ -20,6 +20,23 @@
               "icon": "lucide-file",
               "title": "栈"
             }
+          },
+          {
+            "id": "441cb635e74b061e",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3169.4512224824357,
+                  "y": 2052.6508597044412,
+                  "zoom": -0.8335772765166887
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ]
       }
@@ -80,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -211,8 +227,9 @@
   "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
     "TODO.canvas",
-    "游戏速通/星露谷.md",
     "index.md",
+    "算法/栈.md",
+    "游戏速通/星露谷.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
     "编程语言/Vue.md",
@@ -237,7 +254,6 @@
     "软件工程/依赖管理.md",
     "小说idea/火影同人.md",
     "小说idea",
-    "软件工程/组合.md",
     "软件工程",
     "杂项",
     "游戏速通",
