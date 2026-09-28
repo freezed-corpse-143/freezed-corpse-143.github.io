@@ -230,6 +230,36 @@
 			"y":1740,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"fdedc9780f42c884",
+			"type":"text",
+			"text":"国家奖学金答辩 PPT",
+			"styleAttributes":{},
+			"x":-3100,
+			"y":2000,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"6f2313653b0348aa",
+			"type":"text",
+			"text":"OMP 警告",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":1970,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"da5425428c158ca0",
+			"type":"text",
+			"text":"codex 的 lean-ctx 弹窗问题",
+			"styleAttributes":{},
+			"x":-2660,
+			"y":2100,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
