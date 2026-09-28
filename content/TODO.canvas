@@ -183,16 +183,6 @@
 			"color":"1"
 		},
 		{
-			"id":"90c46fccf34c9ef0",
-			"type":"text",
-			"text":"崇明项目重构",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1450,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"65bab444a43688ac",
 			"type":"text",
 			"text":"世界模型的推理引擎",
@@ -239,6 +229,16 @@
 			"styleAttributes":{},
 			"x":-3220,
 			"y":1890,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"90c46fccf34c9ef0",
+			"type":"text",
+			"text":"崇明项目重构",
+			"styleAttributes":{},
+			"x":-2720,
+			"y":1480,
 			"width":260,
 			"height":60
 		}
