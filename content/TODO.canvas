@@ -162,42 +162,12 @@
 		},
 		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 行测","x":-4060,"y":-320,"width":260,"height":140,"color":"1"},
 		{
-			"id":"7e50bf26077072d1",
-			"type":"text",
-			"text":"diffusion 的推理引擎",
-			"styleAttributes":{},
-			"x":-3670,
-			"y":1640,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"25b346b3bc7fb79d",
-			"type":"text",
-			"text":"决策模型的推理引擎",
-			"styleAttributes":{},
-			"x":-3670,
-			"y":1740,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"4cad00e25979e923",
 			"type":"text",
 			"text":"高斯溅射的推理引擎",
 			"styleAttributes":{},
 			"x":-3220,
 			"y":1610,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"9a2de047452f454b",
-			"type":"text",
-			"text":"学习 tilelang",
-			"styleAttributes":{},
-			"x":-3660,
-			"y":1860,
 			"width":260,
 			"height":60
 		},
@@ -209,7 +179,8 @@
 			"x":-2720,
 			"y":1320,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"90c46fccf34c9ef0",
@@ -232,12 +203,42 @@
 			"height":60
 		},
 		{
+			"id":"7e50bf26077072d1",
+			"type":"text",
+			"text":"diffusion 的推理引擎",
+			"styleAttributes":{},
+			"x":-3600,
+			"y":1640,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"25b346b3bc7fb79d",
+			"type":"text",
+			"text":"决策模型的推理引擎",
+			"styleAttributes":{},
+			"x":-3620,
+			"y":1740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"9a2de047452f454b",
+			"type":"text",
+			"text":"学习 tilelang",
+			"styleAttributes":{},
+			"x":-3600,
+			"y":1860,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"a54a3397fb45fc86",
 			"type":"text",
 			"text":"多次检索：通过检索粒度和结果，优化检索过程",
 			"styleAttributes":{},
-			"x":-3700,
-			"y":2040,
+			"x":-3600,
+			"y":2080,
 			"width":260,
 			"height":60
 		}
