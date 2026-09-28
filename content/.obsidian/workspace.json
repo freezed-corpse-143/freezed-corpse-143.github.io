@@ -11,17 +11,14 @@
             "id": "35a79df8ba2fe47b",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3119.987444193928,
-                  "y": 1606.4915210319475,
-                  "zoom": -0.722068961299698
-                }
+                "file": "算法/栈.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "栈"
             }
           }
         ]
@@ -210,10 +207,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "35a79df8ba2fe47b",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
     "TODO.canvas",
+    "游戏速通/星露谷.md",
     "index.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
