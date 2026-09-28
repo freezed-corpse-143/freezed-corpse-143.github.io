@@ -132,16 +132,6 @@
 			"height":60
 		},
 		{
-			"id":"29ec5e9f4d32320e",
-			"type":"text",
-			"text":"算法 hot 100：\n- [x] 链表\n- [x] 二分查找\n- [x] 二叉树\n- [x] 堆/栈/队列\n- [ ] 哈希",
-			"styleAttributes":{},
-			"x":-3220,
-			"y":1310,
-			"width":240,
-			"height":200
-		},
-		{
 			"id":"3bd7b1b7e6524e7b",
 			"type":"text",
 			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",
@@ -243,6 +233,16 @@
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"29ec5e9f4d32320e",
+			"type":"text",
+			"text":"算法 hot 100：\n- [x] 链表\n- [x] 二分查找\n- [x] 二叉树\n- [x] 堆/栈/队列\n- [ ] 哈希",
+			"styleAttributes":{},
+			"x":-3440,
+			"y":1310,
+			"width":240,
+			"height":200
 		}
 	],
 	"edges":[],
