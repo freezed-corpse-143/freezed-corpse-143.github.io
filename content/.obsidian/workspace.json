@@ -25,17 +25,14 @@
             "id": "441cb635e74b061e",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3074.416622241151,
-                  "y": 1576.7536578381084,
-                  "zoom": -0.5002439431833554
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ],
@@ -98,8 +95,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -228,12 +224,13 @@
   },
   "active": "441cb635e74b061e",
   "lastOpenFiles": [
+    "游戏速通/泰拉瑞亚.md",
+    "TODO.canvas",
     "算法/堆.md",
     "算法/数组.md",
     "算法/位算法.md",
     "算法/栈.md",
     "算法/链表.md",
-    "TODO.canvas",
     "index.md",
     "游戏速通/星露谷.md",
     "软件工程/编程概念.md",
@@ -255,7 +252,6 @@
     "软件工程/控制流模式.md",
     "软件工程/模块化.md",
     "软件工程/副作用边界.md",
-    "环境配置.md",
     "小说idea",
     "软件工程",
     "杂项",
