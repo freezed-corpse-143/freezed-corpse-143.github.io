@@ -240,6 +240,16 @@
 			"y":2000,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"a54a3397fb45fc86",
+			"type":"text",
+			"text":"多次检索：通过检索粒度和结果，优化检索过程",
+			"styleAttributes":{},
+			"x":-3700,
+			"y":2040,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
