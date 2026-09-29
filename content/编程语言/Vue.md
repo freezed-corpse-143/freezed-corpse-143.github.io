@@ -1737,3 +1737,403 @@ triggerRef(bigData)
 const chart = shallowRef(null)
 chart.value = markRaw(echarts.init(el))
 ```
+
+# 单元测试
+
+## 1. 为什么是 Vitest？
+
+Vitest 是由 Vite 团队打造的测试框架，特点：
+
+- **与 Vite 共享配置**，无需额外配置转换（`.vue`、TS、CSS 等直接可用）
+- **极快**，基于 Vite 的按需编译
+- **API 兼容 Jest**（`describe`、`it`、`expect`、`vi.fn()` 等）
+- **内置断言、mock、覆盖率（v 8/istanbul）、快照**
+- 支持 `jsdom` / `happy-dom` 模拟浏览器环境
+
+## 2. Vue Test Utils（VTU）
+
+VTU 是 Vue 官方提供的**组件测试工具库**，负责：
+
+- **挂载（mount / shallowMount）** 组件
+- **查询 DOM**（`find`、`findAll`、`get`、`getComponent`）
+- **触发交互**（`trigger('click')`、`setValue`）
+- **访问组件实例**（`wrapper.vm`、`props`、`emitted`）
+- **桩（stub）子组件、mock 全局插件**
+
+## 3. 基本配置
+
+```bash
+npm i -D vitest @vue/test-utils jsdom @vitejs/plugin-vue
+```
+
+`vitest.config.ts`：
+
+```ts
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [vue()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./tests/setup.ts'],
+    coverage: { provider: 'v8' }
+  }
+})
+```
+
+`package.json`：
+
+```json
+{ "scripts": { "test": "vitest", "test:ui": "vitest --ui" } }
+```
+
+## 4. 一个组件测试示例
+
+```vue
+<!-- Counter.vue -->
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+const props = defineProps<{ step?: number }>()
+const emit = defineEmits<{ (e: 'change', v: number): void }>()
+const count = ref(0)
+const double = computed(() => count.value * 2)
+function inc() {
+  count.value += props.step ?? 1
+  emit('change', count.value)
+}
+</script>
+
+<template>
+  <button @click="inc">count: {{ count }}</button>
+  <span class="double">{{ double }}</span>
+</template>
+```
+
+```ts
+// Counter.spec.ts
+import { describe, it, expect } from 'vitest'
+import { mount } from '@vue/test-utils'
+import Counter from './Counter.vue'
+
+describe('Counter.vue', () => {
+  it('默认点击加 1，并触发 change 事件', async () => {
+    const wrapper = mount(Counter)
+    await wrapper.get('button').trigger('click')
+
+    expect(wrapper.get('button').text()).toBe('count: 1')
+    expect(wrapper.get('.double').text()).toBe('2')
+    expect(wrapper.emitted('change')).toEqual([[1]])
+  })
+
+  it('可通过 props 自定义步长', async () => {
+    const wrapper = mount(Counter, { props: { step: 5 } })
+    await wrapper.get('button').trigger('click')
+    expect(wrapper.get('button').text()).toBe('count: 5')
+  })
+})
+```
+
+**要点：**
+
+- `mount` 会渲染**真实**子组件；`shallowMount` 会把子组件**打桩**，只测当前组件
+- 修改响应式状态或触发事件后，要 `await`（VTU 返回 Promise），以等待 DOM 更新
+- `emitted()` 检查自定义事件，`props()` 检查传给子组件的 props
+- 用 `vi.fn()` mock 依赖（如 API 调用、router、store）
+
+# 组件测试
+
+## 1. 组件测试关注点
+
+- **Props 渲染**：不同 props 是否正确显示
+- **事件与 emit**：用户操作是否触发正确事件/参数
+- **条件渲染 / 列表渲染**：`v-if`、`v-for` 分支
+- **插槽（slots）**：默认插槽、具名插槽、作用域插槽
+- **表单绑定**：`v-model` 双向绑定是否生效（`setValue`）
+- **依赖注入 / 插件**：router、pinia、i 18 n 等通过 `global.plugins` 注入
+
+示例：测试 `v-model`
+
+```ts
+const wrapper = mount(MyInput, {
+  props: { modelValue: 'a', 'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }) }
+})
+await wrapper.get('input').setValue('b')
+expect(wrapper.props('modelValue')).toBe('b')
+```
+
+**带 Pinia / Router 的组件：**
+
+```ts
+import { createTestingPinia } from '@pinia/testing'
+mount(Counter, {
+  global: {
+    plugins: [createTestingPinia({ stubActions: false })],
+    stubs: { RouterLink: true }
+  }
+})
+```
+
+## 2. 组合式函数（Composables）测试
+
+组合式函数本质就是**普通函数**，只是内部用了 `ref`、`computed`、`watch`、生命周期钩子。测试方式有两种：
+
+### （1）纯逻辑型（推荐）— 直接调用
+
+```ts
+// useCounter.ts
+import { ref } from 'vue'
+export function useCounter(initial = 0) {
+  const count = ref(initial)
+  const inc = () => count.value++
+  const reset = () => (count.value = initial)
+  return { count, inc, reset }
+}
+```
+
+```ts
+import { useCounter } from './useCounter'
+
+it('useCounter 基础功能', () => {
+  const { count, inc, reset } = useCounter(3)
+  expect(count.value).toBe(3)
+  inc()
+  expect(count.value).toBe(4)
+  reset()
+  expect(count.value).toBe(3)
+})
+```
+
+### （2）依赖生命周期 / 注入型 — 挂在一个宿主组件里
+
+当 composable 用到 `onMounted`、`onUnmounted`、`inject`、`watchEffect` 等需要组件上下文的能力时，用一个 `setup` 里调用它的包装组件：
+
+```ts
+import { defineComponent } from 'vue'
+import { mount } from '@vue/test-utils'
+
+function withSetup<T>(composable: () => T) {
+  let result!: T
+  const wrapper = mount(defineComponent({
+    setup() {
+      result = composable()
+      return () => null
+    }
+  }))
+  return { result, wrapper }
+}
+
+it('useMouse 在卸载时移除监听', () => {
+  const { result, wrapper } = withSetup(() => useMouse())
+  expect(result.x.value).toBeTypeOf('number')
+  wrapper.unmount() // 验证清理逻辑
+})
+```
+
+**mock 依赖：** 用 `vi.mock('./api')` 或注入一个带 mock 的 `provide`。
+
+```ts
+import { vi } from 'vitest'
+vi.mock('./api', () => ({ fetchUser: vi.fn().mockResolvedValue({ id: 1, name: 'A' }) }))
+```
+
+
+# E 2 E 测试
+
+E 2 E 测试在**真实浏览器**里启动应用，模拟用户完整流程（登录 → 下单 → 支付），验证系统整体行为。
+
+## 1. Cypress
+
+```bash
+npm i -D cypress
+npx cypress open   # 交互模式
+npx cypress run    # CI 模式
+```
+
+```ts
+// cypress/e2e/counter.cy.ts
+describe('Counter', () => {
+  it('点击按钮计数递增', () => {
+    cy.visit('/')
+    cy.contains('button', 'count: 0').click()
+    cy.contains('button', 'count: 1').should('exist')
+    cy.get('.double').should('have.text', '2')
+  })
+
+  it('登录流程', () => {
+    cy.visit('/login')
+    cy.get('[data-cy=email]').type('a@b.com')
+    cy.get('[data-cy=password]').type('123456')
+    cy.get('[data-cy=submit]').click()
+    cy.url().should('include', '/dashboard')
+  })
+})
+```
+
+特点：自动等待、时间旅行调试、`cy.intercept` 拦截网络请求。
+
+## 2. Playwright
+
+```bash
+npm i -D @playwright/test
+npx playwright install
+```
+
+```ts
+// e2e/counter.spec.ts
+import { test, expect } from '@playwright/test'
+
+test('计数递增', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: /count: 0/ }).click()
+  await expect(page.getByRole('button')).toHaveText(/count: 1/)
+  await expect(page.locator('.double')).toHaveText('2')
+})
+
+test('登录', async ({ page }) => {
+  await page.goto('/login')
+  await page.getByLabel('Email').fill('a@b.com')
+  await page.getByLabel('Password').fill('123456')
+  await page.getByRole('button', { name: '登录' }).click()
+  await expect(page).toHaveURL(/dashboard/)
+})
+```
+
+特点：跨浏览器（Chromium/WebKit/Firefox）、多标签/多域、强大的自动等待、trace 查看、组件测试模式。
+
+## 3. 两者对比
+
+| 维度        | Cypress                      | Playwright                       |
+| ----------- | ---------------------------- | -------------------------------- |
+| 语言/生态   | JS/TS 为主，插件丰富         | 多语言（JS/TS/Python/Java/.NET） |
+| 浏览器      | Chromium 系、Firefox、WebKit | Chromium、Firefox、WebKit        |
+| 调试体验    | 交互式 GUI 极佳              | Trace Viewer、Codegen            |
+| 并行/速度   | 需 Dashboard/分片            | 内置并行、更快                   |
+| 多标签/多域 | 有限制                       | 原生支持                         |
+| 组件测试    | 支持（实验性）               | 支持（实验性）                   |
+
+**选择建议：** 团队追求开发体验、调试方便 → Cypress；追求跨浏览器、稳定快速、CI 成本低 → Playwright。
+
+---
+
+# 测试金字塔与最佳实践
+
+```
+        /\
+       /E2E\        少量：关键用户旅程（登录、下单、支付）
+      /------\
+     / 组件   \     适中：交互密集的组件
+    /----------\
+   /  单元测试   \  大量：composables、utils、store、纯逻辑
+  /--------------\
+```
+
+**实践建议：**
+
+1. **测试行为，不测实现**：断言用户能看到/触发的，而不是内部变量名
+2. **优先用 `getByRole` / 语义查询**，对重构更友好
+3. **组件测试用 `mount`，孤立即 `shallowMount` **，需要时再 stub
+4. **composable 尽量纯函数化**，依赖注入而非硬引用
+5. **E 2 E 只覆盖关键路径**，慢且脆弱，避免替代单元测试
+6. **CI 中运行覆盖率**，用 `@vitest/coverage-v8`，并设阈值
+7. **统一用 `data-testid` ** 定位不稳定元素（可选，视团队规范）
+
+# 社区目录结构组织
+
+社区中较为通行的组织方式是以功能或类型划分。Vue 3 项目通常推荐以下结构：
+
+```
+src/
+├── assets/          # 静态资源（图片、字体、样式等）
+├── components/      # 公共组件
+├── composables/     # 组合式函数（逻辑复用）
+├── router/          # 路由配置
+├── store/           # 状态管理（Pinia）
+├── utils/           # 工具函数
+├── views/           # 页面级组件
+├── App.vue          # 根组件
+└── main.ts          # 入口文件
+```
+
+`components/` 存放可复用组件，`views/` 存放与路由对应的页面级组件，两者职责明确区分。`composables/` 是 Vue 3 引入组合式 API 后的常见约定，用于封装可复用的响应式逻辑。
+
+对于大型项目（100+ 组件），可以考虑在 `components/` 下按功能域进一步划分子目录，但官方指南也提醒，多级目录会增加查找成本，需权衡使用。
+
+# 命令规范
+
+Vue 官方风格指南对组件命名有明确的分优先级建议：
+
+**基础组件**以 `Base`、`App` 或 `V` 开头，表示展示型、无逻辑的组件，如 `BaseButton`、`BaseTable`。
+
+**单例组件**以 `The` 开头，表示每个页面只使用一次，如 `TheHeader`、`TheSidebar`。
+
+**紧密耦合的子组件**以父组件名作为前缀。例如 `SearchSidebar` 的子组件命名为 `SearchSidebarNavigation`，而不是 `NavigationForSearchSidebar`。好处是在编辑器中按字母排序时，相关联的组件会排在一起。
+
+**单词顺序**：组件名应以高阶的、一般化的单词开头，以描述性的修饰词结尾。例如 `SearchButtonClear` 优于 `ClearSearchButton`，这样所有搜索相关的组件会聚拢在一起。
+
+**模板中的大小写**：在单文件组件和字符串模板中，组件名使用 PascalCase（如 `<MyComponent>`）；在 DOM 模板中必须使用 kebab-case（如 `<my-component>`），因为 HTML 对大小写不敏感。
+
+**Prop 命名**：声明时使用 camelCase，在模板中使用 kebab-case，遵循 JavaScript 和 HTML 各自的惯例。
+
+# 组件拆分原则
+
+核心原则是**单一职责**：一个组件只做一件事。
+
+从官方风格指南延伸出的拆分思路包括：
+
+- **展示与逻辑分离**：基础组件（`Base*`）只负责样式和结构，不包含全局状态；业务组件负责数据获取和状态管理。
+- **父子耦合外显**：如果子组件只在特定父组件的上下文中才有意义，命名上应体现这层关系。
+- **表达式简化**：模板中应只包含简单表达式，复杂逻辑抽取为计算属性或方法，保持模板的声明性本质。
+
+# 错误处理与边界情况
+
+## 加载状态（Loading）
+
+Vue 3 的异步组件提供了内建的加载处理机制。使用 `defineAsyncComponent` 时，应配置 `loadingComponent`、`errorComponent` 和 `delay`：
+
+```js
+const AsyncWidget = defineAsyncComponent({
+  loader: () => import('./Widget.vue'),
+  loadingComponent: LoadingSpinner,
+  errorComponent: ErrorDisplay,
+  delay: 200,      // 延迟显示加载态，避免闪烁
+  timeout: 10000   // 超时后显示错误
+})
+```
+
+`delay` 的默认值是 200 ms，在快速网络下可以避免加载动画一闪而过造成的视觉干扰。
+
+对于页面级的数据加载，可以使用 `Suspense` 组件配合异步 `setup`，在等待数据时显示 fallback 内容。
+
+## 空状态（Empty）
+
+空状态是容易被忽视的边界情况。当数据请求成功但返回空数组或空对象时，需要给用户明确的反馈，而不是渲染一个空白区域。通常的做法是在组件中根据数据长度或内容判断，显示友好的空状态提示和可能的行动引导。
+
+## 错误处理（Error）
+
+Vue 提供了 `onErrorCaptured` 生命周期钩子，可以创建**错误边界组件**，捕获后代组件树中的 JavaScript 错误，防止整个应用崩溃：
+
+```vue
+<script setup>
+const error = ref(null);
+
+onErrorCaptured((err) => {
+  error.value = err;
+  return false; // 阻止错误继续向上冒泡
+});
+
+function clearError() {
+  error.value = null;
+}
+</script>
+
+<template>
+  <slot v-if="!error"></slot>
+  <slot v-else name="error" :error="error" :clearError="clearError"></slot>
+</template>
+```
+
+使用时，将可能出错的组件包裹在错误边界内，并提供错误态的 fallback 插槽内容。这样单个功能的失败不会影响应用的其他部分。
+
+异步组件的 `onError` 回调还提供了重试机制，可以在网络请求等临时性故障时自动重试（最多 3 次），提升用户体验。

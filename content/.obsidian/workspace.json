@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3396.923999079613,
-                  "y": 2328.6451776723065,
-                  "zoom": -0.4864521119005067
+                  "x": -3142.828289966978,
+                  "y": 2102.23912097777,
+                  "zoom": -0.81978544523384
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Nexus",
+                "query": "tag:#测试金字塔与最佳实践",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,

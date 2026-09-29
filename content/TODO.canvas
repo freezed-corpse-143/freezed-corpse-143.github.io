@@ -235,16 +235,6 @@
 			"color":"1"
 		},
 		{
-			"id":"d21f27111dfa4f13",
-			"type":"text",
-			"text":"vue 学习：\n- [ ] 测试\n- [ ] 生态与进阶方向\n- [ ] 最佳实践与规范\n\n",
-			"styleAttributes":{},
-			"x":-3920,
-			"y":2100,
-			"width":560,
-			"height":600
-		},
-		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
 			"text":"算法 hot 100：\n- [x] 链表\n- [x] 二分查找\n- [x] 二叉树\n- [x] 堆/栈/队列\n- [x] 哈希\n- [x] 递归/回溯\n- [ ] 动态规划",
