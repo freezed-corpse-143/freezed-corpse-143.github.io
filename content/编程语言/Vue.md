@@ -1131,4 +1131,179 @@ export function useFetch(url) {
 }
 ```
 
-# Pinia 的
+# Pinia 的核心概念
+
+Pinia 是 Vue 官方推荐的下一代状态管理库，替代了 Vuex。核心概念只有三个：`state`、`getters`、`actions`，而且都是**组合式 API 写法**，和写组件几乎一样。
+
+## 1. 定义 store
+
+```js
+// stores/counter.js
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+
+export const useCounterStore = defineStore('counter', () => {
+  // state：用 ref / reactive 定义
+  const count = ref(0)
+  const user = ref({ name: '', age: 0 })
+
+  // getters：用 computed 定义（派生状态）
+  const doubleCount = computed(() => count.value * 2)
+  const isAdult = computed(() => user.value.age >= 18)
+
+  // actions：用普通函数定义（同步/异步都行）
+  function increment() {
+    count.value++
+  }
+  async function fetchUser(id) {
+    const res = await fetch(`/api/user/${id}`)
+    user.value = await res.json()
+  }
+
+  // 必须 return 出去，外部才能访问
+  return { count, user, doubleCount, isAdult, increment, fetchUser }
+})
+```
+
+也可以写成选项式（Options Store），更适合从 Vuex 迁移：
+
+```js
+export const useCounterStore = defineStore('counter', {
+  state: () => ({ count: 0 }),
+  getters: {
+    doubleCount: (state) => state.count * 2,
+  },
+  actions: {
+    increment() { this.count++ },
+  },
+})
+```
+
+## 2. 在组件中使用
+
+```vue
+<script setup>
+import { useCounterStore } from '@/stores/counter'
+import { storeToRefs } from 'pinia'
+
+const store = useCounterStore()
+
+// ❌ 直接解构会丢失响应式
+// const { count } = store
+
+// ✅ 用 storeToRefs 保持响应式（只对 state/getters）
+const { count, doubleCount } = storeToRefs(store)
+
+// actions 可以直接解构，因为它是方法，不需要响应式
+const { increment } = store
+</script>
+
+<template>
+  <p>{{ count }} / {{ doubleCount }}</p>
+  <button @click="increment">+1</button>
+</template>
+```
+
+## 关键点
+
+| 概念    | 作用                      | 写法               |
+| ------- | ------------------------- | ------------------ |
+| state   | 唯一数据源                | `ref` / `reactive` |
+| getters | 派生/计算状态，带缓存     | `computed`         |
+| actions | 修改 state 的逻辑，可异步 | 普通函数           |
+
+- **只有 actions 能改 state**（约定，不是强制，但别在组件里直接改，方便追踪）。
+- getters 不要在里面做副作用，只做纯计算。
+- Pinia 没有 mutations，比 Vuex 简洁很多。
+
+## 持久化
+
+Pinia 本身不持久化，刷新页面 state 会丢。常用方案是 `pinia-plugin-persistedstate`：
+
+```js
+// main.js
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
+```
+
+```js
+// store 里按需开启
+export const useUserStore = defineStore('user', () => {
+  const token = ref('')
+  return { token }
+}, {
+  persist: {
+    key: 'my-user',
+    storage: localStorage,        // 默认 localStorage
+    pick: ['token'],              // 只持久化 token
+  },
+})
+```
+
+**注意**：只持久化必要的字段（如 token、用户偏好），不要把整个大对象都存 localStorage，否则容易数据过期、体积膨胀。敏感信息别放 localStorage（XSS 可读），必要时用 httpOnly cookie。
+
+## 模块拆分
+
+一个 store 一个文件，按**业务域**拆，而不是按类型拆：
+
+```
+stores/
+├── user.js       # 用户信息、登录态
+├── cart.js       # 购物车
+├── order.js      # 订单
+└── index.js      # 统一导出（可选）
+```
+
+store 之间可以互相引用：
+
+```js
+// cart.js
+import { useUserStore } from './user'
+
+export const useCartStore = defineStore('cart', () => {
+  const userStore = useUserStore()
+  const items = ref([])
+
+  const canCheckout = computed(() => userStore.isLogin && items.value.length > 0)
+  return { items, canCheckout }
+})
+```
+
+**拆分原则**：
+- 按业务边界拆，不按 state/getters/actions 拆。
+- 单个 store 别太大，超过 ~200 行考虑再拆。
+- 有强关联、总是一起变化的数据放一个 store；跨模块共享的放独立 store。
+
+## 与组件解耦
+
+核心思想：**组件只依赖 store 的接口，不关心数据从哪来**。
+
+```js
+// 组件只调用 store 的 action，不直接写 fetch 逻辑
+const store = useUserStore()
+onMounted(() => store.fetchProfile())
+
+// 好处：
+// 1. 换接口 / 换数据源，只改 store
+// 2. 多个组件复用同一逻辑
+// 3. 方便测试（mock store 即可）
+```
+
+进一步解耦的技巧：
+- **把数据请求封装在 action 里**，组件不碰 API 层。
+- **用 getters 暴露"视图需要的形状"**，组件不做复杂计算。
+- 组件只 `storeToRefs` 拿需要的那几个字段，避免整包依赖。
+- 大型项目可以再加一层 `composables`（如 `useUser()`）包住 store，组件只依赖 composable，将来换实现不影响组件。
+
+```js
+// composables/useUser.js
+export function useUser() {
+  const store = useUserStore()
+  const { profile, isLogin } = storeToRefs(store)
+  return { profile, isLogin, load: store.fetchProfile }
+}
+```
