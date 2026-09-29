@@ -618,4 +618,52 @@ export default defineConfig({
 
 ## 编程式跳转
 
+```js
+router.push('/user/123')
+router.replace('/user/123')   // 不留历史记录
+router.go(-1)                 // 前进/后退
+```
+
+## 访问拦截
+
+在跳转真正发生前，判断“能不能去”。例如：
+- 未登录用户访问 `/admin` → 拦截并重定向到 `/login`
+- 已登录用户访问 `/login` → 拦截并跳回首页
+
+这通常由**路由守卫**实现。
+
+## 转发/重定向
+
+```js
+{ path: '/old', redirect: '/new' }
+{ path: '/home', redirect: { name: 'dashboard' } }
+```
+也可以动态重定向：
+```js
+{ path: '/a', redirect: to => ({ path: '/b', query: to.query }) }
+```
+重定向会改变 URL，并重新匹配目标路由。
+
+## 参数解析
+
+路由参数分为三类：
+
+| 类型         | 示例            | 获取方式          |
+| ------------ | --------------- | ----------------- |
+| 动态路径参数 | `/user/:id`     | `route.params.id` |
+| 查询参数     | `/search?q=vue` | `route.query.q`   |
+| 路由 props   | `props: true`   | 组件 props 接收   |
+
+```js
+const routes = [
+  { path: '/user/:id', component: User, props: true }
+]
+```
+组件中：
+```js
+props: ['id']
+```
+参数解析还包括：类型转换、可选参数 `:id?`、通配符 `*`、正则约束等。
+
+# 路由守卫
 
