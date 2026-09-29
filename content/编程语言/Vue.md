@@ -701,4 +701,24 @@ beforeRouteUpdate(to, from, next) { ... }  // 同一组件复用，参数变化�
 beforeRouteLeave(to, from, next) { ... }   // 离开当前组件
 ```
 
-## 完整到
+## 完整导航解析流程简化
+
+1. 触发导航
+2. 调用失活组件的 `beforeRouteLeave`
+3. 调用全局 `beforeEach`
+4. 调用复用组件的 `beforeRouteUpdate`
+5. 调用路由独享 `beforeEnter`
+6. 解析异步路由组件
+7. 调用被激活组件的 `beforeRouteEnter`
+8. 调用全局 `beforeResolve`
+9. 导航确认
+10. 调用全局 `afterEach`
+11. DOM 更新
+12. 调用 `beforeRouteEnter` 的 `next` 回调
+
+# 响应式更新
+
+Vue 的核心特性：数据变化 → 视图自动更新。在路由场景中，响应式更新体现在：
+
+## 路由对象是响应式
+
