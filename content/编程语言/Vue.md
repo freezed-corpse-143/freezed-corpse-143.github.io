@@ -1307,3 +1307,36 @@ export function useUser() {
   return { profile, isLogin, load: store.fetchProfile }
 }
 ```
+
+# 路由加载
+
+核心是用动态 `import()` 代替 `import`，让每个路由组件被打包成单独的 chunk，访问时才下载。
+
+```js
+// router/index.js
+import { createRouter, createWebHistory } from 'vue-router'
+
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    // 静态导入（不推荐）：一开始就打包进主 chunk
+    // component: () => import('../views/Home.vue')  ← 这就是懒加载
+    component: () => import('../views/Home.vue')
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About.vue')
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+export default router
+```
+
+Vue Router 会在导航到该路由时调用这个函数，触发网络请求加载对应的 JS 文件。
