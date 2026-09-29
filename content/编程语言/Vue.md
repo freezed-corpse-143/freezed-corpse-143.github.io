@@ -449,3 +449,23 @@ const users = [
 
 # 动态组件
 
+Vue 的动态组件（Dynamic Components）是指**在运行时根据条件动态切换不同组件**的一种机制。核心是通过 Vue 提供的 `<component>` 内置组件配合 `:is` 属性来实现。
+
+```vue
+<template>
+  <component :is="currentComponent" />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import ComponentA from './ComponentA.vue'
+import ComponentB from './ComponentB.vue'
+
+const currentComponent = ref('ComponentA')
+</script>
+```
+
+`:is` 的值可以是：
+- **组件名字符串**（需已注册）
+- **组件对象本身**（如 import 进来的组件）
+- **HTML 标签名字符串**（如 `'div'`）
