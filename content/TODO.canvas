@@ -111,17 +111,6 @@
 			"height":120
 		},
 		{
-			"id":"509d9aafb46b0233",
-			"type":"text",
-			"text":"知识图谱项目：重构",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1630,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
@@ -161,17 +150,6 @@
 			"y":1610,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"442451f3bce9c90f",
-			"type":"text",
-			"text":"教育部系统项目：重构",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1320,
-			"width":260,
-			"height":60,
-			"color":"1"
 		},
 		{
 			"id":"65bab444a43688ac",
@@ -224,17 +202,6 @@
 			"height":60
 		},
 		{
-			"id":"90c46fccf34c9ef0",
-			"type":"text",
-			"text":"崇明项目重构",
-			"styleAttributes":{},
-			"x":-2720,
-			"y":1480,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
 			"text":"算法 hot 100：\n- [x] 链表\n- [x] 二分查找\n- [x] 二叉树\n- [x] 堆/栈/队列\n- [x] 哈希\n- [x] 递归/回溯\n- [ ] 动态规划",
@@ -252,7 +219,17 @@
 			"x":-3340,
 			"y":2160,
 			"width":260,
-			"height":220
+			"height":160
+		},
+		{
+			"id":"e63b75bcc3cbbef2",
+			"type":"text",
+			"text":"简历更新：增加研究生国家奖学金",
+			"styleAttributes":{},
+			"x":-2960,
+			"y":2160,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
