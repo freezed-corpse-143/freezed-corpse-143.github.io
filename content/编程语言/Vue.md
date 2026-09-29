@@ -577,3 +577,30 @@ export default service;
 ```
 
 然后在 `api/` 目录中按业务模块定义接口函数，组件中直接调用即可。
+
+# Vite 插件
+
+Vite 插件基于 Rollup 的插件接口，用于扩展开发服务器和生产构建的能力。
+
+**使用方式**：安装插件后，在 `vite.config.js` 的 `plugins` 数组中引入：
+
+```javascript
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import legacy from '@vitejs/plugin-legacy';
+
+export default defineConfig({
+  plugins: [
+    vue(), // 提供 Vue 单文件组件支持（官方插件）
+    legacy({ targets: ['defaults', 'not IE 11'] }) // 传统浏览器兼容
+  ]
+});
+```
+
+**关键机制**：
+- ** `enforce` 修饰符**：`pre` / `post` 控制插件执行顺序。
+- ** `apply` 属性**：指定插件仅在 `'serve'` 或 `'build'` 模式下生效。
+
+**常用官方插件**：`@vitejs/plugin-vue`（Vue SFC 支持）、`@vitejs/plugin-vue-jsx`（JSX 支持）、`@vitejs/plugin-legacy`（旧浏览器兼容）。
+
+一个典型的 Vue 3 项目会这样组织：Vite 作为构建工具，通过插件引入 Vue 支持；Vue Router 定义页面结构和跳转；Pinia 管理跨页面共享的数据（如用户信息、购物车）；Axios 封装好请求层，在 Pinia 的 action 或组件中被调用；UI 库提供现成的表单、表格、弹窗等组件，大幅减少手写样式和交互逻辑的工作量。
