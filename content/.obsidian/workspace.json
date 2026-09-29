@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3503.4641339001064,
-                  "y": 1875.1525161086433,
+                  "y": 2121.9336000618846,
                   "zoom": -0.40792919319967574
                 }
               },
@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +97,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,11 +225,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "441cb635e74b061e",
+  "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
-    "编程语言/Vue.md",
     "TODO.canvas",
+    "编程语言/Vue.md",
+    "游戏速通/星露谷.md",
     "算法/堆.md",
     "游戏速通/泰拉瑞亚.md",
     "算法/数组.md",

@@ -224,3 +224,47 @@ index.html → main.ts → App.vue → router 守卫 → views 页面 → compon
 
 **一句话记住：**
 > `main.ts` 负责"起"，`router/` 负责"去哪"，`stores/` 负责"记什么"，`lib/` 负责"取什么"，`views/` 和 `components/` 负责"画什么"；数据一变，Vue 自动把变化的地方重画一遍。
+
+# .vue 文件模板
+
+```vue
+<template>
+  <!-- HTML 模板 -->
+</template>
+
+<script>
+export default {
+  // 逻辑
+}
+</script>
+
+<style>
+/* 样式 */
+</style>
+```
+
+# 文本插值
+
+使用双大括号 `{{ }}` 输出数据：
+
+```vue
+<template>
+  <p>{{ message }}</p>
+  <p>{{ count + 1 }}</p>
+  <p>{{ user.name }}</p>
+</template>
+```
+
+# 常用指令
+
+## v-if/v-else-if/v-else
+
+条件渲染：
+
+```vue
+<p v-if="score >= 90">优秀</p>
+<p v-else-if="score >= 60">及格</p>
+<p v-else>不及格</p>
+```
+
+## v-for
