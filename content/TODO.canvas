@@ -237,7 +237,7 @@
 		{
 			"id":"d21f27111dfa4f13",
 			"type":"text",
-			"text":"vue 学习：\n- [ ] 模板结构：指令 插槽、动态组件\n- [ ] 常见库及其使用：Vue Router、Pinia、UI 库（Element Plus/Naive UI/Vuetify）、Axios、Vite 插件\n- [ ] 跳转及其更新：路由跳转、路由守卫、响应式更新、\n- [ ] 调试，单独 vue 文件渲染调试，Vue DevTools、单文件组件（SFC）单独调试\n- [ ] 编译：条件编译，v-if 与编译时优化、define、环境变量、Tree-shaking\n- [ ] 响应式原理\n- [ ] 组件化进阶\n- [ ] Composition API vs Options API\n- [ ] 状态管理\n- [ ] 路由进阶\n- [ ] 工程化与构建\n- [ ] Typescript 集成\n- [ ] 性能优化\n- [ ] 测试\n- [ ] 生态与进阶方向\n- [ ] 最佳实践与规范\n\n",
+			"text":"vue 学习：\n- [ ] 模板结构：指令 动态组件\n- [ ] 常见库及其使用：Vue Router、Pinia、UI 库（Element Plus/Naive UI/Vuetify）、Axios、Vite 插件\n- [ ] 跳转及其更新：路由跳转、路由守卫、响应式更新、\n- [ ] 调试，单独 vue 文件渲染调试，Vue DevTools、单文件组件（SFC）单独调试\n- [ ] 编译：条件编译，v-if 与编译时优化、define、环境变量、Tree-shaking\n- [ ] 响应式原理\n- [ ] 组件化进阶\n- [ ] Composition API vs Options API\n- [ ] 状态管理\n- [ ] 路由进阶\n- [ ] 工程化与构建\n- [ ] Typescript 集成\n- [ ] 性能优化\n- [ ] 测试\n- [ ] 生态与进阶方向\n- [ ] 最佳实践与规范\n\n",
 			"styleAttributes":{},
 			"x":-3920,
 			"y":2100,

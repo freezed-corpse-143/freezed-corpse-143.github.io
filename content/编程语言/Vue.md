@@ -339,6 +339,8 @@ Slots，是 Vue 中的内容分发机制，它允许父组件向子组件传递�
 
 ## 默认插槽
 
+Default Slot
+
 最基础的用法，父组件传入的内容会替换 `<slot>` 标签。
 
 ```vue
@@ -358,4 +360,92 @@ Slots，是 Vue 中的内容分发机制，它允许父组件向子组件传递�
 ```
 
 ## 具名插槽
+
+Named Slot
+
+当一个组件需要多个插槽位置时，用 `name` 区分。
+
+```vue
+<!-- 子组件 Layout.vue -->
+<template>
+  <div class="layout">
+    <header>
+      <slot name="header"></slot>
+    </header>
+    <main>
+      <slot></slot>  <!-- 默认插槽 -->
+    </main>
+    <footer>
+      <slot name="footer"></slot>
+    </footer>
+  </div>
+</template>
+```
+
+```vue
+<!-- 父组件 -->
+<Layout>
+  <template #header>
+    <h1>页面标题</h1>
+  </template>
+
+  <p>主体内容</p>
+
+  <template #footer>
+    <p>版权信息</p>
+  </template>
+</Layout>
+```
+
+> `#header` 是 `v-slot:header` 的简写。
+
+动态插槽名
+
+```vue
+<template v-slot:[dynamicSlotName]>
+  ...
+</template>
+```
+
+## 作用域插槽
+
+Scoped Slots
+
+**核心用途**：让父组件能够访问子组件内部的数据。
+
+```vue
+<!-- 子组件 UserList.vue -->
+<template>
+  <ul>
+    <li v-for="user in users" :key="user.id">
+      <!-- 把 user 数据"传出去" -->
+      <slot :item="user" :index="index"></slot>
+    </li>
+  </ul>
+</template>
+
+<script setup>
+const users = [
+  { id: 1, name: '张三', age: 20 },
+  { id: 2, name: '李四', age: 25 }
+]
+</script>
+```
+
+```vue
+<!-- 父组件 -->
+<UserList>
+  <!-- 通过 v-slot 接收子组件传出的数据 -->
+  <template #default="{ item, index }">
+    <span>{{ index }} - {{ item.name }} ({{ item.age }}岁)</span>
+  </template>
+</UserList>
+```
+
+**为什么需要作用域插槽？**
+- 数据在子组件里（如 users 数组）
+- 但渲染方式由父组件决定
+- 这是一种"控制反转"的设计模式
+
+# 动态组件
 
