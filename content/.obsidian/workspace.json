@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "编程语言/Vue.md",
+                "file": "算法/双指针.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Vue"
+              "title": "双指针"
             }
           },
           {
@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3503.4641339001064,
-                  "y": 2121.9336000618846,
+                  "y": 1998.543058085264,
                   "zoom": -0.40792919319967574
                 }
               },
@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -97,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,10 +225,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "35a79df8ba2fe47b",
+  "active": "441cb635e74b061e",
   "lastOpenFiles": [
-    "TODO.canvas",
+    "算法/双指针.md",
     "编程语言/Vue.md",
+    "TODO.canvas",
     "游戏速通/星露谷.md",
     "算法/堆.md",
     "游戏速通/泰拉瑞亚.md",
