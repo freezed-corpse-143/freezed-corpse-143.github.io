@@ -532,3 +532,48 @@ export const useGoodsStore = defineStore('goods', () => {
 
 # UI 库
 
+Vue 生态中有多个成熟的 UI 组件库，选择哪一个往往取决于项目类型和设计风格。
+
+**Element Plus**：继承自 Element UI，组件功能稳定，API 设计成熟，适合**企业级后台管理系统**。风格较为传统，性能在大型应用中稍弱。安装后可直接在 `main.js` 中全局引入，也支持配合 `unplugin-vue-components` 做按需自动导入。
+
+**Naive UI**：一个较新的现代化框架，设计灵活，可高度自定义，组件配置粒度细。尤雨溪曾推荐过，适合 **Vue 3 新项目**，生态虽较新但已趋于成熟。
+
+**Vuetify**：老牌国际框架，基于 Material Design，组件库非常完备，稳定性强。但视觉风格相对过时，需要权衡现代 UI 需求与成熟度的取舍。
+
+**选型建议**：后台管理选 Element Plus，新项目追求现代感和灵活性选 Naive UI，已有 Material Design 设计规范或需要极度成熟的组件生态选 Vuetify。
+
+# Axios
+
+Axios 是一个基于 Promise 的 HTTP 客户端，在 Vue 项目中承担与后端接口通信的职责。
+
+**标准用法**是创建一个封装实例，统一配置 `baseURL`、超时时间，并通过拦截器处理 token 和错误：
+
+```javascript
+// utils/request.js
+import axios from 'axios';
+
+const service = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+  timeout: 10000,
+});
+
+// 请求拦截器：自动携带 token
+service.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+// 响应拦截器：统一处理错误
+service.interceptors.response.use(
+  response => response.data,
+  error => {
+    if (error.response?.status === 401) { /* 重定向登录 */ }
+    return Promise.reject(error);
+  }
+);
+
+export default service;
+```
+
+然后在 `api/` 目录中按业务模块定义接口函数，组件中直接调用即可。
