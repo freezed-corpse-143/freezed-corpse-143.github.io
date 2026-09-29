@@ -996,3 +996,137 @@ import { ref, computed, nextTick } from 'vue'
 相比之下，Vue 2 的 `import Vue from 'vue'` 会将整个框架纳入打包范围，因为打包工具无法判断 `Vue.nextTick` 等属性访问背后依赖了哪些模块。
 
 要确保 Tree-shaking 生效，还需注意：使用 `lodash-es` 替代 `lodash`，在 `package.json` 中正确配置 `sideEffects`，以及避免将导入的模块赋值给可能逃逸的变量。
+
+# Option API
+
+（选项式）传统写法，把组件的逻辑按**选项类型**分散到 `data`、`methods`、`computed`、`watch`、生命周期钩子里：
+
+```js
+export default {
+  data() {
+    return { count: 0, name: 'Vue' }
+  },
+  computed: {
+    double() { return this.count * 2 }
+  },
+  methods: {
+    increment() { this.count++ }
+  },
+  mounted() {
+    console.log('mounted')
+  }
+}
+```
+
+**特点：**
+- 上手简单，结构清晰，适合小中型组件
+- 逻辑按"类型"分组，而不是按"功能"分组
+- 一个功能的相关代码被拆散在多个选项中（`data` 里的状态、`methods` 里的方法、`watch` 里的监听……）
+- `this` 指向组件实例，类型推导较弱
+
+# Composition API
+
+组合式，逻辑按**功能**组织，状态、方法、副作用写在一起：
+
+```js
+import { ref, computed, onMounted } from 'vue'
+
+export default {
+  setup() {
+    const count = ref(0)
+    const name = ref('Vue')
+    const double = computed(() => count.value * 2)
+    function increment() { count.value++ }
+    onMounted(() => console.log('mounted'))
+    return { count, name, double, increment }
+  }
+}
+```
+
+**特点：**
+- 逻辑按功能聚合，一个功能的代码集中在一起
+- 更好的逻辑复用（不依赖 mixin）
+- 更好的 TypeScript 支持（无 `this`，类型推导自然）
+- 更灵活，但需要理解 `ref`、`reactive` 等概念
+
+# \<script setup\> 语法糖
+
+`<script setup>` 是 Composition API 在 SFC 中的**编译期语法糖**，是官方推荐的写法。
+
+```vue
+<script setup>
+import { ref, computed } from 'vue'
+
+const count = ref(0)
+const double = computed(() => count.value * 2)
+function increment() { count.value++ }
+</script>
+
+<template>
+  <button @click="increment">{{ count }} / {{ double }}</button>
+</template>
+```
+
+**它做了什么：**
+- 顶层变量/函数**自动暴露给模板**，不用 `return`
+- 顶层 `await` 自动变成 `async setup`
+- 编译后等价于 `setup()` 返回这些绑定
+- 更少样板代码，更好的类型推导和 IDE 支持
+
+
+# 组合式函数的抽取与复用
+
+组合式函数（Composable）是**利用 Composition API 封装并复用有状态逻辑**的函数，约定以 `use` 开头。
+
+### 示例：鼠标位置
+
+```js
+// composables/useMouse.js
+import { ref, onMounted, onUnmounted } from 'vue'
+
+export function useMouse() {
+  const x = ref(0)
+  const y = ref(0)
+  function update(e) { x.value = e.pageX; y.value = e.pageY }
+  onMounted(() => window.addEventListener('mousemove', update))
+  onUnmounted(() => window.removeEventListener('mousemove', update))
+  return { x, y }
+}
+```
+
+```vue
+<script setup>
+import { useMouse } from '@/composables/useMouse'
+const { x, y } = useMouse()
+</script>
+<template>鼠标：{{ x }}, {{ y }}</template>
+```
+
+### 示例：异步请求
+
+```js
+// composables/useFetch.js
+import { ref } from 'vue'
+
+export function useFetch(url) {
+  const data = ref(null)
+  const error = ref(null)
+  const loading = ref(false)
+
+  async function request() {
+    loading.value = true
+    error.value = null
+    try {
+      const res = await fetch(url)
+      data.value = await res.json()
+    } catch (e) {
+      error.value = e
+    } finally {
+      loading.value = false
+    }
+  }
+
+  request()
+  return { data, error, loading, refresh: request }
+}
+```
