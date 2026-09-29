@@ -667,3 +667,38 @@ props: ['id']
 
 # 路由守卫
 
+路由守卫是 Vue Router 提供的**导航拦截机制**，按执行顺序分为：
+## 全局守卫
+
+```js
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isLogin()) {
+    next('/login')
+  } else {
+    next()
+  }
+})
+
+router.beforeResolve(...)   // 所有组件内守卫和异步路由组件解析后
+router.afterEach((to, from) => { ... })  // 无 next，不能拦截
+```
+
+## 路由独享守卫
+
+```js
+{
+  path: '/admin',
+  component: Admin,
+  beforeEnter: (to, from, next) => { ... }
+}
+```
+
+## 组件内
+
+```js
+beforeRouteEnter(to, from, next) { ... }   // 组件实例还未创建
+beforeRouteUpdate(to, from, next) { ... }  // 同一组件复用，参数变化时
+beforeRouteLeave(to, from, next) { ... }   // 离开当前组件
+```
+
+## 完整到
