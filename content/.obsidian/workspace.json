@@ -13,26 +13,29 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法/堆.md",
+                "file": "编程语言/Vue.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "堆"
+              "title": "Vue"
             }
           },
           {
             "id": "441cb635e74b061e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "游戏速通/星露谷.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3503.4641339001064,
+                  "y": 1875.1525161086433,
+                  "zoom": -0.40792919319967574
+                }
               },
-              "icon": "lucide-file",
-              "title": "星露谷"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ],
@@ -224,18 +227,18 @@
   },
   "active": "441cb635e74b061e",
   "lastOpenFiles": [
-    "游戏速通/泰拉瑞亚.md",
+    "游戏速通/星露谷.md",
+    "编程语言/Vue.md",
     "TODO.canvas",
     "算法/堆.md",
+    "游戏速通/泰拉瑞亚.md",
     "算法/数组.md",
     "算法/位算法.md",
     "算法/栈.md",
     "算法/链表.md",
     "index.md",
-    "游戏速通/星露谷.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
-    "编程语言/Vue.md",
     "软件工程/领域驱动设计.md",
     "windows.md",
     "开发经验/杂项.md",
@@ -251,7 +254,6 @@
     "软件工程/分布式系统.md",
     "软件工程/控制流模式.md",
     "软件工程/模块化.md",
-    "软件工程/副作用边界.md",
     "小说idea",
     "软件工程",
     "杂项",
