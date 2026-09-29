@@ -453,15 +453,19 @@ Vue 的动态组件（Dynamic Components）是指**在运行时根据条件动�
 
 ```vue
 <template>
+  <button @click="currentComponent = ComponentA">A</button>
+  <button @click="currentComponent = ComponentB">B</button>
+
   <component :is="currentComponent" />
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { shallowRef } from 'vue'
 import ComponentA from './ComponentA.vue'
 import ComponentB from './ComponentB.vue'
 
-const currentComponent = ref('ComponentA')
+// 用 shallowRef 存组件对象
+const currentComponent = shallowRef(ComponentA)
 </script>
 ```
 
@@ -469,3 +473,8 @@ const currentComponent = ref('ComponentA')
 - **组件名字符串**（需已注册）
 - **组件对象本身**（如 import 进来的组件）
 - **HTML 标签名字符串**（如 `'div'`）
+
+## 与 `v-if` / `v-show` 的区别
+
+- `v-if` / `v-show` 是**条件渲染**，通常针对固定组件
+- 动态组件更适合**组件类型不确定、需要按逻辑切换**的场景，代码更简洁，扩展性更好
