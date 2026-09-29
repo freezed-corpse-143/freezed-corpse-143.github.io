@@ -1340,3 +1340,142 @@ export default router
 ```
 
 Vue Router 会在导航到该路由时调用这个函数，触发网络请求加载对应的 JS 文件。
+
+# Vite 配置核心
+
+## 基础配置结构
+
+```js
+// vite.config.ts
+import { defineConfig, loadEnv } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import path from 'node:path'
+
+export default defineConfig(({ mode, command }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  return {
+    plugins: [vue()],
+    resolve: {
+      alias: { '@': path.resolve(__dirname, 'src') },
+      extensions: ['.ts', '.tsx', '.vue', '.js']
+    },
+    server: {
+      port: 5173,
+      proxy: {
+        '/api': {
+          target: env.VITE_API_BASE,
+          changeOrigin: true,
+          rewrite: p => p.replace(/^\/api/, '')
+        }
+      }
+    }
+  }
+})
+```
+
+
+## 别名
+
+（Alias）
+
+- 作用：用 `@/components/Button.vue` 替代 `../../components/Button.vue`，避免深层相对路径。
+- 关键：**Vite 的别名只解决构建期解析**，如果代码里用了 `@`，TypeScript 编译时也需要在 `tsconfig.json` 中同步配置 `paths`，否则 IDE 报红。
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] }
+  }
+}
+```
+
+## 代理
+
+Proxy
+
+- 解决开发环境跨域：浏览器请求 `/api/user` → Vite Dev Server 转发到 `http://backend:8080/user`。
+- `changeOrigin: true` 修改请求头 Host，很多后端会校验。
+- `rewrite` 用于去掉 `/api` 前缀。
+- **注意**：代理只在 `vite dev` 生效，生产环境需靠 Nginx 或后端 CORS 处理。
+
+## 环境变量
+
+Vite 使用 `dotenv`，约定：
+
+| 文件               | 加载时机           |
+| ------------------ | ------------------ |
+| `.env`             | 所有模式           |
+| `.env.local`       | 所有模式，git 忽略 |
+| `.env.development` | `vite dev`         |
+| `.env.production`  | `vite build`       |
+
+只有 `VITE_` 前缀的变量才会暴露到客户端：
+
+```bash
+# .env.production
+VITE_API_BASE=https://api.example.com
+```
+
+```ts
+console.log(import.meta.env.VITE_API_BASE)
+console.log(import.meta.env.MODE)   // 'production'
+console.log(import.meta.env.DEV)    // false
+```
+
+**安全提醒**：`VITE_` 变量会被**明文打包进 JS**，绝不能放密钥。
+
+# 规范化
+
+ESLint + Prettier + TypeScript
+
+三者职责要分清：
+
+| 工具       | 职责                                          |
+| ---------- | --------------------------------------------- |
+| TypeScript | 类型检查（类型错误、接口约束）                |
+| ESLint     | 代码质量 + 潜在 bug（未使用变量、hooks 规则） |
+| Prettier   | 纯格式化（缩进、引号、换行）                  |
+
+## 集成 ESLint 9 Flat Config
+
+```js
+// eslint.config.js
+import js from '@eslint/js'
+import vue from 'eslint-plugin-vue'
+import ts from 'typescript-eslint'
+import prettier from 'eslint-config-prettier'
+
+export default ts.config(
+  js.configs.recommended,
+  ...ts.configs.recommended,
+  ...vue.configs['flat/recommended'],
+  prettier, // 必须放最后，关闭与 Prettier 冲突的规则
+  {
+    files: ['**/*.vue'],
+    languageOptions: {
+      parserOptions: { parser: ts.parser }
+    }
+  }
+)
+```
+
+### 关键实践
+
+1. **不要把格式化交给 ESLint**：用 `eslint-config-prettier` 关闭冲突规则，让 Prettier 独占格式化。
+2. **类型检查交给 vue-tsc**：`vite build` 本身不做类型检查，需 `vue-tsc --noEmit` 单独跑。
+3. **pre-commit 钩子**：`husky` + `lint-staged`，只检查暂存文件，速度快。
+
+```json
+// package.json
+"lint-staged": {
+  "*.{ts,vue}": ["eslint --fix", "prettier --write"]
+}
+```
+
+4. **Vue 3 + TS 用 `<script setup lang="ts">` **，配合 `defineProps<T>()` 获得完整类型推导。
+
+
+# 打包优化
+
