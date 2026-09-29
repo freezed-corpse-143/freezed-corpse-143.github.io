@@ -478,3 +478,57 @@ const currentComponent = shallowRef(ComponentA)
 
 - `v-if` / `v-show` 是**条件渲染**，通常针对固定组件
 - 动态组件更适合**组件类型不确定、需要按逻辑切换**的场景，代码更简洁，扩展性更好
+
+# Vue Router
+
+Vue Router 是 Vue 官方的路由管理器，用于在单页应用（SPA）中实现页面之间的导航，让应用看起来像多页面网站，但实际不刷新浏览器。
+
+**核心概念**：
+- **路由配置**：定义 URL 路径与组件的映射关系，支持动态路由（如 `/goods/:id`）和嵌套路由。
+- ** `<RouterView>` 与 `<RouterLink>` **：前者是路由匹配组件的渲染出口，后者是声明式导航链接。
+- **路由守卫**：通过 `beforeEach` 等钩子实现权限控制，比如未登录用户重定向到登录页。
+- **懒加载**：用 `() => import('./views/GoodsDetail.vue')` 按需加载路由组件，优化首屏加载速度。
+
+**使用方式**（Vue 3）：
+```javascript
+// router/index.js
+import { createRouter, createWebHistory } from 'vue-router';
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', component: GoodsList },
+    { path: '/goods/:id', component: GoodsDetail } // 动态路由
+  ]
+});
+
+export default router;
+```
+
+# Pinia
+
+Pinia 是 Vue 官方推荐的下一代状态管理库，替代了 Vuex。它的核心价值在于**跨组件共享状态**，避免通过 props 层层传递数据。
+
+**为什么用 Pinia**：
+- **更简洁的 API**：没有了 Vuex 中繁琐的 mutations，只有 state、getters、actions。
+- **完善的 TypeScript 支持**：类型推断非常自然，几乎无需额外标注。
+- **Devtools 支持**：可以在 Vue Devtools 中追踪状态变化、进行时间旅行调试。
+
+**使用示例**（Setup 语法）：
+```javascript
+// stores/goodsStore.js
+import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
+
+export const useGoodsStore = defineStore('goods', () => {
+  const list = ref([]);           // state
+  const total = computed(() => list.value.length); // getter
+  async function fetchList() {    // action
+    // 调用 API 获取数据
+  }
+  return { list, total, fetchList };
+});
+```
+
+# UI 库
+
