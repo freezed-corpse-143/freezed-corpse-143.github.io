@@ -245,16 +245,6 @@
 			"height":600
 		},
 		{
-			"id":"b8588525f69d02e9",
-			"type":"text",
-			"text":"从 chrom 迁移到 helium 浏览器，两台机器",
-			"styleAttributes":{},
-			"x":-2840,
-			"y":2020,
-			"width":460,
-			"height":80
-		},
-		{
 			"id":"29ec5e9f4d32320e",
 			"type":"text",
 			"text":"算法 hot 100：\n- [x] 链表\n- [x] 二分查找\n- [x] 二叉树\n- [x] 堆/栈/队列\n- [x] 哈希\n- [x] 递归/回溯\n- [ ] 动态规划",

@@ -13,26 +13,29 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "环境配置.md",
+                "file": "编程语言/Vue.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环境配置"
+              "title": "Vue"
             }
           },
           {
             "id": "f76d13f608325a6c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "算法/递归回溯.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3396.923999079613,
+                  "y": 1807.4749275114486,
+                  "zoom": -0.4864521119005067
+                }
               },
-              "icon": "lucide-file",
-              "title": "递归回溯"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -94,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -224,6 +226,7 @@
   },
   "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
+    "环境配置.md",
     "TODO.canvas",
     "算法/递归回溯.md",
     "算法/数组.md",
@@ -250,7 +253,6 @@
     "软件工程/学习之路.md",
     "软件工程/架构风格.md",
     "软件工程/类型系统.md",
-    "软件工程/分布式系统.md",
     "小说idea",
     "软件工程",
     "杂项",
