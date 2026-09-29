@@ -268,3 +268,72 @@ export default {
 ```
 
 ## v-for
+
+> 列表渲染
+
+```vue
+<ul>
+  <li v-for="(item, index) in list" :key="index">
+    {{ item }}
+  </li>
+</ul>
+```
+
+## v-bind
+
+> 绑定属性
+
+简写为 `:`，把数据绑定到 HTML 属性：
+
+```vue
+<img :src="imgUrl" />
+<a :href="link">链接</a>
+<div :class="{ active: isActive }"></div>
+```
+
+## v-on
+
+>  绑定属性
+
+简写为 `@`：
+
+```vue
+<button @click="handleClick">点击</button>
+<button @click="count++">+1</button>
+<input @input="onInput" />
+```
+
+## v-model
+
+> 双向绑定
+
+常用于表单：
+
+```vue
+<input v-model="username" />
+<select v-model="selected"></select>
+```
+
+# 插槽
+
+Slots，是 Vue 中的内容分发机制，它允许父组件向子组件传递模板内容。
+
+## 出现原因
+
+在没有插槽的情况下，子组件只能展示自己内部定义的内容。插槽让子组件变成了一个"容器"，父组件可以决定往里面放什么内容。
+
+```vue
+<!-- 子组件 MyButton.vue -->
+<template>
+  <button class="btn">
+    <slot>默认内容</slot>  <!-- 插槽位置 -->
+  </button>
+</template>
+```
+
+```vue
+<!-- 父组件使用 -->
+<MyButton>点击我</MyButton>
+<!-- 渲染结果：<button class="btn">点击我</button> -->
+```
+
