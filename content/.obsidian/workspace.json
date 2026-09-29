@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -227,18 +228,18 @@
   },
   "active": "f76d13f608325a6c",
   "lastOpenFiles": [
+    "算法/数组.md",
+    "算法/链表.md",
     "算法/堆.md",
+    "算法/递归回溯.md",
     "TODO.canvas",
     "index.md",
     "算法/双指针.md",
-    "算法/递归回溯.md",
     "编程语言/Vue.md",
     "游戏速通/星露谷.md",
     "游戏速通/泰拉瑞亚.md",
-    "算法/数组.md",
     "算法/位算法.md",
     "算法/栈.md",
-    "算法/链表.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
     "软件工程/领域驱动设计.md",
