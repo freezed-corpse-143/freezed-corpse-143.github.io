@@ -1479,3 +1479,124 @@ export default ts.config(
 
 # 打包优化
 
+## 代码分割
+
+Code Splitting
+
+**路由级分割**（收益最大）：
+
+```ts
+const routes = [
+  { path: '/home', component: () => import('@/views/Home.vue') },
+  { path: '/about', component: () => import('@/views/About.vue') }
+]
+```
+
+**手动分包**（vendor 拆分，利用浏览器缓存）：
+
+```js
+build: {
+  rollupOptions: {
+    output: {
+      manualChunks: {
+        'vue-vendor': ['vue', 'vue-router', 'pinia'],
+        'ui-vendor': ['element-plus'],
+        'utils': ['lodash-es', 'dayjs']
+      }
+    }
+  }
+}
+```
+
+## 按需引入
+
+以 Element Plus 为例，用 `unplugin-vue-components` 自动按需引入，替代全量 `import ElementPlus from 'element-plus'`：
+
+```js
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+plugins: [
+  Components({ resolvers: [ElementPlusResolver()] })
+]
+```
+
+组件和样式都按需加载，产物从 ~1 MB 降到几百 KB。
+
+## Gzip / Brotli 压缩
+
+```js
+import viteCompression from 'vite-plugin-compression'
+
+plugins: [
+  viteCompression({ algorithm: 'gzip', threshold: 10240 }),
+  viteCompression({ algorithm: 'brotliCompress', ext: '.br' })
+]
+```
+
+**注意**：这只生成 `.gz` 文件，还需要 **Nginx 开启 `gzip_static on;` ** 才会实际返回压缩版本。Brotli 压缩率比 Gzip 高约 15-20%，但需 Nginx 支持。
+
+## CDN 加速
+
+把 `vue`、`element-plus` 等稳定的大依赖从 bundle 剥离，通过 `<script>` 从 CDN 加载：
+
+```js
+import { visualizer } from 'rollup-plugin-visualizer'
+import externalGlobals from 'rollup-plugin-external-globals'
+
+build: {
+  rollupOptions: {
+    external: ['vue', 'vue-router', 'pinia']
+  },
+  plugins: [
+    externalGlobals({
+      vue: 'Vue',
+      'vue-router': 'VueRouter'
+    }),
+    visualizer() // 分析产物体积
+  ]
+}
+```
+
+```html
+<!-- index.html -->
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+```
+
+**权衡**：CDN 减少自己服务器带宽、并行下载，但引入第三方可用性风险，国内建议用可靠 CDN 或自建。
+
+# SSR/SSG/CSR 对比
+
+| 维度       | CSR (纯 Vue SPA)             | SSR (Nuxt SSR)                | SSG (Nuxt Generate)        |
+| ---------- | ---------------------------- | ----------------------------- | -------------------------- |
+| 首屏渲染   | 浏览器执行 JS 后渲染，白屏久 | 服务端返回完整 HTML，首屏快   | 构建时生成 HTML，最快      |
+| SEO        | 差（爬虫可能拿不到内容）     | 好                            | 好                         |
+| 服务器成本 | 静态托管即可                 | 需要 Node 服务，每次请求渲染  | 纯静态，CDN 即可           |
+| 数据实时性 | 客户端拉取，实时             | 每次请求实时                  | 构建时数据，需重新构建更新 |
+| 适用场景   | 后台管理、登录后应用         | 电商、新闻、需 SEO 且内容动态 | 博客、文档、营销页         |
+
+## 原理对比
+
+- **CSR**：服务端只返回 `<div id="app"></div>` + JS，Vue 在浏览器挂载渲染。
+- **SSR**：服务端执行 `createSSRApp` 渲染成 HTML 字符串返回，浏览器 hydrate（激活事件），需保证服务端/客户端渲染结果一致（否则 hydration mismatch）。
+- **SSG**：本质是"构建时 SSR"，把渲染结果固化成静态 HTML 文件，无需运行时服务端。
+
+## 总结
+
+```
+开发期                          构建期                      运行期
+┌──────────────┐          ┌──────────────┐          ┌──────────────┐
+│ Vite Dev     │          │ Rollup 打包  │          │ Nginx / CDN  │
+│ - HMR        │  ────►   │ - 代码分割   │  ────►   │ - gzip_static│
+│ - proxy      │          │ - tree-shake │          │ - 缓存策略   │
+│ - env        │          │ - 压缩/CDN   │          │ - SSR 服务   │
+└──────────────┘          └──────────────┘          └──────────────┘
+        ↑                        ↑                          ↑
+   ESLint/Prettier          vue-tsc 类型检查           监控/日志
+   husky 提交钩子           visualizer 体积分析
+```
+
+**核心原则**：
+1. 关注点分离——TS 管类型、ESLint 管质量、Prettier 管格式。
+2. 别过早优化——先用 `rollup-plugin-visualizer` 找出真正的大头。
+3. 渲染模式是架构决策——根据 SEO、实时性、成本三选一或混合。
