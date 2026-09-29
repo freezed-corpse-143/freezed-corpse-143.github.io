@@ -785,3 +785,158 @@ DOM 更新完成
 - **参数解析**：params、query、props
 - **响应式更新**：路由对象响应式，组件复用时要 watch 参数变化
 - **更新触发**：路由状态变 → 依赖收集触发 → 视图刷新
+
+# Vue 调试
+
+Vue 调试指的是在开发 Vue 应用过程中，定位和解决代码问题的过程。由于 Vue 采用**数据驱动视图**的响应式模式，很多时候问题不在 DOM 上，而在数据流、组件通信、生命周期或响应式依赖上，所以调试手段也和传统 jQuery/原生 JS 有所不同。
+
+Vue 调试通常包括几个层面：
+
+- **逻辑调试**：用浏览器 DevTools 的 Sources 面板打断点，调试 JS/TS 逻辑。
+- **状态调试**：查看组件当前的 data、props、computed、Vuex/Pinia 状态。
+- **组件树调试**：查看组件层级、props 传递、事件触发。
+- **渲染调试**：排查模板渲染、响应式更新、虚拟 DOM diff 问题。
+- **单文件组件（SFC）调试**：针对 `.vue` 文件的模板、脚本、样式分别调试。
+
+# 单独 Vue 文件渲染调试
+
+这里指的是**把某个 `.vue` 单文件组件单独拎出来渲染、调试**，而不是跑整个项目。常见场景：
+
+1. **组件库开发**：写完一个 Button.vue，想单独看它的各种 props/状态。
+2. **隔离问题**：某个组件在项目里表现异常，单独渲染排除父组件/全局状态干扰。
+3. **快速预览**：不想启动整个大型项目，只调试一个组件。
+
+## 用 Vite 单独起一个入口
+
+在 `vite.config.js` 里指定一个只渲染该组件的入口 HTML：
+
+```html
+<!-- debug.html -->
+<div id="app"></div>
+<script type="module" src="/src/debug-main.js"></script>
+```
+
+```js
+// debug-main.js
+import { createApp } from 'vue'
+import MyComponent from './components/MyComponent.vue'
+
+createApp(MyComponent).mount('#app')
+```
+
+然后访问 `http://localhost:5173/debug.html`，就只渲染这一个组件。
+
+## Storybook
+
+Storybook 是专门做组件隔离开发/调试的工具，每个组件写一个 `*.stories.js`，可以单独渲染并交互式调整 props：
+
+```js
+export default { title: 'Button', component: Button }
+export const Primary = (args) => ({
+  components: { Button },
+  setup: () => ({ args }),
+  template: '<Button v-bind="args">Click</Button>'
+})
+Primary.args = { type: 'primary', size: 'large' }
+```
+
+## 用 Vitepress / 自建 Playground
+
+写一个 demo 页面，通过 `v-if` 或路由切换不同组件状态，方便手动调试。
+
+## Vue CLI
+
+Vue CLI 提供 `vue serve MyComponent.vue`，可以零配置单独启动一个组件进行调试（Vue 3 + Vite 时代一般用 Vite 或 Storybook 替代）。
+
+- 隔离环境，排除干扰，问题定位快。
+- 可以快速切换 props/状态，观察渲染结果。
+- 适合组件库开发和回归测试。
+
+# Vue DevTools
+
+**Vue DevTools** 是官方提供的浏览器扩展（Chrome / Firefox / Edge），是 Vue 调试最核心的工具。
+
+## 主要功能
+
+**1. Components 面板**
+- 查看完整组件树，点击任意组件查看其 `data`、`props`、`computed`、`setup` 状态。
+- **可直接编辑状态值**，实时观察视图变化，验证响应式逻辑。
+- 查看组件对应的源码位置（配合 source map 可跳转）。
+- 查看事件监听、插槽内容。
+
+**2. Vuex / Pinia 面板**
+- 查看 store 的 state、getters、mutations/actions 历史。
+- **时间旅行调试**：回滚到任意一次 mutation 之前的状态。
+
+**3. Performance / Timeline（部分版本）**
+- 记录组件渲染、更新耗时，分析性能瓶颈。
+
+**4. Routes 面板（Vue Router 集成）**
+- 查看当前路由、路由参数、匹配的组件。
+
+**5. Settings**
+- 切换 Vue 2 / Vue 3 版本。
+- 开启/关闭组件名称推断、性能分析等。
+
+## 使用注意
+
+- 生产环境默认不启用，需要在构建时开启 `devtools: true` 或使用开发版。
+- Vue 3 需要 DevTools 6.x 以上版本。
+- 如果页面用的是生产版 Vue，DevTools 面板不会亮起。
+
+## 调试流程
+
+1. 打开 DevTools → Vue 面板 → Components。
+2. 选中出问题的组件。
+3. 查看 props 是否正确传入、data 是否符合预期。
+4. 直接修改某个值，看视图是否按预期更新。
+5. 如果视图没更新，说明响应式丢失（如直接改数组下标、对象新增属性未用 `$set` / `reactive`）。
+
+# 单文件组件（SFC）调试
+
+SFC 即 `.vue` 文件，包含 `<template>`、`<script>`、`<style>` 三部分。单独调试 SFC 指的是**针对这三部分分别进行调试**。
+
+## 模板（template）调试
+
+- **Vue DevTools**：查看渲染后的组件树和 DOM 结构。
+- **浏览器 Elements 面板**：查看实际渲染的 DOM，但注意 Vue 的 DOM 是运行时生成的，源码位置需靠 DevTools 映射。
+- **在模板中临时插值**：`{{ JSON.stringify(state) }}` 快速看数据。
+- ** `v-if` / `v-show` 排查**：确认条件是否成立。
+- **编译报错**：模板语法错误会在编译时报出，Vite 会直接提示行号。
+
+## 脚本（script）调试
+
+- **浏览器 Sources 面板打断点**：在 `setup`、`methods`、生命周期钩子里打断点，查看调用栈和变量。
+- ** `debugger` 语句**：在代码里写 `debugger`，运行到此处自动断点。
+- ** `console.log` / `console.table` **：最朴素但有效。
+- **Vue DevTools 编辑状态**：直接改变量，观察响应。
+- ** `onErrorCaptured` / `errorHandler` **：捕获组件内错误，统一打日志。
+- **Source Map**：开发模式下 Vite/Webpack 生成 source map，可以在 Sources 里看到原始 `.vue` 文件并断点。
+
+## 样式（style）调试
+
+- **浏览器 Elements 面板**：查看 scoped 样式生成的 `data-v-xxx` 属性，定位样式作用域。
+- ** `<style scoped>` 调试**：注意 scoped 只作用于当前组件，子组件根节点会受父组件 scoped 影响。
+- **深度选择器**：`:deep(.child)` 调试子组件样式。
+- **CSS Modules**：查看编译后的类名映射。
+- **动态 class / style**：在 DevTools 里实时修改，验证样式逻辑。
+
+## SFC 的推荐组合
+
+| 场景           | 推荐工具                                      |
+| -------------- | --------------------------------------------- |
+| 组件库开发     | Storybook + Vue DevTools                      |
+| 单组件快速预览 | Vite 独立入口 / `vue serve`                   |
+| 逻辑断点       | 浏览器 Sources + source map                   |
+| 状态查看/修改  | Vue DevTools Components 面板                  |
+| 样式调试       | 浏览器 Elements + scoped 属性                 |
+| 性能分析       | Vue DevTools Performance + Chrome Performance |
+## 总结对比
+
+| 调试方式           | 适用场景                     | 核心能力                             |
+| -------------- | ------------------------ | -------------------------------- |
+| 单独 Vue 文件渲染调试  | 组件隔离开发、排除干扰              | 单独渲染一个组件，快速验证                    |
+| Vue DevTools   | 整体应用状态/组件树调试             | 查看/编辑状态、时间旅行、组件树                 |
+| SFC 单独调试       | 针对 template/script/style | 分别用 DevTools、Sources、Elements 调试 |
+| 浏览器 Sources 断点 | JS 逻辑调试                  | 断点、调用栈、变量查看                      |
+| Storybook      | 组件库开发                    | 隔离渲染 + 交互式 props 控制              |
