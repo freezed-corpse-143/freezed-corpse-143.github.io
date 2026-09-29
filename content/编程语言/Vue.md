@@ -604,3 +604,18 @@ export default defineConfig({
 **常用官方插件**：`@vitejs/plugin-vue`（Vue SFC 支持）、`@vitejs/plugin-vue-jsx`（JSX 支持）、`@vitejs/plugin-legacy`（旧浏览器兼容）。
 
 一个典型的 Vue 3 项目会这样组织：Vite 作为构建工具，通过插件引入 Vue 支持；Vue Router 定义页面结构和跳转；Pinia 管理跨页面共享的数据（如用户信息、购物车）；Axios 封装好请求层，在 Pinia 的 action 或组件中被调用；UI 库提供现成的表单、表格、弹窗等组件，大幅减少手写样式和交互逻辑的工作量。
+
+# 路由跳转
+
+路由跳转是指从当前 URL/视图切换到另一个路由对应的视图。Vue Router 中常见的跳转方式：
+
+## 声明式跳转
+
+```html
+<router-link to="/user/123">用户</router-link>
+```
+底层会渲染成 `<a>`，点击后由 Vue Router 接管，避免整页刷新。
+
+## 编程式跳转
+
+
