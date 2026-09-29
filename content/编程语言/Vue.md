@@ -722,3 +722,34 @@ Vue 的核心特性：数据变化 → 视图自动更新。在路由场景中�
 
 ## 路由对象是响应式
 
+```js
+import { useRoute } from 'vue-router'
+const route = useRoute()
+watch(() => route.params.id, (newId) => {
+  fetchData(newId)
+})
+```
+当 URL 参数变化时，`route.params`、`route.query` 会触发依赖更新。
+
+## 组件复用问题
+
+当 `/user/1` → `/user/2` 时，**同一个 User 组件会被复用**，不会重新创建。此时：
+- `created` / `mounted` 不会再次执行
+- 需要用 `watch` 监听 `$route` 或使用 `beforeRouteUpdate`
+
+```js
+watch(() => route.params.id, (id) => {
+  loadUser(id)
+})
+```
+
+## 响应式原理
+
+- `ref` / `reactive` 创建响应式数据
+- 依赖收集：渲染函数读取数据时收集依赖
+- 触发更新：数据变化 → 触发 `effect` → 重新渲染组件
+- 路由内部用 `reactive` 包装 currentRoute，所以路由变化能驱动视图更新
+
+## 与路由跳转的关系
+
+
