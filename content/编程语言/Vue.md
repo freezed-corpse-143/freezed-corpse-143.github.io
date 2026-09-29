@@ -1130,3 +1130,5 @@ export function useFetch(url) {
   return { data, error, loading, refresh: request }
 }
 ```
+
+# Pinia 的
