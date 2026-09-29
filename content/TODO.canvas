@@ -253,6 +253,16 @@
 			"y":2100,
 			"width":560,
 			"height":600
+		},
+		{
+			"id":"b8588525f69d02e9",
+			"type":"text",
+			"text":"从 chrom 迁移到 helium 浏览器，两台机器",
+			"styleAttributes":{},
+			"x":-2840,
+			"y":2020,
+			"width":460,
+			"height":80
 		}
 	],
 	"edges":[],

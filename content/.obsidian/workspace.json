@@ -11,18 +11,21 @@
             "id": "35a79df8ba2fe47b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "算法/双指针.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -2887.758210763334,
+                  "y": 2118.865629096635,
+                  "zoom": -0.81978544523384
+                }
               },
-              "icon": "lucide-file",
-              "title": "双指针"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
-            "id": "441cb635e74b061e",
+            "id": "f76d13f608325a6c",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -222,20 +225,20 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "441cb635e74b061e",
+  "active": "f76d13f608325a6c",
   "lastOpenFiles": [
+    "算法/堆.md",
     "TODO.canvas",
-    "算法/递归回溯.md",
+    "index.md",
     "算法/双指针.md",
+    "算法/递归回溯.md",
     "编程语言/Vue.md",
     "游戏速通/星露谷.md",
-    "算法/堆.md",
     "游戏速通/泰拉瑞亚.md",
     "算法/数组.md",
     "算法/位算法.md",
     "算法/栈.md",
     "算法/链表.md",
-    "index.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
     "软件工程/领域驱动设计.md",
