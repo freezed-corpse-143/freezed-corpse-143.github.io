@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "编程语言/CSS.md",
+                "file": "编程语言/Vue.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CSS"
+              "title": "Vue"
             }
           },
           {
@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -226,11 +225,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f76d13f608325a6c",
+  "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
     "编程语言/CSS.md",
-    "编程语言/Vue.md",
     "TODO.canvas",
+    "编程语言/Vue.md",
     "环境配置.md",
     "算法/递归回溯.md",
     "算法/数组.md",
@@ -255,7 +254,6 @@
     "软件工程/架构边界.md",
     "软件工程/学习之路.md",
     "软件工程/架构风格.md",
-    "软件工程/类型系统.md",
     "小说idea",
     "软件工程",
     "杂项",
