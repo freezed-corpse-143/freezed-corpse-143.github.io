@@ -940,3 +940,59 @@ SFC 即 `.vue` 文件，包含 `<template>`、`<script>`、`<style>` 三部分�
 | SFC 单独调试       | 针对 template/script/style | 分别用 DevTools、Sources、Elements 调试 |
 | 浏览器 Sources 断点 | JS 逻辑调试                  | 断点、调用栈、变量查看                      |
 | Storybook      | 组件库开发                    | 隔离渲染 + 交互式 props 控制              |
+
+# 条件编译
+
+条件编译的本质是**在构建阶段将特定的全局常量替换为字面量**，让打包工具的 Tree-shaking 机制能据此剔除死代码。Vue 源码中大量使用 `__DEV__` 这类编译时标志来包裹开发环境的警告和检查。
+
+```javascript
+// Vue 源码中的条件编译模式
+if (__DEV__) {
+  console.warn('Development warning')
+}
+```
+在 Vite 或 Webpack 中，`__DEV__` 会被替换为 `true`（开发）或 `false`（生产）。当值为 `false` 时，整个 `if` 块会被压缩工具识别为不可达代码并完全移除。Vue CLI 和 Vite 的 Vue 插件通常会根据 `mode` 自动配置这些标志，无需手动干预。类似的标志还有 `__BROWSER__`（区分浏览器/SSR 构建）、`__FEATURE_OPTIONS_API__`（控制是否包含 Options API，关闭后可减少约 20-30 KB 的体积）等。
+
+对于跨平台项目（如 uni-app），条件编译通过特殊注释语法实现，如 `#ifdef H5`、`#ifdef MP-WEIXIN`，在编译时按目标平台保留或剔除对应代码块。
+
+
+# v-if 与编译时优化
+
+`v-if` 的编译时优化体现在 **Block 机制**上。Vue 3 的编译器将模板划分为多个 Block—— `v-if` / `v-else` 和 `v-for` 都会创建新的 Block 边界。每个 Block 只追踪其内部的**动态节点**，静态内容被跳过。当 `v-if` 的条件切换时，Vue 知道需要整体替换一个 Block，而非对可能不兼容的两套结构进行逐节点 diff，这显著提升了更新性能。
+
+
+# define
+
+编译阶段的字符串替换
+
+`defineProps`、`defineEmits`、`defineExpose` 等是 Vue 3 的**编译器宏**。它们看起来像普通函数，但**并不在浏览器中运行**。编译器在构建阶段检测到这些宏调用后，会将它们替换为实际的组件选项代码。
+
+以 `defineProps({ content: String })` 为例，编译后 `defineProps` 调用消失，取而代之的是 `props: { content: String }` 被合并到组件选项中。这意味着宏不产生任何运行时开销，也不增加打包体积。
+
+# 环境变量的字符串替换机制
+
+环境变量（如 Vite 的 `import.meta.env.VITE_*` 或 Webpack 的 `process.env.*`）本质上是**构建工具在打包时执行的字符串替换**。以 Vite 为例，只有以 `VITE_` 为前缀的变量才会被注入客户端代码，这是一种安全隔离机制。
+
+在条件编译的配合下，环境变量可以驱动死代码消除：
+
+```javascript
+if (import.meta.env.VITE_API_MODE === 'mock') {
+  // 当 VITE_API_MODE 不为 'mock' 时，此块可被 Tree-shaking 移除
+}
+```
+
+# Tree-shaking
+
+Vue 3 体积优化的基石
+
+Tree-shaking 依赖 ES Module 的静态结构，在编译阶段建立依赖图谱并移除未被引用的导出。Vue 3 之所以能比 Vue 2 显著瘦身，核心设计之一就是**所有顶层 API 均以具名导出（named export）的形式从独立模块暴露**，而非挂载在全局 `Vue` 对象上。
+
+```javascript
+// Vue 3：可被 Tree-shaking 的按需导入
+import { ref, computed, nextTick } from 'vue'
+// 未使用的 watch、provide 等不会被包含
+```
+
+相比之下，Vue 2 的 `import Vue from 'vue'` 会将整个框架纳入打包范围，因为打包工具无法判断 `Vue.nextTick` 等属性访问背后依赖了哪些模块。
+
+要确保 Tree-shaking 生效，还需注意：使用 `lodash-es` 替代 `lodash`，在 `package.json` 中正确配置 `sideEffects`，以及避免将导入的模块赋值给可能逃逸的变量。
