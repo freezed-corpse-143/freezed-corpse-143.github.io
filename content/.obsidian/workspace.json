@@ -25,17 +25,14 @@
             "id": "441cb635e74b061e",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3503.4641339001064,
-                  "y": 1998.543058085264,
-                  "zoom": -0.40792919319967574
-                }
+                "file": "算法/递归回溯.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "递归回溯"
             }
           }
         ],
@@ -227,9 +224,10 @@
   },
   "active": "441cb635e74b061e",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "算法/递归回溯.md",
     "算法/双指针.md",
     "编程语言/Vue.md",
-    "TODO.canvas",
     "游戏速通/星露谷.md",
     "算法/堆.md",
     "游戏速通/泰拉瑞亚.md",
@@ -253,8 +251,6 @@
     "软件工程/架构风格.md",
     "软件工程/类型系统.md",
     "软件工程/分布式系统.md",
-    "软件工程/控制流模式.md",
-    "软件工程/模块化.md",
     "小说idea",
     "软件工程",
     "杂项",
