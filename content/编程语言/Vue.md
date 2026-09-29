@@ -1600,3 +1600,140 @@ build: {
 1. 关注点分离——TS 管类型、ESLint 管质量、Prettier 管格式。
 2. 别过早优化——先用 `rollup-plugin-visualizer` 找出真正的大头。
 3. 渲染模式是架构决策——根据 SEO、实时性、成本三选一或混合。
+
+# v-once
+
+只渲染一次，后续更新时跳过该节点及其子节点。
+
+```vue
+<template>
+  <!-- 静态内容，永不更新 -->
+  <div v-once>{{ expensiveValue }}</div>
+</template>
+```
+**适用场景**：内容初始化后不再变化的静态块，比如版权信息、说明文字。
+
+# v-memo
+
+Vue 3.2+ 引入，**有条件地跳过子树更新**。接收一个依赖数组，数组值不变时跳过整个子树 patch。
+
+```vue
+<template>
+  <div v-memo="[item.id === selectedId]">
+    <!-- 只有 selectedId 变化时才重新渲染 -->
+    <span>{{ item.name }}</span>
+    <span>{{ item.desc }}</span>
+  </div>
+</template>
+```
+
+**典型场景**：`v-for` 长列表中，只有少数项状态会变：
+```vue
+<div v-for="item in list" :key="item.id" v-memo="[item.selected]">
+  {{ item.name }}
+</div>
+```
+
+⚠️ 注意：`v-memo` 不能与 `v-for` 在同一元素上混用依赖错乱，且空数组 `v-memo="[]"` 等价于 `v-once`。
+
+# 计算属性缓存
+
+| 特性     | computed             | methods              |
+| -------- | -------------------- | -------------------- |
+| 缓存     | ✅ 依赖不变则不重算   | ❌ 每次渲染都执行     |
+| 调用方式 | 当属性用 `{{ x }}`   | 当函数用 `{{ x() }}` |
+| 依赖追踪 | 响应式依赖变化才更新 | 无追踪               |
+
+```js
+// computed：依赖 a、b，只有它们变才重算
+const total = computed(() => a.value + b.value)
+
+// method：每次组件重新渲染都会执行
+function getTotal() { return a.value + b.value }
+```
+
+**结论**：涉及计算的展示逻辑优先用 `computed`；需要传参、有副作用、事件处理用 `methods`。
+
+
+# 列表虚拟滚动
+
+只渲染可视区域内的列表项，适合**上万条数据**。
+
+常用库：`vue-virtual-scroller`、`@tanstack/vue-virtual`。
+
+```vue
+<RecycleScroller
+  :items="bigList"
+  :item-size="50"
+  key-field="id"
+  v-slot="{ item }"
+>
+  <div>{{ item.name }}</div>
+</RecycleScroller>
+```
+
+原理：容器固定高度 + 计算可视区间 + 用 padding/transform 撑起滚动条。
+
+# 图片懒加载
+
+图片进入视口才加载，减少首屏请求。
+
+```vue
+<img v-lazy="imgUrl" />
+```
+或用原生 `loading="lazy"`：
+```html
+<img :src="url" loading="lazy" />
+```
+或用 `IntersectionObserver` 自定义指令实现。
+
+# 组件拆分与更新粒度控制
+
+- **拆分原则**：把频繁变化的部分拆成独立子组件，让更新只发生在小子树内，避免整个大组件重渲染。
+- **状态下沉**：不相关状态不要放在同一组件，减少响应式触发范围。
+- ** `v-if` / `v-show` 选择**：频繁切换用 `v-show`（只切 display），初始不渲染用 `v-if`。
+- ** `<KeepAlive>` **：缓存组件实例，避免反复销毁重建（如 Tab 切换）。
+- ** `<Suspense>` + 异步组件**：按需加载，减小首包体积。
+- ** `defineAsyncComponent` **：路由/大组件懒加载。
+
+```js
+const Heavy = defineAsyncComponent(() => import('./Heavy.vue'))
+```
+
+# 大对象处理
+
+## 问题
+`ref` 会**深度递归**把对象转为响应式（`reactive`），大对象（如几千条数据、复杂嵌套）会带来：
+- 初始化慢
+- 内存占用高
+- 无谓的依赖追踪
+
+## 解决
+`shallowRef` 只对 `.value` 的**引用替换**做响应，不深度追踪内部属性。
+
+```js
+import { shallowRef, triggerRef } from 'vue'
+
+const bigData = shallowRef({ list: [...] })
+
+// 直接改内部属性：不会触发更新
+bigData.value.list.push(item)
+
+// 方式1：整体替换引用 ✅
+bigData.value = { list: [...bigData.value.list, item] }
+
+// 方式2：手动触发 ✅
+bigData.value.list.push(item)
+triggerRef(bigData)
+```
+
+**适用场景**：
+- 大列表/大表格数据
+- 第三方库实例（如 ECharts、地图对象）
+- 只整体替换、不细粒度修改的数据
+- 配合 `markRaw` 标记永不响应式的对象
+
+```js
+const chart = shallowRef(null)
+chart.value = markRaw(echarts.init(el))
+```
