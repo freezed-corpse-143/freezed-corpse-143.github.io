@@ -337,3 +337,25 @@ Slots，是 Vue 中的内容分发机制，它允许父组件向子组件传递�
 <!-- 渲染结果：<button class="btn">点击我</button> -->
 ```
 
+## 默认插槽
+
+最基础的用法，父组件传入的内容会替换 `<slot>` 标签。
+
+```vue
+<!-- 子组件 Card.vue -->
+<template>
+  <div class="card">
+    <slot>这里是默认内容</slot>
+  </div>
+</template>
+```
+
+```vue
+<!-- 父组件 -->
+<Card>
+  <p>自定义内容</p>
+</Card>
+```
+
+## 具名插槽
+
