@@ -111,16 +111,6 @@
 			"height":120
 		},
 		{
-			"id":"d73d64e25289ddfa",
-			"type":"text",
-			"text":"自己准备 AI 面试",
-			"styleAttributes":{},
-			"x":-3790,
-			"y":1320,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"3bd7b1b7e6524e7b",
 			"type":"text",
 			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",
@@ -184,12 +174,12 @@
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 tilelang",
+			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- Trnasfomer 模型\n- 扩散模型\n- 世界模式\n- 高斯溅射模型",
 			"styleAttributes":{},
 			"x":-3600,
 			"y":1860,
 			"width":260,
-			"height":60
+			"height":280
 		},
 		{
 			"id":"a54a3397fb45fc86",
@@ -210,6 +200,16 @@
 			"y":1235,
 			"width":240,
 			"height":320
+		},
+		{
+			"id":"d73d64e25289ddfa",
+			"type":"text",
+			"text":"自己准备 AI 面试",
+			"styleAttributes":{},
+			"x":-4000,
+			"y":1365,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
