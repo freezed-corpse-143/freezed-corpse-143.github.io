@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -225,13 +224,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cf4e4a543ef68f86",
+  "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
+    "TODO.canvas",
     "游戏速通/星露谷.md",
     "算法/动态规划.md",
     "算法/递归回溯.md",
     "算法/位算法.md",
-    "TODO.canvas",
     "编程语言/Vue.md",
     "编程语言/CSS.md",
     "环境配置.md",
