@@ -25,17 +25,14 @@
             "id": "cf4e4a543ef68f86",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3292.6774068851114,
-                  "y": 1908.4548944373014,
-                  "zoom": -0.37967236188869186
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ],
@@ -227,9 +224,10 @@
   },
   "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
+    "游戏速通/泰拉瑞亚.md",
+    "TODO.canvas",
     "github项目/面试题仓库.md",
     "游戏速通/星露谷.md",
-    "TODO.canvas",
     "算法/动态规划.md",
     "算法/递归回溯.md",
     "算法/位算法.md",
@@ -241,7 +239,6 @@
     "算法/堆.md",
     "index.md",
     "算法/双指针.md",
-    "游戏速通/泰拉瑞亚.md",
     "算法/栈.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
@@ -254,7 +251,6 @@
     "动画特效",
     "编程语言/Typescript.md",
     "软件工程/架构边界.md",
-    "软件工程/学习之路.md",
     "小说idea",
     "软件工程",
     "杂项",
