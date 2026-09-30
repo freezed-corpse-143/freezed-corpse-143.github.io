@@ -210,16 +210,6 @@
 			"y":1235,
 			"width":240,
 			"height":320
-		},
-		{
-			"id":"5157460aa0a5a721",
-			"type":"text",
-			"text":"agent 面试：\n- [ ] 一方面找面试题\n- [ ] 一方面找 Agent 项目，学习经验",
-			"styleAttributes":{},
-			"x":-3340,
-			"y":2160,
-			"width":260,
-			"height":160
 		}
 	],
 	"edges":[],
