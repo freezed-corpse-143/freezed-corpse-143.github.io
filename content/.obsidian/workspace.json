@@ -29,16 +29,17 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3071.632459022458,
-                  "y": 2038.043425085921,
-                  "zoom": -0.81978544523384
+                  "x": -2889.194226720071,
+                  "y": 864.6399280161754,
+                  "zoom": -0.4864521119005067
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -225,10 +226,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "35a79df8ba2fe47b",
+  "active": "f76d13f608325a6c",
   "lastOpenFiles": [
-    "TODO.canvas",
     "游戏速通/星露谷.md",
+    "TODO.canvas",
     "编程语言/Vue.md",
     "编程语言/CSS.md",
     "环境配置.md",

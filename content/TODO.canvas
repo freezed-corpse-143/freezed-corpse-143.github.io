@@ -220,16 +220,6 @@
 			"y":2160,
 			"width":260,
 			"height":160
-		},
-		{
-			"id":"e63b75bcc3cbbef2",
-			"type":"text",
-			"text":"简历更新：增加研究生国家奖学金",
-			"styleAttributes":{},
-			"x":-2960,
-			"y":2160,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
