@@ -25,17 +25,14 @@
             "id": "cf4e4a543ef68f86",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3284.727962759002,
-                  "y": 2169.0341429258774,
-                  "zoom": -0.9033987260142597
-                }
+                "file": "人工智能/现代模型.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "现代模型"
             }
           }
         ],
@@ -73,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#测试金字塔与最佳实践",
+                "query": "head",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -94,12 +91,12 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -226,11 +223,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cf4e4a543ef68f86",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
+    "人工智能/大模型推理加速.md",
+    "人工智能/现代模型.md",
+    "TODO.canvas",
     "算法/双指针.md",
     "算法/栈.md",
-    "TODO.canvas",
     "游戏速通/星露谷.md",
     "算法/模拟.md",
     "github项目/面试题仓库.md",
@@ -253,7 +252,6 @@
     "开发经验/杂项.md",
     "经验之谈.md",
     "软件使用.md",
-    "动画特效/开头动画.md",
     "动画特效",
     "小说idea",
     "软件工程",
