@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +97,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,12 +225,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cf4e4a543ef68f86",
+  "active": "35a79df8ba2fe47b",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
-    "算法/模拟.md",
+    "算法/栈.md",
     "算法/双指针.md",
     "TODO.canvas",
+    "游戏速通/星露谷.md",
+    "算法/模拟.md",
     "github项目/面试题仓库.md",
     "算法/贪心.md",
     "游戏速通/泰拉瑞亚.md",
@@ -244,7 +245,6 @@
     "算法/链表.md",
     "算法/堆.md",
     "index.md",
-    "算法/栈.md",
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
     "软件工程/领域驱动设计.md",
