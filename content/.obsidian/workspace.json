@@ -34,9 +34,26 @@
               "icon": "lucide-file",
               "title": "星露谷"
             }
+          },
+          {
+            "id": "fdfacce46e549cb1",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3236.016471838471,
+                  "y": 1155.9291940054663,
+                  "zoom": -0.5238952112480006
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -222,7 +239,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cf4e4a543ef68f86",
+  "active": "fdfacce46e549cb1",
   "lastOpenFiles": [
     "github项目/面试题仓库.md",
     "游戏速通/星露谷.md",
