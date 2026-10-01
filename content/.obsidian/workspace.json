@@ -15,9 +15,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3315.588204038258,
-                  "y": 1567.6516522641646,
-                  "zoom": -0.5700653926809265
+                  "x": -3321.560475155585,
+                  "y": 1550.1460434372893,
+                  "zoom": -0.23673205934759317
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -38,8 +38,7 @@
               "title": "现代模型"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -226,11 +225,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "68d4ab64aef9d3dd",
+  "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
+    "人工智能/现代模型.md",
     "TODO.canvas",
     "人工智能/大模型推理加速.md",
-    "人工智能/现代模型.md",
     "images/Pasted image 20261001215512.png",
     "人工智能/RAG.md",
     "images/Pasted image 20261001213706.png",
