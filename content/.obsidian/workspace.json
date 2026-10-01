@@ -38,7 +38,8 @@
               "title": "现代模型"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -225,10 +226,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cf4e4a543ef68f86",
+  "active": "68d4ab64aef9d3dd",
   "lastOpenFiles": [
-    "人工智能/现代模型.md",
     "TODO.canvas",
+    "人工智能/现代模型.md",
     "人工智能/大模型推理加速.md",
     "images/Pasted image 20261001215512.png",
     "人工智能/RAG.md",
