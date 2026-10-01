@@ -38,8 +38,7 @@
               "title": "现代模型"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -226,10 +224,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "68d4ab64aef9d3dd",
+  "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
-    "TODO.canvas",
     "人工智能/现代模型.md",
+    "images/Pasted image 20261001231119.png",
+    "images/Pasted image 20261001231046.png",
+    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "images/Pasted image 20261001215512.png",
     "人工智能/RAG.md",
@@ -271,9 +271,7 @@
     "images/latex-reveal-editing.png",
     "images",
     "算法",
-    "Pasted image 20260910174013.png",
     "git",
-    "开发经验",
-    "Pasted image 20260610145938.png"
+    "开发经验"
   ]
 }
