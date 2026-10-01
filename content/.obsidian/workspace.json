@@ -39,17 +39,14 @@
             "id": "fdfacce46e549cb1",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3236.016471838471,
-                  "y": 1824.5211174911196,
-                  "zoom": -0.5238952112480006
-                }
+                "file": "算法/贪心.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "贪心"
             }
           }
         ],
@@ -241,8 +238,9 @@
   },
   "active": "fdfacce46e549cb1",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
     "TODO.canvas",
+    "算法/贪心.md",
+    "游戏速通/星露谷.md",
     "github项目/面试题仓库.md",
     "游戏速通/泰拉瑞亚.md",
     "算法/动态规划.md",
@@ -267,7 +265,6 @@
     "动画特效/开头动画.md",
     "动画特效",
     "编程语言/Typescript.md",
-    "软件工程/架构边界.md",
     "小说idea",
     "软件工程",
     "杂项",
