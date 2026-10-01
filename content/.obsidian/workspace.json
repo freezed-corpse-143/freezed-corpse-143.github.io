@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法/贪心.md",
+                "file": "算法/模拟.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "贪心"
+              "title": "模拟"
             }
           }
         ],
@@ -238,8 +238,9 @@
   },
   "active": "fdfacce46e549cb1",
   "lastOpenFiles": [
-    "TODO.canvas",
     "算法/贪心.md",
+    "算法/模拟.md",
+    "TODO.canvas",
     "游戏速通/星露谷.md",
     "github项目/面试题仓库.md",
     "游戏速通/泰拉瑞亚.md",
