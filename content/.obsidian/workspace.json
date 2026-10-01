@@ -8,20 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "35a79df8ba2fe47b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "算法/双指针.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "双指针"
-            }
-          },
-          {
             "id": "cf4e4a543ef68f86",
             "type": "leaf",
             "state": {
@@ -35,8 +21,7 @@
               "title": "现代模型"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -222,12 +207,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
     "人工智能/大模型推理加速.md",
     "人工智能/现代模型.md",
-    "TODO.canvas",
+    "images/Pasted image 20261001210449.png",
+    "人工智能/知识图谱.md",
     "算法/双指针.md",
+    "TODO.canvas",
     "算法/栈.md",
     "游戏速通/星露谷.md",
     "算法/模拟.md",
@@ -249,8 +236,6 @@
     "软件工程/领域驱动设计.md",
     "windows.md",
     "开发经验/杂项.md",
-    "经验之谈.md",
-    "软件使用.md",
     "动画特效",
     "小说idea",
     "软件工程",
@@ -270,7 +255,6 @@
     "开发经验",
     "Pasted image 20260610145938.png",
     "Pasted image 20260610145915.png",
-    "Pasted image 20260610145846.png",
-    "Pasted image 20260610145812.png"
+    "Pasted image 20260610145846.png"
   ]
 }
