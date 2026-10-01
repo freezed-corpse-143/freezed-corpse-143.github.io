@@ -20,6 +20,23 @@
               "icon": "lucide-file",
               "title": "现代模型"
             }
+          },
+          {
+            "id": "68d4ab64aef9d3dd",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3226.00359009057,
+                  "y": 1967.1992967699825,
+                  "zoom": -0.23673205934759317
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ]
       }
@@ -209,12 +226,13 @@
   },
   "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
-    "人工智能/大模型推理加速.md",
+    "TODO.canvas",
     "人工智能/现代模型.md",
+    "images/Pasted image 20261001213706.png",
+    "人工智能/大模型推理加速.md",
     "images/Pasted image 20261001210449.png",
     "人工智能/知识图谱.md",
     "算法/双指针.md",
-    "TODO.canvas",
     "算法/栈.md",
     "游戏速通/星露谷.md",
     "算法/模拟.md",
@@ -254,7 +272,6 @@
     "git",
     "开发经验",
     "Pasted image 20260610145938.png",
-    "Pasted image 20260610145915.png",
-    "Pasted image 20260610145846.png"
+    "Pasted image 20260610145915.png"
   ]
 }

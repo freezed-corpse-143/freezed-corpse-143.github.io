@@ -134,7 +134,7 @@
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- Trnasfomer 模型\n- 扩散模型\n- 世界模式\n- 高斯溅射模型",
+			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- 扩散模型\n- 世界模式\n- 高斯溅射模型",
 			"styleAttributes":{},
 			"x":-3600,
 			"y":1860,
