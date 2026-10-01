@@ -44,7 +44,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3236.016471838471,
-                  "y": 1155.9291940054663,
+                  "y": 754.774039914074,
                   "zoom": -0.5238952112480006
                 }
               },
@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -239,12 +239,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fdfacce46e549cb1",
+  "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
+    "TODO.canvas",
     "github项目/面试题仓库.md",
     "游戏速通/星露谷.md",
     "游戏速通/泰拉瑞亚.md",
-    "TODO.canvas",
     "算法/动态规划.md",
     "算法/递归回溯.md",
     "算法/位算法.md",
