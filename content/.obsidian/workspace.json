@@ -29,16 +29,17 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3244.3203259932984,
-                  "y": 1582.2361193687152,
-                  "zoom": -0.5700653926809265
+                  "x": -3284.727962759002,
+                  "y": 2169.0341429258774,
+                  "zoom": -0.9033987260142597
                 }
               },
               "icon": "lucide-layout-dashboard",
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -225,10 +226,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "35a79df8ba2fe47b",
+  "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
-    "算法/栈.md",
     "算法/双指针.md",
+    "算法/栈.md",
     "TODO.canvas",
     "游戏速通/星露谷.md",
     "算法/模拟.md",
