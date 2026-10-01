@@ -1,26 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"aee284c7f4d11331",
-			"type":"text",
-			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
-			"styleAttributes":{},
-			"x":-3540,
-			"y":-180,
-			"width":400,
-			"height":80
-		},
-		{
-			"id":"f9000f77656388dd",
-			"type":"text",
-			"text":"国聘网简历投递 https://www.iguopin.com/",
-			"styleAttributes":{},
-			"x":-3540,
-			"y":-40,
-			"width":400,
-			"height":60
-		},
-		{
 			"id":"8fdf943f6150ef0e",
 			"type":"text",
 			"text":"C++的 QT 教程：https://doc.qt.io/qt-6/qtexamplesandtutorials.html",
@@ -210,6 +190,26 @@
 			"y":1640,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f9000f77656388dd",
+			"type":"text",
+			"text":"国聘网简历投递 https://www.iguopin.com/",
+			"styleAttributes":{},
+			"x":-4040,
+			"y":100,
+			"width":400,
+			"height":60
+		},
+		{
+			"id":"aee284c7f4d11331",
+			"type":"text",
+			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
+			"styleAttributes":{},
+			"x":-4000,
+			"y":-40,
+			"width":400,
+			"height":80
 		}
 	],
 	"edges":[],
