@@ -194,12 +194,12 @@
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- triton",
+			"text":"学习 \n- tilelang\n- triton\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp",
 			"styleAttributes":{},
 			"x":-4000,
 			"y":1800,
 			"width":300,
-			"height":260
+			"height":200
 		},
 		{
 			"id":"859bb0620533fa88",
@@ -230,6 +230,16 @@
 			"y":-40,
 			"width":400,
 			"height":80
+		},
+		{
+			"id":"a2a6c0357bfc44b5",
+			"type":"text",
+			"text":"拆解推理框架：\n\n- [ ] 共性：\n\t- [ ] 对不同平台的适配\n\t- [ ] 对模型文件的读取解析架构\n\t- [ ] 推理的核心引擎（无状态层）\n- [ ] 区别\n- [ ] 核心技术",
+			"styleAttributes":{},
+			"x":-3800,
+			"y":2240,
+			"width":260,
+			"height":320
 		}
 	],
 	"edges":[],
