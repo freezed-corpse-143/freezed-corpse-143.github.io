@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3374.142871181442,
-                  "y": 2125.225314429594,
-                  "zoom": -0.6148037074462112
+                  "x": -3509.8578962721995,
+                  "y": 2078.78281919005,
+                  "zoom": 0.05186295922045547
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -52,7 +52,8 @@
               "title": "星露谷"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -238,13 +239,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "4dea4b08c9af7f8e",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "人工智能/现代模型.md",
     "images/Pasted image 20261002173156.png",
     "images/Pasted image 20261002160840.png",
-    "TODO.canvas",
     "游戏速通/星露谷.md",
-    "人工智能/现代模型.md",
     "images/Pasted image 20261001231119.png",
     "images/Pasted image 20261001231046.png",
     "人工智能/大模型推理加速.md",
@@ -283,7 +284,6 @@
     "images/inline-math-render.gif",
     "images/smart-paste.gif",
     "images/image-render-fix.gif",
-    "images/latex-render.png",
     "images",
     "算法",
     "git",
