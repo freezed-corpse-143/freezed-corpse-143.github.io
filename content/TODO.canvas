@@ -182,16 +182,6 @@
 			"height":60
 		},
 		{
-			"id":"b616004199c22951",
-			"type":"text",
-			"text":"现代 UI 设计之路",
-			"styleAttributes":{},
-			"x":-3220,
-			"y":1940,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9a2de047452f454b",
 			"type":"text",
 			"text":"学习 \n- tilelang\n- triton",
@@ -240,6 +230,16 @@
 			"y":2060,
 			"width":360,
 			"height":180
+		},
+		{
+			"id":"b616004199c22951",
+			"type":"text",
+			"text":"现代 UI 设计之路：开始细化",
+			"styleAttributes":{},
+			"x":-3140,
+			"y":2020,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
