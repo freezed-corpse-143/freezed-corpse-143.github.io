@@ -111,8 +111,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -239,8 +238,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "68d4ab64aef9d3dd",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
+    "images/Pasted image 20261002173156.png",
     "images/Pasted image 20261002160840.png",
     "TODO.canvas",
     "游戏速通/星露谷.md",
@@ -284,7 +284,6 @@
     "images/smart-paste.gif",
     "images/image-render-fix.gif",
     "images/latex-render.png",
-    "images/latex-reveal-editing.png",
     "images",
     "算法",
     "git",
