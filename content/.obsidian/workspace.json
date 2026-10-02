@@ -25,17 +25,14 @@
             "id": "cca8ad118af1620a",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3509.8578962721995,
-                  "y": 1899.3505134944476,
-                  "zoom": 0.05186295922045547
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           },
           {
@@ -112,7 +109,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -241,9 +239,10 @@
   },
   "active": "cca8ad118af1620a",
   "lastOpenFiles": [
+    "images/world-model-genealogy.png",
+    "TODO.canvas",
     "人工智能/现代模型.md",
     "游戏速通/星露谷.md",
-    "TODO.canvas",
     "images/Pasted image 20261002173156.png",
     "images/Pasted image 20261002160840.png",
     "images/Pasted image 20261001231119.png",
