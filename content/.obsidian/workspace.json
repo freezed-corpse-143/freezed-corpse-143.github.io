@@ -52,8 +52,7 @@
               "title": "星露谷"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -239,11 +238,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4dea4b08c9af7f8e",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
+    "images/Pasted image 20261002160840.png",
     "TODO.canvas",
-    "人工智能/现代模型.md",
     "游戏速通/星露谷.md",
+    "人工智能/现代模型.md",
     "images/Pasted image 20261001231119.png",
     "images/Pasted image 20261001231046.png",
     "人工智能/大模型推理加速.md",
