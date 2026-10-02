@@ -172,16 +172,6 @@
 			"height":60
 		},
 		{
-			"id":"aee284c7f4d11331",
-			"type":"text",
-			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
-			"styleAttributes":{},
-			"x":-4000,
-			"y":-40,
-			"width":400,
-			"height":80
-		},
-		{
 			"id":"a54a3397fb45fc86",
 			"type":"text",
 			"text":"多次检索：通过检索粒度和结果，优化检索过程",
@@ -230,6 +220,16 @@
 			"y":2060,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"aee284c7f4d11331",
+			"type":"text",
+			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
+			"styleAttributes":{},
+			"x":-4070,
+			"y":-40,
+			"width":400,
+			"height":80
 		}
 	],
 	"edges":[],
