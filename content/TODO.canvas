@@ -194,7 +194,7 @@
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 \n- tilelang\n- triton\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp",
+			"text":"学习 \n- tilelang\n- triton",
 			"styleAttributes":{},
 			"x":-4000,
 			"y":1800,
@@ -230,6 +230,16 @@
 			"y":2140,
 			"width":260,
 			"height":320
+		},
+		{
+			"id":"a9604101b077d0a9",
+			"type":"text",
+			"text":"推理框架：\n- vllm\n- sglang\n- llama.cpp\n- stable-diffusion.cpp",
+			"styleAttributes":{},
+			"x":-3520,
+			"y":2060,
+			"width":360,
+			"height":180
 		}
 	],
 	"edges":[],
