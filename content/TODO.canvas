@@ -182,34 +182,34 @@
 			"height":80
 		},
 		{
+			"id":"a54a3397fb45fc86",
+			"type":"text",
+			"text":"多次检索：通过检索粒度和结果，优化检索过程",
+			"styleAttributes":{},
+			"x":-3220,
+			"y":1840,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"b616004199c22951",
 			"type":"text",
 			"text":"现代 UI 设计",
 			"styleAttributes":{},
-			"x":-3180,
-			"y":2060,
+			"x":-3220,
+			"y":1940,
 			"width":260,
 			"height":60
 		},
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- 世界模型\n- 高斯溅射模型",
+			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- triton\n- 世界模型\n- 高斯溅射模型",
 			"styleAttributes":{},
-			"x":-3790,
-			"y":1840,
+			"x":-4000,
+			"y":1800,
 			"width":300,
 			"height":360
-		},
-		{
-			"id":"a54a3397fb45fc86",
-			"type":"text",
-			"text":"多次检索：通过检索粒度和结果，优化检索过程",
-			"styleAttributes":{},
-			"x":-3200,
-			"y":1840,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],

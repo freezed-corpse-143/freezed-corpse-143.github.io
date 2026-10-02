@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3173.093922924632,
-                  "y": 1840.1094072913058,
+                  "x": -3441.19425151005,
+                  "y": 534.211466052094,
                   "zoom": 0.09660127398574014
                 }
               },
@@ -38,8 +38,7 @@
               "title": "现代模型"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -225,10 +224,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "68d4ab64aef9d3dd",
+  "active": "cf4e4a543ef68f86",
   "lastOpenFiles": [
-    "TODO.canvas",
     "人工智能/现代模型.md",
+    "TODO.canvas",
     "images/Pasted image 20261001231119.png",
     "images/Pasted image 20261001231046.png",
     "人工智能/大模型推理加速.md",
