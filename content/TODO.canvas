@@ -230,16 +230,6 @@
 			"y":2060,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"1b26fed5ed5dcc8e",
-			"type":"text",
-			"text":"TTT 技术",
-			"styleAttributes":{},
-			"x":-3860,
-			"y":2200,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
