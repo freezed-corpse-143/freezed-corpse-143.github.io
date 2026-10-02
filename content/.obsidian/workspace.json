@@ -8,23 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "cf4e4a543ef68f86",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3441.19425151005,
-                  "y": 5057.001339387041,
-                  "zoom": 0.09660127398574014
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
-            }
-          },
-          {
             "id": "68d4ab64aef9d3dd",
             "type": "leaf",
             "state": {
@@ -40,6 +23,23 @@
           },
           {
             "id": "cca8ad118af1620a",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3374.142871181442,
+                  "y": 2125.225314429594,
+                  "zoom": -0.6148037074462112
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
+          },
+          {
+            "id": "4dea4b08c9af7f8e",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -112,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -240,10 +239,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cca8ad118af1620a",
+  "active": "4dea4b08c9af7f8e",
   "lastOpenFiles": [
     "TODO.canvas",
     "人工智能/现代模型.md",
+    "游戏速通/星露谷.md",
     "images/Pasted image 20261001231119.png",
     "images/Pasted image 20261001231046.png",
     "人工智能/大模型推理加速.md",
@@ -254,7 +254,6 @@
     "人工智能/知识图谱.md",
     "算法/双指针.md",
     "算法/栈.md",
-    "游戏速通/星露谷.md",
     "算法/模拟.md",
     "github项目/面试题仓库.md",
     "算法/贪心.md",
