@@ -210,6 +210,16 @@
 			"y":1800,
 			"width":300,
 			"height":360
+		},
+		{
+			"id":"859bb0620533fa88",
+			"type":"text",
+			"text":"可视化的下一步就是可视化编辑",
+			"styleAttributes":{},
+			"x":-3500,
+			"y":2240,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
