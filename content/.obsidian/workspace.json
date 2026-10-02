@@ -52,8 +52,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -239,12 +238,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4dea4b08c9af7f8e",
+  "active": "68d4ab64aef9d3dd",
   "lastOpenFiles": [
+    "TODO.canvas",
     "游戏速通/星露谷.md",
     "软件使用.md",
     "images/world-model-genealogy.png",
-    "TODO.canvas",
     "人工智能/现代模型.md",
     "images/Pasted image 20261002173156.png",
     "images/Pasted image 20261002160840.png",
@@ -275,7 +274,6 @@
     "软件工程/编程概念.md",
     "软件工程/并发模型.md",
     "软件工程/领域驱动设计.md",
-    "windows.md",
     "动画特效",
     "小说idea",
     "软件工程",

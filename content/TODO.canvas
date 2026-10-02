@@ -1,6 +1,5 @@
 {
 	"nodes":[
-		{"id":"a6f902365e36fae4","x":-3634,"y":2066,"width":260,"height":60,"type":"text","text":""},
 		{
 			"id":"8fdf943f6150ef0e",
 			"type":"text",
@@ -219,6 +218,16 @@
 			"styleAttributes":{},
 			"x":-3620,
 			"y":1870,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"a6f902365e36fae4",
+			"type":"text",
+			"text":"视频模型、声音模型",
+			"styleAttributes":{},
+			"x":-3640,
+			"y":2060,
 			"width":260,
 			"height":60
 		}
