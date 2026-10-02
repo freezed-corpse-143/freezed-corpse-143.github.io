@@ -204,20 +204,20 @@
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- triton\n- 世界模型\n- 高斯溅射模型",
+			"text":"学习 \n- tilelang：\n- vllm\n- sglang\n- llama.cpp\n- diffusion.cpp\n- triton\n- 高斯溅射模型",
 			"styleAttributes":{},
 			"x":-4000,
 			"y":1800,
 			"width":300,
-			"height":360
+			"height":260
 		},
 		{
 			"id":"859bb0620533fa88",
 			"type":"text",
 			"text":"可视化的下一步就是可视化编辑",
 			"styleAttributes":{},
-			"x":-3500,
-			"y":2240,
+			"x":-3620,
+			"y":1870,
 			"width":260,
 			"height":60
 		}
