@@ -44,7 +44,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3418.677796627222,
-                  "y": 1840.2363580412568,
+                  "y": 2003.2321166502388,
                   "zoom": -0.8095318025500373
                 }
               },
@@ -52,7 +52,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -239,11 +240,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "68d4ab64aef9d3dd",
+  "active": "4dea4b08c9af7f8e",
   "lastOpenFiles": [
+    "人工智能/现代模型.md",
     "软件使用.md",
     "TODO.canvas",
-    "人工智能/现代模型.md",
     "Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
     "游戏速通/星露谷.md",
