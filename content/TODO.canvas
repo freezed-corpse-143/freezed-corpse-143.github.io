@@ -240,6 +240,16 @@
 			"y":2020,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"2a559c9c266dec8a",
+			"type":"text",
+			"text":"windows terminals 更新问题",
+			"styleAttributes":{},
+			"x":-3400,
+			"y":2300,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
