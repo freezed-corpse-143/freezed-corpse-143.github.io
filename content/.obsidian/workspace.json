@@ -11,17 +11,14 @@
             "id": "6ae8fab2fae23fd7",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3583.171741260646,
-                  "y": 1760.8479247467571,
-                  "zoom": -0.0557993578044248
-                }
+                "file": "现代UI/学习之路.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "学习之路"
             }
           }
         ]
@@ -212,9 +209,10 @@
   },
   "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
-    "TODO.canvas",
+    "现代UI/Web UI底层模型.md",
     "现代UI/学习之路.md",
+    "TODO.canvas",
+    "游戏速通/星露谷.md",
     "软件使用.md",
     "人工智能/现代模型.md",
     "images/Pasted image 20261002203556.png",
