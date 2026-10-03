@@ -209,3 +209,12 @@ font-size: clamp(1rem, 2vw, 1.5rem);
 ```css
 padding: clamp(1rem, 3vw, 2.5rem);
 ```
+
+## 目标：Fluid UI
+
+- 布局用 **Grid + minmax + auto-fit** 自动列数
+- 间距 / 字号用 **clamp()** 平滑缩放
+- 组件内部用 **@container** 感知自身宽度
+- 少量 **@media** 只处理"结构性"变化（如侧栏折叠成抽屉）
+
+**最终效果**：不是"两套版本"，而是**一套连续适应所有尺寸的界面**。
