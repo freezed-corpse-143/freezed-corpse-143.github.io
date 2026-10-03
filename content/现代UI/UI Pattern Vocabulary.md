@@ -516,9 +516,9 @@ App Shell
 
 ---
 
-## 我建议你把 UI 知识进一步建立成 4 层
+## 把 UI 知识进一步建立成 4 层
 
-你之前已经学 Vue，所以接下来不要继续单纯“学组件库”。更好的知识结构是：
+更好的知识结构是：
 
 **Level 1 — Primitive**
 
@@ -544,4 +544,3 @@ App Shell
 
 真正跨 **Vue / React / Svelte / Flutter / SwiftUI / Web Components** 的，是后面两层。
 
-所以你之前说的“我至少需要知道能做到什么”非常适合用这种方式学：**CSS/JS 是你的招式实现能力，Pattern Vocabulary 是你脑中的招式库，而 Information Architecture、Interaction Design、Visual Design、Ergonomics 则是决定什么时候出什么招的原则。**
