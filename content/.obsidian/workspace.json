@@ -11,17 +11,14 @@
             "id": "4dea4b08c9af7f8e",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3370.6965465326284,
-                  "y": 2030.9786843099735,
-                  "zoom": -0.05426539164088784
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -212,8 +210,8 @@
   },
   "active": "4dea4b08c9af7f8e",
   "lastOpenFiles": [
-    "现代UI/学习之路.md",
     "TODO.canvas",
+    "现代UI/学习之路.md",
     "软件使用.md",
     "人工智能/现代模型.md",
     "images/Pasted image 20261002203556.png",
