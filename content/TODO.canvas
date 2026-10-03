@@ -184,7 +184,7 @@
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 \n- tilelang\n- triton\n- flashinfer",
+			"text":"学习 \n- tilelang\n- triton\n- flashinfer\n- cuda graph",
 			"styleAttributes":{},
 			"x":-4000,
 			"y":1800,

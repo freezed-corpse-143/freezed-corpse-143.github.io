@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "星露谷"
             }
+          },
+          {
+            "id": "6ae8fab2fae23fd7",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3422.8983936285044,
+                  "y": 1885.9883385221242,
+                  "zoom": -0.7224660244710914
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -208,15 +226,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4dea4b08c9af7f8e",
+  "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
+    "游戏速通/星露谷.md",
     "TODO.canvas",
     "现代UI/学习之路.md",
     "软件使用.md",
     "人工智能/现代模型.md",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
-    "游戏速通/星露谷.md",
     "images/world-model-genealogy.png",
     "images/Pasted image 20261002173156.png",
     "images/Pasted image 20261002160840.png",
