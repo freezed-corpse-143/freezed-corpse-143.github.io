@@ -11,17 +11,14 @@
             "id": "6ae8fab2fae23fd7",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3514.3570715356464,
-                  "y": 1884.250528830832,
-                  "zoom": -0.05426539164088784
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ]
@@ -212,6 +209,7 @@
   },
   "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
+    "TODO.canvas",
     "现代UI/Rendering & Performance.md",
     "现代UI/学习之路.md",
     "现代UI/Accessibility.md",
@@ -224,7 +222,6 @@
     "现代UI/Visual Design.md",
     "现代UI/Layout Engineering.md",
     "现代UI/Web UI底层模型.md",
-    "TODO.canvas",
     "游戏速通/星露谷.md",
     "软件使用.md",
     "人工智能/现代模型.md",
@@ -248,7 +245,6 @@
     "算法/贪心.md",
     "游戏速通/泰拉瑞亚.md",
     "算法/动态规划.md",
-    "算法/递归回溯.md",
     "现代UI",
     "小说idea",
     "软件工程",
