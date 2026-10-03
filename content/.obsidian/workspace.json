@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "现代UI/Component & Business Pattern.md",
+                "file": "现代UI/学习之路.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Component & Business Pattern"
+              "title": "学习之路"
             }
           }
         ]
@@ -209,8 +209,9 @@
   },
   "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
-    "现代UI/Interaction Design.md",
+    "现代UI/UI Pattern Vocabulary.md",
     "现代UI/Component & Business Pattern.md",
+    "现代UI/Interaction Design.md",
     "现代UI/学习之路.md",
     "现代UI/Visual Design.md",
     "现代UI/Layout Engineering.md",
@@ -245,7 +246,6 @@
     "编程语言/CSS.md",
     "环境配置.md",
     "算法/数组.md",
-    "算法/链表.md",
     "现代UI",
     "小说idea",
     "软件工程",
