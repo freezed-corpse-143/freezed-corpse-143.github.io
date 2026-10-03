@@ -230,16 +230,6 @@
 			"y":2060,
 			"width":360,
 			"height":180
-		},
-		{
-			"id":"b616004199c22951",
-			"type":"text",
-			"text":"现代 UI 设计之路：开始细化",
-			"styleAttributes":{},
-			"x":-3140,
-			"y":2020,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
