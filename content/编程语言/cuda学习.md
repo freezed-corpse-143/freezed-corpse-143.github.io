@@ -1467,3 +1467,235 @@ GPU ███
 GPU 中间会出现很多小气泡。
 
 也就是说 GPU 很快，但 CPU **喂不饱 GPU**。
+
+## CUDA Graph 的运行过程
+
+CUDA Graph 第一次运行时，可以把操作序列 **capture** 下来：
+
+```
+MatMul
+   ↓
+RMSNorm
+   ↓
+RoPE
+   ↓
+Attention
+   ↓
+MatMul
+   ↓
+...
+```
+
+形成：
+
+```
+CUDA Graph
+┌─────────────────────────┐
+│ Kernel A                │
+│    ↓                    │
+│ Kernel B                │
+│    ↓                    │
+│ Kernel C                │
+│    ↓                    │
+│ Kernel D                │
+└─────────────────────────┘
+```
+
+之后 CPU 不再逐个：
+
+```
+launch A
+launch B
+launch C
+launch D
+```
+
+而变成近似：
+
+```
+cudaGraphLaunch(graph)
+```
+
+一次把整张图交给 GPU。
+
+所以执行模型从：
+
+```
+CPU → A
+CPU → B
+CPU → C
+CPU → D
+CPU → E
+```
+
+变成：
+
+```
+CPU → [ A → B → C → D → E ]
+```
+
+这就是 CUDA Graph 最核心的价值。
+
+## 为什么需要 CUDA GRAPH
+
+关键在于要区分 **Prefill** 和 **Decode**。
+
+假设你输入：
+
+> "Please explain CUDA Graph"
+
+Prefill 一次处理很多 input token：
+
+```
+[Please][explain][CUDA][Graph]
+          ↓
+      Transformer
+```
+
+这里矩阵通常比较大：
+
+```
+GPU kernel:
+
+██████████████████████████
+```
+
+一个 kernel 本身可能就执行比较久，所以几十微秒的 launch overhead 相对不明显。
+
+但 decode 是：
+
+```
+生成 token 1
+      ↓
+生成 token 2
+      ↓
+生成 token 3
+      ↓
+...
+```
+
+每一步只增加一个 token。
+
+尤其 batch 很小时，kernel 可能变成：
+
+```
+compute
+██
+
+launch overhead
+█
+```
+
+launch overhead 占比一下就高起来了。
+
+因此：
+
+```
+LLM Decode
+     │
+     ├── 很多小 kernel
+     │
+     ├── 每个 token 重复类似计算
+     │
+     └── CPU launch overhead 显著
+              ↓
+        CUDA Graph 很适合
+```
+
+这也是为什么你研究 LLM inference system 时，会频繁看到 CUDA Graph。
+
+## CUDA Graph 的局限
+
+你可能马上会想到：
+
+> Transformer 每次输入长度、batch size 都可能变化，怎么提前录制？
+
+这正是 CUDA Graph 在 LLM inference 中最麻烦的地方。
+
+CUDA Graph 喜欢：
+
+```
+固定 shape
+固定 memory address
+固定 execution pattern
+```
+
+例如 capture：
+
+```
+batch_size = 8
+hidden_size = 4096
+```
+
+之后 replay 时最好还是对应这个执行结构。
+
+但是 LLM serving 是动态的：
+
+```
+t=1:
+batch = 37
+
+t=2:
+batch = 35
+
+t=3:
+batch = 41
+```
+
+请求不断进入、退出。
+
+因此推理框架通常不会天真地 capture 一张万能 graph，而会采用诸如：
+
+```
+Graph for batch 1
+Graph for batch 2
+Graph for batch 4
+Graph for batch 8
+Graph for batch 16
+Graph for batch 32
+Graph for batch 64
+...
+```
+
+这样的 **graph pool / graph cache**。
+
+实际 batch = 27 时，可以 padding/bucketing 到：
+
+```
+27
+ ↓
+32
+ ↓
+CUDA Graph(batch=32)
+```
+
+于是出现了一个很重要的系统权衡：
+
+$$ \text{减少 launch overhead} \quad\leftrightarrow\quad \text{padding 带来的额外计算} $$
+
+## LLM 优化技术的位置
+
+
+你可以把 CUDA Graph 的位置理解成：
+
+```
+LLM inference optimization
+│
+├── 算得更少
+│   ├── Quantization
+│   ├── Speculative Decoding
+│   └── Pruning
+│
+├── 算得更快
+│   ├── FlashAttention
+│   ├── Kernel Fusion
+│   └── Tensor Core
+│
+├── 内存管理
+│   ├── PagedAttention
+│   └── KV Cache
+│
+└── 调度/Launch 更高效
+    ├── Continuous Batching
+    └── CUDA Graph  ← 在这里
+```
