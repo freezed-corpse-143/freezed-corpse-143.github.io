@@ -41,4 +41,59 @@
 
 ## FlashInfer 具体负责什么？
 
+目前它覆盖的东西已经非常广。[GitHub](https://github.com/flashinfer-ai/flashinfer)
+
+| 类别                   | FlashInfer 提供                       |
+| -------------------- | ----------------------------------- |
+| Attention            | Prefill / Decode Attention          |
+| KV Cache             | Paged / Ragged KV Cache             |
+| Attention 算法         | FlashAttention 2/3、Sparse Attention |
+| DeepSeek             | MLA Attention                       |
+| GEMM                 | BF 16 / FP 8 / FP 4 GEMM            |
+| MoE                  | Fused MoE、Top-K routing             |
+| Sampling             | Top-K / Top-P / Min-P               |
+| Speculative decoding | speculative sampling                |
+| Normalization        | RMSNorm / LayerNorm                 |
+| Activation           | SiLU / GELU / fused gating          |
+| Position encoding    | RoPE                                |
+| 通信                   | AllReduce / NVSHMEM                 |
+
+例如普通 Transformer decode 的一次 token：
+
+```
+输入 token
+   │
+   ▼
+Embedding
+   │
+   ▼
+RMSNorm       ← FlashInfer kernel
+   │
+   ▼
+QKV GEMM      ← FlashInfer / CUTLASS
+   │
+   ▼
+RoPE          ← FlashInfer kernel
+   │
+   ▼
+Paged Attention
+   ↑
+KV Cache      ← FlashInfer 的核心强项
+   │
+   ▼
+Output GEMM
+   │
+   ▼
+MoE           ← fused MoE kernels
+   │
+   ▼
+Sampling      ← FlashInfer sampling kernel
+   │
+   ▼
+下一个 token
+```
+
+它尤其关注 **prefill 和 decode 的实际 serving workload**，而不只是写一个理论上很快的矩阵乘法。官方也明确把 optimized prefill、decode 和 mixed batching 作为核心能力。[GitHub](https://github.com/flashinfer-ai/flashinfer)
+
+## FlashInfer 出现的原因（为什么不能直接全部用 Pytorch）
 
