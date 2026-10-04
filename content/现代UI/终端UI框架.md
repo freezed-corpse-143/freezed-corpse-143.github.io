@@ -544,3 +544,106 @@ FTXUI
 对 TUI 框架再补一问，因为它比推理框架更贴"人机交互"：
 
 > **它对终端做了哪些假设？这些假设在什么条件下会破？破了之后它能自愈吗？**
+
+---
+
+# 本机怎么跑（Windows，实测）
+
+本机工具链：MSVC **14.51.36231**（Visual Studio 18 BuildTools）＋ Windows SDK UCRT 10.0.28000.0，`cmake 3.29.2`、`ninja 1.12.0`、`cargo 1.99.0`、`node v24.16.0`、`bun`。MSVC 通过 `vsenv` 进入（`cl` 不在 PATH 上）。
+
+一个通用陷阱先写在前面：
+
+```text
+三家的"headless 渲染"都不需要真实终端，但都可能被宿主环境变量影响配色：
+本机 shell 默认带 NO_COLOR=1 和 TERM=dumb。FTXUI 在 NO_COLOR 非空时直接把颜色支持降为
+Palette1（src/ftxui/screen/terminal.cpp:221）——这是规范行为，不是 bug。
+验证色彩时用 env -u NO_COLOR 再跑一次，否则你会以为"颜色代码没生效"。
+```
+
+## FTXUI（7.1.0）— 全流程已实测通过
+
+```bash
+# 1) 进入 MSVC 环境（MSYS/Git-Bash 下必须加 MSYS_NO_PATHCONV=1，
+#    否则 `cmd //c x.cmd` 只会打开一个交互式 cmd 而不执行脚本）
+MSYS_NO_PATHCONV=1 cmd /c "call %LOCALAPPDATA%\VsEnvInjector\enter.cmd && <后续命令>"
+
+# 2) 配置（首次配置 4.1s，零 Windows 特有问题）
+cmake -S C:/Projects/FTXUI -B C:/Projects/Temp/ftxui-build -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DFTXUI_BUILD_EXAMPLES=OFF -DFTXUI_BUILD_TESTS=OFF \
+      -DFTXUI_BUILD_DOCS=OFF -DFTXUI_BUILD_MODULES=OFF
+
+# 3) 构建（约 18s，产出 ftxui-screen.lib / ftxui-dom.lib / ftxui-component.lib，默认 STATIC）
+cmake --build C:/Projects/Temp/ftxui-build --parallel
+```
+
+`-DFTXUI_BUILD_TESTS=OFF` 可以绕开 GoogleTest 的抓取；`-DFTXUI_BUILD_MODULES=OFF` 可以绕开 CMake ≥3.28 的 C++20 模块机制（正常构建的 `cmake_minimum_required` 只有 3.12）。
+
+**最小 headless 程序**（dom + screen，不需要 `App`，不需要终端）：
+
+```cpp
+#include <iostream>
+#include "ftxui/dom/elements.hpp"
+#include "ftxui/screen/screen.hpp"
+
+int main() {
+  using namespace ftxui;
+  Element element = text("hello") | border | color(Color::Red);
+  Screen screen(20, 5);
+  Render(screen, element);
+  std::cout << screen.ToString();
+}
+```
+
+```bash
+cl /nologo /std:c++20 /EHsc /utf-8 /MD /O2 /I C:/Projects/FTXUI/include main.cpp /Fe:smoke.exe \
+   /link /LIBPATH:C:/Projects/Temp/ftxui-build ftxui-dom.lib ftxui-screen.lib
+env -u NO_COLOR ./smoke.exe > out.bin
+```
+
+实测产出（`out.bin`，304 字节，转义后）：
+
+```text
+\x1b[31m\x1b[49m╭──────────────────╮\x1b[39m\x1b[49m\r\r\n
+\x1b[31m\x1b[49m│hello             │\x1b[39m\x1b[49m\r\r\n
+\x1b[31m\x1b[49m│                  │\x1b[39m\x1b[49m\r\r\n
+\x1b[31m\x1b[49m│                  │\x1b[39m\x1b[49m\r\r\n
+\x1b[31m\x1b[49m╰──────────────────╯\x1b[39m\x1b[49m
+```
+
+可见形态：
+
+```text
+╭──────────────────╮
+│hello             │
+│                  │
+│                  │
+╰──────────────────╯
+```
+
+三个必须知道的细节：
+
+| 细节 | 说明 |
+| :--- | :--- |
+| `/utf-8` 不可省 | FTXUI 把它设为 **PUBLIC** 编译选项，否则 MSVC 默认代码页会弄坏源码里的 UTF-8 字面量 |
+| 静态库链接顺序 | `ftxui-component.lib` → `ftxui-dom.lib` → `ftxui-screen.lib`（依赖方向倒着写会链接失败） |
+| `\r\r\n` 不是 bug | FTXUI 发 `\r\n`（`src/ftxui/screen/screen.cpp:481`），MSVC CRT 文本模式再把裸 `\n` 翻成 `\r\n`。要字节精确就 `_setmode(_fileno(stdout), _O_BINARY)` |
+
+**真实终端（ConPTY）验证**——直接编译仓库自带的 `examples/component/print_key_press.cpp`（`App::TerminalOutput()` + `screen.Loop`）：
+
+```text
+首帧（逐字）：
+╭────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────╮
+│Codes                                   │Event                                                                        │
+├────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────┤
+╰────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────╯
+
+输入 "ab" + Enter 后：
+│ 97   │Event::Character("a") │
+│ 98   │Event::Character("b") │
+│ 10   │Event::Return         │
+
+写 0x03（ETX）→ Event::CtrlC → 进程干净退出
+```
+
+这四步正好把「最小单元追踪」的六问全部落到了实证上：`Render(screen, element)` 对应第 3、4 问（表示对象 + 变字节），PTY 那次对应第 5、6 问（谁拥有循环 + 谁决定下一帧）。仓库本身零改动（`git status --porcelain` 为空），所有临时文件都在 `C:/Projects/Temp/` 下。
