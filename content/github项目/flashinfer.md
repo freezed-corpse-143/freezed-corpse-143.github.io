@@ -97,3 +97,109 @@ Sampling      ← FlashInfer sampling kernel
 
 ## FlashInfer 出现的原因（为什么不能直接全部用 Pytorch）
 
+比如你写：
+
+```
+scores = q @ k.Tscores = scores / sqrt(d)scores = softmax(scores)output = scores @ v
+```
+
+逻辑上完全正确。
+
+但真正做 LLM serving 时，你还会遇到：
+
+```
+不同请求长度不同
+       ↓
+KV Cache 长度不同
+       ↓
+Paged KV Cache
+       ↓
+continuous batching
+       ↓
+prefill / decode 混合
+       ↓
+GQA / MQA / MLA
+       ↓
+FP8 / FP4
+       ↓
+CUDA Graph
+```
+
+于是“调用几个 PyTorch op”很容易产生大量 kernel launch、HBM 数据搬运、中间 Tensor，以及不适合 decode workload 的 GPU occupancy。
+
+FlashInfer 做的事情就是把这些模式变成**针对 LLM serving 特化的 GPU kernel**。
+
+例如官方的 sampling API 直接提供 fused GPU sampling kernel：
+
+```
+logits
+   │
+   ├─ softmax
+   ├─ top-k
+   ├─ top-p
+   └─ sampling
+        ↓
+      token
+```
+
+而不是让上层框架自己拼一串 GPU operation。[FlashInfer](https://docs.flashinfer.ai/api/sampling.html?utm_source=chatgpt.com)
+
+## 与 FlashAttention 的关系
+
+这两个非常容易混淆。
+
+**FlashAttention 更像一个著名的高效 Attention 算法/Kernel 家族；FlashInfer 更像面向整个 LLM inference 的 Kernel Library。**
+
+所以：
+
+```
+FlashAttention
+      │
+      │ Attention 计算优化
+      ▼
+ ┌────────────────────────────┐
+ │         FlashInfer         │
+ │                            │
+ │ Attention                  │
+ │ ├─ FlashAttention 2/3      │
+ │ ├─ Paged Attention         │
+ │ ├─ Sparse Attention        │
+ │ └─ MLA                     │
+ │                            │
+ │ GEMM / MoE / Sampling      │
+ │ RoPE / RMSNorm / AllReduce │
+ └────────────────────────────┘
+```
+
+官方当前接口实际上可以在 FlashAttention-2/3、cuDNN、CUTLASS、TensorRT-LLM 等 backend 之间选择。[GitHub](https://github.com/flashinfer-ai/flashinfer)
+
+## 与 TVM 的关系
+
+这个区别更重要。
+
+你可以粗略理解成：
+
+```
+TVM
+│
+├─ 通用编译器
+├─ Graph / Tensor IR
+├─ Schedule
+├─ Code Generation
+└─ CPU / GPU / 各种 accelerator
+
+
+FlashInfer
+│
+├─ 专注 LLM inference
+├─ Attention
+├─ KV Cache
+├─ GEMM
+├─ MoE
+├─ Sampling
+└─ NVIDIA GPU 高性能 Kernel
+```
+
+也就是说，**TVM 更像“如何自动生成/优化计算程序”的编译器基础设施；FlashInfer 更像“LLM inference 中这些最重要的算子，我直接给你高度优化好的实现和调度框架”。**
+
+FlashInfer 现在甚至会根据模型架构、精度、GPU 世代和 serving workload 选择不同 kernel 配置；2026 年 9 月的 v 0.7 更新还进一步强化了 kernel selection/autotuning。[FlashInfer](https://flashinfer.ai/2026/09/22/flashinfer-v07.html?utm_source=chatgpt.com)
