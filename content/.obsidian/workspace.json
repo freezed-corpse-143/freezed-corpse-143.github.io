@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "游戏速通/星露谷.md",
+                "file": "人工智能/推理框架.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "星露谷"
+              "title": "推理框架"
             }
           }
         ]
@@ -80,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -209,6 +210,8 @@
   },
   "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
+    "人工智能/大模型推理加速.md",
+    "人工智能/推理框架.md",
     "TODO.canvas",
     "游戏速通/星露谷.md",
     "现代UI/Rendering & Performance.md",
@@ -232,7 +235,6 @@
     "images/Pasted image 20261002160840.png",
     "images/Pasted image 20261001231119.png",
     "images/Pasted image 20261001231046.png",
-    "人工智能/大模型推理加速.md",
     "images/Pasted image 20261001215512.png",
     "人工智能/RAG.md",
     "images/Pasted image 20261001213706.png",
