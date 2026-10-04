@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -226,11 +225,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7768345be7d2ff5c",
+  "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
+    "TODO.canvas",
     "编程语言/cuda学习.md",
     "人工智能/推理框架.md",
-    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "游戏速通/星露谷.md",
     "现代UI/Rendering & Performance.md",
