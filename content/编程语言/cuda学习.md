@@ -1700,3 +1700,343 @@ LLM inference optimization
     └── CUDA Graph  ← 在这里
 ```
 
+# 算子融合
+
+Kernel Fusion
+
+## 建立统一的性能模型
+
+现代 CPU/GPU 上执行一个算子，大致付出三种成本：
+
+$$ T \approx T_{\text{compute}} + T_{\text{memory}} + T_{\text{launch/sync}} $$
+
+也就是：
+
+**算 → 搬 → 调度/同步**
+
+例如：
+
+```
+Y = ReLU(A @ B + bias)
+```
+
+逻辑上有三个算子：
+
+```
+MatMul
+   ↓
+BiasAdd
+   ↓
+ReLU
+```
+
+最朴素的 GPU 实现可能是：
+
+```
+Kernel 1: MatMul
+A,B → GPU Core → tmp1 → HBM
+
+Kernel 2: BiasAdd
+tmp1 ← HBM → GPU Core → tmp2 → HBM
+
+Kernel 3: ReLU
+tmp2 ← HBM → GPU Core → Y → HBM
+```
+
+注意 `tmp1` 和 `tmp2`。
+
+它们其实只是**中间结果**，但因为 kernel 结束了，往往不得不：
+
+```
+寄存器 / Shared Memory
+        ↓
+       HBM
+        ↓
+寄存器 / Shared Memory
+```
+
+这就是大量浪费。
+
+融合以后：
+
+```
+Kernel:
+    x = MatMul(...)
+    x += bias
+    x = ReLU(x)
+    write Y
+```
+
+数据路径变成：
+
+```
+A,B
+ ↓
+GPU Core
+ ↓
+MatMul
+ ↓
+register
+ ↓
++ bias
+ ↓
+register
+ ↓
+ReLU
+ ↓
+HBM
+```
+
+**中间结果根本不落 HBM。**
+
+这才是深度学习编译器里谈到 fusion 时，最常见、最重要的含义。
+
+## 第一类：减少 Memory Traffic
+
+> 计存分离，将高频邻近操作合并，减少内存来回搬运。
+
+这是最核心的。
+
+考虑：
+
+$$ Y=\operatorname{ReLU}(X+b) $$
+
+假设 X 是一个 1 GB tensor。
+
+不融合：
+
+```
+X       HBM → GPU     1 GB read
+bias
+   ↓
+Add
+   ↓
+tmp     GPU → HBM     1 GB write
+
+tmp     HBM → GPU     1 GB read
+   ↓
+ReLU
+   ↓
+Y       GPU → HBM     1 GB write
+```
+
+大约：
+
+$$ 4\text{ GB} $$
+
+的数据流量。
+
+融合：
+
+```
+X → GPU
+    Add
+     ↓
+ register
+     ↓
+    ReLU
+     ↓
+     Y
+```
+
+大约只需要：
+
+$$ 2\text{ GB} $$
+
+于是内存流量直接接近减半。
+
+而现代 GPU 很多 element-wise 操作：
+
+```
+add
+mul
+ReLU
+SiLU
+GELU
+LayerNorm 的部分阶段
+mask
+scale
+```
+
+根本不是算力不够，而是 **memory-bound**。
+
+例如一次 ReLU：
+
+```
+y[i] = max(x[i], 0)
+```
+
+每个元素可能只做一次比较，却至少要：
+
+```
+load x[i]
+store y[i]
+```
+
+GPU 的 Tensor Core/ALU 几乎没干多少活，主要时间都花在搬数据。
+
+所以 fusion 对这类操作收益尤其明显。
+
+## 提高计算局部性
+
+> **让中间数据停留在更靠近计算单元的存储层次。**
+> 或者叫近存计算
+
+GPU 的存储大致是：
+
+```
+             快、小
+               ↑
+
+          Register
+              ↓
+        Shared Memory
+              ↓
+           L1 Cache
+              ↓
+           L2 Cache
+              ↓
+         HBM / VRAM
+
+               ↓
+             慢、大
+```
+
+算子融合的目标往往是：
+
+```
+不要：
+
+register
+   ↓
+HBM
+   ↓
+register
+```
+
+而变成：
+
+```
+register
+   ↓
+下一个计算
+```
+
+或者：
+
+```
+shared memory
+   ↓
+下一个计算
+```
+
+所以一个更准确的术语是：
+
+**Producer-consumer locality（生产者-消费者局部性）**
+
+如果：
+
+```
+A → Operator 1 → X → Operator 2 → Y
+```
+
+Operator 1 是 producer，Operator 2 是 consumer。
+
+融合就是尽可能让：
+
+```
+X
+```
+
+不成为真正意义上的“内存 tensor”，而只是：
+
+```
+register value
+shared-memory tile
+compiler temporary
+```
+
+## 第二类：减少 Kernel Launch
+
+GPU kernel 并不是调用普通函数：
+
+```
+foo();
+```
+
+那么简单。
+
+CPU 需要向 GPU 提交工作：
+
+```
+CPU
+ │
+ │ launch kernel A
+ ▼
+GPU
+ │
+ │ execute
+ ▼
+
+CPU
+ │
+ │ launch kernel B
+ ▼
+GPU
+```
+
+每一次 kernel launch 都有固定成本。
+
+所以：
+
+```
+A
+B
+C
+D
+E
+```
+
+5 个小 kernel，即使每个只执行几微秒，launch overhead 也可能非常明显。
+
+融合以后：
+
+```
+A+B+C+D+E
+```
+
+只 launch 一次。
+
+因此：
+
+$$ 5T_{\text{launch}} \rightarrow T_{\text{launch}} $$
+
+这也是为什么：
+
+> **小算子特别值得融合。**
+
+LLM 中经常存在这种情况：
+
+```
+scale
+ ↓
+mask
+ ↓
+softmax
+ ↓
+dropout
+ ↓
+multiply
+```
+
+单个操作计算量很小。
+
+如果每个都是独立 kernel，GPU 就会不断：
+
+```
+launch → 做一点事情
+launch → 做一点事情
+launch → 做一点事情
+```
+
+效率很差。
