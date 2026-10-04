@@ -230,39 +230,9 @@
 			"y":2060,
 			"width":360,
 			"height":180
-		},
-		{
-			"id":"793fa281efd5b721",
-			"type":"text",
-			"text":"lean-ctx 与 rtk 是否存在插件冲突问题",
-			"styleAttributes":{},
-			"x":-3160,
-			"y":2440,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"c7804d130aefe850",
-			"type":"text",
-			"text":"omp 的 lean-ctx 插件落后于 pi 的 lean-ctx 插件",
-			"styleAttributes":{},
-			"x":-3080,
-			"y":2540,
-			"width":260,
-			"height":120
 		}
 	],
-	"edges":[
-		{
-			"id":"19ea5c893eb1401b",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"c7804d130aefe850",
-			"fromSide":"bottom",
-			"toNode":"8bfe4a107af53f80",
-			"toSide":"top"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
