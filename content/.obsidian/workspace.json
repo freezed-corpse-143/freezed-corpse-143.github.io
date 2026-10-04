@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3387.1378251282877,
-                  "y": 2663.1454666491436,
+                  "y": 2356.245466649144,
                   "zoom": -0.7224660244710914
                 }
               },
@@ -227,10 +227,10 @@
   },
   "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "人工智能/推理框架.md",
     "人工智能/TVM.md",
     "编程语言/cuda学习.md",
-    "人工智能/推理框架.md",
-    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "游戏速通/星露谷.md",
     "现代UI/Rendering & Performance.md",
@@ -263,7 +263,6 @@
     "算法/栈.md",
     "算法/模拟.md",
     "github项目/面试题仓库.md",
-    "算法/贪心.md",
     "现代UI",
     "小说idea",
     "软件工程",
