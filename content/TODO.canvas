@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"d9736499ed2f4750",
-			"type":"text",
-			"text":"Typescript 的 GUI electron 教程： https://www.electronjs.org/docs/latest",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":1020,
-			"width":800,
-			"height":60
-		},
-		{
 			"id":"9751bcc38bd1052d",
 			"type":"text",
 			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
@@ -29,16 +19,6 @@
 			"y":220,
 			"width":260,
 			"height":180
-		},
-		{
-			"id":"53294f0134237d6d",
-			"type":"text",
-			"text":"rust 的 GUI 教程：\nslint 教程： https://docs.slint.dev/latest/docs/slint/\ntauri 教程  https://v2.tauri.app/start/\n",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":840,
-			"width":800,
-			"height":120
 		},
 		{
 			"id":"3bd7b1b7e6524e7b",
@@ -160,16 +140,6 @@
 			"y":500,
 			"width":560,
 			"height":200
-		},
-		{
-			"id":"ca1ca4f2a3f88ee2",
-			"type":"text",
-			"text":"C++: Flutter",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":720,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
