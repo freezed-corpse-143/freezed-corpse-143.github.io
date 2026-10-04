@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "flashinfer"
             }
+          },
+          {
+            "id": "42855f34fdb8b3bc",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3609.582262825123,
+                  "y": 1631.4131203889497,
+                  "zoom": -0.0557993578044248
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -80,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -208,10 +225,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6ae8fab2fae23fd7",
+  "active": "42855f34fdb8b3bc",
   "lastOpenFiles": [
-    "人工智能/TileLang与Triton.md",
+    "元学习/关系定位法.md",
     "github项目/flashinfer.md",
+    "人工智能/TileLang与Triton.md",
     "人工智能/推理框架.md",
     "人工智能/大模型推理加速.md",
     "TODO.canvas",
@@ -247,7 +265,6 @@
     "images/Pasted image 20261001213706.png",
     "images/Pasted image 20261001210449.png",
     "人工智能/知识图谱.md",
-    "算法/双指针.md",
     "现代UI",
     "小说idea",
     "软件工程",
