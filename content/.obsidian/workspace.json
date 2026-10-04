@@ -34,6 +34,23 @@
               "icon": "lucide-file",
               "title": "cuda学习"
             }
+          },
+          {
+            "id": "7768345be7d2ff5c",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3387.1378251282877,
+                  "y": 2049.3454666491443,
+                  "zoom": -0.7224660244710914
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ],
         "currentTab": 1
@@ -226,6 +243,7 @@
   "active": "752422ecd4d5a242",
   "lastOpenFiles": [
     "TODO.canvas",
+    "编程语言/cuda学习.md",
     "人工智能/推理框架.md",
     "人工智能/大模型推理加速.md",
     "游戏速通/星露谷.md",
@@ -260,7 +278,6 @@
     "算法/模拟.md",
     "github项目/面试题仓库.md",
     "算法/贪心.md",
-    "游戏速通/泰拉瑞亚.md",
     "现代UI",
     "小说idea",
     "软件工程",
