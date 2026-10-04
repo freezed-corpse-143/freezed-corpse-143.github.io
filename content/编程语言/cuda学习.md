@@ -2266,3 +2266,88 @@ scalar add
 > **Instruction-level fusion / specialized hardware**
 
 和编译器的 kernel fusion 又是不同层次。
+
+# GEMM Epilogue Fusion 优化实例
+
+神经网络里经常：
+
+$$ Y=\operatorname{GELU}(XW+b) $$
+
+如果 naive：
+
+```
+Kernel 1:
+X @ W
+ ↓
+HBM
+
+Kernel 2:
++bias
+ ↓
+HBM
+
+Kernel 3:
+GELU
+ ↓
+HBM
+```
+
+但 GEMM 内部本来就是 tile-based：
+
+```
+HBM
+ ↓
+shared memory
+ ↓
+register
+ ↓
+Tensor Core
+ ↓
+accumulator registers
+```
+
+关键来了：
+
+矩阵乘法结果此时**已经在 accumulator register 中**。
+
+为什么要：
+
+```
+accumulator
+    ↓
+   HBM
+    ↓
+  register
+    ↓
+   bias
+```
+
+？
+
+完全没必要。
+
+因此高性能 GEMM kernel 经常做：
+
+```
+Tensor Core
+    ↓
+Accumulator
+    ↓
+ + bias
+    ↓
+  GELU
+    ↓
+  HBM
+```
+
+也就是：
+
+$$ \boxed{ \text{GEMM} + \text{Bias} + \text{Activation} } $$
+
+一次完成。
+
+这种融合通常称为：
+
+**epilogue fusion**。
+
+它是深度学习推理中极其常见的一类优化。
