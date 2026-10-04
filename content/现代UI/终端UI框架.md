@@ -68,7 +68,7 @@ FTXUI    → 自带循环的三层 DOM 栈（一个自洽的小操作系统的�
 | | ink | ratatui | FTXUI |
 | :--- | :--- | :--- | :--- |
 | 元素层 | `DOMElement` 树，每节点自带 `yogaNode`（`src/dom.ts:24,97`） | **没有**元素树（widget 用完即弃） | `Node` 树，`Element = shared_ptr<Node>`（`include/ftxui/dom/node.hpp:38,89-92`） |
-| 网格层 | `Output`：`StyledChar[][]`，**每帧新建**，`get()` 时才展开（`src/output.ts:132,355`） | `Buffer { area, content: Vec<Cell> }`，**跨帧存活**（`ratatui-core/src/buffer/buffer.rs:67-72`） | `Surface/Screen`：`std::vector<Cell>` + `stencil`（`include/ftxui/screen/surface.hpp:70`、`src/ftxui/dom/../screen/surface.hpp:68`） |
+| 网格层 | `Output`：`StyledChar[][]`，**每帧新建**，`get()` 时才展开（`src/output.ts:132,355`） | `Buffer { area, content: Vec<Cell> }`，**跨帧存活**（`ratatui-core/src/buffer/buffer.rs:67-72`） | `Surface/Screen`：`std::vector<Cell>` + `stencil`（`include/ftxui/screen/surface.hpp:68,70`） |
 | 状态层对象 | React Fiber 树（库外） | 无（`StatefulWidget::State` 由调用者持有） | `ComponentBase` 对象树（`include/ftxui/component/component_base.hpp:31`） |
 | 单元内容 | `StyledChar`（字符 + SGR 属性） | `Cell`（grapheme + fg/bg/underline + `CellDiffOption`，`ratatui-core/src/buffer/cell.rs:38-80`） | `Cell`（grapheme + 9 个位域样式 + hyperlink id，`include/ftxui/screen/cell.hpp:19-60`） |
 | 文本输入侧的类型 | 无（文本是字符串，样式在组件层就转成 SGR） | `Span` / `Line` / `Text` 三层（`ratatui-core/src/text.rs:3-8`） | 无（`text()` 直接产出 `Text` Node） |
@@ -195,15 +195,15 @@ Q：事件循环归库还是归调用者？
 | | ink | ratatui | FTXUI |
 | :--- | :--- | :--- | :--- |
 | 输入从哪进 | `stdin` 的 `'readable'` 事件（`src/components/App.tsx:373`），同步抽干 `stdin.read()`（`src/components/App.tsx:322`） | **库内没有**：直接调后端库（如 `crossterm::event`）（`ratatui/src/lib.rs:272-276`） | `App::FetchTerminalEvents`：Windows `ReadConsoleInput`（`src/ftxui/component/app.cpp:1344`）/ POSIX `read`（`:1400`） |
-| 字节→事件 | 两层：`input-parser`（切完整序列，跨 chunk 留 pending，20ms flush 悬空 ESC）→ `parse-keypress`（`src/input-parser.ts:268`、`src/parse-keypress.ts:435`） | 无 | `TerminalInputParser` 状态机：UTF8/ESC/CSI/OSC/DCS/mouse（`src/ftxui/component/terminal_input_parser.hpp:17,84-90`） |
+| 字节→事件 | 两层：`input-parser`（切完整序列，跨 chunk 留 pending，20ms 后 flush 悬空 ESC，`src/components/App.tsx:124-125,311-318`）→ `parse-keypress`（`src/input-parser.ts:268`、`src/parse-keypress.ts:435`） | 无 | `TerminalInputParser` 状态机：UTF8/ESC/CSI/OSC/DCS/mouse（`src/ftxui/component/terminal_input_parser.hpp:17,84-90`） |
 | 事件类型 | `ParsedKey` / `Key`（`src/hooks/use-input.ts` 里映射） | 无（后端库的类型） | `Event`（字符/鼠标/光标上报/终端元信息），带 `screen_` 反向指针（`include/ftxui/component/event.hpp:35`） |
 | 分发 | 单个 `EventEmitter`：`emit('input')` 给所有 `useInput` 监听者（`src/components/App.tsx:304`） | 无 | 惰性 OR：`ComponentBase::OnEvent` 依次问 children，返回 true 即停（`src/ftxui/component/component.cpp:174-183`） |
 | 焦点 | `FocusContext` + App 内的 activeId 注册表，Tab/Shift+Tab 由 App 处理（`src/components/FocusContext.ts:17`、`src/components/App.tsx:536-583`） | 无 | 从 root 沿 `ActiveChild()` 链判定，`Focused()` 走祖先链 O(depth)（`src/ftxui/component/component.cpp:194-203,216-231,243-250`） |
 | 库抢答的键 | Ctrl+C 退出、Esc 清焦点（`src/components/App.tsx:269-296`） | 无 | Ctrl-C/Ctrl-Z 默认被抢答，可用 `ForceHandleCtrlC/Z` 关掉（`src/ftxui/component/app.cpp:922-928`） |
-| 粘贴 | 独立 paste 通道 + 括号粘贴模式（引用计数）（`src/hooks/use-paste.ts:39`、`src/components/App.tsx:453-485`） | 无 | 解析器内处理（`ParseUTF8/ParseESC/ParseCSI` 中的 bracketed paste） |
+| 粘贴 | 独立 paste 通道 + 括号粘贴模式（引用计数）（`src/hooks/use-paste.ts:39`、`src/components/App.tsx:453-485`） | 无 | **无 bracketed paste**：粘贴就是逐字符 `Event::Character`（全仓库 grep `paste`/`bracket` 零命中），长粘贴会被事件化成一串字符 |
 | raw mode | 引用计数，最后一个释放者延迟到 microtask（`src/components/App.tsx:383-451`） | 由 `init()` 或调用者负责（`ratatui/src/init.rs:433`） | `App` 安装/反安装时处理（`src/ftxui/component/app.cpp:Install/Uninstall`） |
 
-**"输入面不存在"是 ratatui 的重大发现，不是遗漏**：它的 `Backend` trait 一共只有 14 个方法（`draw`/`clear`/`cursor`/`size`/`flush`/`append_lines`/`scroll_region_*`），没有一个和事件有关（`ratatui-core/src/backend.rs:160-422`）。它清楚地把"字符输出"和"事件输入"切成两个正交的库，用"后端 crate re-export"（`ratatui-crossterm/src/lib.rs:36-45`）保证版本一致。
+**"输入面不存在"是 ratatui 的重大发现，不是遗漏**：它的 `Backend` trait 一共 17 个方法（`draw`/`clear`/`clear_region`/`cursor` 系列/`size`/`window_size`/`flush`/`append_lines`/`scroll_region_*`），没有一个和事件有关（`ratatui-core/src/backend.rs:160-422`）。它清楚地把"字符输出"和"事件输入"切成两个正交的库，用"后端 crate re-export"（`ratatui-crossterm/src/lib.rs:36-45`）保证版本一致。
 
 代价是每个应用都要写这段样板；收益是这个库可以被任何事件模型驱动（async、线程、poll、甚至非终端）。
 
@@ -223,8 +223,8 @@ Q：事件循环归库还是归调用者？
 
 ```text
 Q：终端抽象放哪？
-  - trait + feature flag（ratatui）：擅长一套核心配 N 种输入栈、no_std 可行（ratatui-core 是 #![no_std] + alloc，
-    ratatui-core/src/lib.rs:70-77），代价是能力差异要靠默认实现/feature 组合兜底
+  - trait + feature flag（ratatui）：擅长一套核心配 N 种输入栈、no_std 可行（`ratatui-core` 第 1 行就是 `#![no_std]`，
+    ratatui-core/src/lib.rs:1），代价是能力差异要靠默认实现/feature 组合兜底
   - 进程流抽象（ink）：擅长零配置、天然支持非 TTY 输出（管道、CI），代价是没有 terminfo 级精确能力表
   - 无抽象 + #ifdef（FTXUI）：擅长零虚函数开销、代码量最小、零依赖，代价是新增平台要散改多处 #ifdef，
     且库内无法插入自定义后端（这是一个 "absent" 格，include/ftxui/screen/terminal.hpp 只有函数，没有接口）
@@ -738,3 +738,74 @@ FRAME 1（首帧，ConPTY 下约 3.5s 才出现）：
 | 裸 exe 不能直接执行 | 本机 shell 对 `./x.exe` 报 `command not found`（exit 127）；用 `cargo run` 或 Python `subprocess` 启动 |
 | ConPTY 首帧有延迟 | 约 3.5s 才开始出字节（两次独立复现都是 23 字节直到 3.5s）；抓帧要等 ≥4s，8s 稳定 |
 | 示例是独立 crate | `examples/apps/*` 各自是 workspace member，要用 `cargo build -p popup` / `-p hello-world`，不是 `--example` |
+
+## ink（8.0.0）— 全流程已实测通过
+
+```bash
+# 1) 装依赖（Node v24.16.0 / bun 1.4.2；bun 会顺带跑 prepare → tsc，生成 build/）
+cd C:/Projects/ink && bun install          # 646 packages, 168.20s（1 个 postinstall 被 block，无害）
+
+# 2) headless：用 tsx 直接跑仓库的裸 TypeScript 源码，无需先 build
+FORCE_COLOR=1 node --import=tsx headless.mjs
+```
+
+`headless.mjs` 只要能解析 `react` 与仓库源码即可（`tsx` 会把 `src/index.js` 映射回 `.ts`）：
+
+```js
+import {createElement as h} from 'react';
+import {renderToString, Box, Text} from '../../ink/src/index.js';
+
+console.log(JSON.stringify(
+  renderToString(h(Box, {borderStyle: 'round', borderColor: 'green'},
+    h(Text, {bold: true, color: 'cyan', backgroundColor: 'blue'}, 'Hello Ink')))));
+```
+
+实测产出（`renderToString` 结果的转义形态，逐字）：
+
+```text
+"\u001b[32m╭──────────────────────────────────────╮\u001b[39m\n
+ \u001b[32m│\u001b[39m \u001b[1m\u001b[44m\u001b[36mHello Ink\u001b[39m\u001b[49m\u001b[22m   …   \u001b[32m│\u001b[39m\n
+ \u001b[32m╰──────────────────────────────────────╯\u001b[39m"
+```
+
+即：SGR 32 绿色圆角边框、SGR 1/44/36 粗体＋蓝底＋青字，末尾 39/49/22 复位。
+
+**真实终端（ConPTY via node-pty）验证**——`node --import=tsx interactive.mjs`（含 `useInput`，按 `q` 调 `app.exit()`），8s 后向 PTY 写 `q`：
+
+```text
+EXIT_CODE: 0        ← useInput('q') 触发退出
+抓到的主端字节（460 字节，节选）：
+\x1b[?9001h\x1b[?1004h\x1b[?25l\x1b[2J\x1b[m\x1b[H … \x1b[?25h
+\x1b[35m╭───────…───────╮\r\n
+│ \x1b[33mpress q to quit\x1b[42X\x1b[35m\x1b[42C│\r\n
+╰───────…───────╯\r\n
+\x1b[m\r\n\x1b[?25l\x1b[8;1H\x1b[?25h
+（= 备用屏/kitty 序列、隐藏光标、清屏、SGR35 品红边框、SGR33 黄字、
+  用 cursor-forward 填空白、退出时恢复光标）
+```
+
+四个操作坑：
+
+| 坑 | 说明 |
+| :--- | :--- |
+| `bun run` 渲染没颜色 | chalk 在无 TTY 且无 `FORCE_COLOR` 时不发 SGR；headless 一律用 `FORCE_COLOR=1 node --import=tsx` |
+| 别想 patch `stdout` 来抓帧 | ink **不**经 `process.stdout.write` 输出（实测 patch 计数 = 0）；要真帧就用 ConPTY 抓主端字节 |
+| 裸跑脚本要能解析 `react` | 在 scratch 目录里对 `C:/Projects/ink/node_modules` 建 junction（Windows 用 `New-Item -ItemType Junction`） |
+| 仓库会留下构建产物 | `bun install` 触发 `prepare`，留下 `C:/Projects/ink/node_modules` 与 `build/`（都在 `.gitignore` 覆盖内，源码树未改动、无提交） |
+
+> 顺带一个实证：**bash 工具的 `pty:true` service 模式抓不到 ink 的运行中帧**——它只在进程退出后才 flush 输出，且 `write proc://<id>` 注入的 stdin 到不了 `useInput`。要交互验证就绕开它，用 node-pty/ConPTY 驱动（ratatui 那边同理，用的是 pywinpty）。
+
+## 三家跑法的横向对照
+
+| | ink | ratatui | FTXUI |
+| :--- | :--- | :--- | :--- |
+| 装依赖 | `bun install`（168s，646 包） | 无（cargo 自动拉） | 无（零依赖） |
+| 首次编译 | 无需（tsx 直跑源码；`bun install` 顺带 tsc） | `cargo check -p ratatui-core` 20s | cmake configure 4.1s + build 18s |
+| headless 渲染 | `renderToString` | `Terminal::new(TestBackend::new(w,h))` | `Screen(w,h)` + `Render` + `ToString` |
+| headless 是否需要改造代码 | 不需要（官方 API） | 不需要（`TestBackend` 非 feature-gated） | 不需要（仓库自己的测试就这么写） |
+| 真终端验证 | node-pty（ConPTY） | pywinpty（ConPTY） | bash 工具 pty service（真 ConPTY） |
+| 是否要 vsenv | 否 | 否（rustc 自带 MSVC 探测） | **是**（`cl` 不在 PATH） |
+| 编译耗时量级 | 分钟级（npm 生态） | 20s~30s（core） | ~20s（全库） |
+| 测试基线 | — | `cargo test -p ratatui-core`：1474 + 5 + 163 全绿 | — |
+
+**一个结论**：**三家的 headless 路径都不需要真实终端**，而且都不是"为了测试硬开的洞"——ratatui 的 `TestBackend` 是 `Backend` trait 的普通实现，FTXUI 的 `Screen` 本来就是数据对象，ink 的 `renderToString` 是官方公共 API。这反过来印证了「产物面」那一节的判断：**它们的核心都是"把某个表示对象变成字节"，终端只是这个变换的一个消费者。**
