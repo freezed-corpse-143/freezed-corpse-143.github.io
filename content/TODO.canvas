@@ -122,16 +122,6 @@
 			"height":60
 		},
 		{
-			"id":"25b346b3bc7fb79d",
-			"type":"text",
-			"text":"决策模型的推理引擎",
-			"styleAttributes":{},
-			"x":-3620,
-			"y":1740,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
@@ -147,16 +137,6 @@
 			"text":"高斯溅射的推理引擎",
 			"styleAttributes":{},
 			"x":-3220,
-			"y":1640,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"7e50bf26077072d1",
-			"type":"text",
-			"text":"diffusion 的推理引擎",
-			"styleAttributes":{},
-			"x":-3620,
 			"y":1640,
 			"width":260,
 			"height":60
@@ -182,26 +162,6 @@
 			"height":60
 		},
 		{
-			"id":"9a2de047452f454b",
-			"type":"text",
-			"text":"学习 \n- tilelang\n- triton\n\n\n- flashinfer\n- cuda tile",
-			"styleAttributes":{},
-			"x":-4000,
-			"y":1800,
-			"width":300,
-			"height":260
-		},
-		{
-			"id":"859bb0620533fa88",
-			"type":"text",
-			"text":"可视化的下一步就是可视化编辑",
-			"styleAttributes":{},
-			"x":-3620,
-			"y":1870,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
 			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
@@ -212,24 +172,44 @@
 			"height":80
 		},
 		{
-			"id":"a2a6c0357bfc44b5",
+			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"拆解推理框架：\n\n- [ ] 共性：\n\t- [ ] 对不同平台的适配\n\t- [ ] 对模型文件的读取解析架构\n\t- [ ] 推理的核心引擎（无状态层）\n\t- [ ] 哪些是切面层\n\t- [ ] 哪些是 I/O 层\n- [ ] 区别\n- [ ] 核心技术",
+			"text":"学习 \n- tilelang\n- triton\n\n---\n- flashinfer\n- cuda tile",
 			"styleAttributes":{},
-			"x":-3980,
-			"y":2140,
-			"width":260,
-			"height":360
+			"x":-3960,
+			"y":1900,
+			"width":300,
+			"height":260
 		},
 		{
-			"id":"a9604101b077d0a9",
+			"id":"7e50bf26077072d1",
 			"type":"text",
-			"text":"推理框架：\n- vllm\n- sglang\n- llama.cpp\n- stable-diffusion.cpp",
+			"text":"diffusion 的推理引擎",
 			"styleAttributes":{},
-			"x":-3620,
-			"y":2260,
-			"width":360,
-			"height":180
+			"x":-3220,
+			"y":1540,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"859bb0620533fa88",
+			"type":"text",
+			"text":"可视化的下一步就是可视化编辑",
+			"styleAttributes":{},
+			"x":-3220,
+			"y":1970,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"25b346b3bc7fb79d",
+			"type":"text",
+			"text":"决策模型的推理引擎",
+			"styleAttributes":{},
+			"x":-4000,
+			"y":1740,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
