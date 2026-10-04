@@ -226,8 +226,8 @@
 			"type":"text",
 			"text":"推理框架：\n- vllm\n- sglang\n- llama.cpp\n- stable-diffusion.cpp",
 			"styleAttributes":{},
-			"x":-3520,
-			"y":2060,
+			"x":-3620,
+			"y":2260,
 			"width":360,
 			"height":180
 		}
