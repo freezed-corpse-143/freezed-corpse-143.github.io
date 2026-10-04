@@ -44,14 +44,14 @@ FTXUI    → 自带循环的三层 DOM 栈（一个自洽的小操作系统的�
 
 三家都把"声明"和"启动"分开，但声明语汇完全不同。
 
-| | ink 8.0.0 | ratatui 0.30.2 | FTXUI 7.1.0 |
-| :--- | :--- | :--- | :--- |
-| 声明方式 | React/JSX 组件树（`Box` / `Text` / `Static`） | 构造 widget + 自己给 `Rect` | `Element` 管道装饰 + `Component` 工厂 |
-| 启动入口 | `render(node, options)`（`src/render.ts:201`） | `ratatui::run(f)` / `Terminal::new`（`ratatui/src/init.rs:323`、`ratatui-core/src/terminal/init.rs:56`） | `App::FitComponent()` + `screen.Loop(component)`（`examples/component/button.cpp:61-62`） |
-| 无终端入口 | `renderToString`（`src/render-to-string.ts:48`） | `TestBackend` 渲染到内存（`ratatui-core/src/backend/test.rs:36`） | `Screen` + `Render(screen, element)`（本身就是 headless，见 `src/ftxui/dom/text_test.cpp:17-25`） |
-| 宿主元素 | 小写标签 `ink-root` / `ink-box` / `ink-text`（`src/dom.ts:15-16`） | 无（widget 是 trait 实现，`ratatui-core/src/widgets/widget.rs:70-76`） | 无标签概念，`Element` 是 `shared_ptr<Node>`（`include/ftxui/dom/node.hpp:21`） |
-| 语法糖 | JSX 本身 | 宏：`span!` `line!` `constraints!` `vertical!`（`ratatui-macros/src/lib.rs`） | `operator|` 装饰器：`text("x") | border | color(...)`（`src/ftxui/dom/util.cpp:45-90`） |
-| 多实例约束 | 同一 stdout 只允许一个活实例（WeakMap，`src/instances.ts:9`；复用会警告 `src/render.ts:262-280`） | 无约束（库无全局状态） | 无约束（`App` 是普通对象） |
+|       | ink 8.0.0                                                                      | ratatui 0.30.2                                                                                        | FTXUI 7.1.0                                                                               |                  |        |                                             |
+| :---- | :----------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- | ---------------- | ------ | ------------------------------------------- |
+| 声明方式  | React/JSX 组件树（`Box` / `Text` / `Static`）                                       | 构造 widget + 自己给 `Rect`                                                                                | `Element` 管道装饰 + `Component` 工厂                                                           |                  |        |                                             |
+| 启动入口  | `render(node, options)`（`src/render.ts:201`）                                   | `ratatui::run(f)` / `Terminal::new`（`ratatui/src/init.rs:323`、`ratatui-core/src/terminal/init.rs:56`） | `App::FitComponent()` + `screen.Loop(component)`（`examples/component/button.cpp:61-62`）   |                  |        |                                             |
+| 无终端入口 | `renderToString`（`src/render-to-string.ts:48`）                                 | `TestBackend` 渲染到内存（`ratatui-core/src/backend/test.rs:36`）                                            | `Screen` + `Render(screen, element)`（本身就是 headless，见 `src/ftxui/dom/text_test.cpp:17-25`） |                  |        |                                             |
+| 宿主元素  | 小写标签 `ink-root` / `ink-box` / `ink-text`（`src/dom.ts:15-16`）                   | 无（widget 是 trait 实现，`ratatui-core/src/widgets/widget.rs:70-76`）                                       | 无标签概念，`Element` 是 `shared_ptr<Node>`（`include/ftxui/dom/node.hpp:21`）                     |                  |        |                                             |
+| 语法糖   | JSX 本身                                                                         | 宏：`span!` `line!` `constraints!` `vertical!`（`ratatui-macros/src/lib.rs`）                             | `operator                                                                                 | ` 装饰器：`text("x") | border | color(...)`（`src/ftxui/dom/util.cpp:45-90`） |
+| 多实例约束 | 同一 stdout 只允许一个活实例（WeakMap，`src/instances.ts:9`；复用会警告 `src/render.ts:262-280`） | 无约束（库无全局状态）                                                                                           | 无约束（`App` 是普通对象）                                                                          |                  |        |                                             |
 
 **要点**：入口不是引擎。
 
