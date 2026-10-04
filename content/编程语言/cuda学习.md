@@ -2086,4 +2086,65 @@ Kernel launch ↓
 Synchronization ↓
 ```
 
-## 第四
+## 第四类：中间 Tensor 不需要 materialize
+
+这是编译器里非常重要的概念：
+
+**materialization（物化）**。
+
+例如：
+
+$$ C=A+B $$
+
+数学上 C 是一个矩阵。
+
+但计算机是否真的需要在显存里创建一个完整的 C？
+
+不一定。
+
+如果：
+
+$$ D=\operatorname{ReLU}(A+B) $$
+
+融合以后：
+
+```
+float c = a[i] + b[i];
+float d = max(c, 0);
+```
+
+这里数学上存在：
+
+$$ C $$
+
+但物理上：
+
+```
+C tensor
+```
+
+根本不存在。
+
+只存在一个：
+
+```
+register c
+```
+
+于是省掉：
+
+```
+allocate C
+write C
+read C
+free C
+```
+
+这叫做：
+
+> **eliminate intermediate materialization**
+
+很多编译器优化，本质上都可以从这个角度理解。
+
+# 代数优化
+
