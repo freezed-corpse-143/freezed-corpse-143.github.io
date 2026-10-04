@@ -11,14 +11,17 @@
             "id": "6ae8fab2fae23fd7",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "游戏速通/星露谷.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3317.361849096705,
+                  "y": 2207.579831089907,
+                  "zoom": -0.7209320583075545
+                }
               },
-              "icon": "lucide-file",
-              "title": "星露谷"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -209,6 +212,7 @@
   },
   "active": "6ae8fab2fae23fd7",
   "lastOpenFiles": [
+    "游戏速通/星露谷.md",
     "TODO.canvas",
     "现代UI/Rendering & Performance.md",
     "现代UI/学习之路.md",
@@ -222,7 +226,6 @@
     "现代UI/Visual Design.md",
     "现代UI/Layout Engineering.md",
     "现代UI/Web UI底层模型.md",
-    "游戏速通/星露谷.md",
     "软件使用.md",
     "人工智能/现代模型.md",
     "images/Pasted image 20261002203556.png",
