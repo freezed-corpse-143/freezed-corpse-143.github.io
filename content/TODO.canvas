@@ -142,16 +142,6 @@
 			"height":60
 		},
 		{
-			"id":"f9000f77656388dd",
-			"type":"text",
-			"text":"国聘网简历投递 https://www.iguopin.com/",
-			"styleAttributes":{},
-			"x":-4040,
-			"y":100,
-			"width":400,
-			"height":60
-		},
-		{
 			"id":"a54a3397fb45fc86",
 			"type":"text",
 			"text":"多次检索：通过检索粒度和结果，优化检索过程",
@@ -174,7 +164,7 @@
 		{
 			"id":"9a2de047452f454b",
 			"type":"text",
-			"text":"学习 \n\n---\n- flashinfer\n- cuda tile",
+			"text":"学习 \n---\n- flashinfer\n- cuda tile",
 			"styleAttributes":{},
 			"x":-3960,
 			"y":1900,
@@ -209,6 +199,16 @@
 			"x":-4000,
 			"y":1740,
 			"width":260,
+			"height":60
+		},
+		{
+			"id":"f9000f77656388dd",
+			"type":"text",
+			"text":"国聘网简历投递 https://www.iguopin.com/",
+			"styleAttributes":{},
+			"x":-4070,
+			"y":100,
+			"width":400,
 			"height":60
 		}
 	],
