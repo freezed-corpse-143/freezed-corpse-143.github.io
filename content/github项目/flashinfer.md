@@ -203,3 +203,28 @@ FlashInfer
 也就是说，**TVM 更像“如何自动生成/优化计算程序”的编译器基础设施；FlashInfer 更像“LLM inference 中这些最重要的算子，我直接给你高度优化好的实现和调度框架”。**
 
 FlashInfer 现在甚至会根据模型架构、精度、GPU 世代和 serving workload 选择不同 kernel 配置；2026 年 9 月的 v 0.7 更新还进一步强化了 kernel selection/autotuning。[FlashInfer](https://flashinfer.ai/2026/09/22/flashinfer-v07.html?utm_source=chatgpt.com)
+
+## 在 LLM 推理系统体系中的位置
+
+```
+算法
+FlashAttention / PagedAttention / MLA
+            ↓
+Kernel
+CUDA / Triton / CUTLASS
+            ↓
+LLM Kernel Library
+FlashInfer
+            ↓
+Serving Engine
+vLLM / SGLang / TensorRT-LLM
+            ↓
+系统级优化
+Continuous Batching
+Prefix Caching
+Speculative Decoding
+CUDA Graph
+Disaggregated Prefill/Decode
+```
+
+**FlashInfer 正好是连接“CUDA Kernel 优化”和“LLM Serving 系统”的那一层。**
