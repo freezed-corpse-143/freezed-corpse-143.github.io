@@ -2040,3 +2040,50 @@ launch → 做一点事情
 ```
 
 效率很差。
+
+## 第三类：减少 synchronization
+
+这点容易被忽略。
+
+两个独立 kernel：
+
+```
+Kernel A
+   ↓
+Kernel B
+```
+
+B 必须看到 A 的正确结果。
+
+因此这个边界隐含了一定程度的：
+
+**producer-consumer synchronization**
+
+而融合以后：
+
+```
+kernel() {
+    x = A(...);
+    y = B(x);
+}
+```
+
+编译器可以明确知道：
+
+```
+A 的这个线程产生 x
+       ↓
+直接被后续指令使用
+```
+
+很多同步/调度边界因此消失。
+
+所以 fusion 往往同时实现：
+
+```
+Memory traffic ↓
+Kernel launch ↓
+Synchronization ↓
+```
+
+## 第四类
