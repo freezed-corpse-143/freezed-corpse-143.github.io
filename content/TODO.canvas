@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"8fdf943f6150ef0e",
-			"type":"text",
-			"text":"C++的 QT 教程：https://doc.qt.io/qt-6/qtexamplesandtutorials.html",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":460,
-			"width":740,
-			"height":60
-		},
-		{
 			"id":"c35f1a146a62080a",
 			"type":"text",
 			"text":"C++ 的 TUI FTUI教程 https://github.com/ArthurSonzogni/FTXUI",
@@ -59,16 +49,6 @@
 			"y":250,
 			"width":560,
 			"height":150
-		},
-		{
-			"id":"d689a6a47c77515d",
-			"type":"text",
-			"text":"学习 QT 知名项目 https://github.com/clementine-player/clementine\n学习 Typescript 知名项目： https://github.com/deepseek-ai/deepseek-harness\nhttps://github.com/earendil-works/pi.git\n学习 cuda 代码： https://github.com/NVIDIA/cuda-samples.git",
-			"styleAttributes":{},
-			"x":-3100,
-			"y":460,
-			"width":560,
-			"height":200
 		},
 		{
 			"id":"9727a4171074a483",
@@ -200,6 +180,16 @@
 			"y":100,
 			"width":400,
 			"height":60
+		},
+		{
+			"id":"d689a6a47c77515d",
+			"type":"text",
+			"text":"\n学习 Typescript 知名项目： https://github.com/deepseek-ai/deepseek-harness\nhttps://github.com/earendil-works/pi.git\n学习 cuda 代码： https://github.com/NVIDIA/cuda-samples.git",
+			"styleAttributes":{},
+			"x":-3160,
+			"y":500,
+			"width":560,
+			"height":200
 		}
 	],
 	"edges":[],
