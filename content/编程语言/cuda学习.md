@@ -1400,3 +1400,70 @@ ncu -o merge_attn_states.prof -f pytest -s test_merge_attn_states.py
 10. 单元测试：写算子，单测肯定是必不可少的，我们需要确保自定义的CUDA算子，性能比Triton好，并且数值精度一致，才有意义。
 11. 性能评估：跑完测试脚本自动生成一个包含性能对比的markdown表格。使用 CUDA kernel而非 Triton，可以最大程度减少 CPU 开销并提升kernel性能。
 12. 精度评估：除了算子级别的精度评估，我们还可以用evalscope来跑一跑端到端的精度回归，比如CEval benchmark。
+
+# Cuda Graph
+
+CUDA Graph 可以把它理解成：
+
+> **把一串原本需要 CPU 一条条提交给 GPU 的 CUDA 操作，预先录制成一张“执行图”，之后只需要一次提交，就让 GPU 按照整张图执行。**
+
+它主要解决的不是 GPU **算得慢**，而是 **CPU 不断 launch GPU kernel 带来的调度开销**。这在现代 LLM 推理里非常重要。
+
+## 普通 CUDA 执行理解
+
+假设一次神经网络推理要执行：
+
+```
+CPU
+ │
+ ├─ launch kernel A ──────► GPU: MatMul
+ ├─ launch kernel B ──────► GPU: RMSNorm
+ ├─ launch kernel C ──────► GPU: RoPE
+ ├─ launch kernel D ──────► GPU: Attention
+ ├─ launch kernel E ──────► GPU: MatMul
+ │
+ ...
+```
+
+每个 CUDA kernel 都需要 CPU 发起一次 kernel launch。
+
+问题在于：
+
+```
+GPU计算时间：      ███
+CPU launch开销：   ▏
+
+单次看起来很小
+```
+
+但现代模型一次 forward 可能有大量 kernel：
+
+```
+Kernel 1
+Kernel 2
+Kernel 3
+...
+Kernel 500
+Kernel 501
+...
+```
+
+尤其是 **LLM decode 阶段**，batch 较小、每次只生成一个 token 时，很多 kernel 本身运行时间非常短。
+
+这时候就可能出现：
+
+```
+CPU launch
+    ↓
+GPU ███
+        CPU launch
+            ↓
+        GPU ██
+               CPU launch
+                   ↓
+               GPU ███
+```
+
+GPU 中间会出现很多小气泡。
+
+也就是说 GPU 很快，但 CPU **喂不饱 GPU**。
