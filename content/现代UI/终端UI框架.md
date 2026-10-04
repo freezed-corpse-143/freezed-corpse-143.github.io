@@ -301,12 +301,12 @@ Q：增量做到哪一层？
 
 把所有 I/O 混着看会看不清瓶颈，按来源分四类：
 
-| 分类 | ink | ratatui | FTXUI |
-| :--- | :--- | :--- | :--- |
-| 输入字节流 | `stdin` Node 流（`src/components/App.tsx:373`） | 后端库自己管（crossterm 内部） | `read` / `ReadConsoleInput`（`src/ftxui/component/app.cpp:1328-1452`） |
-| 输出字节流 | `stream.write`（`src/log-update.ts:76,105`） | `Backend::draw` → crossterm `execute!`（`ratatui-crossterm/src/lib.rs:232-310`） | `TerminalSend`/`TerminalFlush`（`src/ftxui/component/app.cpp:1146-1153`） |
-| 终端能力/尺寸 I/O | `stdout.columns` + 探测序列往返（`src/ink.tsx:826-891`） | `Backend::size()`（`ratatui-core/src/backend.rs`） | `ioctl`/`GetConsoleScreenBufferInfo` + DA1/DA2/XTVERSION 上报（`src/ftxui/screen/terminal.cpp:262-278,327-381`） |
-| 进程/设备 I/O | `suspendTerminal`：让子进程接管 TTY 后强制整屏重绘（`src/ink.tsx:893,954`） | 无（交给调用者） | `printAbove` / `TerminalOutput` 模式 |
+| 分类          | ink                                                         | ratatui                                                                        | FTXUI                                                                                                        |
+| :---------- | :---------------------------------------------------------- | :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| 输入字节流       | `stdin` Node 流（`src/components/App.tsx:373`）                | 后端库自己管（crossterm 内部）                                                           | `read` / `ReadConsoleInput`（`src/ftxui/component/app.cpp:1328-1452`）                                         |
+| 输出字节流       | `stream.write`（`src/log-update.ts:76,105`）                  | `Backend::draw` → crossterm `execute!`（`ratatui-crossterm/src/lib.rs:232-310`） | `TerminalSend`/`TerminalFlush`（`src/ftxui/component/app.cpp:1146-1153`）                                      |
+| 终端能力/尺寸 I/O | `stdout.columns` + 探测序列往返（`src/ink.tsx:826-891`）            | `Backend::size()`（`ratatui-core/src/backend.rs`）                               | `ioctl`/`GetConsoleScreenBufferInfo` + DA1/DA2/XTVERSION 上报（`src/ftxui/screen/terminal.cpp:262-278,327-381`） |
+| 进程/设备 I/O   | `suspendTerminal`：让子进程接管 TTY 后强制整屏重绘（`src/ink.tsx:893,954`） | 无（交给调用者）                                                                       | `printAbove` / `TerminalOutput` 模式                                                                           |
 
 **性能分析时要区分**：
 
