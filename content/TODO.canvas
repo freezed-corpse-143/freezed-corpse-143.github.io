@@ -11,16 +11,6 @@
 			"height":60
 		},
 		{
-			"id":"47acec0b9821658f",
-			"type":"text",
-			"text":"rust 的 TUI ratatui教程 https://ratatui.rs/tutorials/",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":700,
-			"width":780,
-			"height":60
-		},
-		{
 			"id":"d9736499ed2f4750",
 			"type":"text",
 			"text":"Typescript 的 GUI electron 教程： https://www.electronjs.org/docs/latest",
