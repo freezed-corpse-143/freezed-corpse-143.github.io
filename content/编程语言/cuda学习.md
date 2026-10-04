@@ -2086,4 +2086,4 @@ Kernel launch ↓
 Synchronization ↓
 ```
 
-## 第四类
+## 第四
