@@ -1,32 +1,12 @@
 {
 	"nodes":[
 		{
-			"id":"c35f1a146a62080a",
-			"type":"text",
-			"text":"C++ 的 TUI FTUI教程 https://github.com/ArthurSonzogni/FTXUI",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":580,
-			"width":740,
-			"height":60
-		},
-		{
 			"id":"d9736499ed2f4750",
 			"type":"text",
 			"text":"Typescript 的 GUI electron 教程： https://www.electronjs.org/docs/latest",
 			"styleAttributes":{},
 			"x":-4060,
 			"y":1020,
-			"width":800,
-			"height":60
-		},
-		{
-			"id":"7135c49943c1a2ef",
-			"type":"text",
-			"text":"Typescript 的 TUI Ink 教程：https://github.com/vadimdemedes/ink",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":1140,
 			"width":800,
 			"height":60
 		},
@@ -174,12 +154,22 @@
 		{
 			"id":"d689a6a47c77515d",
 			"type":"text",
-			"text":"\n学习 Typescript 知名项目： https://github.com/deepseek-ai/deepseek-harness\nhttps://github.com/earendil-works/pi.git\n学习 cuda 代码： https://github.com/NVIDIA/cuda-samples.git",
+			"text":"\n学习 Typescript 知名项目： https://github.com/deepseek-ai/deepseek-harness\nhttps://github.com/earendil-works/pi.git\n",
 			"styleAttributes":{},
 			"x":-3160,
 			"y":500,
 			"width":560,
 			"height":200
+		},
+		{
+			"id":"ca1ca4f2a3f88ee2",
+			"type":"text",
+			"text":"C++: Flutter",
+			"styleAttributes":{},
+			"x":-3980,
+			"y":720,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
