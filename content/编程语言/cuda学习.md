@@ -2146,6 +2146,96 @@ free C
 
 很多编译器优化，本质上都可以从这个角度理解。
 
+## 算子融合的局限性
+
+这是理解工程实践非常关键的一步。
+
+你可能会自然想到：
+
+> 那干脆把整个 Transformer Layer 写成一个 kernel？
+
+问题是 fusion 会产生新的代价。
+
+比如：
+
+```
+Kernel A
+使用 32 registers/thread
+
+Kernel B
+使用 40 registers/thread
+```
+
+融合后可能需要：
+
+```
+70 registers/thread
+```
+
+register pressure 上升。
+
+GPU 一个 SM 的寄存器总量有限，于是同时 resident 的 warp 数下降：
+
+$$ \text{occupancy}\downarrow $$
+
+甚至寄存器不够发生：
+
+**register spilling**
+
+数据又被 spill 到 local memory。
+
+这时候本来：
+
+```
+为了减少 memory traffic 而 fusion
+```
+
+结果：
+
+```
+fusion
+ ↓
+register pressure ↑
+ ↓
+spill
+ ↓
+memory traffic ↑
+```
+
+反而变慢。
+
+此外还有：
+
+```
+fusion 太大
+ ↓
+instruction cache pressure ↑
+
+fusion 太大
+ ↓
+parallelism ↓
+
+fusion 太复杂
+ ↓
+编译时间 ↑
+
+不同算子的最佳 tiling 不同
+ ↓
+强行 fusion
+ ↓
+某一个算子的 tile 变差
+```
+
+因此真正的编译器问题不是：
+
+> **能不能 fusion？**
+
+而是：
+
+> **在哪里切 kernel boundary，才能让 Compute / Memory / Register / Shared Memory / Occupancy / Launch overhead 达到最佳平衡？**
+
+这就开始进入 Triton、XLA、TorchInductor、TVM 这些编译器真正有意思的地方了。
+
 # 代数优化
 
 > 运算顺序不同减少运算量，比如矩阵乘法顺序。
@@ -2194,32 +2284,6 @@ $$ 10\times10 $$
 
 > **Algebraic Optimization / Graph Rewrite / Operator Reordering**
 
-
-
-# 计算图优化
-
-```
-计算图优化
-│
-├── Algebraic Optimization
-│     ├── reassociation
-│     ├── constant folding
-│     ├── strength reduction
-│     └── common subexpression elimination
-│
-├── Operator / Kernel Fusion
-│     ├── elementwise fusion
-│     ├── producer-consumer fusion
-│     └── epilogue fusion
-│
-└── Hardware-aware Optimization
-      ├── Tensor Core
-      ├── SIMD
-      ├── specialized instructions
-      └── memory hierarchy optimization
-```
-
-它们可以组合使用，但机制不同。
 
 # 硬件融合
 
@@ -2351,3 +2415,67 @@ $$ \boxed{ \text{GEMM} + \text{Bias} + \text{Activation} } $$
 **epilogue fusion**。
 
 它是深度学习推理中极其常见的一类优化。
+
+
+# 计算图优化
+
+```
+计算图优化
+│
+├── Algebraic Optimization
+│     ├── reassociation
+│     ├── constant folding
+│     ├── strength reduction
+│     └── common subexpression elimination
+│
+├── Operator / Kernel Fusion
+│     ├── elementwise fusion
+│     ├── producer-consumer fusion
+│     └── epilogue fusion
+│
+└── Hardware-aware Optimization
+      ├── Tensor Core
+      ├── SIMD
+      ├── specialized instructions
+      └── memory hierarchy optimization
+```
+
+它们可以组合使用，但机制不同。
+
+| 层次                       | 示例               | 主要省什么                 |
+| -------------------------- | ------------------ | -------------------------- |
+| 指令融合                   | FMA                | 指令、流水线               |
+| SIMD / Tensor Core         | MMA                | 提高计算吞吐               |
+| Elementwise Fusion         | Add + ReLU         | HBM traffic + launch       |
+| Epilogue Fusion            | GEMM + Bias + GELU | HBM traffic                |
+| Producer-consumer Fusion   | A → B              | 中间 tensor                |
+| Reduction Fusion           | LayerNorm/RMSNorm  | memory traffic + reduction |
+| Attention Fusion           | FlashAttention     | 巨量中间 tensor I/O        |
+| Graph Algebra Optimization | `(AB)C → A(BC)`    | FLOPs                      |
+| Kernel batching            | 多个小任务一起执行 | launch / utilization       |
+总结
+
+```
+                    程序加速
+                       │
+       ┌───────────────┼────────────────┐
+       ↓               ↓                ↓
+   算法层            编译器层           硬件层
+       │               │                │
+减少 FLOPs        Kernel Fusion       FMA
+改变计算顺序       Tiling             SIMD
+代数化简           Layout             Tensor Core
+算法重构           Scheduling         专用指令
+       │               │
+       │        ┌──────┼───────┐
+       │        ↓      ↓       ↓
+       │      少搬运  少launch  少同步
+       │        │
+       │    数据留在片上
+       │    Register/SRAM
+       ↓        ↓
+  Compute ↓   Memory Traffic ↓
+       └────────┬────────┘
+                ↓
+             时间 ↓
+```
