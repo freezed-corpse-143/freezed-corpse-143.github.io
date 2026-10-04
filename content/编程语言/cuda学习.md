@@ -2148,3 +2148,121 @@ free C
 
 # 代数优化
 
+> 运算顺序不同减少运算量，比如矩阵乘法顺序。
+
+例如：
+
+$$ (AB)C $$
+
+和：
+
+$$ A(BC) $$
+
+结果相同，但 FLOPs 可能差很多。
+
+假设：
+
+$$ A\in\mathbb R^{1000\times10} $$$$ B\in\mathbb R^{10\times1000} $$$$ C\in\mathbb R^{1000\times10} $$
+
+如果：
+
+$$ (AB)C $$
+
+先产生：
+
+$$ 1000\times1000 $$
+
+的大矩阵。
+
+而：
+
+$$ A(BC) $$
+
+中：
+
+$$ BC: 10\times1000 \times 1000\times10 $$
+
+只产生：
+
+$$ 10\times10 $$
+
+的小矩阵。
+
+两者 FLOPs 可以相差几个数量级。
+
+这当然是非常重要的加速技术，但严格来说通常分类为：
+
+> **Algebraic Optimization / Graph Rewrite / Operator Reordering**
+
+
+
+# 计算图优化
+
+```
+计算图优化
+│
+├── Algebraic Optimization
+│     ├── reassociation
+│     ├── constant folding
+│     ├── strength reduction
+│     └── common subexpression elimination
+│
+├── Operator / Kernel Fusion
+│     ├── elementwise fusion
+│     ├── producer-consumer fusion
+│     └── epilogue fusion
+│
+└── Hardware-aware Optimization
+      ├── Tensor Core
+      ├── SIMD
+      ├── specialized instructions
+      └── memory hierarchy optimization
+```
+
+它们可以组合使用，但机制不同。
+
+# 硬件融合
+
+例如 CPU 有：
+
+$$ a\times b+c $$
+
+普通方式：
+
+```
+MUL
+ADD
+```
+
+而现代 CPU/GPU 有：
+
+**FMA — Fused Multiply Add**
+
+```
+FMA a,b,c
+```
+
+直接：
+
+$$ a b+c $$
+
+甚至 FMA 不仅性能好，而且只进行一次 rounding，因此数值性质也不同。
+
+GPU Tensor Core 更是极端：
+
+$$ D=A B+C $$
+
+不是拆成大量：
+
+```
+scalar mul
+scalar add
+```
+
+而是硬件原生支持 matrix multiply-accumulate。
+
+这属于：
+
+> **Instruction-level fusion / specialized hardware**
+
+和编译器的 kernel fusion 又是不同层次。
