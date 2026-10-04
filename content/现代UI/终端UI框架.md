@@ -647,3 +647,94 @@ env -u NO_COLOR ./smoke.exe > out.bin
 ```
 
 这四步正好把「最小单元追踪」的六问全部落到了实证上：`Render(screen, element)` 对应第 3、4 问（表示对象 + 变字节），PTY 那次对应第 5、6 问（谁拥有循环 + 谁决定下一帧）。仓库本身零改动（`git status --porcelain` 为空），所有临时文件都在 `C:/Projects/Temp/` 下。
+
+## ratatui（0.30.2）— 全流程已实测通过
+
+```bash
+# 0) 不需要 vsenv：rustc 1.99 自带 MSVC 探测，会找到已装的 VS BuildTools 18.6.0 + Windows SDK
+#    toolchain: stable-x86_64-pc-windows-msvc
+
+# 1) 冷编译（依赖走 rsproxy-sparse 镜像）
+cargo check -p ratatui-core          # 20.08s（冷）
+
+# 2) 跑测试（这就是它的"渲染正确性"基线）
+cargo test  -p ratatui-core          # 1474 passed / 0 failed + tests/rect.rs 5 + doctest 163 passed(20 ignored)
+cargo test  -p ratatui-widgets block # 166 passed / 0 failed
+```
+
+`ratatui-core` 的测试里就有渲染路径的直接证据：`backend::test::tests::draw`、`backend::test::tests::assert_buffer`、`buffer::diff::tests::single_cell_change` 全部通过；`ratatui-widgets` 的 block 测试是拿真实渲染出的 cell 与 box-drawing 快照对比（如 `block::tests::render_merged_borders::case_1_replace`）。
+
+**最小 headless 程序**（`TestBackend` 就是仓库自带的"内存终端"，且**不需要 feature flag**）：
+
+```rust
+use ratatui::backend::TestBackend;
+use ratatui::Terminal;
+use ratatui::widgets::{Block, Gauge, Paragraph};
+
+let mut terminal = Terminal::new(TestBackend::new(44, 8))?;
+terminal.draw(|frame| {
+    let [top, bottom] = ratatui::layout::Layout::vertical([
+        ratatui::layout::Constraint::Length(6),
+        ratatui::layout::Constraint::Length(2),
+    ])
+    .areas(frame.area());
+    frame.render_widget(
+        Paragraph::new("ratatui render path OK").block(Block::bordered().title("smoke")),
+        top,
+    );
+    frame.render_widget(Gauge::default().block(Block::bordered().title("gauge")), bottom);
+})?;
+```
+
+实测输出（44×8，逐字）：
+
+```text
+┌smoke─────────────────────────────────────┐
+│ratatui render path OK                    │
+│                                          │
+└──────────────────────────────────────────┘
+┌gauge─────────────────────────────────────┐
+└──────────────────────────────────────────┘
+
+```
+
+第 0 行的码点验证：`['┌', 's', 'm', 'o', 'k', 'e', '─', … '─', '┐']`——真的 U+250C / U+2500，不是 ASCII 替代。最后两行空行是布局算术的直接体现（两个 `Length` 约束之外还剩 2 行）。
+
+**真实终端（ConPTY）验证**——仓库自带的 `popup` 示例（按 `q` 退出）：
+
+```text
+FRAME 1（首帧，ConPTY 下约 3.5s 才出现）：
+ 0|                     Press 'p' to toggle popup, 'q' to quit|
+ 1|┌Content───────────────────────────────────────────────────────────────────────┐|
+ 2|│                                                                              │|
+...
+23|└──────────────────────────────────────────────────────────────────────────────┘|
+
+原始 VT 头：\x1b[1t\x1b[c\x1b[?1004h\x1b[?9001h\x1b[?1049h\x1b[1;22HPress\x1b[1;28H'p'...
+（\x1b[?1049h = 进备用屏，之后是光标定位写入 + UTF-8 box 字符）
+按 'p' → 观察到帧 diff 重绘；按 'q' → 进程自行退出
+```
+
+**没有 TTY 时会怎样**（这一条是 ratatui 契约的关键实证）：
+
+```text
+把 stdout 重定向到文件、stdin=DEVNULL 运行 popup.exe：
+  - 不报错、不 panic：正常开始，向管道写出 \x1b[?1049h + 定位文本（5s 写出 4367 字节），
+    stderr 0 字节
+  - 但它永远不退出，并且一直在重绘——因为 event::read() 拿不到按键
+
+探针结果：
+  is_terminal(stdin/stdout/stderr) = false false false
+  crossterm::terminal::enable_raw_mode() -> Ok(())
+  crossterm::terminal::size()            -> Ok((120, 30))
+```
+
+结论：**Windows 上 crossterm 0.29 的 raw mode / size 在没有控制台时并不失败**；真实 TTY 是"能收到正确输入"的必要条件，不是"能画帧"的必要条件。这正好对应它对终端的隐含假设——它假设的其实是**输入通道**，不是输出通道。
+
+三个操作坑：
+
+| 坑 | 说明 |
+| :--- | :--- |
+| 裸 exe 不能直接执行 | 本机 shell 对 `./x.exe` 报 `command not found`（exit 127）；用 `cargo run` 或 Python `subprocess` 启动 |
+| ConPTY 首帧有延迟 | 约 3.5s 才开始出字节（两次独立复现都是 23 字节直到 3.5s）；抓帧要等 ≥4s，8s 稳定 |
+| 示例是独立 crate | `examples/apps/*` 各自是 workspace member，要用 `cargo build -p popup` / `-p hello-world`，不是 `--example` |
