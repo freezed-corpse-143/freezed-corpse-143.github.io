@@ -8,17 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "42855f34fdb8b3bc",
+            "id": "e7f0444d9c91b55c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "项目管理/根据项目管理设计Dashboard.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3450,
+                  "y": 873.0712008501595,
+                  "zoom": -0.8101993964046417
+                }
               },
-              "icon": "lucide-file",
-              "title": "根据项目管理设计Dashboard"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -80,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -220,10 +224,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "42855f34fdb8b3bc",
+  "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
-    "TODO.canvas",
     "项目管理/根据项目管理设计Dashboard.md",
+    "TODO.canvas",
     "项目管理",
     "分布式/分布式大模型.md",
     "分布式/02-计算与利用率.md",
