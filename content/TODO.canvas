@@ -129,6 +129,26 @@
 			"y":1170,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"28d75377c97ba647",
+			"type":"text",
+			"text":"b 站搜索面试题",
+			"styleAttributes":{},
+			"x":-3950,
+			"y":1280,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"6870bf00dfe2cf20",
+			"type":"text",
+			"text":"根据项目管理设计 dashboard",
+			"styleAttributes":{},
+			"x":-3600,
+			"y":1280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
