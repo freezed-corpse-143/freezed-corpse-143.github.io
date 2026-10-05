@@ -131,16 +131,6 @@
 			"height":60
 		},
 		{
-			"id":"28d75377c97ba647",
-			"type":"text",
-			"text":"b 站搜索面试题",
-			"styleAttributes":{},
-			"x":-3950,
-			"y":1280,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"bd3a715eaf15d427",
 			"type":"text",
 			"text":"微信搜索接口",
