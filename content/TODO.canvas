@@ -134,10 +134,10 @@
 		{
 			"id":"4d11b81ba80130e1",
 			"type":"text",
-			"text":"分布式",
+			"text":"分布式学习",
 			"styleAttributes":{},
-			"x":-3780,
-			"y":420,
+			"x":-4060,
+			"y":340,
 			"width":260,
 			"height":60
 		}
