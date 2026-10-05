@@ -149,6 +149,16 @@
 			"y":1280,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"022b3d18afb6a6c0",
+			"type":"text",
+			"text":"根据病毒设计，再来检测病毒特征",
+			"styleAttributes":{},
+			"x":-3180,
+			"y":1300,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
