@@ -11,16 +11,6 @@
 			"height":150
 		},
 		{
-			"id":"9727a4171074a483",
-			"type":"text",
-			"text":"熟悉各个语言：\n- 语言特性\n- 开发环境\n- 基础库\n- 开发应用",
-			"styleAttributes":{},
-			"x":-4060,
-			"y":220,
-			"width":260,
-			"height":180
-		},
-		{
 			"id":"3bd7b1b7e6524e7b",
 			"type":"text",
 			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",

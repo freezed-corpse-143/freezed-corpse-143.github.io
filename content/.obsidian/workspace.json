@@ -11,14 +11,17 @@
             "id": "42855f34fdb8b3bc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "现代UI/终端UI框架.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3616.580839532389,
+                  "y": 464.2580607559149,
+                  "zoom": -0.4578976524737605
+                }
               },
-              "icon": "lucide-file",
-              "title": "终端UI框架"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -210,8 +213,9 @@
   "active": "42855f34fdb8b3bc",
   "lastOpenFiles": [
     "现代UI/跨平台桌面框架.md",
-    "游戏速通/星露谷.md",
     "现代UI/终端UI框架.md",
+    "现代UI/Accessibility.md",
+    "游戏速通/星露谷.md",
     "TODO.canvas",
     "github项目/flashinfer.md",
     "元学习/关系定位法.md",
@@ -226,7 +230,6 @@
     "编程语言/cuda学习.md",
     "现代UI/Rendering & Performance.md",
     "现代UI/学习之路.md",
-    "现代UI/Accessibility.md",
     "现代UI/Design System.md",
     "现代UI/Motion Design.md",
     "现代UI/Business Pattern Example.md",
