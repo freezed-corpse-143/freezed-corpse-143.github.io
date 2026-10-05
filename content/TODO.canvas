@@ -130,6 +130,16 @@
 			"y":500,
 			"width":560,
 			"height":200
+		},
+		{
+			"id":"4d11b81ba80130e1",
+			"type":"text",
+			"text":"分布式",
+			"styleAttributes":{},
+			"x":-3780,
+			"y":420,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
