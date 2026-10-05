@@ -189,14 +189,25 @@
               "icon": "calendar-with-checkmark",
               "title": "Calendar"
             }
+          },
+          {
+            "id": "cb45e0e2eda0e17b",
+            "type": "leaf",
+            "state": {
+              "type": "agent-client-chat-view",
+              "state": {
+                "initialAgentId": "pi-acp"
+              },
+              "icon": "bot-message-square",
+              "title": "New session"
+            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 7
       }
     ],
     "direction": "horizontal",
-    "width": 422.5,
-    "collapsed": true
+    "width": 422.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -207,10 +218,11 @@
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
       "bases:新建数据库": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "agent-client:Open agent client": false
     }
   },
-  "active": "42855f34fdb8b3bc",
+  "active": "cb45e0e2eda0e17b",
   "lastOpenFiles": [
     "分布式/分布式大模型.md",
     "分布式/02-计算与利用率.md",
