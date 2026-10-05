@@ -129,16 +129,6 @@
 			"y":1170,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"bd3a715eaf15d427",
-			"type":"text",
-			"text":"微信搜索接口",
-			"styleAttributes":{},
-			"x":-3875,
-			"y":1260,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
