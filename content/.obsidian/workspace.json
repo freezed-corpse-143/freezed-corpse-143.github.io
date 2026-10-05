@@ -16,7 +16,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3616.580839532389,
-                  "y": 464.2580607559149,
+                  "y": 336.51895342329004,
                   "zoom": -0.4578976524737605
                 }
               },
@@ -38,7 +38,8 @@
               "title": "星露谷"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -224,11 +225,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "42855f34fdb8b3bc",
+  "active": "0885f74b7b372056",
   "lastOpenFiles": [
+    "TODO.canvas",
     "游戏速通/星露谷.md",
     "现代UI/开头动画.md",
-    "TODO.canvas",
     "现代UI/跨平台桌面框架.md",
     "现代UI/终端UI框架.md",
     "现代UI/Accessibility.md",
@@ -253,7 +254,6 @@
     "现代UI/Interaction Design.md",
     "现代UI/Visual Design.md",
     "现代UI/Layout Engineering.md",
-    "现代UI/Web UI底层模型.md",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
     "images/world-model-genealogy.png",
