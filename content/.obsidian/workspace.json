@@ -11,17 +11,14 @@
             "id": "42855f34fdb8b3bc",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3616.580839532389,
-                  "y": 336.51895342329004,
-                  "zoom": -1.124564319140427
-                }
+                "file": "分布式/分布式大模型.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "分布式大模型"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -212,8 +210,10 @@
   },
   "active": "42855f34fdb8b3bc",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
     "TODO.canvas",
+    "分布式/分布式大模型.md",
+    "分布式",
+    "游戏速通/星露谷.md",
     "现代UI/开头动画.md",
     "现代UI/跨平台桌面框架.md",
     "现代UI/终端UI框架.md",
@@ -238,7 +238,6 @@
     "现代UI/Component & Business Pattern.md",
     "现代UI/Interaction Design.md",
     "现代UI/Visual Design.md",
-    "现代UI/Layout Engineering.md",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
     "images/world-model-genealogy.png",
@@ -257,7 +256,6 @@
     "开发经验/全栈开发.canvas",
     "开发日记/edaname",
     "images",
-    "算法",
-    "git"
+    "算法"
   ]
 }
