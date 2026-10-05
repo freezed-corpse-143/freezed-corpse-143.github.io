@@ -135,18 +135,8 @@
 			"type":"text",
 			"text":"微信搜索接口",
 			"styleAttributes":{},
-			"x":-3600,
-			"y":1400,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"022b3d18afb6a6c0",
-			"type":"text",
-			"text":"根据病毒设计，再来检测病毒特征",
-			"styleAttributes":{},
-			"x":-3600,
-			"y":1310,
+			"x":-3875,
+			"y":1260,
 			"width":260,
 			"height":60
 		}
