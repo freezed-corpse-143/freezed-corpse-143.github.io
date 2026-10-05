@@ -1,77 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"9751bcc38bd1052d",
-			"type":"text",
-			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
-			"styleAttributes":{},
-			"x":-3100,
-			"y":250,
-			"width":560,
-			"height":150
-		},
-		{
-			"id":"3bd7b1b7e6524e7b",
-			"type":"text",
-			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",
-			"styleAttributes":{},
-			"x":-4000,
-			"y":1510,
-			"width":470,
-			"height":90
-		},
-		{
-			"id":"2e63f5b8bb9afb15",
-			"type":"text",
-			"text":"edamame 侧面大纲",
-			"styleAttributes":{},
-			"x":-4000,
-			"y":1640,
-			"width":260,
-			"height":60
-		},
-		{"id":"295b82c5bad0b392","type":"text","text":"牛客网刷题：\n- [ ] 行测","x":-4060,"y":-320,"width":260,"height":140,"color":"1"},
-		{
-			"id":"65bab444a43688ac",
-			"type":"text",
-			"text":"世界模型的推理引擎",
-			"styleAttributes":{},
-			"x":-3220,
-			"y":1740,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"d73d64e25289ddfa",
-			"type":"text",
-			"text":"自己准备 AI 面试",
-			"styleAttributes":{},
-			"x":-4000,
-			"y":1365,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"4cad00e25979e923",
-			"type":"text",
-			"text":"高斯溅射的推理引擎",
-			"styleAttributes":{},
-			"x":-3220,
-			"y":1640,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"a54a3397fb45fc86",
-			"type":"text",
-			"text":"多次检索：通过检索粒度和结果，优化检索过程",
-			"styleAttributes":{},
-			"x":-3220,
-			"y":1840,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
 			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
@@ -82,22 +11,22 @@
 			"height":80
 		},
 		{
-			"id":"7e50bf26077072d1",
+			"id":"3bd7b1b7e6524e7b",
 			"type":"text",
-			"text":"diffusion 的推理引擎",
+			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",
 			"styleAttributes":{},
-			"x":-3220,
-			"y":1540,
-			"width":260,
-			"height":60
+			"x":-3980,
+			"y":925,
+			"width":470,
+			"height":90
 		},
 		{
-			"id":"859bb0620533fa88",
+			"id":"2e63f5b8bb9afb15",
 			"type":"text",
-			"text":"可视化的下一步就是可视化编辑",
+			"text":"edamame 侧面大纲",
 			"styleAttributes":{},
-			"x":-3220,
-			"y":1970,
+			"x":-3980,
+			"y":1055,
 			"width":260,
 			"height":60
 		},
@@ -106,19 +35,19 @@
 			"type":"text",
 			"text":"决策模型的推理引擎",
 			"styleAttributes":{},
-			"x":-4000,
-			"y":1740,
+			"x":-3980,
+			"y":1155,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"f9000f77656388dd",
+			"id":"d73d64e25289ddfa",
 			"type":"text",
-			"text":"国聘网简历投递 https://www.iguopin.com/",
+			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
-			"x":-4070,
-			"y":100,
-			"width":400,
+			"x":-3980,
+			"y":780,
+			"width":260,
 			"height":60
 		},
 		{
@@ -126,18 +55,78 @@
 			"type":"text",
 			"text":"\n学习 Typescript 知名项目： https://github.com/deepseek-ai/deepseek-harness\nhttps://github.com/earendil-works/pi.git\n",
 			"styleAttributes":{},
-			"x":-3160,
-			"y":500,
+			"x":-4100,
+			"y":400,
 			"width":560,
 			"height":200
 		},
 		{
-			"id":"4d11b81ba80130e1",
+			"id":"f9000f77656388dd",
 			"type":"text",
-			"text":"分布式学习",
+			"text":"国聘网简历投递 https://www.iguopin.com/",
 			"styleAttributes":{},
-			"x":-4060,
-			"y":340,
+			"x":-4050,
+			"y":190,
+			"width":400,
+			"height":60
+		},
+		{
+			"id":"9751bcc38bd1052d",
+			"type":"text",
+			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
+			"styleAttributes":{},
+			"x":-3360,
+			"y":250,
+			"width":560,
+			"height":150
+		},
+		{
+			"id":"7e50bf26077072d1",
+			"type":"text",
+			"text":"diffusion 的推理引擎",
+			"styleAttributes":{},
+			"x":-3340,
+			"y":740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"4cad00e25979e923",
+			"type":"text",
+			"text":"高斯溅射的推理引擎",
+			"styleAttributes":{},
+			"x":-3340,
+			"y":840,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"65bab444a43688ac",
+			"type":"text",
+			"text":"世界模型的推理引擎",
+			"styleAttributes":{},
+			"x":-3340,
+			"y":940,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"a54a3397fb45fc86",
+			"type":"text",
+			"text":"多次检索：通过检索粒度和结果，优化检索过程",
+			"styleAttributes":{},
+			"x":-3340,
+			"y":1040,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"859bb0620533fa88",
+			"type":"text",
+			"text":"可视化的下一步就是可视化编辑",
+			"styleAttributes":{},
+			"x":-3340,
+			"y":1170,
 			"width":260,
 			"height":60
 		}

@@ -11,14 +11,17 @@
             "id": "42855f34fdb8b3bc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "分布式/分布式大模型.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3390.775008372317,
+                  "y": 953.4676151712812,
+                  "zoom": -0.4578976524737605
+                }
               },
-              "icon": "lucide-file",
-              "title": "分布式大模型"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -209,8 +212,8 @@
   },
   "active": "42855f34fdb8b3bc",
   "lastOpenFiles": [
-    "分布式/02-计算与利用率.md",
     "分布式/分布式大模型.md",
+    "分布式/02-计算与利用率.md",
     "分布式/01-显存与模型并行.md",
     "分布式/04-异构与慢节点.md",
     "分布式/03-跨卡通信.md",
