@@ -11,17 +11,14 @@
             "id": "42855f34fdb8b3bc",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3390.775008372317,
-                  "y": 1208.945829836531,
-                  "zoom": -0.4578976524737605
-                }
+                "file": "项目管理/根据项目管理设计Dashboard.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "根据项目管理设计Dashboard"
             }
           }
         ]
@@ -199,7 +196,7 @@
                 "initialAgentId": "pi-acp"
               },
               "icon": "bot-message-square",
-              "title": "New session"
+              "title": "你好"
             }
           }
         ],
@@ -207,7 +204,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5
+    "width": 422.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -222,8 +220,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "cb45e0e2eda0e17b",
+  "active": "42855f34fdb8b3bc",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "项目管理/根据项目管理设计Dashboard.md",
+    "项目管理",
     "分布式/分布式大模型.md",
     "分布式/02-计算与利用率.md",
     "分布式/01-显存与模型并行.md",
@@ -233,7 +234,6 @@
     "分布式/07-推理服务与KV缓存.md",
     "分布式/06-故障与检查点.md",
     "分布式/05-网络拓扑与放置.md",
-    "TODO.canvas",
     "分布式",
     "游戏速通/星露谷.md",
     "现代UI/开头动画.md",
@@ -251,8 +251,6 @@
     "人工智能/未命名.md",
     "人工智能/TVM.md",
     "编程语言/cuda学习.md",
-    "现代UI/Rendering & Performance.md",
-    "现代UI/学习之路.md",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
     "images/world-model-genealogy.png",
@@ -270,7 +268,6 @@
     "游戏速通",
     "开发经验/全栈开发.canvas",
     "开发日记/edaname",
-    "images",
-    "算法"
+    "images"
   ]
 }

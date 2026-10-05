@@ -141,12 +141,12 @@
 			"height":60
 		},
 		{
-			"id":"6870bf00dfe2cf20",
+			"id":"bd3a715eaf15d427",
 			"type":"text",
-			"text":"根据项目管理设计 dashboard",
+			"text":"微信搜索接口",
 			"styleAttributes":{},
 			"x":-3600,
-			"y":1280,
+			"y":1400,
 			"width":260,
 			"height":60
 		},
@@ -155,18 +155,8 @@
 			"type":"text",
 			"text":"根据病毒设计，再来检测病毒特征",
 			"styleAttributes":{},
-			"x":-3180,
-			"y":1300,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"bd3a715eaf15d427",
-			"type":"text",
-			"text":"微信搜索接口",
-			"styleAttributes":{},
 			"x":-3600,
-			"y":1400,
+			"y":1310,
 			"width":260,
 			"height":60
 		}
