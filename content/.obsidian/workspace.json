@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "分布式/分布式大模型.md",
+                "file": "分布式/02-计算与利用率.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "分布式大模型"
+              "title": "02-计算与利用率"
             }
           }
         ]
@@ -209,8 +209,16 @@
   },
   "active": "42855f34fdb8b3bc",
   "lastOpenFiles": [
-    "TODO.canvas",
+    "分布式/01-显存与模型并行.md",
     "分布式/分布式大模型.md",
+    "分布式/08-学习路线与术语.md",
+    "分布式/07-推理服务与KV缓存.md",
+    "分布式/06-故障与检查点.md",
+    "分布式/05-网络拓扑与放置.md",
+    "分布式/04-异构与慢节点.md",
+    "分布式/03-跨卡通信.md",
+    "分布式/02-计算与利用率.md",
+    "TODO.canvas",
     "分布式",
     "游戏速通/星露谷.md",
     "现代UI/开头动画.md",
@@ -230,13 +238,6 @@
     "编程语言/cuda学习.md",
     "现代UI/Rendering & Performance.md",
     "现代UI/学习之路.md",
-    "现代UI/Design System.md",
-    "现代UI/Motion Design.md",
-    "现代UI/Business Pattern Example.md",
-    "现代UI/UI Pattern Vocabulary.md",
-    "现代UI/Component & Business Pattern.md",
-    "现代UI/Interaction Design.md",
-    "现代UI/Visual Design.md",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
     "images/world-model-genealogy.png",
