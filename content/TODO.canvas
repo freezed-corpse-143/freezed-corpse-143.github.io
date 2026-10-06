@@ -129,6 +129,16 @@
 			"y":1170,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"e80c72275660b55d",
+			"type":"text",
+			"text":"输入法卸载",
+			"styleAttributes":{},
+			"x":-3840,
+			"y":1360,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],

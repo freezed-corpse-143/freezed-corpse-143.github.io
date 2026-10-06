@@ -11,14 +11,17 @@
             "id": "e7f0444d9c91b55c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "分布式/软硬件协同.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3450,
+                  "y": 1285.3347502656748,
+                  "zoom": -0.5700653926809264
+                }
               },
-              "icon": "lucide-file",
-              "title": "软硬件协同"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -55,7 +58,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "head",
+                "query": "chrome",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -220,11 +223,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
+    "分布式/软硬件协同.md",
     "分布式/01-显存与模型并行.md",
     "分布式/分布式大模型.md",
-    "分布式/软硬件协同.md",
     "TODO.canvas",
     "项目管理/根据项目管理设计Dashboard.md",
     "项目管理",
