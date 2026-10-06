@@ -11,32 +11,12 @@
 			"height":80
 		},
 		{
-			"id":"3bd7b1b7e6524e7b",
-			"type":"text",
-			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":925,
-			"width":470,
-			"height":90
-		},
-		{
 			"id":"2e63f5b8bb9afb15",
 			"type":"text",
 			"text":"edamame 侧面大纲",
 			"styleAttributes":{},
 			"x":-3980,
 			"y":1055,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"25b346b3bc7fb79d",
-			"type":"text",
-			"text":"决策模型的推理引擎",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":1155,
 			"width":260,
 			"height":60
 		},
@@ -58,7 +38,7 @@
 			"x":-4100,
 			"y":400,
 			"width":560,
-			"height":200
+			"height":120
 		},
 		{
 			"id":"f9000f77656388dd",
@@ -81,36 +61,6 @@
 			"height":150
 		},
 		{
-			"id":"7e50bf26077072d1",
-			"type":"text",
-			"text":"diffusion 的推理引擎",
-			"styleAttributes":{},
-			"x":-3340,
-			"y":740,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"4cad00e25979e923",
-			"type":"text",
-			"text":"高斯溅射的推理引擎",
-			"styleAttributes":{},
-			"x":-3340,
-			"y":840,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"65bab444a43688ac",
-			"type":"text",
-			"text":"世界模型的推理引擎",
-			"styleAttributes":{},
-			"x":-3340,
-			"y":940,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"a54a3397fb45fc86",
 			"type":"text",
 			"text":"多次检索：通过检索粒度和结果，优化检索过程",
@@ -131,14 +81,14 @@
 			"height":60
 		},
 		{
-			"id":"e80c72275660b55d",
+			"id":"3bd7b1b7e6524e7b",
 			"type":"text",
-			"text":"输入法卸载",
+			"text":"edamame 项目接下来的计划：服务端编译，本地访问并测试相关功能。",
 			"styleAttributes":{},
-			"x":-3840,
-			"y":1360,
-			"width":260,
-			"height":60
+			"x":-4010,
+			"y":925,
+			"width":470,
+			"height":90
 		}
 	],
 	"edges":[],
