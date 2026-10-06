@@ -79,16 +79,6 @@
 			"y":980,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"d6e8ee0284770b51",
-			"type":"text",
-			"text":"图片移动阶段的帧模糊阶段。",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":1170,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
