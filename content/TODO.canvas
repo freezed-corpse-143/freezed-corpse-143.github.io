@@ -71,22 +71,22 @@
 			"height":60
 		},
 		{
-			"id":"2e63f5b8bb9afb15",
-			"type":"text",
-			"text":"edamame 侧面大纲",
-			"styleAttributes":{},
-			"x":-3950,
-			"y":980,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"d19cba098cd45592",
 			"type":"text",
 			"text":"nsight compute",
 			"styleAttributes":{},
+			"x":-3950,
+			"y":1100,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"2e63f5b8bb9afb15",
+			"type":"text",
+			"text":"edamame 侧面大纲",
+			"styleAttributes":{},
 			"x":-3980,
-			"y":1280,
+			"y":920,
 			"width":260,
 			"height":60
 		}
