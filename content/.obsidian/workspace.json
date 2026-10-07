@@ -11,14 +11,17 @@
             "id": "e7f0444d9c91b55c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "现代UI/tauri+vue的结合.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3450,
+                  "y": 1147.26780021254,
+                  "zoom": -0.5700653926809264
+                }
               },
-              "icon": "lucide-file",
-              "title": "tauri+vue的结合"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -222,8 +225,8 @@
   },
   "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
-    "TODO.canvas",
     "现代UI/tauri+vue的结合.md",
+    "TODO.canvas",
     "分布式/软硬件协同.md",
     "分布式/01-显存与模型并行.md",
     "分布式/分布式大模型.md",

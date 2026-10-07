@@ -79,6 +79,16 @@
 			"y":980,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"d19cba098cd45592",
+			"type":"text",
+			"text":"nsight compute",
+			"styleAttributes":{},
+			"x":-3980,
+			"y":1280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
