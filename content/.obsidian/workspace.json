@@ -11,17 +11,14 @@
             "id": "e7f0444d9c91b55c",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3450,
-                  "y": 318.86609989373005,
-                  "zoom": -0.5700653926809264
-                }
+                "file": "算法/链表.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "链表"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,8 +223,8 @@
   },
   "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
-    "现代UI/tauri+vue的结合.md",
     "TODO.canvas",
+    "现代UI/tauri+vue的结合.md",
     "分布式/软硬件协同.md",
     "分布式/01-显存与模型并行.md",
     "分布式/分布式大模型.md",
