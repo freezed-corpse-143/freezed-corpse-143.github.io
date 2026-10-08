@@ -71,16 +71,6 @@
 			"height":60
 		},
 		{
-			"id":"d19cba098cd45592",
-			"type":"text",
-			"text":"nsight compute",
-			"styleAttributes":{},
-			"x":-3950,
-			"y":1100,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"2e63f5b8bb9afb15",
 			"type":"text",
 			"text":"edamame 侧面大纲",
@@ -95,8 +85,8 @@
 			"type":"text",
 			"text":"模型文件头与读取流程",
 			"styleAttributes":{},
-			"x":-3900,
-			"y":1320,
+			"x":-3950,
+			"y":1110,
 			"width":260,
 			"height":60
 		}
