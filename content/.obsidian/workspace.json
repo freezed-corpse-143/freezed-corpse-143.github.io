@@ -80,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -222,11 +223,11 @@
   },
   "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
-    "调试/Nsight Compute.md",
+    "TODO.canvas",
     "调试/NCCL.md",
+    "调试/Nsight Compute.md",
     "调试/Nsight Systems.md",
     "调试/x64_dbg.md",
-    "TODO.canvas",
     "调试",
     "算法/链表.md",
     "现代UI/tauri+vue的结合.md",
@@ -251,7 +252,6 @@
     "github项目/flashinfer.md",
     "元学习/关系定位法.md",
     "人工智能/TileLang与Triton.md",
-    "人工智能/推理框架.md",
     "元学习",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
