@@ -89,6 +89,16 @@
 			"y":920,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"98a46eb9253cc52a",
+			"type":"text",
+			"text":"新切窗口",
+			"styleAttributes":{},
+			"x":-3760,
+			"y":1300,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
