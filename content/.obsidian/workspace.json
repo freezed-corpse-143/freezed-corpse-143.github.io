@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "调试/Nsight Systems.md",
+                "file": "调试/Nsight Compute.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Nsight Systems"
+              "title": "Nsight Compute"
             }
           }
         ]
@@ -222,8 +222,9 @@
   },
   "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
-    "调试/x64_dbg.md",
     "调试/Nsight Systems.md",
+    "调试/Nsight Compute.md",
+    "调试/x64_dbg.md",
     "TODO.canvas",
     "调试",
     "算法/链表.md",
@@ -251,7 +252,6 @@
     "人工智能/TileLang与Triton.md",
     "人工智能/推理框架.md",
     "人工智能/大模型推理加速.md",
-    "元学习/并行学习法.md",
     "元学习",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
