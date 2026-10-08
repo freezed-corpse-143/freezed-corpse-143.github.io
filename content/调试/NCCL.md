@@ -94,3 +94,78 @@ export TORCH_NCCL_DUMP_ON_TIMEOUT=1
 ```
 
 它会记录通信事件，在 watchdog 超时时导出诊断信息；启用超时导出必须同时设置非零 trace buffer。[PyTorch 2.14 documentation](https://docs.pytorch.org/docs/stable/torch_nccl_environment_variables.html?utm_source=chatgpt.com)
+
+# 用 nccl-tests，把训练代码和通信环境分开检查
+
+如果已经编译了 NVIDIA 的 [nccl-tests](https://github.com/NVIDIA/nccl-tests?utm_source=chatgpt.com)，先测单机双卡：
+
+```
+./build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
+```
+
+它从 8 字节测到 128 MiB，每次大小翻倍，使用两张 GPU。多机测试需要使用 MPI 构建和相应的启动配置。[NVIDIA/nccl-tests: NCCL Tests · GitHub](https://github.com/NVIDIA/nccl-tests?utm_source=chatgpt.com)
+
+重点看：
+
+| 指标     | 含义                             |
+| -------- | -------------------------------- |
+| `time`   | collective 耗时                  |
+| `algbw`  | 数据大小除以耗时                 |
+| `busbw`  | 根据 collective 通信量换算的带宽 |
+| `#wrong` | 正确性检查错误数                 |
+
+`busbw` 是归一化指标，不是网卡实际吞吐的直接读数。[GitHub](https://github.com/NVIDIA/nccl-tests/blob/master/doc/PERFORMANCE.md?plain=1&utm_source=chatgpt.com)
+
+逐步扩大测试范围：
+
+1. 单机两卡。
+2. 单机所有卡。
+3. 两机各一卡。
+4. 两机所有卡。
+5. 完整集群。
+
+**在哪一步首次异常，就优先检查该步新引入的链路或拓扑。** 如果 nccl-tests 正常而训练异常，重点转向训练中的通信顺序、消息大小、rank 到达时间和计算重叠。
+
+# 通信慢，用 nsys 看“谁在等谁”
+
+基础采样：
+
+```
+nsys profile \
+  --trace=cuda,nvtx,osrt \
+  -o nccl-profile \
+  torchrun --standalone --nproc_per_node=2 train.py
+```
+
+新版 Nsight Systems 还支持 NCCL 专用 tracing；是否可用要结合本机版本和 `nsys profile --help` 检查。[Nsight Systems](https://docs.nvidia.com/nsight-systems/UserGuide/index.html?utm_source=chatgpt.com)
+
+打开 `.nsys-rep` 后，对齐你的 NVTX 标记、CUDA stream 和 NCCL kernel：
+
+| 时间线现象               | 可能原因                     |
+| ------------------------ | ---------------------------- |
+| 一个 rank 很晚才发起通信 | 数据加载或计算不均衡         |
+| NCCL kernel 执行很长     | 传输慢，或正在等待其他 rank  |
+| 大量很短的通信           | 消息过碎，启动和延迟开销大   |
+| 计算与通信没有重叠       | 依赖关系、同步或调度需要检查 |
+
+**长 NCCL kernel 不等于网络带宽低：它可能在等迟到的 rank。** 因此最好采集参与同一次通信的各个 rank。
+
+nsys 适合先看整体通信与计算关系；ncu 更适合在已经定位到具体 kernel 后分析其 GPU 执行细节。
+
+# 最后才改通信选项，做单变量对照
+
+例如临时禁用 IB/RDMA：
+
+```
+NCCL_IB_DISABLE=1 torchrun ...
+```
+
+或临时禁用节点内 P 2 P：
+
+```
+NCCL_P2P_DISABLE=1 torchrun ...
+```
+
+如果禁用某条路径后恢复正常，说明值得继续检查该路径，但还不能单凭这一点确定根因。每次只改一个变量并保留原始基线；NCCL 官方也建议调试选项不要长期保留在生产配置中。[GitHub](https://github.com/NVIDIA/nccl/blob/master/docs/userguide/source/env.rst?utm_source=chatgpt.com)
+
+实际排查时，最有价值的一组证据是：**所有 rank 的日志、最后一个匹配的通信序号、nccl-tests 结果，以及一小段带 NVTX 标记的 nsys 时间线。**

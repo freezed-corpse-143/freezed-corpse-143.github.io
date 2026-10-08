@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "963ba0ebb1a297de",
+        "id": "9ec5c28bf9772357",
         "type": "tabs",
         "children": [
           {
-            "id": "e7f0444d9c91b55c",
+            "id": "0a9d4072b970421f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "调试/NCCL.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "NCCL"
+              "title": "新标签页"
             }
           }
         ]
@@ -221,10 +217,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "e7f0444d9c91b55c",
+  "active": "0a9d4072b970421f",
   "lastOpenFiles": [
-    "TODO.canvas",
     "调试/NCCL.md",
+    "TODO.canvas",
     "调试/Nsight Compute.md",
     "调试/Nsight Systems.md",
     "调试/x64_dbg.md",
