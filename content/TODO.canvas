@@ -51,12 +51,22 @@
 			"height":150
 		},
 		{
+			"id":"2e63f5b8bb9afb15",
+			"type":"text",
+			"text":"edamame 侧面大纲",
+			"styleAttributes":{},
+			"x":-3980,
+			"y":920,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"a54a3397fb45fc86",
 			"type":"text",
 			"text":"多次检索：通过检索粒度和结果，优化检索过程",
 			"styleAttributes":{},
 			"x":-3340,
-			"y":1040,
+			"y":700,
 			"width":260,
 			"height":60
 		},
@@ -66,17 +76,7 @@
 			"text":"可视化的下一步就是可视化编辑",
 			"styleAttributes":{},
 			"x":-3340,
-			"y":1170,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"2e63f5b8bb9afb15",
-			"type":"text",
-			"text":"edamame 侧面大纲",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":920,
+			"y":950,
 			"width":260,
 			"height":60
 		}
