@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "调试/Nsight Compute.md",
+                "file": "调试/NCCL.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Nsight Compute"
+              "title": "NCCL"
             }
           }
         ]
@@ -80,8 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,8 +222,9 @@
   },
   "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
-    "调试/Nsight Systems.md",
     "调试/Nsight Compute.md",
+    "调试/NCCL.md",
+    "调试/Nsight Systems.md",
     "调试/x64_dbg.md",
     "TODO.canvas",
     "调试",
@@ -252,7 +252,6 @@
     "元学习/关系定位法.md",
     "人工智能/TileLang与Triton.md",
     "人工智能/推理框架.md",
-    "人工智能/大模型推理加速.md",
     "元学习",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
