@@ -11,17 +11,14 @@
             "id": "e7f0444d9c91b55c",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3516.916671607267,
-                  "y": 889.9909913839185,
-                  "zoom": -0.8095082158052074
-                }
+                "file": "调试/x64_dbg.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "x64_dbg"
             }
           }
         ]
@@ -225,8 +222,10 @@
   },
   "active": "e7f0444d9c91b55c",
   "lastOpenFiles": [
-    "算法/链表.md",
     "TODO.canvas",
+    "调试/x64_dbg.md",
+    "调试",
+    "算法/链表.md",
     "现代UI/tauri+vue的结合.md",
     "分布式/软硬件协同.md",
     "分布式/01-显存与模型并行.md",
@@ -253,8 +252,6 @@
     "人工智能/大模型推理加速.md",
     "元学习/并行学习法.md",
     "元学习",
-    "人工智能/现代模型.md",
-    "人工智能/未命名.md",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
     "images/world-model-genealogy.png",
@@ -271,7 +268,6 @@
     "杂项",
     "游戏速通",
     "开发经验/全栈开发.canvas",
-    "开发日记/edaname",
-    "images"
+    "开发日记/edaname"
   ]
 }
