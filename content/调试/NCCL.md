@@ -37,4 +37,60 @@ export NCCL_DEBUG_SUBSYS=CALL
 
 TRACE 输出很多，适合短小复现。
 
-# 
+# 卡住时，先检查 rank 是否“对的上”
+
+例如：
+
+```
+rank 0：AllReduce(A) → AllReduce(B)
+rank 1：AllReduce(B) → AllReduce(A)
+```
+
+即使两个 rank 都调用了 AllReduce，顺序不同也可能卡住或产生错误。还需要检查：
+
+- 是否有 rank 提前报错、退出，或者卡在数据加载。
+- collective 的类型、顺序、数据类型、元素数量是否满足匹配要求。
+- 是否有条件分支导致只有部分 rank 调用通信。
+- Send/Recv 的对端及消息是否匹配。
+
+对于 PyTorch，可以开启更详细的一致性检查：
+
+```
+export TORCH_CPP_LOG_LEVEL=INFO
+export TORCH_DISTRIBUTED_DEBUG=DETAIL
+```
+
+该模式能帮助报告 collective 的不一致，也会增加调试开销。[torch.distributed — PyTorch 2.14 documentation](https://docs.pytorch.org/docs/stable/distributed.html?utm_source=chatgpt.com)
+
+**NCCL timeout 只说明通信没有按时完成；根因可能是另一个 rank 更早发生的异常。** 所以要对照所有 rank 的日志，而不是只看报 timeout 的那个进程。
+
+# 在通信前后打点，区分“提交”与“完成”
+
+NCCL 通信涉及异步 GPU 执行。Python 函数返回，不代表 GPU 已完成通信。
+
+下面是一个用于定位问题的打点方式，假设已经初始化进程组并绑定了当前 GPU：
+
+```
+import timeimport torchimport torch.distributed as distdef mark(message):    print(        f"time={time.monotonic():.6f} "        f"rank={dist.get_rank()} {message}",        flush=True,    )# 定位用：先排除前序 CUDA 工作的影响torch.cuda.synchronize()mark("seq=17 all_reduce before")with torch.cuda.nvtx.range("seq17/all_reduce"):    work = dist.all_reduce(x, async_op=True)    mark("seq=17 all_reduce submitted")    work.wait()    torch.cuda.synchronize()    mark("seq=17 all_reduce GPU completed")
+```
+
+输出的解读：
+
+| 停在哪里                                | 下一步重点检查                          |
+| --------------------------------------- | --------------------------------------- |
+| 某个 rank 没打印 `before`               | 该 rank 的前序计算、数据加载、异常      |
+| 都打印了 `before`，部分没有 `submitted` | 主机端调用、初始化、通信顺序            |
+| 都打印了 `submitted`，没有完成          | collective 匹配、GPU 前序依赖、链路故障 |
+
+最好记录 `step、通信序号、进程组、操作、shape、dtype`，这样能对齐不同 rank 的事件。不同机器的 `monotonic()` 时间不能直接比较，应主要依靠序号对齐。
+
+这里的同步会改变计算与通信的重叠，**适合定位卡点；正常性能采样应移除额外同步，保留 NVTX 标记。**
+
+对于支持 Flight Recorder 的 PyTorch 版本，还可以开启超时诊断：
+
+```
+export TORCH_NCCL_TRACE_BUFFER_SIZE=20000
+export TORCH_NCCL_DUMP_ON_TIMEOUT=1
+```
+
+它会记录通信事件，在 watchdog 超时时导出诊断信息；启用超时导出必须同时设置非零 trace buffer。[PyTorch 2.14 documentation](https://docs.pytorch.org/docs/stable/torch_nccl_environment_variables.html?utm_source=chatgpt.com)
