@@ -79,16 +79,6 @@
 			"y":920,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"854c07b81d8ad246",
-			"type":"text",
-			"text":"模型文件头与读取流程",
-			"styleAttributes":{},
-			"x":-3950,
-			"y":1110,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],

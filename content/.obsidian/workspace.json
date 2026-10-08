@@ -11,17 +11,14 @@
             "id": "0a9d4072b970421f",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3464.7205882352955,
-                  "y": 1002.323117349662,
-                  "zoom": -0.8207793281402274
-                }
+                "file": "人工智能/模型文件.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "模型文件"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,8 +223,9 @@
   },
   "active": "0a9d4072b970421f",
   "lastOpenFiles": [
-    "调试/NCCL.md",
     "TODO.canvas",
+    "人工智能/模型文件.md",
+    "调试/NCCL.md",
     "调试/Nsight Compute.md",
     "调试/Nsight Systems.md",
     "调试/x64_dbg.md",
@@ -253,7 +252,6 @@
     "现代UI/Accessibility.md",
     "github项目/flashinfer.md",
     "元学习/关系定位法.md",
-    "人工智能/TileLang与Triton.md",
     "元学习",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
