@@ -11,17 +11,14 @@
             "id": "0a9d4072b970421f",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3450,
-                  "y": 595,
-                  "zoom": -0.5700653926809264
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ]
@@ -225,8 +222,8 @@
   },
   "active": "0a9d4072b970421f",
   "lastOpenFiles": [
-    "人工智能/模型文件.md",
     "TODO.canvas",
+    "人工智能/模型文件.md",
     "调试/NCCL.md",
     "调试/Nsight Compute.md",
     "调试/Nsight Systems.md",
