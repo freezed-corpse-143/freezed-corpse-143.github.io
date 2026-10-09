@@ -66,3 +66,75 @@ term 3：B 当选
 term 是逻辑编号，不是固定长度的时间段。节点看到更高的 term，就更新自己的 term；Leader 或 Candidate 发现自己的 term 落后，立即退回 Follower。低 term 的请求会被拒绝。
 
 **同一个 term 最多只能选出一个 Leader；不同 term 的节点可能暂时都认为自己是 Leader。** 后面会解释为什么这不会导致双方都提交写入。[raft.github.io](https://raft.github.io/raft.pdf)
+
+# Leader
+
+假设 A、B、C 刚启动，都是 Follower。
+
+Leader 会定期发送心跳。一个 Follower 如果等到选举超时，仍未收到有效的 Leader 消息，就发起选举：
+
+1. 将自己的 term 加一。
+2. 转为 Candidate。
+3. 给自己投一票。
+4. 向其他节点发送 `RequestVote`。
+5. 获得整个集群的多数票后成为 Leader。
+
+三节点的多数是两票，包含自己的一票：
+
+```
+B 给自己投票。
+C 给 B 投票。
+B 获得 2 票，成为 Leader。
+```
+
+**每个节点每个 term 最多投给一个候选人。**
+
+为什么这能防止同任期出现两个 Leader？因为任意两个多数集合必有交集。两名候选人若都拿到多数票，就必然有某个节点投了两个人，而规则禁止这样做。
+
+选举超时采用随机值，避免所有节点反复同时竞选、瓜分选票。
+
+不过，投票还有日志资格检查，不能谁先来就无条件投谁。[web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf)
+
+# 一次写入如何完成？
+
+现在 B 是 term 3 的 Leader，客户端请求：
+
+```
+SET x = 7
+```
+
+B 先把命令追加到本地日志：
+
+| index | term | command   |
+| ----- | ---- | --------- |
+| 1     | 3    | SET x = 7 |
+
+两个字段含义不同：
+
+- `index`：日志中的位置。
+- `term`：这条日志由哪个任期的 Leader 创建。
+
+正常写入流程如下：
+
+| 步骤  | 行为                  | 此时的含义     |
+| --- | ------------------- | --------- |
+| 1   | B 持久化日志             | B 自己有了记录  |
+| 2   | B 向 A、C 发送日志        | 开始复制      |
+| 3   | A 持久化日志，回复成功        | B、A 已构成多数 |
+| 4   | B 将该日志标记为 committed | 可以安全执行    |
+| 5   | B 执行命令，回复客户端        | 写入成功      |
+| 6   | B 通知其他节点提交位置        | 其他节点随后执行  |
+
+C 暂时慢一点，不影响 B 与 A 达成多数。
+
+这里必须区分三个状态：
+
+| 状态             | 含义                                 |
+| ---------------- | ------------------------------------ |
+| 已记录           | 某个节点保存了日志                   |
+| 已提交 committed | 协议保证该日志不会被后续 Leader 推翻 |
+| 已应用 applied   | 命令已经执行到业务状态机             |
+
+**有日志不等于已提交；已提交不等于所有节点已经执行。**
+
+上述多数提交规则适用于 Leader 当前 term 的日志，旧 term 日志稍后单独解释。[web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf)
