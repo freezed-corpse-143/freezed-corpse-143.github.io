@@ -11,17 +11,14 @@
             "id": "0186cb82a49d1c6d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3415,
-                  "y": 595,
-                  "zoom": 0
-                }
+                "file": "分布式/Raft算法.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "Raft算法"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,10 +223,11 @@
   },
   "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "分布式/Raft算法.md",
     "编程语言/Typescript.md",
     "编程语言/Rust.md",
     "编程语言/C++.md",
-    "TODO.canvas",
     "编程语言/RUST & C++混合学习之路.md",
     "编程语言/C & Zig 混合学习之路.md",
     "游戏速通/星露谷.md",
@@ -252,8 +251,6 @@
     "项目管理",
     "分布式/02-计算与利用率.md",
     "分布式/04-异构与慢节点.md",
-    "分布式/03-跨卡通信.md",
-    "分布式/08-学习路线与术语.md",
     "分布式",
     "元学习",
     "images/Pasted image 20261002203556.png",
