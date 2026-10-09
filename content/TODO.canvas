@@ -11,16 +11,6 @@
 			"height":150
 		},
 		{
-			"id":"08a13c48ec5d1f37",
-			"type":"text",
-			"text":"c 和 zig 的混合学习",
-			"styleAttributes":{},
-			"x":-3440,
-			"y":1090,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
 			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
@@ -51,22 +41,32 @@
 			"height":60
 		},
 		{
-			"id":"859bb0620533fa88",
-			"type":"text",
-			"text":"可视化的下一步就是可视化编辑",
-			"styleAttributes":{},
-			"x":-3360,
-			"y":690,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"c976726e2fa0f82a",
 			"type":"text",
 			"text":"C++和 RUST 混合学习",
 			"styleAttributes":{},
 			"x":-4030,
 			"y":690,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"859bb0620533fa88",
+			"type":"text",
+			"text":"可视化的下一步就是可视化编辑",
+			"styleAttributes":{},
+			"x":-3400,
+			"y":720,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"08a13c48ec5d1f37",
+			"type":"text",
+			"text":"c 和 zig 的混合学习",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":800,
 			"width":260,
 			"height":60
 		}
