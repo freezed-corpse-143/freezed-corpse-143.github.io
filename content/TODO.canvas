@@ -59,6 +59,16 @@
 			"y":720,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"75c153d5827fd8de",
+			"type":"text",
+			"text":"raft 算法",
+			"styleAttributes":{},
+			"x":-3760,
+			"y":880,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
