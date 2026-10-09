@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "编程语言/RUST C++混合学习之路.md",
+                "file": "编程语言/RUST & C++混合学习之路.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "RUST C++混合学习之路"
+              "title": "RUST & C++混合学习之路"
             }
           }
         ]
@@ -196,7 +196,7 @@
                 "initialAgentId": "pi-acp"
               },
               "icon": "bot-message-square",
-              "title": "你好"
+              "title": "New session"
             }
           }
         ],
@@ -204,8 +204,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5,
-    "collapsed": true
+    "width": 422.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -222,8 +221,11 @@
   },
   "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "编程语言/C++.md",
+    "编程语言/Rust.md",
+    "编程语言/RUST & C++混合学习之路.md",
+    "编程语言/C & Zig 混合学习之路.md",
     "TODO.canvas",
-    "编程语言/RUST C++混合学习之路.md",
     "游戏速通/星露谷.md",
     "人工智能/AgentHarness.md",
     "git/git clone.md",
@@ -248,8 +250,6 @@
     "分布式/03-跨卡通信.md",
     "分布式/08-学习路线与术语.md",
     "分布式/07-推理服务与KV缓存.md",
-    "分布式/06-故障与检查点.md",
-    "分布式/05-网络拓扑与放置.md",
     "分布式",
     "元学习",
     "images/Pasted image 20261002203556.png",

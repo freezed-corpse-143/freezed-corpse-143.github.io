@@ -163,5 +163,3 @@ fmt、GoogleTest、Serde 和 clap 分别提供格式化、测试、序列化和�
 每轮学习固定采用：**读概念 → 写最小例子 → 制造一个错误 → 用工具定位 → 加入项目 → 比较两种实现**。
 
 资料上，Rust 用 [The Rust Programming Language](https://doc.rust-lang.org/book/?utm_source=chatgpt.com) 作为主线，[Rust By Example](https://doc.rust-lang.org/rust-by-example/) 用于练习，标准库文档用于查询；这些也是 Rust 官方学习入口提供的资源。[Rust Programming Language](https://rust-lang.org/learn/?trk=public_profile__reactions-text&utm_source=chatgpt.com) C++ 用一本系统教材作主线，配合 [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) 检查资源管理、接口和并发设计；Guidelines 更适合作为实践准则查阅。[isocpp.github.io](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?source=services-main&version=1&utm_source=chatgpt.com)
-
-如果每周投入约 8–10 小时，可以先安排一个 **24 周的第一轮**：基础 4 周、标准库 4 周、泛型与设计 5 周、并发与性能 6 周、混合项目 5 周。它的目标是建立完整能力链；深入对象模型、内存序和大型项目设计，需要后续持续练习。
