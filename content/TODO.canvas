@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"aee284c7f4d11331",
-			"type":"text",
-			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
-			"styleAttributes":{},
-			"x":-4070,
-			"y":-40,
-			"width":400,
-			"height":80
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
@@ -29,16 +19,6 @@
 			"y":400,
 			"width":560,
 			"height":120
-		},
-		{
-			"id":"f9000f77656388dd",
-			"type":"text",
-			"text":"国聘网简历投递 https://www.iguopin.com/",
-			"styleAttributes":{},
-			"x":-4050,
-			"y":190,
-			"width":400,
-			"height":60
 		},
 		{
 			"id":"9751bcc38bd1052d",
@@ -61,12 +41,22 @@
 			"height":60
 		},
 		{
+			"id":"c976726e2fa0f82a",
+			"type":"text",
+			"text":"C++和 RUST 混合学习",
+			"styleAttributes":{},
+			"x":-3840,
+			"y":1120,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"a54a3397fb45fc86",
 			"type":"text",
 			"text":"多次检索：通过检索粒度和结果，优化检索过程",
 			"styleAttributes":{},
-			"x":-3340,
-			"y":700,
+			"x":-3470,
+			"y":680,
 			"width":260,
 			"height":60
 		},
@@ -75,10 +65,40 @@
 			"type":"text",
 			"text":"可视化的下一步就是可视化编辑",
 			"styleAttributes":{},
-			"x":-3340,
-			"y":950,
+			"x":-3440,
+			"y":810,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"15f9e0f80de55b7c",
+			"type":"text",
+			"text":"edamame 适配 vim 的跳转和返回",
+			"styleAttributes":{},
+			"x":-3900,
+			"y":1020,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"08a13c48ec5d1f37",
+			"type":"text",
+			"text":"c 和 zig 的混合学习",
+			"styleAttributes":{},
+			"x":-3440,
+			"y":1090,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"aee284c7f4d11331",
+			"type":"text",
+			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
+			"styleAttributes":{},
+			"x":-4070,
+			"y":20,
+			"width":400,
+			"height":80
 		}
 	],
 	"edges":[],

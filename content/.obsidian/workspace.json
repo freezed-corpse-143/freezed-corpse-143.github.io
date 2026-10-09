@@ -11,14 +11,17 @@
             "id": "0a9d4072b970421f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "游戏速通/星露谷.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3486.3596107650933,
+                  "y": 802.2217497517646,
+                  "zoom": 0.03770710975845021
+                }
               },
-              "icon": "lucide-file",
-              "title": "星露谷"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -222,6 +225,7 @@
   },
   "active": "0a9d4072b970421f",
   "lastOpenFiles": [
+    "游戏速通/星露谷.md",
     "TODO.canvas",
     "人工智能/模型文件.md",
     "调试/NCCL.md",
@@ -244,7 +248,6 @@
     "分布式/06-故障与检查点.md",
     "分布式/05-网络拓扑与放置.md",
     "分布式",
-    "游戏速通/星露谷.md",
     "现代UI/开头动画.md",
     "现代UI/跨平台桌面框架.md",
     "现代UI/终端UI框架.md",
