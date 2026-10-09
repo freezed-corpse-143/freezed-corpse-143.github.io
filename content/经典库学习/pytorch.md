@@ -831,32 +831,413 @@ flowchart TD
 
 # 算子融合
 
+算子融合（operator fusion）是把多个小算子合并成一个 kernel 的技术，是省内存带宽和启动开销的关键优化，也是 `torch.compile` 最主要的收益来源之一。
+
+**为什么要融合**：GPU 算力增长速度远快于显存带宽，多数逐元素算子（elementwise / pointwise）是**内存带宽瓶颈（memory-bound）**——算一次要读一遍 HBM、写一遍 HBM。链式算子会成倍放大访存。
+
+以 $y = \text{gelu}(xW + b)$ 为例（$x$ 为 $M \times N$）：
+
+- **不融合**：`mm` 写 $MN$ 个元素 → `add` 读 $MN$、写 $MN$ → `gelu` 读 $MN$、写 $MN$。三趟 kernel，中间结果反复往返 HBM。
+- **融合**：`mm` 的 tile 结果留在寄存器/共享内存，`add` 与 `gelu` 在同一个 kernel 里就地完成，只写一次。
+
+$$\text{HBM 流量}:\quad 2MN + 2MN + 2MN \;\longrightarrow\; 2MN \text{（加法）} + MN \text{（写回）}$$
+
+**两类融合**：
+
+| 类型 | 别名 | 含义 |
+|---|---|---|
+| 纵向融合 | vertical / producer-consumer | 把算子输出直接喂给下一个算子，中间结果留在片上 |
+| 横向融合 | horizontal | 把互不依赖的同构算子合成一个 kernel，共享访存 |
+
+**收益与限制**：
+
+- 收益：减少 HBM 读写、减少 kernel launch、降低端到端延迟、提高带宽利用率。
+- 限制：寄存器/共享内存容量有限，融合过大导致 **register spill**；归约（reduction）、矩阵乘这类有特殊并行结构的算子不像 pointwise 那样自由融合。
+
+**常见融合模式**：
+
+| 模式 | 例子 | 说明 |
+|---|---|---|
+| Pointwise 链 | `add → relu → mul` | 最易融合，逐元素 |
+| Reduction + pointwise | `sum → div`（softmax 尾段） | 归一化类 |
+| GEMM epilogue | `mm + bias + gelu` | 高性能库常见 |
+| 多路共享输入 | 多个 head 的输出投影 | 横向融合 |
+
+后端会自动完成这件事（见「调度器与融合」）。手写时可用 `torch.compile` 或直接写 Triton。
+
+```python
+import torch
+import torch.nn.functional as F
+
+# eager：mm / add / gelu 是三个独立 kernel
+# torch.compile：add 与 gelu 会融进 mm 的 epilogue
+def f(x, w, b):
+    return F.gelu(x @ w + b)
+
+cf = torch.compile(f)
+out = cf(torch.randn(128, 256), torch.randn(256, 512), torch.randn(512))
+```
+
+---
 
 # Dynamo 抓图
 
+TorchDynamo 是 `torch.compile` 的前端：它从**正在运行的 Python 字节码**里提取计算图，用户无需改代码。
+
+**工作机制**：
+
+1. 通过 CPython 的 **frame evaluation API**（PEP 523）拦截每个 Python frame 的执行，而不用 `sys.settrace` 那种高开销方式。
+2. 对字节码做**符号化执行**（symbolic bytecode execution）：张量操作翻译成 FX 图节点，非张量操作、标量运算保留为普通 Python。
+3. 遇到无法追踪的构造时产生 **graph break**：先把当前图执行完，用 eager 继续，再重新开一张图。
+
+```python
+import torch
+
+def g(x):
+    y = x @ x.mT             # 进图
+    if y.sum() > 0:          # 依赖张量值 → graph break
+        y = y + 1
+    return torch.nn.functional.relu(y)
+
+torch._dynamo.explain(g)(torch.randn(4, 4))   # 打印图数量与 break 原因
+```
+
+**关键点**：
+
+- Dynamo 抓的是**张量级计算图**，输出是 `torch.fx.GraphModule`（FX 图），不是算子级 IR。
+- 抓图**惰性、按需**：首次调用某函数时编译并缓存，之后走 guard。
+- **避免 graph break** 是高性能前提。常见诱因：`print`、`tensor.item()`、`.numpy()`、依赖张量值的 `if` / `while`、动态属性、图外的第三方库。
+- 用 `TORCH_LOGS=graph_breaks` 定位，`torch._dynamo.explain` 看汇总。
+- 支持**动态形状**：默认对形状做静态假设并加 guard，形状变化会重编译；`torch._dynamo.mark_dynamic(x, 0)` 可显式声明动态维度。
+
+```mermaid
+flowchart LR
+    A[Python 函数调用] --> B[Dynamo 拦截 frame]
+    B --> C[符号化执行字节码]
+    C --> D{遇到不可追踪操作?}
+    D -- 否 --> E[生成 FX 图节点]
+    D -- 是 --> F[Graph Break：执行当前图<br/>改用 eager 继续]
+    F --> C
+    E --> G[完整 FX GraphModule]
+    G --> H[交给 AOTAutograd]
+```
+
+---
 
 # guard 守卫
 
+Dynamo 缓存的图是**针对一组特定假设**编译的。每次命中缓存前，必须检查这些假设仍成立——这就是 **guard**；guard 失败就触发**重编译（recompile）**。
+
+**guard 检查什么**：
+
+| guard 类型 | 例子 |
+|---|---|
+| 类型 / 身份 | `type(x) is Tensor`、函数对象 id、全局变量 id |
+| 张量属性 | `dtype`、`device`、`requires_grad`、`layout` |
+| 形状 | 静态形状精确匹配，如 `x.shape[0] == 128` |
+| 常量 / 闭包值 | 捕获的 Python 值，如 `self.training`、`scale` |
+| 数据指针 | 判断对象是否被替换（alias 检查） |
+
+**为什么重要**：guard 决定“何时复用、何时重编译”。**形状频繁变化**（变长序列、可变 batch）会造成反复编译的 **recompilation thrashing**，编译开销吃掉全部收益。
+
+```python
+import torch
+
+def h(x, scale):
+    return x * scale              # scale 被捕获 → guard on scale
+
+torch._dynamo.config.cache_size_limit = 8   # 单个 code object 最多缓存几份编译结果
+```
+
+排查：`TORCH_LOGS=guards` 打印每条 guard 与失败原因，`TORCH_LOGS=recompiles` 看重编译计数。
+
+**动态形状**：`torch.compile(dynamic=True)` 或 `mark_dynamic` 让形状进入**符号化（symbolic shapes）**，用约束（如 $s_0 \ge 1$）代替精确值，从而用一张图覆盖多种形状。符号形状仍可能需要 guard 来保证正确性，通常配合 `TORCH_LOGS=dynamic` 调试。
+
+**注意**：guard 是正确性机制，不只是性能机制——它保证“复用这张图”在语义上安全。
+
+---
 
 # AOTAutograd
 
+Dynamo 只抓前向图；**AOTAutograd** 负责把它**提前（Ahead-Of-Time）**变成一个同时含前向与反向的图，让反向也能被编译优化，而不是 eager 那样逐算子走 autograd。
+
+**流程**：
+
+1. 接收 Dynamo 的 FX 前向图。
+2. 用 tracer 运行得到**联合图（joint graph）**：前向 + 由 autograd 引擎生成的反向。
+3. 在联合图上做 **min-cut partition**，切成前向/反向两块，同时决定哪些中间激活需要保存（saved tensors）。
+4. 生成两个可独立编译的图（forward / backward）和一个 autograd Function 包装，把两者接回 PyTorch autograd 引擎。
+
+```python
+import torch
+from torch._functorch.aot_autograd import aot_module_simplified
+
+def compiler_fn(gm, example_inputs):
+    return gm          # 假编译器：原样返回
+
+compiled = aot_module_simplified(
+    torch.nn.Linear(4, 4),
+    [torch.randn(2, 4)],
+    fw_compiler=compiler_fn,
+    bw_compiler=compiler_fn,
+)
+```
+
+**收益**：
+
+- 反向也是**编译图**，能融合、减少中间张量、去掉 Python 开销。
+- 在图级别决策**激活重算（activation checkpointing）**，降低显存。
+- 让 `torch.compile` 支持 `autograd`、`grad`、`vmap` 等组合。
+
+调试：`TORCH_LOGS=aot`、`TORCH_LOGS=aot_graphs` 可看到联合图与切分结果。
+
+---
 
 # 分解与函数化
 
+进入 Inductor 之前，图要经过两步规范化：**分解（decomposition）** 与 **函数化（functionalization）**。
+
+## 分解
+
+把**高层复合算子**拆成**少量核心 ATen 算子**，让后端只需实现/优化一小套基础 op：
+
+- `aten.softmax` → `amax + sub + exp + sum + div`
+- `aten.addmm` → `mm + broadcast add`
+- `aten.layer_norm` → `mean + var + rsqrt + mul + add`
+- 多数 `*_backward` 也会分解为基础反向公式
+
+好处是**算子集合可控、优化规则可复用、便于多硬件后端**；代价是可能错过库级融合（如 cuBLAS/cuDNN 内部的实现），所以 Inductor 会在“分解”与“走外部库”之间权衡。
+
+## 函数化
+
+PyTorch 的算子允许**就地修改（in-place）** 和**别名（aliasing）**：`x.add_(1)`、`y = x.view(...)`、`x[0] = ...`。但编译图希望是**纯函数**（无副作用），才能安全地重排、融合、并行。
+
+函数化把带 mutation / alias 的图改写成纯函数形式，并显式维护**版本计数（version counter）**保证语义：
+
+- `x.add_(1)` → `x.copy_(x.add(1))`（副本更新）
+- `view` / `expand` / `transpose` 等别名通过显式 `alias` 节点表达
+- 引入 `_to_copy` 等显式拷贝，使别名关系清晰
+
+```python
+import torch
+
+def m(x):
+    y = x + 1
+    y.relu_()          # in-place
+    return y
+
+torch.compile(m)(torch.randn(3))
+```
+
+**为什么关键**：没有函数化，融合会改变语义（因为融合默认按无副作用处理）。有了它，Inductor 才能自由 reorder / fuse。这也是 `torch.compile` 对某些 in-place / view 操作支持有限的根源——函数化失败就 graph break。
+
+---
 
 # Inductor IR
 
+TorchInductor 是 `torch.compile` 的默认后端编译器（`torch._inductor`），核心是一套面向循环的中间表示——**LoopLevelIR**。
+
+**IR 组成**：
+
+- **Buffer**：输入、输出、中间张量，含 dtype、device、形状、布局（stride）。
+- **Loop 节点**：一次遍历（`for` 循环），带迭代范围与维度信息。
+- **Ops**：`Pointwise`、`Reduction`、`Scan`、`Gather`、`Scatter`、`Bucketize`，以及 `Template` / `ExternKernel`（调用 cuBLAS、cuDNN、CUTLASS 等外部库）。
+- **依赖 DAG**：节点通过 buffer 读写建立依赖。
+
+**IR 特点**：
+
+1. **循环级抽象**：不直接生成最终代码，而是描述“怎么遍历、读什么、算什么、写哪里”，后端再映射到 Triton / CUDA C++ / CPU C++。
+2. **布局推理**：为每个 buffer 选择内存格式（contiguous、channels-last、转置等），决定是否插入 layout conversion。
+3. **代码生成**：`codegen` 把 IR 转成设备代码。
+
+```python
+import torch
+
+@torch.compile
+def f(x, w, b):
+    return torch.nn.functional.gelu(x @ w + b)
+
+# 查看 IR / 生成代码
+import torch._inductor.config as cfg
+cfg.trace.enabled = True     # 生成 Chrome trace
+cfg.debug = True             # 保存 IR 与生成代码到缓存目录
+```
+
+产物位置：`TORCH_LOGS=inductor`，以及 `TORCHINDUCTOR_CACHE_DIR`（默认 `~/.cache/torch/inductor`）下的 `output_code.py`、`ir_pre_fusion.txt`、`ir_post_fusion.txt`。
+
+```mermaid
+flowchart LR
+    FX[FX 图<br/>已函数化] --> LIR[LoopLevelIR<br/>Buffer + Loop + Ops]
+    LIR --> SCH[调度与融合]
+    SCH --> CODEGEN[Codegen]
+    CODEGEN --> TR[Triton kernel]
+    CODEGEN --> CPP[CUDA C++ / C++]
+    TR --> BIN[编译产物 + 缓存]
+    CPP --> BIN
+```
+
+---
 
 # 调度器与融合
 
+调度器（Scheduler）在 LoopLevelIR 上决定**哪些节点合并进同一个 kernel**，是融合真正发生的地方。
+
+**核心步骤**：
+
+1. **依赖分析**：根据 buffer 的读写（RAW / WAR / WAW）建立 `SchedulerNode` DAG。
+2. **融合决策**：把满足条件的相邻节点合并——
+   - **纵向融合**：producer → consumer，若 producer 结果只被该 consumer 使用，可内联进 consumer 的循环体；
+   - 检查重复计算代价、寄存器/共享内存容量、迭代空间是否可对齐；
+   - 用 `can_fuse` / `score_fusion_memory` 一类启发式打分。
+3. **布局与拷贝**：必要时插入 layout conversion 或 copy。
+4. **归约处理**：reduction 常单独成 kernel；pointwise 可融进归约的 epilogue（如 softmax 的 `sub/exp/div`），或用 split reduction 提高并行度。
+5. **分块（tiling）**：为 reduction 与 matmul 选择 tile 大小。
+
+**调度器类型**：
+
+| 调度器 | 用途 |
+|---|---|
+| Normal / pointwise `Scheduler` | 逐元素与一般循环融合 |
+| `ReductionScheduler` | 归约（sum / mean / softmax） |
+| `PersistentReductionScheduler` | 单 kernel 内完成归约 |
+| `TritonScheduler` / `CUDAScheduler` | 生成 Triton / CUDA |
+| `ExternKernelScheduler` | 外部库（cuBLAS 等） |
+| `ForeachKernelScheduler` | 批量同构算子（foreach） |
+| `CATAScheduler` | 复杂融合的代价感知搜索 |
+
+**调试**：`TORCH_LOGS=fusion`、`TORCHINDUCTOR_UNIQUE_KERNEL_NAMES=1`；产物里的 `ir_post_fusion.txt` 能看到融合后的分组与每个 kernel 覆盖的 op。
+
+---
 
 # Triton 与块
 
+Inductor 默认把 GPU 上的融合结果生成 **Triton** 代码。Triton 是面向 GPU 的 Python DSL，核心是**块级（block-level）编程**：你写的是“操作整个 tile”的代码，编译器负责线程映射、共享内存与流水线。
+
+**编程模型要点**：
+
+- `tl.program_id` 取得当前块索引，一个 program 处理一个 tile；
+- `tl.load` / `tl.store` 以整块为单位读写，**自动合并访存（coalescing）**；
+- `tl.arange` 生成块内索引；
+- `BLOCK_SIZE`、`num_warps`、`num_stages` 决定分块与流水；
+- 面向张量的 `tl.dot`、`tl.sum`、`tl.max` 等由编译器映射到硬件指令。
+
+Inductor 生成的 kernel 大致形态：
+
+```python
+import triton
+import triton.language as tl
+
+@triton.jit
+def fused_kernel(X, B, Out, M, N, BLOCK: tl.constexpr):
+    pid = tl.program_id(0)
+    rows = pid * BLOCK + tl.arange(0, BLOCK)
+    cols = tl.arange(0, N)
+    mask = rows[:, None] < M
+    x = tl.load(X + rows[:, None] * N + cols[None, :], mask=mask, other=0.0)
+    b = tl.load(B + cols)
+    x = x + b[None, :]                 # epilogue 里的 bias
+    x = x * 0.5 * (1.0 + tl.erf(x / tl.sqrt(2.0)))   # gelu
+    tl.store(Out + rows[:, None] * N + cols[None, :], x, mask=mask)
+```
+
+**相关配置**：`torch._inductor.config.triton.*`（如 `cudagraphs`、`use_block_ptr`）、`TORCHINDUCTOR_MAX_AUTOTUNE`。生成的 Triton 源码默认缓存在 `~/.cache/torch/inductor/`。
+
+Triton 的编译器（基于 LLVM）会把块程序降到 PTX / SASS。相比手写 CUDA，它牺牲一点极致性能，换来**自动分块、自动向量化、易于自动生成**。
+
+---
 
 # 编译缓存
 
+“编译一次、多次复用”是 `torch.compile` 能落地的前提。PyTorch 有多层缓存：
+
+| 层 | 缓存内容 | 失效条件 |
+|---|---|---|
+| Dynamo 层 | code object → 已跟踪的 FX 图 + guards | guard 失败 / 超出 `cache_size_limit` |
+| FX graph cache | 序列化的 FX 图（键含图结构、配置、dtype） | 图或配置变化 |
+| AOTAutograd cache | 前向 / 反向图 | 图或 autograd 元数据变化 |
+| Inductor 层 | 生成的 Triton / C++ 代码与编译产物 | IR、配置、硬件变化 |
+| Autotune 缓存 | 最优 tile / 参数选择 | 形状、硬件、配置变化 |
+| `CachingAutotuner` | 已编译的 Triton kernel 二进制 | 源码或参数变化 |
+
+**磁盘缓存**：`TORCHINDUCTOR_CACHE_DIR`（默认 `~/.cache/torch/inductor`）保存 `output_code.py` 与 `.so`，可跨进程、跨运行复用，实现 **warm start**。缓存键由 guards + 编译配置 + 硬件能力（SM 版本）共同决定。
+
+```bash
+export TORCHINDUCTOR_CACHE_DIR=/tmp/torchinductor   # 自定义缓存目录
+export TORCHINDUCTOR_FX_GRAPH_CACHE=1               # 开启 FX 图磁盘缓存
+TORCH_LOGS=guards,cache_hit                         # 观察命中情况
+```
+
+**常见坑**：形状频繁变化导致缓存爆炸与重编译；关闭缓存让冷启动变慢；不同 GPU 架构产物不通用。相关开关：`torch._dynamo.config.cache_size_limit`、`TORCH_LOGS=recompiles`。
+
+---
 
 # 矩阵乘模板与 autotune
 
+矩阵乘（GEMM）是 Transformer 的主要算力来源，Inductor 对它有专门处理：**模板 + 自动调参（autotune）**。
+
+**模板系统**：
+
+- `TritonTemplate`：参数化的 Triton matmul 模板（`BLOCK_M` / `BLOCK_N` / `BLOCK_K`、`GROUP_M`、`num_warps`、`num_stages`、输入精度、epilogue 融合）；
+- `CUDATemplate`：CUDA C++ 模板；
+- `ExternKernel`：直接调用 cuBLAS / cuBLASLt / CUTLASS / rocBLAS 等高性能库。
+
+Inductor 先判断该 GEMM 是否“值得自己做”：小矩阵、特殊 epilogue、融合收益大时走模板；否则走外部库。
+
+**Autotune 流程**：
+
+1. 由启发式或历史结果给出一组候选 config；
+2. 在目标 GPU 上各编译并 **benchmark**；
+3. 选最快者，写入 autotune 缓存；
+4. 相同形状 / 配置后续直接复用。
+
+```python
+import torch._inductor.config as cfg
+
+# 开启 GEMM 自动调参（显著增加首次编译时间）
+cfg.max_autotune = True
+cfg.max_autotune_gemm_backends = "TRITON,ATEN"   # 候选后端
+cfg.autotune_local_cache = True                  # 复用本地调参结果
+cfg.coordinate_descent_tuning = True             # 协调下降搜索
+```
+
+也可用环境变量 `TORCHINDUCTOR_MAX_AUTOTUNE=1`。**权衡**：autotune 提升稳态性能，但增加编译 / 冷启动时间——长驻推理服务适合开，短生命周期脚本可能得不偿失。模板实例名（如 `mm_128_256_512_...`）与结果可在 Inductor 缓存中看到。
+
+---
 
 # CUDA Graphs
+
+CUDA Graphs 把**一串 kernel 启动**录制成图，之后一次 replay 提交，**消除逐 kernel 的 CPU launch 开销**。对“大量小 kernel”的模型提升明显，尤其是 `torch.compile` 的 `reduce-overhead` 模式。
+
+```python
+import torch
+
+model = torch.nn.Sequential(torch.nn.Linear(64, 64), torch.nn.ReLU()).cuda()
+g = torch.cuda.CUDAGraph()
+static_in = torch.randn(8, 64, device="cuda")
+
+with torch.cuda.graph(g):
+    static_out = model(static_in)
+
+# 后续把真实输入拷进静态 buffer，再 replay
+real_in = torch.randn(8, 64, device="cuda")
+static_in.copy_(real_in)
+g.replay()
+```
+
+**torch.compile 集成**：`mode="reduce-overhead"` 会自动用 CUDA Graphs 包裹编译区域（配合静态输入 buffer），并用 **CUDA Graph Trees** 支持同一模型的不同分支。
+
+```python
+cf = torch.compile(model, mode="reduce-overhead")
+```
+
+**硬约束**（也是常见坑）：
+
+| 约束 | 原因 |
+|---|---|
+| 地址固定 | 图内指针必须稳定，需用静态输入 / 输出 buffer |
+| 形状 / 控制流固定 | 不同形状或分支需另录一张图 |
+| 不能 CPU 同步 | 图内禁止 `.item()`、`.cpu()`、`print` |
+| 不能有 graph break | 中断会导致多图或回退 |
+| 内存池固定 | 需在专用 pool 中分配，配合 `torch.cuda.graph_pool_handle` |
+
+**调试**：`TORCH_LOGS=cudagraphs`、`torch._inductor.config.triton.cudagraphs`、`cudagraph_skip_dynamic_graphs`。录制前需要 **warmup**，避免把首次分配和惰性初始化录进去。
