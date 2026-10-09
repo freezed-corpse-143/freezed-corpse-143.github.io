@@ -51,32 +51,12 @@
 			"height":60
 		},
 		{
-			"id":"c976726e2fa0f82a",
-			"type":"text",
-			"text":"C++和 RUST 混合学习：\n- [ ] 基础\n- [ ] 标准库\n- [ ] 高阶\n- [ ] 常用库",
-			"styleAttributes":{},
-			"x":-4030,
-			"y":660,
-			"width":260,
-			"height":180
-		},
-		{
 			"id":"69bce97a7ac0369f",
 			"type":"text",
 			"text":"torch 编译器",
 			"styleAttributes":{},
-			"x":-3600,
-			"y":900,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"08a13c48ec5d1f37",
-			"type":"text",
-			"text":"c 和 zig 的混合学习",
-			"styleAttributes":{},
-			"x":-4030,
-			"y":900,
+			"x":-3830,
+			"y":720,
 			"width":260,
 			"height":60
 		}
