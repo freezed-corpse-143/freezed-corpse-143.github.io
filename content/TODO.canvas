@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"d73d64e25289ddfa",
-			"type":"text",
-			"text":"自己准备 AI 面试",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":780,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"d689a6a47c77515d",
 			"type":"text",
 			"text":"\n学习 Typescript 知名项目： https://github.com/deepseek-ai/deepseek-harness\nhttps://github.com/earendil-works/pi.git\n",
@@ -31,16 +21,6 @@
 			"height":150
 		},
 		{
-			"id":"2e63f5b8bb9afb15",
-			"type":"text",
-			"text":"edamame 侧面大纲",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":920,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"c976726e2fa0f82a",
 			"type":"text",
 			"text":"C++和 RUST 混合学习",
@@ -51,32 +31,12 @@
 			"height":60
 		},
 		{
-			"id":"a54a3397fb45fc86",
-			"type":"text",
-			"text":"多次检索：通过检索粒度和结果，优化检索过程",
-			"styleAttributes":{},
-			"x":-3470,
-			"y":680,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"859bb0620533fa88",
 			"type":"text",
 			"text":"可视化的下一步就是可视化编辑",
 			"styleAttributes":{},
 			"x":-3440,
 			"y":810,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"15f9e0f80de55b7c",
-			"type":"text",
-			"text":"edamame 适配 vim 的跳转和返回",
-			"styleAttributes":{},
-			"x":-3900,
-			"y":1020,
 			"width":260,
 			"height":60
 		},
@@ -99,6 +59,46 @@
 			"y":20,
 			"width":400,
 			"height":80
+		},
+		{
+			"id":"2e63f5b8bb9afb15",
+			"type":"text",
+			"text":"edamame 侧面大纲",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":900,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"15f9e0f80de55b7c",
+			"type":"text",
+			"text":"edamame 适配 vim 的跳转和返回",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":960,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d73d64e25289ddfa",
+			"type":"text",
+			"text":"自己准备 AI 面试",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":620,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"a54a3397fb45fc86",
+			"type":"text",
+			"text":"多次检索：通过检索粒度和结果，优化检索过程",
+			"styleAttributes":{},
+			"x":-3440,
+			"y":750,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
