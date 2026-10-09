@@ -11,14 +11,17 @@
             "id": "0186cb82a49d1c6d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "编程语言/C++.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3415,
+                  "y": 595,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "C++"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -204,7 +207,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5
+    "width": 422.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -221,9 +225,10 @@
   },
   "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "编程语言/Typescript.md",
     "编程语言/Rust.md",
-    "TODO.canvas",
     "编程语言/C++.md",
+    "TODO.canvas",
     "编程语言/RUST & C++混合学习之路.md",
     "编程语言/C & Zig 混合学习之路.md",
     "游戏速通/星露谷.md",

@@ -51,22 +51,22 @@
 			"height":60
 		},
 		{
-			"id":"69bce97a7ac0369f",
-			"type":"text",
-			"text":"torch 编译器",
-			"styleAttributes":{},
-			"x":-3830,
-			"y":720,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"75c153d5827fd8de",
 			"type":"text",
 			"text":"raft 算法",
 			"styleAttributes":{},
 			"x":-3760,
 			"y":880,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"69bce97a7ac0369f",
+			"type":"text",
+			"text":"torch 编译器",
+			"styleAttributes":{},
+			"x":-3760,
+			"y":780,
 			"width":260,
 			"height":60
 		}
