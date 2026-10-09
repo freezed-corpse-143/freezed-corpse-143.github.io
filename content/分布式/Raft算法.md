@@ -225,3 +225,105 @@ Follower 先检查：
 这相当于**找到共同前缀，再修复分叉部分**。
 
 已经提交的日志不会被正确执行的 Raft 覆盖；可能被覆盖的是未提交的分叉。[raft.github.io](https://raft.github.io/raft.pdf)
+
+# 网络分区后，会不会出现“脑裂”？
+
+五节点集群，A 是 Leader。网络突然分成：
+
+```
+一侧：A、B
+另一侧：C、D、E
+```
+
+A 可能仍然认为自己是 Leader。另一侧则可能选出 term 更高的新 Leader C。
+
+此时确实可能有两个节点自认为是 Leader，但：
+
+| 分区    | 节点数 | 能否形成多数并提交新写入？ |
+| ------- | ------ | -------------------------- |
+| A、B    | 2      | 不能                       |
+| C、D、E | 3      | 可以                       |
+
+A 可以收到客户端请求，甚至追加未提交日志，但无法拿到多数确认，因此不能正常确认这些写入成功。
+
+网络恢复后，A 看到更高 term，退回 Follower，冲突的未提交日志会被修复。
+
+**Raft 的安全来自多数与任期等协议规则，不能依赖旧 Leader 及时发现自己已失去权力。** [web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf)
+
+# 最容易误解的一条：旧任期日志不能直接按多数提交
+
+通常会把 Raft 简化成：
+
+> 一条日志复制到多数节点，就提交。
+
+完整规则更严格。Leader 根据复制数量推进 `commitIndex` 到位置 $N$，还必须满足：
+
+$$ \operatorname{log}[N].\operatorname{term} = \operatorname{currentTerm} $$
+
+也就是：
+
+> **Leader 可以通过多数复制，直接确认自己当前任期的日志提交。**
+
+如果新 Leader 继承了一条旧 term 的未提交日志，仅仅把它补到多数节点，不能据此直接宣布它提交。
+
+正确方式是：
+
+```
+index 10：旧 term 的日志
+index 11：当前 term 的日志
+```
+
+当第 11 条在当前 term 获得多数复制并提交时，前面的第 10 条也随整个前缀一起提交。
+
+原因是：日志新旧比较优先看最后一条的 term。某个拥有更高 term 分叉日志的节点，在特定历史中仍可能当选并覆盖旧条目；当前 term 的多数提交才能建立所需的安全保证。原论文 Figure 8 专门展示了这个反例。[web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf?utm_source=chatgpt.com)
+
+初学时先牢牢记住这条规则，之后再推演 Figure 8。
+
+# 如果自己实现，需要哪些核心变量？
+
+| 变量                 | 含义                      |
+| ------------------ | ----------------------- |
+| `currentTerm`      | 当前已知最高任期                |
+| `votedFor`         | 当前任期投给谁                 |
+| `log[]`            | 日志序列                    |
+| `commitIndex`      | 已知提交到哪个位置               |
+| `lastApplied`      | 已经执行到哪个位置               |
+| `nextIndex[peer]`  | Leader 下一次准备从哪里给某节点发送日志 |
+| `matchIndex[peer]` | Leader 已确认某节点复制到了哪里     |
+
+其中 `currentTerm`、`votedFor` 和日志需要持久化。否则节点重启后，可能忘记已经投过票或确认保存过的日志，破坏安全性。
+
+基本算法主要围绕两种 RPC：
+
+```
+RequestVote：请求投票
+AppendEntries：复制日志，也用作心跳
+```
+
+核心提交逻辑可以概括为：
+
+```
+# 仅表示核心判断，省略并发与持久化细节if majority_have_entry(N) and log[N].term == currentTerm:    commitIndex = Nwhile lastApplied < commitIndex:    lastApplied += 1    apply(log[lastApplied].command)
+```
+
+原论文 Figure 2 是实现这些状态和处理规则的主要参考。[web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf)
+
+# 理解核心之后，还有哪些工程问题？
+
+| 问题    | 为什么还需要处理？                         |
+| ----- | --------------------------------- |
+| 请求去重  | 写入已提交但回复丢失，客户端重试可能重复执行            |
+| 线性一致读 | “自认为是 Leader”不代表仍有权威，直接本地读可能读到旧数据 |
+| 快照    | 日志不能无限增长，需要保存状态并压缩旧日志             |
+| 成员变更  | 不能随意替换投票集合，否则可能破坏多数交集             |
+| 故障模型  | 标准 Raft 处理宕机、断网等故障，不处理节点恶意伪造行为    |
+
+特别注意：**Raft 不会自动把每次客户端请求变成“恰好执行一次”。** 通常要把客户端 ID、请求序号及去重状态纳入复制状态机。[web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf)
+
+建议你先用三节点手动推演这三个场景：
+
+1. Leader 写入本地后，尚未复制就宕机。
+2. 当前任期的日志已复制到多数，但回复客户端之前宕机。
+3. 旧 Leader 被隔离到少数分区，多数分区选出新 Leader。
+
+每次都问：**谁能当选？哪些日志可提交？哪些可能被覆盖？客户端是否知道请求成功？**
