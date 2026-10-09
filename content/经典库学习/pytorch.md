@@ -828,3 +828,35 @@ flowchart TD
     M --> R["返回 out, aux_loss, topk_idx, weights"]
     Q --> R
 ```
+
+# 算子融合
+
+
+# Dynamo 抓图
+
+
+# guard 守卫
+
+
+# AOTAutograd
+
+
+# 分解与函数化
+
+
+# Inductor IR
+
+
+# 调度器与融合
+
+
+# Triton 与块
+
+
+# 编译缓存
+
+
+# 矩阵乘模板与 autotune
+
+
+# CUDA Graphs

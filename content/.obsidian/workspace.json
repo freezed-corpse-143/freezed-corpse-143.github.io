@@ -11,17 +11,14 @@
             "id": "0186cb82a49d1c6d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3415,
-                  "y": 452,
-                  "zoom": 0
-                }
+                "file": "经典库学习/pytorch.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "pytorch"
             }
           }
         ]
@@ -207,8 +204,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 422.5,
-    "collapsed": true
+    "width": 422.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -223,11 +219,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "0186cb82a49d1c6d",
+  "active": "cb45e0e2eda0e17b",
   "lastOpenFiles": [
+    "TODO.canvas",
     "index.md",
     "分布式/Raft算法.md",
-    "TODO.canvas",
     "编程语言/Typescript.md",
     "编程语言/Rust.md",
     "编程语言/C++.md",
@@ -253,7 +249,6 @@
     "项目管理/根据项目管理设计Dashboard.md",
     "项目管理",
     "分布式/02-计算与利用率.md",
-    "分布式/04-异构与慢节点.md",
     "分布式",
     "元学习",
     "images/Pasted image 20261002203556.png",
