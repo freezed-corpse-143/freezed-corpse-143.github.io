@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"9751bcc38bd1052d",
-			"type":"text",
-			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
-			"styleAttributes":{},
-			"x":-3360,
-			"y":250,
-			"width":560,
-			"height":150
-		},
-		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
 			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
@@ -19,16 +9,6 @@
 			"y":250,
 			"width":400,
 			"height":80
-		},
-		{
-			"id":"a54a3397fb45fc86",
-			"type":"text",
-			"text":"多次检索：通过检索粒度和结果，优化检索过程",
-			"styleAttributes":{},
-			"x":-3360,
-			"y":540,
-			"width":260,
-			"height":60
 		},
 		{
 			"id":"d73d64e25289ddfa",
@@ -55,18 +35,28 @@
 			"type":"text",
 			"text":"torch 编译器",
 			"styleAttributes":{},
-			"x":-3760,
-			"y":780,
+			"x":-3890,
+			"y":660,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"75c153d5827fd8de",
+			"id":"9751bcc38bd1052d",
 			"type":"text",
-			"text":"raft 算法",
+			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
 			"styleAttributes":{},
-			"x":-3760,
-			"y":660,
+			"x":-3490,
+			"y":255,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"a54a3397fb45fc86",
+			"type":"text",
+			"text":"多次检索：通过检索粒度和结果，优化检索过程",
+			"styleAttributes":{},
+			"x":-3490,
+			"y":440,
 			"width":260,
 			"height":60
 		}
