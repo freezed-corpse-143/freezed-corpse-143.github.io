@@ -18,7 +18,7 @@ Apache TVM
 
 假设神经网络里有：
 
-\[ Y = \operatorname{ReLU}(XW+b) \]
+$$ Y = \operatorname{ReLU}(XW+b) $$
 
 最朴素的执行可能是：
 
@@ -102,7 +102,7 @@ Softmax
 
 例如矩阵乘法：
 
-\[ C_{ij} = \sum_k A_{ik}B_{kj} \]
+$$ C_{ij} = \sum_k A_{ik}B_{kj} $$
 
 本质就是：
 
