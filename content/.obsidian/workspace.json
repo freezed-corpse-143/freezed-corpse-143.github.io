@@ -11,14 +11,17 @@
             "id": "0186cb82a49d1c6d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "经典库学习/pytorch.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3630,
+                  "y": 485,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "pytorch"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -219,8 +222,9 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "cb45e0e2eda0e17b",
+  "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "经典库学习/pytorch.md",
     "TODO.canvas",
     "index.md",
     "分布式/Raft算法.md",
