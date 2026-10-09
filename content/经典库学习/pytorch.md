@@ -1150,14 +1150,14 @@ Triton 的编译器（基于 LLVM）会把块程序降到 PTX / SASS。相比手
 
 “编译一次、多次复用”是 `torch.compile` 能落地的前提。PyTorch 有多层缓存：
 
-| 层 | 缓存内容 | 失效条件 |
-|---|---|---|
-| Dynamo 层 | code object → 已跟踪的 FX 图 + guards | guard 失败 / 超出 `cache_size_limit` |
-| FX graph cache | 序列化的 FX 图（键含图结构、配置、dtype） | 图或配置变化 |
-| AOTAutograd cache | 前向 / 反向图 | 图或 autograd 元数据变化 |
-| Inductor 层 | 生成的 Triton / C++ 代码与编译产物 | IR、配置、硬件变化 |
-| Autotune 缓存 | 最优 tile / 参数选择 | 形状、硬件、配置变化 |
-| `CachingAutotuner` | 已编译的 Triton kernel 二进制 | 源码或参数变化 |
+| 层                  | 缓存内容                             | 失效条件                             |
+| ------------------ | -------------------------------- | -------------------------------- |
+| Dynamo 层           | code object → 已跟踪的 FX 图 + guards | guard 失败 / 超出 `cache_size_limit` |
+| FX graph cache     | 序列化的 FX 图（键含图结构、配置、dtype）        | 图或配置变化                           |
+| AOTAutograd cache  | 前向 / 反向图                         | 图或 autograd 元数据变化                |
+| Inductor 层         | 生成的 Triton / C++ 代码与编译产物         | IR、配置、硬件变化                       |
+| Autotune 缓存        | 最优 tile / 参数选择                   | 形状、硬件、配置变化                       |
+| `CachingAutotuner` | 已编译的 Triton kernel 二进制           | 源码或参数变化                          |
 
 **磁盘缓存**：`TORCHINDUCTOR_CACHE_DIR`（默认 `~/.cache/torch/inductor`）保存 `output_code.py` 与 `.so`，可跨进程、跨运行复用，实现 **warm start**。缓存键由 guards + 编译配置 + 硬件能力（SM 版本）共同决定。
 
