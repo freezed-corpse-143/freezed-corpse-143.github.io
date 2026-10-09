@@ -15,8 +15,8 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -3486.3596107650933,
-                  "y": 983.423326794447,
+                  "x": -3481.1638864406914,
+                  "y": 624.2674929792619,
                   "zoom": 0.03770710975845021
                 }
               },
@@ -225,6 +225,8 @@
   },
   "active": "0a9d4072b970421f",
   "lastOpenFiles": [
+    "人工智能/AgentHarness.md",
+    "人工智能/Agent Harness.md",
     "游戏速通/星露谷.md",
     "TODO.canvas",
     "人工智能/模型文件.md",
@@ -253,7 +255,6 @@
     "现代UI/终端UI框架.md",
     "现代UI/Accessibility.md",
     "github项目/flashinfer.md",
-    "元学习/关系定位法.md",
     "元学习",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
