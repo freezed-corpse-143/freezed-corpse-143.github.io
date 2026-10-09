@@ -42,3 +42,27 @@ def apply(command):    if command.type == "SET":        database[command.key] = 
 ```
 
 Raft 负责确定命令及其顺序；业务逻辑负责执行命令。
+
+# 三种角色，以及 term
+
+每个 Raft 节点处于以下一种角色：
+
+| 角色        | 职责                |
+| --------- | ----------------- |
+| Follower  | 接收日志、回应投票         |
+| Candidate | 发起选举，争取成为 Leader  |
+| Leader    | 接收写入、排列日志、推动复制和提交 |
+
+正常情况下，一个集群有一个 Leader，其余是 Follower。
+
+Raft 还有一个重要数字：**term，任期编号**。
+
+```
+term 1：A 当选
+term 2：选举失败，没有 Leader
+term 3：B 当选
+```
+
+term 是逻辑编号，不是固定长度的时间段。节点看到更高的 term，就更新自己的 term；Leader 或 Candidate 发现自己的 term 落后，立即退回 Follower。低 term 的请求会被拒绝。
+
+**同一个 term 最多只能选出一个 Leader；不同 term 的节点可能暂时都认为自己是 Leader。** 后面会解释为什么这不会导致双方都提交写入。[raft.github.io](https://raft.github.io/raft.pdf)
