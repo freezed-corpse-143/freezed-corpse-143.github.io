@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "chrome",
+                "query": " ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -76,7 +76,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -220,7 +221,7 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "0186cb82a49d1c6d",
+  "active": "504b9f88bb46bf79",
   "lastOpenFiles": [
     "TODO.canvas",
     "经典库学习/pytorch.md",
