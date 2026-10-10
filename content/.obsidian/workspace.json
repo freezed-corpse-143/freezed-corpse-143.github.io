@@ -220,10 +220,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "0186cb82a49d1c6d",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
+    "images/心电图.gif",
     "现代UI/动画素材积累.md",
+    "心电图 1.gif",
+    "游戏速通/星露谷.md",
     "TODO.canvas",
     "经典库学习/pytorch.md",
     "index.md",
@@ -249,7 +251,6 @@
     "分布式/软硬件协同.md",
     "分布式/01-显存与模型并行.md",
     "分布式/分布式大模型.md",
-    "项目管理/根据项目管理设计Dashboard.md",
     "项目管理",
     "分布式",
     "元学习",
@@ -261,8 +262,6 @@
     "images/Pasted image 20261001231119.png",
     "images/Pasted image 20261001231046.png",
     "images/Pasted image 20261001215512.png",
-    "images/Pasted image 20261001213706.png",
-    "images/Pasted image 20261001210449.png",
     "现代UI",
     "小说idea",
     "软件工程",
