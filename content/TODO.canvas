@@ -49,6 +49,16 @@
 			"y":540,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"1aa926bb783f7c4a",
+			"type":"text",
+			"text":"https://github.com/madderscientist/jpFun，转为 typst 包",
+			"styleAttributes":{},
+			"x":-3860,
+			"y":720,
+			"width":630,
+			"height":60
 		}
 	],
 	"edges":[],
