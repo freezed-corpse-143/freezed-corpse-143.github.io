@@ -11,17 +11,14 @@
             "id": "0186cb82a49d1c6d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3630,
-                  "y": 425,
-                  "zoom": 0
-                }
+                "file": "软件工程/元编程.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "元编程"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,9 +223,10 @@
   },
   "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "软件工程/元编程.md",
     "软件使用.md",
     "images/Pasted image 20261011194109.png",
-    "TODO.canvas",
     "分布式/分库分表.md",
     "游戏速通/星露谷.md",
     "现代UI/动画素材积累.md",
@@ -256,8 +255,6 @@
     "调试",
     "算法/链表.md",
     "现代UI/tauri+vue的结合.md",
-    "分布式/软硬件协同.md",
-    "分布式/01-显存与模型并行.md",
     "项目管理",
     "分布式",
     "元学习",
