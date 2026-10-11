@@ -11,17 +11,14 @@
             "id": "0186cb82a49d1c6d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3630,
-                  "y": 425,
-                  "zoom": 0
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ]
@@ -225,13 +222,13 @@
   },
   "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "TODO.canvas",
     "游戏速通/星露谷.md",
     "现代UI/动画素材积累.md",
     "images/生长条.gif",
     "images/蚂蚁爬线图.gif",
     "images/心电图.gif",
     "心电图 1.gif",
-    "TODO.canvas",
     "经典库学习/pytorch.md",
     "index.md",
     "分布式/Raft算法.md",
