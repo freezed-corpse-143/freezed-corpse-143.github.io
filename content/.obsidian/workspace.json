@@ -11,14 +11,17 @@
             "id": "0186cb82a49d1c6d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "软件使用.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3630,
+                  "y": 425,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "软件使用"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -220,8 +223,9 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "软件使用.md",
     "images/Pasted image 20261011194109.png",
     "TODO.canvas",
     "分布式/分库分表.md",
@@ -262,7 +266,6 @@
     "images/world-model-genealogy.png",
     "images/Pasted image 20261002173156.png",
     "images/Pasted image 20261002160840.png",
-    "images/Pasted image 20261001231119.png",
     "现代UI",
     "小说idea",
     "软件工程",
