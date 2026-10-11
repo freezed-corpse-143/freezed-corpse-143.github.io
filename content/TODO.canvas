@@ -11,16 +11,6 @@
 			"height":80
 		},
 		{
-			"id":"d73d64e25289ddfa",
-			"type":"text",
-			"text":"自己准备 AI 面试",
-			"styleAttributes":{},
-			"x":-4030,
-			"y":540,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9751bcc38bd1052d",
 			"type":"text",
 			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
@@ -55,8 +45,18 @@
 			"type":"text",
 			"text":"角谷猜想仓库化",
 			"styleAttributes":{},
-			"x":-3960,
-			"y":700,
+			"x":-3980,
+			"y":620,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d73d64e25289ddfa",
+			"type":"text",
+			"text":"自己准备 AI 面试",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":510,
 			"width":260,
 			"height":60
 		}
