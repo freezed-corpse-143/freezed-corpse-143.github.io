@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "分布式/分库分表.md",
+                "file": "软件使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "分库分表"
+              "title": "软件使用"
             }
           }
         ]
@@ -80,8 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -221,11 +220,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "0186cb82a49d1c6d",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
-    "游戏速通/星露谷.md",
-    "分布式/分库分表.md",
+    "images/Pasted image 20261011194109.png",
     "TODO.canvas",
+    "分布式/分库分表.md",
+    "游戏速通/星露谷.md",
     "现代UI/动画素材积累.md",
     "images/生长条.gif",
     "images/蚂蚁爬线图.gif",
@@ -254,7 +254,6 @@
     "现代UI/tauri+vue的结合.md",
     "分布式/软硬件协同.md",
     "分布式/01-显存与模型并行.md",
-    "分布式/分布式大模型.md",
     "项目管理",
     "分布式",
     "元学习",
