@@ -49,16 +49,6 @@
 			"y":540,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"7a1df5fc51d8bc8e",
-			"type":"text",
-			"text":"生长树的布局计算",
-			"styleAttributes":{},
-			"x":-3490,
-			"y":660,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
