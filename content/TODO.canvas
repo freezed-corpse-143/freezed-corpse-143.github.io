@@ -49,6 +49,16 @@
 			"y":540,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"c2fa1a16ad3b0d59",
+			"type":"text",
+			"text":"角谷猜想仓库化",
+			"styleAttributes":{},
+			"x":-3960,
+			"y":700,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
