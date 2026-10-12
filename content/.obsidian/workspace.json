@@ -39,17 +39,14 @@
             "id": "a1433cf03142d320",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3630,
-                  "y": 913.4984059511161,
-                  "zoom": -0.34956503068568695
-                }
+                "file": "现代UI/现代客户端入门.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "现代客户端入门"
             }
           }
         ],
@@ -112,7 +109,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -254,8 +252,9 @@
   },
   "active": "a1433cf03142d320",
   "lastOpenFiles": [
-    "现代UI/动画素材积累.md",
     "TODO.canvas",
+    "现代UI/现代客户端入门.md",
+    "现代UI/动画素材积累.md",
     "软件工程/链式调用.md",
     "软件工程/元编程.md",
     "软件使用.md",
@@ -285,7 +284,6 @@
     "调试/Nsight Systems.md",
     "调试/x64_dbg.md",
     "调试",
-    "算法/链表.md",
     "项目管理",
     "分布式",
     "元学习",
