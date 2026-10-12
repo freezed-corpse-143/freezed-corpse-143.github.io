@@ -81,11 +81,21 @@
 			"height":60
 		},
 		{
+			"id":"a8759e2869df3a56",
+			"type":"text",
+			"text":"字符串算法",
+			"styleAttributes":{},
+			"x":-3560,
+			"y":800,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"9751bcc38bd1052d",
 			"type":"text",
 			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
 			"styleAttributes":{},
-			"x":-3960,
+			"x":-4000,
 			"y":380,
 			"width":260,
 			"height":150

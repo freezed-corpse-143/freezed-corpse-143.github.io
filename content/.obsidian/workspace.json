@@ -39,17 +39,14 @@
             "id": "2739be8804ae7c8d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3726.732672184329,
-                  "y": 863.6402051035079,
-                  "zoom": -0.12033960999913518
-                }
+                "file": "绘图.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "绘图"
             }
           }
         ],
@@ -254,13 +251,13 @@
   },
   "active": "2739be8804ae7c8d",
   "lastOpenFiles": [
+    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "算法/数组.md",
     "现代UI/动画素材积累.md",
     "软件工程/链式调用.md",
     "算法/链表.md",
     "人工智能/多智能体设计.md",
-    "TODO.canvas",
     "现代UI/现代客户端入门.md",
     "软件工程/元编程.md",
     "软件使用.md",
@@ -285,7 +282,6 @@
     "人工智能/现代模型.md",
     "人工智能/TVM.md",
     "人工智能/Agent Harness.md",
-    "调试/NCCL.md",
     "调试",
     "项目管理",
     "分布式",
