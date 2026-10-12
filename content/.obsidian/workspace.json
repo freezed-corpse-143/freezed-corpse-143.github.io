@@ -25,20 +25,18 @@
             "id": "d93e91c778ef11cb",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3630,
-                  "y": 558.0031880977683,
-                  "zoom": -0.34956503068568695
-                }
+                "file": "现代UI/动画素材积累.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "动画素材积累"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -97,8 +95,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -238,7 +235,7 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "0186cb82a49d1c6d",
+  "active": "d93e91c778ef11cb",
   "lastOpenFiles": [
     "TODO.canvas",
     "软件工程/链式调用.md",
