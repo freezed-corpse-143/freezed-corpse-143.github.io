@@ -51,26 +51,6 @@
 			"height":60
 		},
 		{
-			"id":"1f983d54dec589ae",
-			"type":"text",
-			"text":"客户端设计入门",
-			"styleAttributes":{},
-			"x":-3900,
-			"y":660,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"1f2e8d4042c57c95",
-			"type":"text",
-			"text":"obsdian 插入 html",
-			"styleAttributes":{},
-			"x":-3960,
-			"y":800,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"780f2d7ebe3c5817",
 			"type":"text",
 			"text":"后缀编程",
@@ -79,9 +59,106 @@
 			"y":840,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"1f983d54dec589ae",
+			"type":"text",
+			"text":"客户端设计入门",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":650,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1f2e8d4042c57c95",
+			"type":"text",
+			"text":"obsdian 插入 html",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":710,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"df709238a0513623",
+			"type":"text",
+			"text":"构造树干",
+			"styleAttributes":{},
+			"x":-3980,
+			"y":920,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"e4a0ff6986189985",
+			"type":"text",
+			"text":"平衡树两侧的子节点数目",
+			"styleAttributes":{},
+			"x":-3980,
+			"y":1040,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"125bf72b3d560305",
+			"type":"text",
+			"text":"两侧分别进行子节点排序",
+			"styleAttributes":{},
+			"x":-3980,
+			"y":1160,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"11f296c2dbaa2b5f",
+			"type":"text",
+			"text":"递归构造子树",
+			"styleAttributes":{},
+			"x":-3980,
+			"y":1280,
+			"width":260,
+			"height":60
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"78ec5a73f10fcd51",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"df709238a0513623",
+			"fromSide":"bottom",
+			"toNode":"e4a0ff6986189985",
+			"toSide":"top"
+		},
+		{
+			"id":"17e57c2629d56cd1",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"e4a0ff6986189985",
+			"fromSide":"bottom",
+			"toNode":"125bf72b3d560305",
+			"toSide":"top"
+		},
+		{
+			"id":"617de2a54b52257e",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"125bf72b3d560305",
+			"fromSide":"bottom",
+			"toNode":"11f296c2dbaa2b5f",
+			"toSide":"top"
+		},
+		{
+			"id":"faff1f83b7824583",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"11f296c2dbaa2b5f",
+			"fromSide":"left",
+			"toNode":"df709238a0513623",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
