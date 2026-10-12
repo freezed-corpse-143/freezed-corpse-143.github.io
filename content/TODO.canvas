@@ -59,6 +59,16 @@
 			"y":680,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"1f983d54dec589ae",
+			"type":"text",
+			"text":"客户端设计入门",
+			"styleAttributes":{},
+			"x":-3900,
+			"y":660,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
