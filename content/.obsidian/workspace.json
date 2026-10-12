@@ -50,7 +50,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -109,7 +109,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -249,8 +250,9 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "2739be8804ae7c8d",
+  "active": "a1433cf03142d320",
   "lastOpenFiles": [
+    "绘图.md",
     "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "算法/数组.md",
