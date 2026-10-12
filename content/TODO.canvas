@@ -51,32 +51,12 @@
 			"height":60
 		},
 		{
-			"id":"780f2d7ebe3c5817",
-			"type":"text",
-			"text":"后缀编程",
-			"styleAttributes":{},
-			"x":-3540,
-			"y":840,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"1f983d54dec589ae",
 			"type":"text",
 			"text":"客户端设计入门",
 			"styleAttributes":{},
 			"x":-4030,
 			"y":650,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"1f2e8d4042c57c95",
-			"type":"text",
-			"text":"obsdian 插入 html",
-			"styleAttributes":{},
-			"x":-4030,
-			"y":710,
 			"width":260,
 			"height":60
 		},
@@ -117,6 +97,26 @@
 			"styleAttributes":{},
 			"x":-3980,
 			"y":1280,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1f2e8d4042c57c95",
+			"type":"text",
+			"text":"obsdian 插入 html",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"780f2d7ebe3c5817",
+			"type":"text",
+			"text":"后缀编程",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":820,
 			"width":260,
 			"height":60
 		}
