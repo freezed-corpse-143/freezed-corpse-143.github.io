@@ -21,16 +21,6 @@
 			"height":150
 		},
 		{
-			"id":"a54a3397fb45fc86",
-			"type":"text",
-			"text":"多次检索：通过检索粒度和结果，优化检索过程",
-			"styleAttributes":{},
-			"x":-3490,
-			"y":440,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"859bb0620533fa88",
 			"type":"text",
 			"text":"可视化的下一步就是可视化编辑",
@@ -67,6 +57,16 @@
 			"styleAttributes":{},
 			"x":-3900,
 			"y":660,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1f2e8d4042c57c95",
+			"type":"text",
+			"text":"obsdian 插入 html",
+			"styleAttributes":{},
+			"x":-3960,
+			"y":800,
 			"width":260,
 			"height":60
 		}
