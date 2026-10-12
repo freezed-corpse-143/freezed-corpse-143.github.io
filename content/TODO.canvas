@@ -109,6 +109,16 @@
 			"y":740,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"55a5f90fec238022",
+			"type":"text",
+			"text":"什么是连续批处理",
+			"styleAttributes":{},
+			"x":-3500,
+			"y":920,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

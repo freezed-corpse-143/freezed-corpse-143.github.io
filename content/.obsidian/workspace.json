@@ -34,9 +34,26 @@
               "icon": "lucide-file",
               "title": "动画素材积累"
             }
+          },
+          {
+            "id": "a1433cf03142d320",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3630,
+                  "y": 795,
+                  "zoom": -0.34956503068568695
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -235,10 +252,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d93e91c778ef11cb",
+  "active": "a1433cf03142d320",
   "lastOpenFiles": [
-    "软件工程/链式调用.md",
     "现代UI/动画素材积累.md",
+    "软件工程/链式调用.md",
     "TODO.canvas",
     "软件工程/元编程.md",
     "软件使用.md",
