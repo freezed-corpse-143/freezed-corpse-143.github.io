@@ -51,16 +51,6 @@
 			"height":60
 		},
 		{
-			"id":"c2fa1a16ad3b0d59",
-			"type":"text",
-			"text":"角谷猜想仓库化",
-			"styleAttributes":{},
-			"x":-4030,
-			"y":620,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"fb56d4fc923f916d",
 			"type":"text",
 			"text":"10 月 15 日开始面试中邮建智能化工程师。",
