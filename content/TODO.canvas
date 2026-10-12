@@ -11,16 +11,6 @@
 			"height":80
 		},
 		{
-			"id":"9751bcc38bd1052d",
-			"type":"text",
-			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
-			"styleAttributes":{},
-			"x":-3490,
-			"y":255,
-			"width":260,
-			"height":150
-		},
-		{
 			"id":"859bb0620533fa88",
 			"type":"text",
 			"text":"可视化的下一步就是可视化编辑",
@@ -31,12 +21,42 @@
 			"height":60
 		},
 		{
-			"id":"d73d64e25289ddfa",
+			"id":"df709238a0513623",
 			"type":"text",
-			"text":"自己准备 AI 面试",
+			"text":"构造树干",
 			"styleAttributes":{},
 			"x":-4030,
-			"y":510,
+			"y":710,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"e4a0ff6986189985",
+			"type":"text",
+			"text":"平衡树两侧的子节点数目",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":830,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"125bf72b3d560305",
+			"type":"text",
+			"text":"两侧分别进行子节点排序",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":950,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"11f296c2dbaa2b5f",
+			"type":"text",
+			"text":"递归构造子树",
+			"styleAttributes":{},
+			"x":-4030,
+			"y":1070,
 			"width":260,
 			"height":60
 		},
@@ -51,54 +71,24 @@
 			"height":60
 		},
 		{
-			"id":"df709238a0513623",
+			"id":"d73d64e25289ddfa",
 			"type":"text",
-			"text":"构造树干",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":920,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"e4a0ff6986189985",
-			"type":"text",
-			"text":"平衡树两侧的子节点数目",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":1040,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"125bf72b3d560305",
-			"type":"text",
-			"text":"两侧分别进行子节点排序",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":1160,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"11f296c2dbaa2b5f",
-			"type":"text",
-			"text":"递归构造子树",
-			"styleAttributes":{},
-			"x":-3980,
-			"y":1280,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"55a5f90fec238022",
-			"type":"text",
-			"text":"什么是连续批处理",
+			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
 			"x":-4030,
-			"y":780,
+			"y":600,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"9751bcc38bd1052d",
+			"type":"text",
+			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
+			"styleAttributes":{},
+			"x":-3960,
+			"y":380,
+			"width":260,
+			"height":150
 		}
 	],
 	"edges":[

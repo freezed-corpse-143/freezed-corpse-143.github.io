@@ -34,9 +34,26 @@
               "icon": "lucide-file",
               "title": "大模型推理加速"
             }
+          },
+          {
+            "id": "2739be8804ae7c8d",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3726.732672184329,
+                  "y": 863.6402051035079,
+                  "zoom": -0.12033960999913518
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -95,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -236,14 +252,14 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a1433cf03142d320",
+  "active": "2739be8804ae7c8d",
   "lastOpenFiles": [
+    "人工智能/大模型推理加速.md",
     "算法/数组.md",
     "现代UI/动画素材积累.md",
     "软件工程/链式调用.md",
     "算法/链表.md",
     "人工智能/多智能体设计.md",
-    "人工智能/大模型推理加速.md",
     "TODO.canvas",
     "现代UI/现代客户端入门.md",
     "软件工程/元编程.md",
