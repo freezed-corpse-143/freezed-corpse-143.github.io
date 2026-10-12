@@ -59,6 +59,16 @@
 			"y":620,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"fb56d4fc923f916d",
+			"type":"text",
+			"text":"10 月 15 日开始面试中邮建智能化工程师。",
+			"styleAttributes":{},
+			"x":-3490,
+			"y":680,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
