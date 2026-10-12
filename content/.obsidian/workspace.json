@@ -35,7 +35,8 @@
               "title": "动画素材积累"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -234,11 +235,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "0186cb82a49d1c6d",
+  "active": "d93e91c778ef11cb",
   "lastOpenFiles": [
+    "软件工程/链式调用.md",
     "现代UI/动画素材积累.md",
     "TODO.canvas",
-    "软件工程/链式调用.md",
     "软件工程/元编程.md",
     "软件使用.md",
     "images/Pasted image 20261011194109.png",
