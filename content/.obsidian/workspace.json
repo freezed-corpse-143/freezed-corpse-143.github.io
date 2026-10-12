@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +97,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -238,10 +238,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d93e91c778ef11cb",
+  "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
-    "软件工程/链式调用.md",
     "TODO.canvas",
+    "软件工程/链式调用.md",
     "软件工程/元编程.md",
     "软件使用.md",
     "images/Pasted image 20261011194109.png",
