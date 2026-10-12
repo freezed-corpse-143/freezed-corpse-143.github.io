@@ -35,8 +35,7 @@
               "title": "动画素材积累"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -235,8 +234,9 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d93e91c778ef11cb",
+  "active": "0186cb82a49d1c6d",
   "lastOpenFiles": [
+    "现代UI/动画素材积累.md",
     "TODO.canvas",
     "软件工程/链式调用.md",
     "软件工程/元编程.md",
@@ -244,7 +244,6 @@
     "images/Pasted image 20261011194109.png",
     "分布式/分库分表.md",
     "游戏速通/星露谷.md",
-    "现代UI/动画素材积累.md",
     "images/生长条.gif",
     "images/蚂蚁爬线图.gif",
     "images/心电图.gif",
