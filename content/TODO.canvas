@@ -41,16 +41,6 @@
 			"height":60
 		},
 		{
-			"id":"3a6df50a7011d51a",
-			"type":"text",
-			"text":"vllm 的 prefill 与 decode 分离",
-			"styleAttributes":{},
-			"x":-3560,
-			"y":950,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"e4a0ff6986189985",
 			"type":"text",
 			"text":"平衡树两侧的子节点数目",

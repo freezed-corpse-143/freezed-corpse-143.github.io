@@ -22,31 +22,20 @@
             }
           },
           {
-            "id": "a1433cf03142d320",
+            "id": "0a0a5d6a5be6ca5f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "人工智能/大模型推理加速.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3705,
+                  "y": 720,
+                  "zoom": -0.13596955758639778
+                }
               },
-              "icon": "lucide-file",
-              "title": "大模型推理加速"
-            }
-          },
-          {
-            "id": "2739be8804ae7c8d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "人工智能/大模型推理加速.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "大模型推理加速"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ],
@@ -249,7 +238,7 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a1433cf03142d320",
+  "active": "0a0a5d6a5be6ca5f",
   "lastOpenFiles": [
     "现代UI/动画素材积累.md",
     "人工智能/大模型推理加速.md",
