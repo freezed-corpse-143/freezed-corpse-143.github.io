@@ -1,6 +1,5 @@
 {
 	"nodes":[
-		{"id":"9a1a43a7a634d67d","x":-3494,"y":1041,"width":260,"height":60,"type":"text","text":""},
 		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
@@ -129,6 +128,26 @@
 			"x":-3480,
 			"y":920,
 			"width":320,
+			"height":60
+		},
+		{
+			"id":"9a1a43a7a634d67d",
+			"type":"text",
+			"text":"中电科数字技术有限公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1010,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"97e81f3ad3f11496",
+			"type":"text",
+			"text":"",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1100,
+			"width":260,
 			"height":60
 		}
 	],
