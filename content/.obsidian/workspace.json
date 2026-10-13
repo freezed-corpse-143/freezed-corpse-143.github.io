@@ -11,17 +11,14 @@
             "id": "dc3029869bc9ebe0",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3656.974610478151,
-                  "y": 944.9299079655218,
-                  "zoom": -0.47083685708326833
-                }
+                "file": "找工作/招聘.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "招聘"
             }
           },
           {
@@ -239,8 +236,11 @@
   },
   "active": "dc3029869bc9ebe0",
   "lastOpenFiles": [
-    "现代UI/动画素材积累.md",
+    "找工作/实习.md",
+    "找工作/招聘.md",
+    "找工作",
     "TODO.canvas",
+    "现代UI/动画素材积累.md",
     "软件使用.md",
     "算法/数组.md",
     "人工智能/大模型推理加速.md",
@@ -269,7 +269,6 @@
     "编程语言/C++.md",
     "编程语言/RUST & C++混合学习之路.md",
     "编程语言/C & Zig 混合学习之路.md",
-    "人工智能/AgentHarness.md",
     "调试",
     "项目管理",
     "分布式",
@@ -284,7 +283,6 @@
     "软件工程",
     "杂项",
     "游戏速通",
-    "开发经验/全栈开发.canvas",
-    "开发日记/edaname"
+    "开发经验/全栈开发.canvas"
   ]
 }
