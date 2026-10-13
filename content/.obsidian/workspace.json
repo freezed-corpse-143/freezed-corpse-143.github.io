@@ -52,8 +52,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -252,11 +251,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "1381812d74bbd83f",
+  "active": "d93e91c778ef11cb",
   "lastOpenFiles": [
+    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "算法/数组.md",
-    "TODO.canvas",
     "算法/字符串.md",
     "现代UI/动画素材积累.md",
     "算法/动态规划.md",
