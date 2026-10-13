@@ -44,7 +44,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -3703.55,
-                  "y": 1400.6458305358888,
+                  "y": 1196.0458305358889,
                   "zoom": -0.13750352374993502
                 }
               },
@@ -52,7 +52,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -252,11 +253,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d93e91c778ef11cb",
+  "active": "1381812d74bbd83f",
   "lastOpenFiles": [
-    "TODO.canvas",
-    "人工智能/大模型推理加速.md",
     "算法/数组.md",
+    "人工智能/大模型推理加速.md",
+    "TODO.canvas",
     "现代UI/动画素材积累.md",
     "编程语言/cuda学习.md",
     "算法/字符串.md",
