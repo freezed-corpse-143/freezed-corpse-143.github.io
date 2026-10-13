@@ -11,16 +11,6 @@
 			"height":80
 		},
 		{
-			"id":"fb56d4fc923f916d",
-			"type":"text",
-			"text":"10 月 15 日开始面试中邮建智能化工程师。",
-			"styleAttributes":{},
-			"x":-3500,
-			"y":425,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9751bcc38bd1052d",
 			"type":"text",
 			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
@@ -77,6 +67,16 @@
 			"styleAttributes":{},
 			"x":-3600,
 			"y":560,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fb56d4fc923f916d",
+			"type":"text",
+			"text":"10 月 15 日开始面试中邮建智能化工程师。",
+			"styleAttributes":{},
+			"x":-3600,
+			"y":455,
 			"width":260,
 			"height":60
 		}
