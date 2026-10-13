@@ -151,16 +151,6 @@
 			"height":60
 		},
 		{
-			"id":"99b39189cbbec5d1",
-			"type":"text",
-			"text":"cycle trace",
-			"styleAttributes":{},
-			"x":-3880,
-			"y":1190,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"36493f127ddefc59",
 			"type":"text",
 			"text":"拆解面试流程",
@@ -175,8 +165,8 @@
 			"type":"text",
 			"text":"神经元激活动画",
 			"styleAttributes":{},
-			"x":-3880,
-			"y":1300,
+			"x":-3860,
+			"y":1000,
 			"width":260,
 			"height":60
 		},
@@ -185,8 +175,8 @@
 			"type":"text",
 			"text":"心脏跳动动画",
 			"styleAttributes":{},
-			"x":-3880,
-			"y":1430,
+			"x":-3860,
+			"y":1130,
 			"width":260,
 			"height":60
 		}
