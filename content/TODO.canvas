@@ -189,6 +189,16 @@
 			"y":980,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"36493f127ddefc59",
+			"type":"text",
+			"text":"拆解面试流程",
+			"styleAttributes":{},
+			"x":-3800,
+			"y":1280,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

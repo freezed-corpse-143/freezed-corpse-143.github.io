@@ -34,8 +34,26 @@
               "icon": "lucide-file",
               "title": "数组"
             }
+          },
+          {
+            "id": "1381812d74bbd83f",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3703.55,
+                  "y": 1093.745830535889,
+                  "zoom": -0.13750352374993502
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -94,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -235,10 +252,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d93e91c778ef11cb",
+  "active": "1381812d74bbd83f",
   "lastOpenFiles": [
-    "算法/数组.md",
     "人工智能/大模型推理加速.md",
+    "算法/数组.md",
     "TODO.canvas",
     "算法/字符串.md",
     "现代UI/动画素材积累.md",
