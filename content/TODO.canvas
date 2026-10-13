@@ -156,7 +156,7 @@
 			"text":"拆解面试流程",
 			"styleAttributes":{},
 			"x":-3860,
-			"y":820,
+			"y":880,
 			"width":260,
 			"height":60
 		},
@@ -166,7 +166,7 @@
 			"text":"神经元激活动画",
 			"styleAttributes":{},
 			"x":-3860,
-			"y":1000,
+			"y":980,
 			"width":260,
 			"height":60
 		},
@@ -176,7 +176,7 @@
 			"text":"心脏跳动动画",
 			"styleAttributes":{},
 			"x":-3860,
-			"y":1130,
+			"y":1100,
 			"width":260,
 			"height":60
 		}
