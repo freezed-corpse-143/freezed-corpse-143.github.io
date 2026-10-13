@@ -50,7 +50,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -109,8 +109,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -250,12 +249,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "2739be8804ae7c8d",
+  "active": "a1433cf03142d320",
   "lastOpenFiles": [
-    "TODO.canvas",
-    "绘图.md",
     "现代UI/动画素材积累.md",
     "人工智能/大模型推理加速.md",
+    "TODO.canvas",
+    "绘图.md",
     "算法/数组.md",
     "软件工程/链式调用.md",
     "算法/链表.md",
