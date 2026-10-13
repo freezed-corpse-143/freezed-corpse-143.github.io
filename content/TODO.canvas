@@ -71,76 +71,6 @@
 			"height":150
 		},
 		{
-			"id":"d5657a88c89c19b8",
-			"type":"text",
-			"text":"上海能优网电力科技有限公司",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":820,
-			"width":320,
-			"height":60
-		},
-		{
-			"id":"cc99d78a140f1be7",
-			"type":"text",
-			"text":"上海恪能电力电子有限公司",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":920,
-			"width":320,
-			"height":60
-		},
-		{
-			"id":"9a1a43a7a634d67d",
-			"type":"text",
-			"text":"中电科数字技术有限公司",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":1010,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"97e81f3ad3f11496",
-			"type":"text",
-			"text":"中煤能源集团",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":1100,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"fdfadae6f763ddc0",
-			"type":"text",
-			"text":"四川/上海/浙江电力公司",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":1190,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"7a5cc0a2cb81f533",
-			"type":"text",
-			"text":"临港算力公司/中国电信",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":1300,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"b1763fb361270810",
-			"type":"text",
-			"text":"华润电力",
-			"styleAttributes":{},
-			"x":-3480,
-			"y":1400,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
@@ -151,12 +81,72 @@
 			"height":60
 		},
 		{
-			"id":"36493f127ddefc59",
+			"id":"d5657a88c89c19b8",
 			"type":"text",
-			"text":"拆解面试流程",
+			"text":"上海能优网电力科技有限公司",
 			"styleAttributes":{},
-			"x":-3860,
-			"y":820,
+			"x":-3480,
+			"y":640,
+			"width":320,
+			"height":60
+		},
+		{
+			"id":"cc99d78a140f1be7",
+			"type":"text",
+			"text":"上海恪能电力电子有限公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":740,
+			"width":320,
+			"height":60
+		},
+		{
+			"id":"9a1a43a7a634d67d",
+			"type":"text",
+			"text":"中电科数字技术有限公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":830,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"97e81f3ad3f11496",
+			"type":"text",
+			"text":"中煤能源集团",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":920,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fdfadae6f763ddc0",
+			"type":"text",
+			"text":"四川/上海/浙江电力公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1010,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"7a5cc0a2cb81f533",
+			"type":"text",
+			"text":"临港算力公司/中国电信",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1120,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b1763fb361270810",
+			"type":"text",
+			"text":"华润电力",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1220,
 			"width":260,
 			"height":60
 		}
