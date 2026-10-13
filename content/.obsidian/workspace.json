@@ -48,7 +48,8 @@
               "title": "新标签页"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -248,10 +249,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d93e91c778ef11cb",
+  "active": "0a0a5d6a5be6ca5f",
   "lastOpenFiles": [
-    "算法/字符串.md",
     "TODO.canvas",
+    "算法/字符串.md",
     "现代UI/动画素材积累.md",
     "算法/动态规划.md",
     "算法/递归回溯.md",
