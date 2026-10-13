@@ -151,16 +151,6 @@
 			"height":60
 		},
 		{
-			"id":"99b39189cbbec5d1",
-			"type":"text",
-			"text":"cycle trace",
-			"styleAttributes":{},
-			"x":-3860,
-			"y":1130,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"d73d64e25289ddfa",
 			"type":"text",
 			"text":"自己准备 AI 面试",
@@ -171,12 +161,32 @@
 			"height":60
 		},
 		{
+			"id":"99b39189cbbec5d1",
+			"type":"text",
+			"text":"cycle trace",
+			"styleAttributes":{},
+			"x":-3880,
+			"y":1190,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"ee7937ba72f57cbf",
 			"type":"text",
 			"text":"RPA 机器人如何从内网网页获取信息",
 			"styleAttributes":{},
+			"x":-3880,
+			"y":1070,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"36493f127ddefc59",
+			"type":"text",
+			"text":"拆解面试流程",
+			"styleAttributes":{},
 			"x":-3860,
-			"y":830,
+			"y":820,
 			"width":260,
 			"height":60
 		},
@@ -186,7 +196,7 @@
 			"text":"神经元激活动画",
 			"styleAttributes":{},
 			"x":-3880,
-			"y":1520,
+			"y":1300,
 			"width":260,
 			"height":60
 		},
@@ -196,17 +206,7 @@
 			"text":"心脏跳动动画",
 			"styleAttributes":{},
 			"x":-3880,
-			"y":1620,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"36493f127ddefc59",
-			"type":"text",
-			"text":"拆解面试流程",
-			"styleAttributes":{},
-			"x":-3880,
-			"y":1330,
+			"y":1430,
 			"width":260,
 			"height":60
 		}
