@@ -163,10 +163,20 @@
 		{
 			"id":"7a5cc0a2cb81f533",
 			"type":"text",
-			"text":"临港算力公司",
+			"text":"临港算力公司/中国电信",
 			"styleAttributes":{},
 			"x":-3480,
 			"y":1300,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"b1763fb361270810",
+			"type":"text",
+			"text":"华润电力",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1400,
 			"width":260,
 			"height":60
 		}
