@@ -161,16 +161,6 @@
 			"height":60
 		},
 		{
-			"id":"915bbc7839a31890",
-			"type":"text",
-			"text":"神经元激活动画",
-			"styleAttributes":{},
-			"x":-3860,
-			"y":980,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9711614c8ceae3d6",
 			"type":"text",
 			"text":"心脏跳动动画",

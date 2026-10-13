@@ -38,8 +38,7 @@
               "title": "动画素材积累"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -238,13 +237,13 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "eb8469816f29c763",
+  "active": "dc3029869bc9ebe0",
   "lastOpenFiles": [
+    "现代UI/动画素材积累.md",
     "TODO.canvas",
     "软件使用.md",
     "算法/数组.md",
     "人工智能/大模型推理加速.md",
-    "现代UI/动画素材积累.md",
     "编程语言/cuda学习.md",
     "算法/字符串.md",
     "算法/动态规划.md",
