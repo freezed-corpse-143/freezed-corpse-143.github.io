@@ -25,14 +25,17 @@
             "id": "dc3029869bc9ebe0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "算法/数组.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3656.974610478151,
+                  "y": 1202.709754774013,
+                  "zoom": -0.47083685708326833
+                }
               },
-              "icon": "lucide-file",
-              "title": "数组"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -50,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -250,10 +253,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "1381812d74bbd83f",
+  "active": "dc3029869bc9ebe0",
   "lastOpenFiles": [
-    "TODO.canvas",
     "算法/数组.md",
+    "软件使用.md",
+    "TODO.canvas",
     "人工智能/大模型推理加速.md",
     "现代UI/动画素材积累.md",
     "编程语言/cuda学习.md",
@@ -266,7 +270,6 @@
     "人工智能/多智能体设计.md",
     "现代UI/现代客户端入门.md",
     "软件工程/元编程.md",
-    "软件使用.md",
     "images/Pasted image 20261011194109.png",
     "分布式/分库分表.md",
     "游戏速通/星露谷.md",
