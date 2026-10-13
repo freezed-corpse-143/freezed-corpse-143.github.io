@@ -143,10 +143,30 @@
 		{
 			"id":"97e81f3ad3f11496",
 			"type":"text",
-			"text":"si",
+			"text":"中煤能源集团",
 			"styleAttributes":{},
 			"x":-3480,
 			"y":1100,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"fdfadae6f763ddc0",
+			"type":"text",
+			"text":"四川/上海/浙江电力公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1190,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"7a5cc0a2cb81f533",
+			"type":"text",
+			"text":"临港算力公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":1300,
 			"width":260,
 			"height":60
 		}
