@@ -161,16 +161,6 @@
 			"height":60
 		},
 		{
-			"id":"ee7937ba72f57cbf",
-			"type":"text",
-			"text":"RPA 机器人如何从内网网页获取信息",
-			"styleAttributes":{},
-			"x":-3880,
-			"y":1070,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"36493f127ddefc59",
 			"type":"text",
 			"text":"拆解面试流程",
