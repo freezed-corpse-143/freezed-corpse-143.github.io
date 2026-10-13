@@ -11,14 +11,17 @@
             "id": "d93e91c778ef11cb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "现代UI/动画素材积累.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -3543.878645237529,
+                  "y": 739.7452621357796,
+                  "zoom": -0.36826712344272056
+                }
               },
-              "icon": "lucide-file",
-              "title": "动画素材积累"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -238,11 +241,11 @@
   },
   "active": "0a0a5d6a5be6ca5f",
   "lastOpenFiles": [
-    "算法/动态规划.md",
-    "算法/递归回溯.md",
-    "算法/字符串.md",
     "TODO.canvas",
     "现代UI/动画素材积累.md",
+    "算法/字符串.md",
+    "算法/动态规划.md",
+    "算法/递归回溯.md",
     "人工智能/大模型推理加速.md",
     "绘图.md",
     "算法/数组.md",
@@ -269,7 +272,6 @@
     "编程语言/C & Zig 混合学习之路.md",
     "人工智能/AgentHarness.md",
     "git/git clone.md",
-    "人工智能/模型文件.md",
     "调试",
     "项目管理",
     "分布式",

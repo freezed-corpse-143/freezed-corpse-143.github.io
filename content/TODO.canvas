@@ -31,16 +31,6 @@
 			"height":60
 		},
 		{
-			"id":"a8759e2869df3a56",
-			"type":"text",
-			"text":"字符串算法",
-			"styleAttributes":{},
-			"x":-3560,
-			"y":800,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"e4a0ff6986189985",
 			"type":"text",
 			"text":"平衡树两侧的子节点数目",
