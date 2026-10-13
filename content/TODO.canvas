@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"d5657a88c89c19b8","x":-3487,"y":811,"width":260,"height":60,"type":"text","text":""},
+		{"id":"9a1a43a7a634d67d","x":-3494,"y":1041,"width":260,"height":60,"type":"text","text":""},
 		{
 			"id":"aee284c7f4d11331",
 			"type":"text",
@@ -109,6 +109,26 @@
 			"x":-3860,
 			"y":950,
 			"width":260,
+			"height":60
+		},
+		{
+			"id":"d5657a88c89c19b8",
+			"type":"text",
+			"text":"上海能优网电力科技有限公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":820,
+			"width":320,
+			"height":60
+		},
+		{
+			"id":"cc99d78a140f1be7",
+			"type":"text",
+			"text":"上海恪能电力电子有限公司",
+			"styleAttributes":{},
+			"x":-3480,
+			"y":920,
+			"width":320,
 			"height":60
 		}
 	],
