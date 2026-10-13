@@ -151,16 +151,6 @@
 			"height":60
 		},
 		{
-			"id":"9711614c8ceae3d6",
-			"type":"text",
-			"text":"心脏跳动动画",
-			"styleAttributes":{},
-			"x":-3860,
-			"y":950,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"36493f127ddefc59",
 			"type":"text",
 			"text":"拆解面试流程",
