@@ -25,17 +25,14 @@
             "id": "0a0a5d6a5be6ca5f",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3705,
-                  "y": 720,
-                  "zoom": -0.13596955758639778
-                }
+                "file": "算法/字符串.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "字符串"
             }
           }
         ],
@@ -240,9 +237,10 @@
   },
   "active": "0a0a5d6a5be6ca5f",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "算法/字符串.md",
     "现代UI/动画素材积累.md",
     "人工智能/大模型推理加速.md",
-    "TODO.canvas",
     "绘图.md",
     "算法/数组.md",
     "软件工程/链式调用.md",
@@ -270,7 +268,6 @@
     "git/git clone.md",
     "人工智能/模型文件.md",
     "人工智能/现代模型.md",
-    "人工智能/TVM.md",
     "调试",
     "项目管理",
     "分布式",
