@@ -11,17 +11,14 @@
             "id": "bdcff5295149d9aa",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4035.333236694336,
-                  "y": 567,
-                  "zoom": 0
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ]
@@ -225,8 +222,8 @@
   },
   "active": "bdcff5295149d9aa",
   "lastOpenFiles": [
-    "现代UI/动画素材积累.md",
     "TODO.canvas",
+    "现代UI/动画素材积累.md",
     "找工作/招聘.md",
     "找工作/实习.md",
     "找工作",
