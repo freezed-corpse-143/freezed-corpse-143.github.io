@@ -11,17 +11,14 @@
             "id": "bdcff5295149d9aa",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -3670,
-                  "y": 855,
-                  "zoom": -0.5002439431833551
-                }
+                "file": "现代UI/动画素材积累.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "动画素材积累"
             }
           }
         ]
@@ -225,11 +222,11 @@
   },
   "active": "bdcff5295149d9aa",
   "lastOpenFiles": [
+    "TODO.canvas",
     "找工作/招聘.md",
     "现代UI/动画素材积累.md",
     "找工作/实习.md",
     "找工作",
-    "TODO.canvas",
     "软件使用.md",
     "算法/数组.md",
     "人工智能/大模型推理加速.md",
@@ -257,7 +254,6 @@
     "编程语言/Rust.md",
     "编程语言/C++.md",
     "编程语言/RUST & C++混合学习之路.md",
-    "编程语言/C & Zig 混合学习之路.md",
     "调试",
     "项目管理",
     "分布式",
