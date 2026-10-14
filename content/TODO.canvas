@@ -75,8 +75,8 @@
 			"type":"text",
 			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
-			"x":-3600,
-			"y":530,
+			"x":-3510,
+			"y":650,
 			"width":260,
 			"height":60
 		},
@@ -85,8 +85,8 @@
 			"type":"text",
 			"text":"分段柱形图生长",
 			"styleAttributes":{},
-			"x":-3600,
-			"y":620,
+			"x":-3830,
+			"y":740,
 			"width":260,
 			"height":60
 		}
