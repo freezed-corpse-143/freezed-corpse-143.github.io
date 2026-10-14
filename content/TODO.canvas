@@ -79,6 +79,16 @@
 			"y":650,
 			"width":260,
 			"height":300
+		},
+		{
+			"id":"2d48b2a20939834f",
+			"type":"text",
+			"text":"中国中煤",
+			"styleAttributes":{},
+			"x":-3840,
+			"y":980,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
