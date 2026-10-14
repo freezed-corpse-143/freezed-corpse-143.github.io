@@ -89,6 +89,16 @@
 			"y":860,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"954764326600e911",
+			"type":"text",
+			"text":"临港算力",
+			"styleAttributes":{},
+			"x":-3740,
+			"y":1010,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
