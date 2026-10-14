@@ -79,16 +79,6 @@
 			"y":650,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"371ab339b9268815",
-			"type":"text",
-			"text":"分段柱形图生长",
-			"styleAttributes":{},
-			"x":-3830,
-			"y":740,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
