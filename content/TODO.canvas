@@ -61,16 +61,6 @@
 			"height":60
 		},
 		{
-			"id":"d73d64e25289ddfa",
-			"type":"text",
-			"text":"自己准备 AI 面试",
-			"styleAttributes":{},
-			"x":-3600,
-			"y":560,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"fb56d4fc923f916d",
 			"type":"text",
 			"text":"10 月 15 日开始面试中邮建智能化工程师。",
@@ -81,22 +71,22 @@
 			"height":60
 		},
 		{
-			"id":"371ab339b9268815",
+			"id":"d73d64e25289ddfa",
 			"type":"text",
-			"text":"分段柱形图生长",
+			"text":"自己准备 AI 面试",
 			"styleAttributes":{},
-			"x":-3740,
-			"y":860,
+			"x":-3600,
+			"y":530,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"954764326600e911",
+			"id":"371ab339b9268815",
 			"type":"text",
-			"text":"临港算力",
+			"text":"分段柱形图生长",
 			"styleAttributes":{},
-			"x":-3740,
-			"y":1010,
+			"x":-3600,
+			"y":620,
 			"width":260,
 			"height":60
 		}
