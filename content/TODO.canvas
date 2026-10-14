@@ -25,8 +25,8 @@
 			"type":"text",
 			"text":"构造树干",
 			"styleAttributes":{},
-			"x":-4220,
-			"y":650,
+			"x":-4440,
+			"y":380,
 			"width":260,
 			"height":60
 		},
@@ -35,8 +35,8 @@
 			"type":"text",
 			"text":"平衡树两侧的子节点数目",
 			"styleAttributes":{},
-			"x":-4220,
-			"y":770,
+			"x":-4440,
+			"y":500,
 			"width":260,
 			"height":60
 		},
@@ -45,8 +45,8 @@
 			"type":"text",
 			"text":"两侧分别进行子节点排序",
 			"styleAttributes":{},
-			"x":-4220,
-			"y":890,
+			"x":-4440,
+			"y":620,
 			"width":260,
 			"height":60
 		},
@@ -55,40 +55,20 @@
 			"type":"text",
 			"text":"递归构造子树",
 			"styleAttributes":{},
-			"x":-4220,
-			"y":1010,
+			"x":-4440,
+			"y":740,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"fb56d4fc923f916d",
+			"id":"c0a2ddbddd9f86f4",
 			"type":"text",
-			"text":"10 月 15 日开始面试中邮建智能化工程师。",
+			"text":"10 月 17 日电信统一笔试，需要提前调试设备，刷题",
 			"styleAttributes":{},
-			"x":-3600,
-			"y":455,
+			"x":-4030,
+			"y":575,
 			"width":260,
-			"height":60
-		},
-		{
-			"id":"d73d64e25289ddfa",
-			"type":"text",
-			"text":"自己准备 AI 面试\n- [ ] 获取公司信息和职位信息、业务信息\n- [ ] 根据上述信息，猜测需要回答的问题\n- [ ] 根据问题预留答案\n- [ ] 完善简历漏洞",
-			"styleAttributes":{},
-			"x":-3510,
-			"y":650,
-			"width":260,
-			"height":240
-		},
-		{
-			"id":"2d48b2a20939834f",
-			"type":"text",
-			"text":"中国中煤",
-			"styleAttributes":{},
-			"x":-3840,
-			"y":980,
-			"width":260,
-			"height":60
+			"height":90
 		}
 	],
 	"edges":[
