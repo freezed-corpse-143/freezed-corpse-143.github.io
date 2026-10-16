@@ -11,31 +11,17 @@
             "id": "bdcff5295149d9aa",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4035,
-                  "y": 530,
-                  "zoom": -0.8049281846630642
-                }
+                "file": "算法/位运算.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
-            }
-          },
-          {
-            "id": "ca9d58b689a8d58b",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {},
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "位运算"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -235,9 +221,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "ca9d58b689a8d58b",
+  "active": "bdcff5295149d9aa",
   "lastOpenFiles": [
     "TODO.canvas",
+    "算法/位运算.md",
     "windows.md",
     "软件使用.md",
     "游戏速通/星露谷.md",
@@ -268,7 +255,6 @@
     "分布式/Raft算法.md",
     "编程语言/Typescript.md",
     "编程语言/Rust.md",
-    "编程语言/C++.md",
     "调试",
     "项目管理",
     "分布式",
