@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "游戏速通/星露谷.md",
+                "file": "软件使用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "星露谷"
+              "title": "软件使用"
             }
           }
         ]
@@ -80,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -222,8 +223,8 @@
   },
   "active": "bdcff5295149d9aa",
   "lastOpenFiles": [
-    "TODO.canvas",
     "游戏速通/星露谷.md",
+    "TODO.canvas",
     "现代UI/动画素材积累.md",
     "找工作/招聘.md",
     "找工作/实习.md",
