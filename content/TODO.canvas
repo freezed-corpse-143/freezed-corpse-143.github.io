@@ -40,7 +40,17 @@
 			"width":260,
 			"height":150
 		},
-		{"id":"4ae764bb031286b3","type":"text","text":"函数的汇编表示、类的汇编表示","x":-4590,"y":510,"width":260,"height":60}
+		{"id":"4ae764bb031286b3","type":"text","text":"函数的汇编表示、类的汇编表示","x":-4590,"y":510,"width":260,"height":60},
+		{
+			"id":"da39cc61d3afdb9b",
+			"type":"text",
+			"text":"3D 知识图谱可视化、时序知识图谱可视化、层级知识图谱可视化、知识图谱切片",
+			"styleAttributes":{},
+			"x":-4260,
+			"y":330,
+			"width":260,
+			"height":180
+		}
 	],
 	"edges":[],
 	"metadata":{
