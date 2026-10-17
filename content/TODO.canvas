@@ -50,16 +50,6 @@
 			"width":260,
 			"height":60
 		},
-		{
-			"id":"11f296c2dbaa2b5f",
-			"type":"text",
-			"text":"递归构造子树",
-			"styleAttributes":{},
-			"x":-4440,
-			"y":740,
-			"width":260,
-			"height":60
-		},
 		{"id":"4ae764bb031286b3","type":"text","text":"函数的汇编表示、类的汇编表示","x":-4030,"y":560,"width":260,"height":60},
 		{
 			"id":"f3646667f6dbc215",
@@ -74,12 +64,32 @@
 		{
 			"id":"ed710a70c0258c74",
 			"type":"text",
-			"text":"草稿纸和笔没有准备好。\n\n计算需要单独训练",
+			"text":"计算需要单独训练",
 			"styleAttributes":{},
 			"x":-4040,
-			"y":770,
+			"y":800,
 			"width":260,
 			"height":90
+		},
+		{
+			"id":"11f296c2dbaa2b5f",
+			"type":"text",
+			"text":"递归构造子树",
+			"styleAttributes":{},
+			"x":-4440,
+			"y":860,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"86827990e5f1a04f",
+			"type":"text",
+			"text":"左右重心配平",
+			"styleAttributes":{},
+			"x":-4440,
+			"y":740,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
@@ -102,22 +112,32 @@
 			"toSide":"top"
 		},
 		{
-			"id":"617de2a54b52257e",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"125bf72b3d560305",
-			"fromSide":"bottom",
-			"toNode":"11f296c2dbaa2b5f",
-			"toSide":"top"
-		},
-		{
 			"id":"faff1f83b7824583",
 			"styleAttributes":{},
 			"toFloating":false,
+			"fromFloating":false,
 			"fromNode":"11f296c2dbaa2b5f",
 			"fromSide":"left",
 			"toNode":"df709238a0513623",
 			"toSide":"left"
+		},
+		{
+			"id":"abbbd433877a68c8",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"125bf72b3d560305",
+			"fromSide":"bottom",
+			"toNode":"86827990e5f1a04f",
+			"toSide":"top"
+		},
+		{
+			"id":"1df1b2a9b41e543c",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"86827990e5f1a04f",
+			"fromSide":"bottom",
+			"toNode":"11f296c2dbaa2b5f",
+			"toSide":"top"
 		}
 	],
 	"metadata":{
