@@ -60,17 +60,27 @@
 			"width":260,
 			"height":60
 		},
+		{"id":"4ae764bb031286b3","type":"text","text":"函数的汇编表示、类的汇编表示","x":-4030,"y":560,"width":260,"height":60},
 		{
 			"id":"f3646667f6dbc215",
 			"type":"text",
 			"text":"前端的深色模式/浅色模式",
 			"styleAttributes":{},
-			"x":-4000,
-			"y":860,
+			"x":-4040,
+			"y":680,
 			"width":280,
 			"height":60
 		},
-		{"id":"4ae764bb031286b3","type":"text","text":"函数的汇编表示、类的汇编表示","x":-3990,"y":770,"width":260,"height":60}
+		{
+			"id":"ed710a70c0258c74",
+			"type":"text",
+			"text":"草稿纸和笔没有准备好。\n\n计算需要单独训练",
+			"styleAttributes":{},
+			"x":-4040,
+			"y":770,
+			"width":260,
+			"height":90
+		}
 	],
 	"edges":[
 		{
