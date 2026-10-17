@@ -11,17 +11,14 @@
             "id": "a3234419098b57a3",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4035,
-                  "y": 618,
-                  "zoom": 0
-                }
+                "file": "游戏速通/星露谷.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "星露谷"
             }
           }
         ]
@@ -225,11 +222,11 @@
   },
   "active": "a3234419098b57a3",
   "lastOpenFiles": [
+    "TODO.canvas",
     "408/计算机网络.md",
     "算法/递归回溯.md",
     "算法/位运算.md",
     "算法/数组.md",
-    "TODO.canvas",
     "windows.md",
     "软件使用.md",
     "游戏速通/星露谷.md",
@@ -257,7 +254,6 @@
     "index.md",
     "分布式/Raft算法.md",
     "编程语言/Typescript.md",
-    "编程语言/Rust.md",
     "调试",
     "项目管理",
     "分布式",
