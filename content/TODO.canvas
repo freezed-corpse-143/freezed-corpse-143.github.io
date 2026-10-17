@@ -50,6 +50,16 @@
 			"y":330,
 			"width":260,
 			"height":180
+		},
+		{
+			"id":"499b7b4dc434a785",
+			"type":"text",
+			"text":"树生成算法的总结",
+			"styleAttributes":{},
+			"x":-4220,
+			"y":580,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
