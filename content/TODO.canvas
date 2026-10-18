@@ -60,16 +60,6 @@
 			"y":580,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"8c934ee43f98f34d",
-			"type":"text",
-			"text":"\n1. typst 的测试\n",
-			"styleAttributes":{},
-			"x":-4220,
-			"y":690,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
