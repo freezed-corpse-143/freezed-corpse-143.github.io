@@ -11,16 +11,6 @@
 			"height":150
 		},
 		{
-			"id":"da39cc61d3afdb9b",
-			"type":"text",
-			"text":"时序知识图谱可视化、层级知识图谱可视化、知识图谱切片",
-			"styleAttributes":{},
-			"x":-4540,
-			"y":220,
-			"width":260,
-			"height":150
-		},
-		{
 			"id":"ed710a70c0258c74",
 			"type":"text",
 			"text":"计算需要单独训练",
