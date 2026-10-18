@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -238,10 +237,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a67bb4ea45091640",
+  "active": "7c28498a8f593c70",
   "lastOpenFiles": [
-    "编译原理/基础.md",
     "TODO.canvas",
+    "编译原理/基础.md",
     "环境配置.md",
     "算法/递归回溯.md",
     "算法/字符串.md",
