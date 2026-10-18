@@ -25,17 +25,14 @@
             "id": "412b1f6a5d3d82ea",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4590,
-                  "y": 342.5,
-                  "zoom": 0
-                }
+                "file": "人工智能/Agent Sandbox.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "Agent Sandbox"
             }
           }
         ],
@@ -240,8 +237,9 @@
   },
   "active": "412b1f6a5d3d82ea",
   "lastOpenFiles": [
-    "软件工程/错误类型.md",
     "TODO.canvas",
+    "人工智能/Agent Sandbox.md",
+    "软件工程/错误类型.md",
     "编译原理/基础.md",
     "现代UI/浅色模式与深色模式.md",
     "环境配置.md",
@@ -267,7 +265,6 @@
     "找工作",
     "人工智能/大模型推理加速.md",
     "编程语言/cuda学习.md",
-    "绘图.md",
     "images/Pasted image 20261011194109.png",
     "images/生长条.gif",
     "images/蚂蚁爬线图.gif",
