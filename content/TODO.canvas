@@ -19,16 +19,6 @@
 			"y":420,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"0549e444eb1a846f",
-			"type":"text",
-			"text":"sandbox 实现原理",
-			"styleAttributes":{},
-			"x":-4560,
-			"y":420,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
