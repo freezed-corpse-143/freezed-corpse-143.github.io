@@ -31,32 +31,22 @@
 			"height":180
 		},
 		{
+			"id":"ed710a70c0258c74",
+			"type":"text",
+			"text":"计算需要单独训练",
+			"styleAttributes":{},
+			"x":-4590,
+			"y":510,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"499b7b4dc434a785",
 			"type":"text",
 			"text":"树生成算法的总结",
 			"styleAttributes":{},
 			"x":-4260,
-			"y":570,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"f3646667f6dbc215",
-			"type":"text",
-			"text":"前端的深色模式/浅色模式",
-			"styleAttributes":{},
-			"x":-4590,
 			"y":540,
-			"width":280,
-			"height":60
-		},
-		{
-			"id":"ed710a70c0258c74",
-			"type":"text",
-			"text":"计算需要单独训练",
-			"styleAttributes":{},
-			"x":-4580,
-			"y":630,
 			"width":260,
 			"height":60
 		}
