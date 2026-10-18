@@ -1,36 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"aee284c7f4d11331",
-			"type":"text",
-			"text":"牛客网简历投递：https://www.nowcoder.com/jobs/school/schedule?pageSource=schedule_tab",
-			"styleAttributes":{},
-			"x":-4590,
-			"y":200,
-			"width":400,
-			"height":80
-		},
-		{
-			"id":"9751bcc38bd1052d",
-			"type":"text",
-			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
-			"styleAttributes":{},
-			"x":-4590,
-			"y":330,
-			"width":260,
-			"height":150
-		},
-		{
-			"id":"da39cc61d3afdb9b",
-			"type":"text",
-			"text":"3D 知识图谱可视化、时序知识图谱可视化、层级知识图谱可视化、知识图谱切片",
-			"styleAttributes":{},
-			"x":-4260,
-			"y":330,
-			"width":260,
-			"height":180
-		},
-		{
 			"id":"ed710a70c0258c74",
 			"type":"text",
 			"text":"计算需要单独训练",
@@ -39,6 +9,26 @@
 			"y":510,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"9751bcc38bd1052d",
+			"type":"text",
+			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
+			"styleAttributes":{},
+			"x":-4900,
+			"y":205,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"da39cc61d3afdb9b",
+			"type":"text",
+			"text":"3D 知识图谱可视化、时序知识图谱可视化、层级知识图谱可视化、知识图谱切片",
+			"styleAttributes":{},
+			"x":-4540,
+			"y":220,
+			"width":260,
+			"height":150
 		}
 	],
 	"edges":[],
