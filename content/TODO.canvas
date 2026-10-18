@@ -64,12 +64,12 @@
 		{
 			"id":"8c934ee43f98f34d",
 			"type":"text",
-			"text":"\n1. AGENTS.md 的更新\n",
+			"text":"\n1. typst 的测试\n",
 			"styleAttributes":{},
 			"x":-4220,
-			"y":700,
+			"y":690,
 			"width":260,
-			"height":160
+			"height":60
 		}
 	],
 	"edges":[],
