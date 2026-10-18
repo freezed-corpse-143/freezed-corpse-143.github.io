@@ -20,23 +20,6 @@
               "icon": "lucide-file",
               "title": "基础"
             }
-          },
-          {
-            "id": "a67bb4ea45091640",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4300,
-                  "y": 505,
-                  "zoom": 0
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
-            }
           }
         ]
       }
@@ -97,8 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -240,8 +222,9 @@
   },
   "active": "7c28498a8f593c70",
   "lastOpenFiles": [
-    "TODO.canvas",
+    "现代UI/浅色模式与深色模式.md",
     "编译原理/基础.md",
+    "TODO.canvas",
     "环境配置.md",
     "算法/递归回溯.md",
     "算法/字符串.md",
@@ -267,7 +250,6 @@
     "编程语言/cuda学习.md",
     "绘图.md",
     "软件工程/链式调用.md",
-    "人工智能/多智能体设计.md",
     "images/Pasted image 20261011194109.png",
     "images/生长条.gif",
     "images/蚂蚁爬线图.gif",
