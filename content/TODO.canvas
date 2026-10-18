@@ -60,6 +60,16 @@
 			"y":580,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"8c934ee43f98f34d",
+			"type":"text",
+			"text":"\n1. 更新安装经验\n2. AGENTS.md 的更新\n3. b\n",
+			"styleAttributes":{},
+			"x":-4220,
+			"y":700,
+			"width":260,
+			"height":160
 		}
 	],
 	"edges":[],
