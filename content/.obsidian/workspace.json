@@ -11,17 +11,14 @@
             "id": "ab1419cb558b7fa8",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4860,
-                  "y": 410,
-                  "zoom": 0
-                }
+                "file": "软件工程/从业务角度理解语言特性.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "从业务角度理解语言特性"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -225,8 +223,9 @@
   },
   "active": "ab1419cb558b7fa8",
   "lastOpenFiles": [
-    "环境配置.md",
     "TODO.canvas",
+    "软件工程/从业务角度理解语言特性.md",
+    "环境配置.md",
     "需求.md",
     "index.md",
     "人工智能/Agent Sandbox.md",
@@ -251,7 +250,6 @@
     "软件使用.md",
     "现代UI/动画素材积累.md",
     "找工作/招聘.md",
-    "找工作/实习.md",
     "找工作",
     "images/Pasted image 20261011194109.png",
     "images/生长条.gif",
