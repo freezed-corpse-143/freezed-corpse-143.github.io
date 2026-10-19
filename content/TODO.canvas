@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"9751bcc38bd1052d",
-			"type":"text",
-			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
-			"styleAttributes":{},
-			"x":-4900,
-			"y":200,
-			"width":260,
-			"height":150
-		},
-		{
 			"id":"bb4b300a9b940fca",
 			"type":"text",
 			"text":"继续投递简历",
@@ -25,8 +15,28 @@
 			"type":"text",
 			"text":"计算需要单独训练",
 			"styleAttributes":{},
-			"x":-5120,
-			"y":400,
+			"x":-5200,
+			"y":420,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"9751bcc38bd1052d",
+			"type":"text",
+			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
+			"styleAttributes":{},
+			"x":-4780,
+			"y":220,
+			"width":260,
+			"height":150
+		},
+		{
+			"id":"75a94ea8721b3c55",
+			"type":"text",
+			"text":"DeepGEEM",
+			"styleAttributes":{},
+			"x":-4780,
+			"y":420,
 			"width":260,
 			"height":60
 		}
