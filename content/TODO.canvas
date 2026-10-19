@@ -1,26 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"bb4b300a9b940fca",
-			"type":"text",
-			"text":"继续投递简历",
-			"styleAttributes":{},
-			"x":-5200,
-			"y":540,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"ed710a70c0258c74",
-			"type":"text",
-			"text":"计算需要单独训练",
-			"styleAttributes":{},
-			"x":-5200,
-			"y":420,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9751bcc38bd1052d",
 			"type":"text",
 			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
@@ -29,16 +9,6 @@
 			"y":220,
 			"width":260,
 			"height":150
-		},
-		{
-			"id":"75a94ea8721b3c55",
-			"type":"text",
-			"text":"DeepGEEM",
-			"styleAttributes":{},
-			"x":-4780,
-			"y":420,
-			"width":260,
-			"height":60
 		},
 		{
 			"id":"de3ba6cd0ddae0b8",
@@ -51,32 +21,56 @@
 			"height":140
 		},
 		{
-			"id":"142302507f5345fd",
+			"id":"bb4b300a9b940fca",
 			"type":"text",
-			"text":"AI 分析造轮子",
+			"text":"继续投递简历",
 			"styleAttributes":{},
-			"x":-4780,
-			"y":540,
+			"x":-5640,
+			"y":510,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"ed710a70c0258c74",
+			"type":"text",
+			"text":"计算需要单独训练",
+			"styleAttributes":{},
+			"x":-5640,
+			"y":390,
+			"width":260,
+			"height":60,
+			"color":"1"
 		},
 		{
 			"id":"772d408b27db96ad",
 			"type":"text",
 			"text":"学习树生成算法",
 			"styleAttributes":{},
-			"x":-5200,
-			"y":680,
+			"x":-5640,
+			"y":600,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		},
 		{
-			"id":"df0eb5b024e36f90",
+			"id":"2b49cc7411aa629a",
 			"type":"text",
-			"text":"射击中加入音游节奏",
+			"text":"任务拆解与任务描述",
+			"styleAttributes":{},
+			"x":-5640,
+			"y":710,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"d4a6e68232b7b799",
+			"type":"text",
+			"text":"缺一个完整的作品。",
 			"styleAttributes":{},
 			"x":-5200,
-			"y":840,
+			"y":740,
 			"width":260,
 			"height":60
 		},
@@ -85,33 +79,82 @@
 			"type":"text",
 			"text":"为 mistral.rs 添加 windows msvc 版",
 			"styleAttributes":{},
-			"x":-4780,
-			"y":710,
+			"x":-5200,
+			"y":630,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"d4a6e68232b7b799",
+			"id":"142302507f5345fd",
 			"type":"text",
-			"text":"缺一个完整的作品。",
+			"text":"AI 分析造轮子",
 			"styleAttributes":{},
-			"x":-4780,
+			"x":-5640,
 			"y":840,
 			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"df0eb5b024e36f90",
+			"type":"text",
+			"text":"射击中加入音游节奏",
+			"styleAttributes":{},
+			"x":-4840,
+			"y":740,
+			"width":260,
 			"height":60
 		},
 		{
-			"id":"2b49cc7411aa629a",
+			"id":"75a94ea8721b3c55",
 			"type":"text",
-			"text":"任务拆解与任务描述",
+			"text":"DeepGEEM",
 			"styleAttributes":{},
-			"x":-4340,
-			"y":760,
+			"x":-5640,
+			"y":940,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"ac1e3a7e01f54991",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"2b49cc7411aa629a",
+			"fromSide":"right",
+			"toNode":"f2bdee8d86fa44a0",
+			"toSide":"left"
+		},
+		{
+			"id":"fc3a7490cce5bd30",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"2b49cc7411aa629a",
+			"fromSide":"right",
+			"toNode":"d4a6e68232b7b799",
+			"toSide":"left"
+		},
+		{
+			"id":"9c29b46f6c801daa",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"142302507f5345fd",
+			"fromSide":"right",
+			"toNode":"d4a6e68232b7b799",
+			"toSide":"left"
+		},
+		{
+			"id":"6893c50884cdcaa4",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"d4a6e68232b7b799",
+			"fromSide":"right",
+			"toNode":"df0eb5b024e36f90",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
