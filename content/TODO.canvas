@@ -99,6 +99,16 @@
 			"y":840,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"2b49cc7411aa629a",
+			"type":"text",
+			"text":"任务拆解与任务描述",
+			"styleAttributes":{},
+			"x":-4340,
+			"y":760,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
