@@ -11,14 +11,17 @@
             "id": "ab1419cb558b7fa8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "环境配置.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -4860,
+                  "y": 410,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "环境配置"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -222,6 +225,7 @@
   },
   "active": "ab1419cb558b7fa8",
   "lastOpenFiles": [
+    "环境配置.md",
     "TODO.canvas",
     "需求.md",
     "index.md",
@@ -229,7 +233,6 @@
     "软件工程/错误类型.md",
     "编译原理/基础.md",
     "现代UI/浅色模式与深色模式.md",
-    "环境配置.md",
     "算法/递归回溯.md",
     "算法/字符串.md",
     "算法/栈.md",
