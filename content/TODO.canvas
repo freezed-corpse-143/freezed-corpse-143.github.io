@@ -79,6 +79,26 @@
 			"y":700,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"df0eb5b024e36f90",
+			"type":"text",
+			"text":"射击中加入音游节奏",
+			"styleAttributes":{},
+			"x":-5200,
+			"y":840,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"d4a6e68232b7b799",
+			"type":"text",
+			"text":"缺一个完整的作品。",
+			"styleAttributes":{},
+			"x":-4720,
+			"y":880,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
