@@ -59,6 +59,16 @@
 			"y":540,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"772d408b27db96ad",
+			"type":"text",
+			"text":"学习树生成算法",
+			"styleAttributes":{},
+			"x":-5160,
+			"y":680,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
