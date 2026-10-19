@@ -29,6 +29,16 @@
 			"y":200,
 			"width":260,
 			"height":150
+		},
+		{
+			"id":"bb4b300a9b940fca",
+			"type":"text",
+			"text":"继续投递简历",
+			"styleAttributes":{},
+			"x":-5200,
+			"y":540,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
