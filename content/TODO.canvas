@@ -19,6 +19,16 @@
 			"y":420,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"cc2b85f9af16fe30",
+			"type":"text",
+			"text":"改",
+			"styleAttributes":{},
+			"x":-5200,
+			"y":420,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],

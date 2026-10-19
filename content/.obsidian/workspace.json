@@ -4,21 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "5977c5a2342a921a",
+        "id": "25935f493c07465e",
         "type": "tabs",
         "children": [
           {
-            "id": "606b3b1d41c6d3cd",
+            "id": "ab1419cb558b7fa8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "需求.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -4770,
+                  "y": 342.5,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "需求"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -220,8 +223,9 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "606b3b1d41c6d3cd",
+  "active": "ab1419cb558b7fa8",
   "lastOpenFiles": [
+    "需求.md",
     "index.md",
     "TODO.canvas",
     "人工智能/Agent Sandbox.md",
@@ -250,7 +254,6 @@
     "找工作/实习.md",
     "找工作",
     "人工智能/大模型推理加速.md",
-    "编程语言/cuda学习.md",
     "images/Pasted image 20261011194109.png",
     "images/生长条.gif",
     "images/蚂蚁爬线图.gif",
