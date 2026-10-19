@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "树形谱系生成算法"
             }
+          },
+          {
+            "id": "e49ac38b976822f5",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -4860,
+                  "y": 480,
+                  "zoom": -0.5525410230287788
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -221,10 +239,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a3f11c27a25f9394",
+  "active": "e49ac38b976822f5",
   "lastOpenFiles": [
-    "TODO.canvas",
     "现代UI/树形谱系生成算法.md",
+    "TODO.canvas",
     "编程语言/C++.md",
     "软件工程/从业务角度理解语言特性.md",
     "编程语言/Typescript.md",

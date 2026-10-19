@@ -69,6 +69,16 @@
 			"y":680,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f2bdee8d86fa44a0",
+			"type":"text",
+			"text":"为 mistral.rs 添加 windows msvc 版",
+			"styleAttributes":{},
+			"x":-4720,
+			"y":700,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
