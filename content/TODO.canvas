@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"9751bcc38bd1052d",
-			"type":"text",
-			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
-			"styleAttributes":{},
-			"x":-4900,
-			"y":205,
-			"width":260,
-			"height":150
-		},
-		{
 			"id":"ed710a70c0258c74",
 			"type":"text",
 			"text":"计算需要单独训练",
@@ -23,12 +13,22 @@
 		{
 			"id":"cc2b85f9af16fe30",
 			"type":"text",
-			"text":"改",
+			"text":"改推荐表但不提交",
 			"styleAttributes":{},
 			"x":-5200,
 			"y":420,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"9751bcc38bd1052d",
+			"type":"text",
+			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
+			"styleAttributes":{},
+			"x":-4900,
+			"y":200,
+			"width":260,
+			"height":150
 		}
 	],
 	"edges":[],
