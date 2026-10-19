@@ -41,11 +41,21 @@
 			"height":60
 		},
 		{
+			"id":"de3ba6cd0ddae0b8",
+			"type":"text",
+			"text":"多智能体 decode 阶段、将辩论视为耦合，使用 kaplan-york 理论，分析策略诱导多步后的混沌行为与吸引子收敛",
+			"styleAttributes":{},
+			"x":-5200,
+			"y":220,
+			"width":260,
+			"height":140
+		},
+		{
 			"id":"142302507f5345fd",
 			"type":"text",
 			"text":"AI 分析造轮子",
 			"styleAttributes":{},
-			"x":-4720,
+			"x":-4780,
 			"y":540,
 			"width":260,
 			"height":60
