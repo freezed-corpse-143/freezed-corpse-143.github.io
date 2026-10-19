@@ -20,8 +20,19 @@
               "icon": "lucide-file",
               "title": "从业务角度理解语言特性"
             }
+          },
+          {
+            "id": "74e80951ce24f9e2",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -80,8 +91,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -221,10 +231,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "ab1419cb558b7fa8",
+  "active": "74e80951ce24f9e2",
   "lastOpenFiles": [
-    "TODO.canvas",
     "软件工程/从业务角度理解语言特性.md",
+    "软件工程/依赖管理.md",
+    "TODO.canvas",
     "环境配置.md",
     "需求.md",
     "index.md",
