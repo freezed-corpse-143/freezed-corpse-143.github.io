@@ -131,8 +131,8 @@
 			"type":"text",
 			"text":"国奖图片发送",
 			"styleAttributes":{},
-			"x":-5070,
-			"y":910,
+			"x":-5200,
+			"y":840,
 			"width":260,
 			"height":60
 		}
