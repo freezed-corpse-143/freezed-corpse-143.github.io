@@ -135,6 +135,16 @@
 			"y":840,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"9a23c801ec292bcf",
+			"type":"text",
+			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101",
+			"styleAttributes":{},
+			"x":-5040,
+			"y":440,
+			"width":420,
+			"height":60
 		}
 	],
 	"edges":[
