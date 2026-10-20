@@ -43,17 +43,6 @@
 			"color":"1"
 		},
 		{
-			"id":"2b49cc7411aa629a",
-			"type":"text",
-			"text":"任务拆解与任务描述",
-			"styleAttributes":{},
-			"x":-5640,
-			"y":710,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"d4a6e68232b7b799",
 			"type":"text",
 			"text":"缺一个完整的作品。",
@@ -72,17 +61,6 @@
 			"y":630,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"142302507f5345fd",
-			"type":"text",
-			"text":"AI 分析造轮子",
-			"styleAttributes":{},
-			"x":-5640,
-			"y":840,
-			"width":260,
-			"height":60,
-			"color":"1"
 		},
 		{
 			"id":"df0eb5b024e36f90",
@@ -124,27 +102,20 @@
 			"y":440,
 			"width":420,
 			"height":120
+		},
+		{
+			"id":"142302507f5345fd",
+			"type":"text",
+			"text":"AI 分析造轮子",
+			"styleAttributes":{},
+			"x":-5640,
+			"y":740,
+			"width":260,
+			"height":60,
+			"color":"1"
 		}
 	],
 	"edges":[
-		{
-			"id":"ac1e3a7e01f54991",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"2b49cc7411aa629a",
-			"fromSide":"right",
-			"toNode":"f2bdee8d86fa44a0",
-			"toSide":"left"
-		},
-		{
-			"id":"fc3a7490cce5bd30",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"2b49cc7411aa629a",
-			"fromSide":"right",
-			"toNode":"d4a6e68232b7b799",
-			"toSide":"left"
-		},
 		{
 			"id":"9c29b46f6c801daa",
 			"styleAttributes":{},
