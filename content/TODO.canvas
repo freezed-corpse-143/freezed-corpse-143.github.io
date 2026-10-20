@@ -115,6 +115,16 @@
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"fa1ec57947f41c45",
+			"type":"text",
+			"text":"环境不仅包括传统的开发环境，还包括 agent 环境，skill 或 mcp，环境自检很重要。",
+			"styleAttributes":{},
+			"x":-4600,
+			"y":560,
+			"width":260,
+			"height":130
 		}
 	],
 	"edges":[
