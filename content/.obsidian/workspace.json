@@ -29,9 +29,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -4860,
-                  "y": 480,
-                  "zoom": -0.5525410230287788
+                  "x": -4990,
+                  "y": 610,
+                  "zoom": -0.06922958486054251
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -98,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -241,8 +240,9 @@
   },
   "active": "e49ac38b976822f5",
   "lastOpenFiles": [
-    "现代UI/树形谱系生成算法.md",
+    "开发日记/环境自检.md",
     "TODO.canvas",
+    "现代UI/树形谱系生成算法.md",
     "编程语言/C++.md",
     "软件工程/从业务角度理解语言特性.md",
     "编程语言/Typescript.md",
@@ -267,7 +267,6 @@
     "算法/动态规划.md",
     "编译原理",
     "游戏速通/星露谷.md",
-    "408/计算机网络.md",
     "找工作",
     "images/Pasted image 20261011194109.png",
     "images/生长条.gif",
