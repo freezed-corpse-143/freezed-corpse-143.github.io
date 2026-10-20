@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -237,10 +238,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a3f11c27a25f9394",
+  "active": "e49ac38b976822f5",
   "lastOpenFiles": [
-    "TODO.canvas",
     "开发日记/环境自检.md",
+    "TODO.canvas",
     "现代UI/树形谱系生成算法.md",
     "编程语言/C++.md",
     "软件工程/从业务角度理解语言特性.md",
