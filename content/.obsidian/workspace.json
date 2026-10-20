@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "编程语言/C & Zig 混合学习之路.md",
+                "file": "现代UI/树形谱系生成算法.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "C & Zig 混合学习之路"
+              "title": "树形谱系生成算法"
             }
           },
           {
@@ -254,6 +254,7 @@
   },
   "active": "a3f11c27a25f9394",
   "lastOpenFiles": [
+    "编程语言/C & Zig 混合学习之路.md",
     "元学习/关系定位法.md",
     "现代UI/树形谱系生成算法.md",
     "TODO.canvas",
@@ -280,7 +281,6 @@
     "算法/数组.md",
     "算法/模拟.md",
     "算法/链表.md",
-    "算法/堆.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
