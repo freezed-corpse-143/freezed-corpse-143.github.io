@@ -125,6 +125,16 @@
 			"y":560,
 			"width":260,
 			"height":130
+		},
+		{
+			"id":"c4abbcd25ee95a62",
+			"type":"text",
+			"text":"国奖图片发送",
+			"styleAttributes":{},
+			"x":-4360,
+			"y":880,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
