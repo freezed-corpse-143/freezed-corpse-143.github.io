@@ -31,16 +31,6 @@
 			"height":60
 		},
 		{
-			"id":"9a23c801ec292bcf",
-			"type":"text",
-			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101，24 日考试准备。",
-			"styleAttributes":{},
-			"x":-5040,
-			"y":440,
-			"width":420,
-			"height":120
-		},
-		{
 			"id":"75a94ea8721b3c55",
 			"type":"text",
 			"text":"DeepGEEM",
@@ -72,16 +62,6 @@
 			"height":60
 		},
 		{
-			"id":"f2bdee8d86fa44a0",
-			"type":"text",
-			"text":"为 mistral.rs 添加 windows msvc 版",
-			"styleAttributes":{},
-			"x":-5240,
-			"y":630,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"772d408b27db96ad",
 			"type":"text",
 			"text":"学习树生成算法",
@@ -102,6 +82,26 @@
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"9a23c801ec292bcf",
+			"type":"text",
+			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101，24 日考试准备。",
+			"styleAttributes":{},
+			"x":-5200,
+			"y":440,
+			"width":420,
+			"height":120
+		},
+		{
+			"id":"f2bdee8d86fa44a0",
+			"type":"text",
+			"text":"为 mistral.rs 添加 windows msvc 版",
+			"styleAttributes":{},
+			"x":-5200,
+			"y":630,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
