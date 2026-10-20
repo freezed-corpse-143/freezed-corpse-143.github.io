@@ -106,3 +106,5 @@ C 侧先理解 `.c → .o → executable`，再引入构建工具；Zig 侧学�
 
 可以先在 C 中调用一个库，再从 Zig 调用同一个 C API。Zig 官方提供 C 导入、翻译和 C ABI 兼容相关机制。[The Zig Programming Language](https://ziglang.org/documentation/master/?utm_source=chatgpt.com)
 
+# h 文件与 c 文件分离
+
