@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -237,11 +238,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a3f11c27a25f9394",
+  "active": "e49ac38b976822f5",
   "lastOpenFiles": [
+    "现代UI/树形谱系生成算法.md",
     "TODO.canvas",
     "需求.md",
-    "现代UI/树形谱系生成算法.md",
     "开发日记/任务分解.md",
     "开发日记/环境自检.md",
     "编程语言/C++.md",

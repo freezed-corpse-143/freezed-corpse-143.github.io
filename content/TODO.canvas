@@ -72,17 +72,6 @@
 			"color":"1"
 		},
 		{
-			"id":"772d408b27db96ad",
-			"type":"text",
-			"text":"学习树生成算法",
-			"styleAttributes":{},
-			"x":-5540,
-			"y":720,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"ed710a70c0258c74",
 			"type":"text",
 			"text":"计算需要单独训练",
