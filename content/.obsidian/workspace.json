@@ -11,35 +11,34 @@
             "id": "a3f11c27a25f9394",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "开发日记/任务分解.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5080,
+                  "y": 610,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "任务分解"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
             "id": "e49ac38b976822f5",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4990,
-                  "y": 707.5715333822451,
-                  "zoom": -0.06922958486054251
-                }
+                "file": "需求.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "需求"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -239,18 +237,18 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "e49ac38b976822f5",
+  "active": "a3f11c27a25f9394",
   "lastOpenFiles": [
     "开发日记/任务分解.md",
-    "开发日记/环境自检.md",
+    "需求.md",
     "TODO.canvas",
+    "开发日记/环境自检.md",
     "现代UI/树形谱系生成算法.md",
     "编程语言/C++.md",
     "软件工程/从业务角度理解语言特性.md",
     "编程语言/Typescript.md",
     "软件工程/依赖管理.md",
     "环境配置.md",
-    "需求.md",
     "index.md",
     "人工智能/Agent Sandbox.md",
     "软件工程/错误类型.md",
@@ -268,7 +266,6 @@
     "算法/堆.md",
     "算法/动态规划.md",
     "编译原理",
-    "游戏速通/星露谷.md",
     "找工作",
     "images/Pasted image 20261011194109.png",
     "images/生长条.gif",

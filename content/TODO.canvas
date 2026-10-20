@@ -21,69 +21,6 @@
 			"height":140
 		},
 		{
-			"id":"ed710a70c0258c74",
-			"type":"text",
-			"text":"计算需要单独训练",
-			"styleAttributes":{},
-			"x":-5640,
-			"y":390,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
-			"id":"772d408b27db96ad",
-			"type":"text",
-			"text":"学习树生成算法",
-			"styleAttributes":{},
-			"x":-5640,
-			"y":600,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
-			"id":"d4a6e68232b7b799",
-			"type":"text",
-			"text":"缺一个完整的作品。",
-			"styleAttributes":{},
-			"x":-5200,
-			"y":740,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"f2bdee8d86fa44a0",
-			"type":"text",
-			"text":"为 mistral.rs 添加 windows msvc 版",
-			"styleAttributes":{},
-			"x":-5200,
-			"y":630,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"df0eb5b024e36f90",
-			"type":"text",
-			"text":"射击中加入音游节奏",
-			"styleAttributes":{},
-			"x":-4840,
-			"y":740,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"75a94ea8721b3c55",
-			"type":"text",
-			"text":"DeepGEEM",
-			"styleAttributes":{},
-			"x":-5640,
-			"y":940,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"c4abbcd25ee95a62",
 			"type":"text",
 			"text":"国奖图片发送",
@@ -104,12 +41,64 @@
 			"height":120
 		},
 		{
-			"id":"142302507f5345fd",
+			"id":"75a94ea8721b3c55",
 			"type":"text",
-			"text":"AI 分析造轮子",
+			"text":"DeepGEEM",
 			"styleAttributes":{},
-			"x":-5640,
+			"x":-5620,
 			"y":740,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"df0eb5b024e36f90",
+			"type":"text",
+			"text":"射击中加入音游节奏",
+			"styleAttributes":{},
+			"x":-4880,
+			"y":740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"6c42ce4e31f88ee4",
+			"type":"text",
+			"text":"射击微调训练",
+			"styleAttributes":{},
+			"x":-5200,
+			"y":740,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"f2bdee8d86fa44a0",
+			"type":"text",
+			"text":"为 mistral.rs 添加 windows msvc 版",
+			"styleAttributes":{},
+			"x":-5240,
+			"y":630,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"772d408b27db96ad",
+			"type":"text",
+			"text":"学习树生成算法",
+			"styleAttributes":{},
+			"x":-5620,
+			"y":630,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"ed710a70c0258c74",
+			"type":"text",
+			"text":"计算需要单独训练",
+			"styleAttributes":{},
+			"x":-5620,
+			"y":530,
 			"width":260,
 			"height":60,
 			"color":"1"
@@ -117,19 +106,10 @@
 	],
 	"edges":[
 		{
-			"id":"9c29b46f6c801daa",
+			"id":"1e2a08ca67087068",
 			"styleAttributes":{},
 			"toFloating":false,
-			"fromNode":"142302507f5345fd",
-			"fromSide":"right",
-			"toNode":"d4a6e68232b7b799",
-			"toSide":"left"
-		},
-		{
-			"id":"6893c50884cdcaa4",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"d4a6e68232b7b799",
+			"fromNode":"6c42ce4e31f88ee4",
 			"fromSide":"right",
 			"toNode":"df0eb5b024e36f90",
 			"toSide":"left"
