@@ -34,6 +34,23 @@
               "icon": "lucide-file",
               "title": "大模型推理加速"
             }
+          },
+          {
+            "id": "1357c7a69b37917d",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5020,
+                  "y": 834,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
         ],
         "currentTab": 1
@@ -239,6 +256,7 @@
   "active": "81155fcee2619a49",
   "lastOpenFiles": [
     "TODO.canvas",
+    "人工智能/大模型推理加速.md",
     "经验之谈.md",
     "现代UI/树形谱系生成算法.md",
     "编程语言/C & Zig 混合学习之路.md",
@@ -263,7 +281,6 @@
     "算法/贪心.md",
     "算法/双指针.md",
     "算法/数组.md",
-    "算法/模拟.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",

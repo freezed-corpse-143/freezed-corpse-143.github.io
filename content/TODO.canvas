@@ -72,22 +72,12 @@
 			"color":"1"
 		},
 		{
-			"id":"c4abbcd25ee95a62",
-			"type":"text",
-			"text":"国奖图片发送",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":850,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"7f091f2eff6037c4",
 			"type":"text",
 			"text":"偏转角度、子树干伸缩、",
 			"styleAttributes":{},
-			"x":-5500,
-			"y":850,
+			"x":-5540,
+			"y":720,
 			"width":260,
 			"height":60
 		}
