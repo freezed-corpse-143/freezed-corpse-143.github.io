@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -4990,
-                  "y": 610,
+                  "y": 707.5715333822451,
                   "zoom": -0.06922958486054251
                 }
               },
@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -238,11 +237,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "e49ac38b976822f5",
+  "active": "a3f11c27a25f9394",
   "lastOpenFiles": [
+    "TODO.canvas",
     "开发日记/环境自检.md",
     "现代UI/树形谱系生成算法.md",
-    "TODO.canvas",
     "编程语言/C++.md",
     "软件工程/从业务角度理解语言特性.md",
     "编程语言/Typescript.md",
