@@ -91,6 +91,26 @@
 			"width":260,
 			"height":60,
 			"color":"1"
+		},
+		{
+			"id":"7f091f2eff6037c4",
+			"type":"text",
+			"text":"偏转角度、子树干伸缩、",
+			"styleAttributes":{},
+			"x":-5100,
+			"y":980,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"4ec1f22d3e11a59e",
+			"type":"text",
+			"text":"树干粗细",
+			"styleAttributes":{},
+			"x":-5440,
+			"y":980,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
