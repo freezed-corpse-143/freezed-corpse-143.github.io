@@ -25,17 +25,14 @@
             "id": "81155fcee2619a49",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 834,
-                  "zoom": 0
-                }
+                "file": "人工智能/大模型推理加速.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "大模型推理加速"
             }
           }
         ],
@@ -98,8 +95,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -241,11 +237,11 @@
   },
   "active": "81155fcee2619a49",
   "lastOpenFiles": [
+    "TODO.canvas",
     "经验之谈.md",
     "现代UI/树形谱系生成算法.md",
     "编程语言/C & Zig 混合学习之路.md",
     "元学习/关系定位法.md",
-    "TODO.canvas",
     "需求.md",
     "开发日记/任务分解.md",
     "开发日记/环境自检.md",
@@ -267,7 +263,6 @@
     "算法/双指针.md",
     "算法/数组.md",
     "算法/模拟.md",
-    "算法/链表.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
