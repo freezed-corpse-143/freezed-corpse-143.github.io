@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -253,10 +253,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "81155fcee2619a49",
+  "active": "1357c7a69b37917d",
   "lastOpenFiles": [
-    "TODO.canvas",
     "人工智能/大模型推理加速.md",
+    "TODO.canvas",
     "经验之谈.md",
     "现代UI/树形谱系生成算法.md",
     "编程语言/C & Zig 混合学习之路.md",

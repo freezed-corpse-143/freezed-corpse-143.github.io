@@ -23,7 +23,7 @@
 		{
 			"id":"9a23c801ec292bcf",
 			"type":"text",
-			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101，24 日考试准备。",
+			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101 ，24 日考试准备。",
 			"styleAttributes":{},
 			"x":-5180,
 			"y":420,
@@ -78,6 +78,16 @@
 			"styleAttributes":{},
 			"x":-5540,
 			"y":720,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1aa28f8561c6dd92",
+			"type":"text",
+			"text":"曙光信息大模型推理优化面试",
+			"styleAttributes":{},
+			"x":-4700,
+			"y":450,
 			"width":260,
 			"height":60
 		}
