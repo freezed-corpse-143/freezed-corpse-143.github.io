@@ -938,3 +938,37 @@ RejectedHandler (Abort/Discard/CallerRuns/...)
 
 # 线程如何获取任务并执行？
 
+工作线程运行一段取任务的程序，拿到任务后通过普通函数调用执行它。
+
+> **任务 = 执行入口 + 本次执行需要的数据 + 可选的管理信息。**
+> **线程 = 提供执行这项任务的控制流、寄存器状态和调用栈。**
+
+我们从一个具体例子展开。
+
+## 函数只是操作，任务是一次具体的操作请求
+
+假设有函数：
+
+```
+void process_image(Image *image, int quality);
+```
+
+它定义了“如何处理图片”，但还没有确定处理哪张图、使用什么质量。
+
+一次任务则是：
+
+```
+执行 process_image
+image = 某张图片的地址
+quality = 90
+```
+
+因此，同一个函数可以产生许多不同任务：
+
+```
+任务 A：process_image(image_A, 90)
+任务 B：process_image(image_B, 60)
+任务 C：process_image(image_C, 80)
+```
+
+**函数对应操作规则，任务对应一次具体执行。**
