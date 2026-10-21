@@ -807,3 +807,39 @@ g();   // prvalue
 
 ### 抽象实现骨架（伪代码）
 
+```
+class ThreadPool:
+    queue: BlockingQueue<Task>      // 任务队列
+    workers: List<Worker>           // 工作线程集合
+    coreSize, maxSize: int          // 核心/最大线程数
+    keepAlive: Duration             // 非核心线程空闲存活时间
+    handler: RejectedExecutionHandler  // 拒绝策略
+    lock: Mutex                     // 保护 workers 集合
+
+    execute(task):
+        if workers.size < coreSize:
+            addWorker(task)         // 创建核心线程，直接执行该任务
+        else if queue.offer(task):  // 入队成功
+            // 入队后二次检查：池是否已关闭 / 工作线程是否为0，必要时补线程
+        else if workers.size < maxSize:
+            addWorker(task)         // 队列满，扩容到 maxSize
+        else:
+            handler.reject(task)    // 触发拒绝策略
+
+    addWorker(firstTask):
+        t = new Thread(() -> {
+            runTask(firstTask)      // 新线程先执行传入的任务
+            while (!stopped):
+                task = queue.take() // 阻塞取任务（核心线程）
+                                    // 非核心线程用 poll(keepAlive)，超时则退出
+                runTask(task)
+        })
+        lock { workers.add(t) }
+        t.start()
+
+    shutdown():
+        stopped = true
+        interruptAllWorkers()       // 唤醒阻塞在 take() 的线程
+```
+
+### 关键sh
