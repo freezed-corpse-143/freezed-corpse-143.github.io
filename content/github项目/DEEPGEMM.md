@@ -1215,3 +1215,4 @@ dv.container.appendChild(holder3);
 
 读法：同一列是同一个专家，从上往下走完 $\ell \to s \to \text{TopK} \to g$；$E_5$ 整列虚线，因为它不参与打分和排序，只在最后被追加一个固定权重 1 的槽位。
 
+# Swap AB
