@@ -1216,3 +1216,109 @@ dv.container.appendChild(holder3);
 读法：同一列是同一个专家，从上往下走完 $\ell \to s \to \text{TopK} \to g$；$E_5$ 整列虚线，因为它不参与打分和排序，只在最后被追加一个固定权重 1 的槽位。
 
 # Swap AB
+
+## 定义
+
+Swap AB（交换 A/B）= **让 UMMA 反过来算**：把 B 当 A 操作数、A 当 B 操作数，累加出 $D^\top$ 而不是 $D$。
+
+$$
+D = AB^{\top}\quad\Longrightarrow\quad D^{\top}=BA^{\top}
+$$
+
+矩阵值完全不变（$(AB^\top)^\top = BA^\top$），改变的只是**累加器在 TMEM 里的行列语义**。
+
+代码里三处必须同步对调，缺一个就算错：
+
+| 位置 | 非 swap | swap | 源码 |
+|---|---|---|---|
+| 指令描述符的 major | `kMajorA, kMajorB` | `kMajorB, kMajorA` | `impls/sm100_bf16_gemm.cuh:235-238` |
+| 操作数顺序 | `fma(a_desc, b_desc)` | `fma(b_desc, a_desc)` | `:308-312` |
+| 维度语义 | `UMMA_N = BLOCK_N` | `UMMA_N = BLOCK_M` | `:64` |
+
+## 出现原因：TMEM 的 128 行是硬约束
+
+SM100 的累加器放在 TMEM：**固定 128 个 lane（行）** × 最多 512 个 32-bit 列。UMMA 的 **M 维必须映射到 lane**，所以单 CTA 的 MMA M 只有 32/64/128 三档；**N 维映射到列**，可以取 8 的倍数、最大 256。
+
+不 swap 时，这条约束直接落到 block 大小上：
+
+$$
+\text{BLOCK\_M}\in\{32,64,128\},\qquad \text{BLOCK\_N}\in\{16,\dots,256\}
+$$
+
+`sm100_bf16_gemm.cuh:72-73` 就是这个静态断言。swap 之后约束被"对调"了：
+
+| | 非 swap | swap |
+|---|---|---|
+| MMA 的 M | `BLOCK_M`（≤128） | `BLOCK_N`（=128） |
+| MMA 的 N | `BLOCK_N`（≤256） | `BLOCK_M`（≤256） |
+| TMEM 行 | M | N |
+| TMEM 列 | N | M |
+| `BLOCK_M` 可选 | 32 / 64 / 128 | 16 的倍数，≤256 |
+| `BLOCK_N` 可选 | 16 的倍数，≤256 | **恒为 128** |
+
+四条直接动机（`csrc/jit_kernels/heuristics/sm100.hpp`）：
+
+1. **M 可以做高**：swap 的 `block_m` 候选从 16 一直到 256（`:54-58`）；非 swap 卡死在 128。
+2. **m-grouped GEMM 一律 swap**：`MGroupedContiguous` / `WithPsumLayout` / `MGroupedMasked` 直接写死 `swap_ab = true`、`block_n = 128`（`:33-45`）。这类 GEMM 的 token 沿 M 拼接、N 是固定的专家输出宽度，正好落在"N=128、M 大"的形状上。
+3. **可以动态收缩 MMA**：组内尾部不满一个 block 时，
+
+$$
+\text{UMMA\_N} = \operatorname{align}(\text{effective\_M},\,16)
+$$
+
+   直接改指令描述符（`mma/sm100.cuh:155-158`：`desc.n_dim_ = umma_n >> 3`）再做 `fma`（`:281-285`）。非 swap 做不到——MMA 的 M 是 lane 数，不能按需缩小。
+4. **cluster 切分方向互换**：非 swap 只允许 `cluster_m > 1`（否则走不通 A/D 布局），swap 只允许 `cluster_n > 1`（`:81`、`:90`）。因为输出 tile 的行主方向变了。
+
+## 原理：TMEM 里是转置的，取出来要转回去
+
+swap 后 TMEM 的物理布局是 $[N, M]$：行 = N（128 lane），列 = M。epilogue 因此必须做两件事。
+
+### ① 一次读满 128 行
+
+`STORE_BLOCK_N` 被强制等于 128（`sm100_store_cd_swap_ab.cuh:35-37`）：
+
+> The epilogue requires a full warpgroup to read all 128 TMEM rows, implying STORE_BLOCK_N must be 128.
+
+一个 warpgroup 的 4 个 warp 各负责 32 行，所以 `kNumUMMAStoreThreads = 128`；非 swap 时这个值是 `STORE_BLOCK_M`（按 M 切阶段，不需要全组）。
+
+### ② 边读边转置
+
+TMEM 用 `.16x256b` 形态读——不是随便选的，是要凑出 `stmatrix.trans` 的寄存器排布：
+
+```cpp
+cute::SM100_TMEM_LOAD_16dp256b1x::copy(tmem_addr,                    values[0], ..., values[3]); // lane 0 起
+cute::SM100_TMEM_LOAD_16dp256b1x::copy(tmem_addr | 0x00100000,       values[4], ..., values[7]); // lane 16 起
+...
+ptx::SM90_U32x4_STSM_T<uint32_t>::copy(packed[0], packed[1], packed[2], packed[3], smem_ptr);
+```
+
+`_T` 就是 transpose：写 SMEM 的同时把 $[N,M]$ 翻成 $[M,N]$。于是 SMEM 里恢复成行主序的 `16 × 128` tile，TMA 用**普通**的 `[M, N]` descriptor 就能按 `(n_idx, m_idx)` 写出，输出张量不需要任何转置。
+
+$$
+\text{TMEM }[N,M]\ \xrightarrow{\ \text{load}\ }\ \text{寄存器}\ \xrightarrow{\ \text{stmatrix.trans}\ }\ \text{SMEM }[M,N]\ \xrightarrow{\ \text{TMA}\ }\ \text{全局 }[M,N]
+$$
+
+### ③ 按 M 切 store 阶段
+
+因为 N 已经占满 128 行、不能切，切片只能沿 M（TMEM 列）做：
+
+```cpp
+STORE_BLOCK_M = kSwapAB ? 16 : min(BLOCK_M, 128);
+STORE_BLOCK_N = kSwapAB ? BLOCK_N : kSwizzleCDMode / sizeof(cd_dtype_t);
+```
+
+每个阶段搬 `16 × BLOCK_N`（即 16×128），共 `effective_M / 16` 个阶段。非 swap 正好相反：沿 N 每 `STORE_BLOCK_N` 列切一个阶段（bf16 为 64 列），M 方向由 `STORE_BLOCK_M = min(BLOCK_M, 128)` 一次铺满。
+
+## 作用与代价
+
+| 项 | 结论 |
+|---|---|
+| 主要收益 | `BLOCK_M` 可到 256；m-grouped 下按组实际 M 收缩 MMA；cluster 可切 N |
+| store tile | `16 × BLOCK_N`（非 swap：`BLOCK_M × 64`） |
+| store 切分 | swap：沿 M 每 16 行一个阶段，覆盖整个 N；非 swap：沿 N 每 64 列一个阶段 |
+| epilogue 线程 | 固定 128（整个 warpgroup；非 swap 只需 `STORE_BLOCK_M` 个） |
+| 硬限制 | `BLOCK_N` 必须 128；`STORE_BLOCK_N` 必须 128 |
+| 架构限制 | SM90 不支持（`heuristics/sm90.hpp:125` 直接断言 `swap_ab == 0`） |
+| FP8 clamp 输出 | 要求 `STORE_BLOCK_M == 16` 且 128 线程（`sm100_store_cd_swap_ab.cuh:52-53`） |
+
+代价集中在 epilogue：转置必须过一遍寄存器，且 store 只能以 16 行 M 为步长推进；换来的是 MMA 主循环的 tile 形状自由度，以及 grouped 场景下能对每个组的有效 M 做动态收缩。
