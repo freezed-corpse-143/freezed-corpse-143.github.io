@@ -2617,3 +2617,46 @@ $$ i = 2 \times 256 + 7 = 519 $$
 **“一个线程对应一个元素”只是常用写法。** 一个线程也可以循环处理多个元素，多个线程也可以协作处理同一个计算任务。
 
 GPU thread 不是由 OS 单独调度的 CPU 线程，也不是一颗独立物理核心。它是 CUDA 程序中的逻辑执行实例。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide)
+
+## Warp：硬件将线程分组执行的方式
+
+Block 是程序员指定的协作分组，Warp 则是理解 GPU 指令执行的重要分组。
+
+在常规 CUDA 模型下，**同一个 block 中的线程按连续线程编号划分为每组 32 个的 warp**。因此，一个含 256 个线程的 block，会形成 8 个 warp。SM 内的 warp scheduler 会选择就绪的 warp 发射指令。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide)
+
+这里可以借助 CPU 的 SIMD 理解：
+
+- CPU SIMD：一条向量指令处理多份数据。
+- GPU SIMT：程序写成多个线程的形式，硬件把线程分组执行。
+
+不过，Warp 里的线程依然具有各自的逻辑状态，也可以走不同分支：
+
+```
+if (threadIdx.x % 2 == 0) {
+    // 偶数线程执行
+} else {
+    // 奇数线程执行
+}
+```
+
+如果同一个 warp 的线程选择了不同路径，就会发生**分支发散**。执行相应路径时，部分线程会被屏蔽，通常会降低执行效率。
+
+因此，Warp 不能理解成“32 个完全独立的 CPU 核心”，也不要把它理解成“32 个线程永远以完全相同的步调前进”。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide)
+
+## 把整个执行过程连起来
+
+以上面的数组计算为例：
+
+1. **CPU 进程使用 CUDA Context**，准备 GPU 内存和代码等资源。
+2. **CPU 线程启动 Kernel**，把计算提交到一个 stream。
+3. **这次启动形成一个 Grid**，其中包含指定数量的 block。
+4. **GPU 把 Block 安排到 SM 上**，资源不足时，其余 block 等待。
+5. **Block 内的线程被划分成 Warp**，SM 的调度器选择就绪 warp 执行指令。
+6. **所有线程完成后，这次 Kernel 执行结束**；context 和其中的内存等资源仍可用于后续任务。
+
+其中，**Stream 是命令的有序队列，不是执行这些命令的 CPU 线程**。Kernel 启动通常相对主机异步，因此 CPU 提交后可以继续工作，需要结果时再进行适当同步。[docs.nvidia.com](https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/asynchronous-execution.html)
+
+## Stream
+
+### 为什么需要 Stream
+
