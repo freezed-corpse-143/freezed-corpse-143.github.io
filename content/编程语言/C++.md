@@ -1070,4 +1070,9 @@ Java 的 `Runnable`、C++ 的闭包或 `std::function<void()>`，都能承担类
 正确的并发队列还负责**内存可见性**。例如 Java `BlockingQueue` 保证，入队之前的操作 happens-before 另一个线程访问或取出该元素之后的操作。这使工作线程能够看到已经发布的任务数据；它不自动保护入队之后的并发修改。[docs.oracle.com](https://docs.oracle.com/javase/tutorial/essential/concurrency/collections.html)
 
 另外，**“所有线程池都从一个共享队列拉取”并不成立**。线程池也可以使用每线程队列、任务窃取，或者给新建工作线程直接提供第一个任务。OpenJDK 的 `ThreadPoolExecutor` 就存在 `firstTask` 路径，因此任务不一定先经过队列。[GitHub](https://github.com/openjdk/jdk17/blob/master/src/java.base/share/classes/java/util/concurrent/ThreadPoolExecutor.java)
-# 
+# ABI
+
+ABI 规定：编译后的代码如何在二进制层面互相调用、传递数据。**调用者和被调用者，即使分别编译，也必须遵守的一套协作约定。**
+
+## 主要约定什么
+
