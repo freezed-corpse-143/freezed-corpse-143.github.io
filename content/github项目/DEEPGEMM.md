@@ -320,5 +320,43 @@ dv.container.appendChild(container);
 对 token $x_i$、专家 $e$：
 
 $$
-g_{i,e}=\text{norm}(x_i \cdot w_e^g),\ \ \ \  \mathcal{T}_i = \text{TopK}_e \{\}
+g_{i,e}=\text{norm}(x_i \cdot w_e^g),\ \ \ \  \mathcal{T}_i = \text{TopK}_e \{g_{i,e}\}_{e=1}^E
+$$
+- $x_i\in\mathbb{R}^{d}$：第 $i$ 个 token 的隐向量
+- $w^{g}_e\in\mathbb{R}^{d}$：专家 $e$ 的门控权重
+- $g_{i,e}\in\mathbb{R}$：token $i$ 对专家 $e$ 的门控分数
+- $\mathcal{T}_i$：token $i$ 选中的 TopK 专家集合，$|\mathcal{T}_i|=K$
+- `norm` 是门控归一化（如 softmax 或 top-k 归一化），文档未展开具体形式
+
+## 专家计算（SwiGLU）
+
+每个专家 $e$ 内部是一个 SwiGLU 前馈：
+
+$$
+\mathrm{SwiGLU}_e(x)=(xW_{e,1})\odot\mathrm{SiLU}(xW_{e,3}),
+\qquad
+\mathrm{SiLU}(u)=u\,\sigma(u)
+$$
+
+- $W_{e,1}\in\mathbb{R}^{d\times d_{ff}}$：上投影（gate 分支）
+- $W_{e,3}\in\mathbb{R}^{d\times d_{ff}}$：上投影（value 分支）
+- $W_{e,2}\in\mathbb{R}^{d_{ff}\times d}$：下投影（在 MoE 求和里乘上，见下）
+- $\odot$：逐元素乘
+- $\sigma$：sigmoid
+
+严格说 $\mathrm{SwiGLU}_e(x)\in\mathbb{R}^{d_{ff}}$ 是中间激活，完整专家输出还要乘 $W_{e,2}$ 回到 $d$ 维。文档把 `linear1 → linear2 → SwiGLU` 融进一个 kernel，所以公式里通常写成：
+$$
+\mathrm{Expert}_e(x)=\big[(xW_{e,1})\odot\mathrm{SiLU}(xW_{e,3})\big]\,W_{e,2}
+$$
+
+## MoE 输出
+
+$$
+\mathrm{MoE}(x_i)=\sum_{e\in\mathcal{T}_i}g_{i,e}\,\mathrm{SwiGLU}_e(x_i)
+$$
+
+展开为完整形式：
+
+$$
+\mathrm{MoE}(x_i)=\sum_{e\in\mathcal{T}_i}g_{i,e}\cdot\Big(\big[(x_iW_{e,1})\odot\mathrm{SiLU}(x_iW_{e,3})\big]W_{e,2}\Big)
 $$
