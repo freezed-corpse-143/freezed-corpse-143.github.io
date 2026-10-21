@@ -842,4 +842,36 @@ class ThreadPool:
         interruptAllWorkers()       // 唤醒阻塞在 take() 的线程
 ```
 
-### 关键sh
+### 关键设计决策
+
+1. **线程数如何配置**
+   - CPU 密集型：`N + 1`（N = 核数）
+   - IO 密集型：`2N` 或按 `N × (1 + 等待时间/计算时间)` 估算
+   - 实际以压测为准。
+
+2. **任务队列选择**
+   - `ArrayBlockingQueue`（有界，推荐，防 OOM）
+   - `LinkedBlockingQueue`（默认无界，风险高）
+   - `SynchronousQueue`（不排队，直接移交，配合大 maxSize）
+   - `PriorityBlockingQueue`（优先级任务）
+
+3. **拒绝策略**
+   - 抛异常（AbortPolicy）
+   - 调用者线程执行（CallerRunsPolicy，天然背压）
+   - 丢弃最旧任务（DiscardOldestPolicy）
+   - 静默丢弃（DiscardPolicy）
+   - 自定义（落盘、降级、告警）
+
+4. **线程复用与空闲回收**
+   - 核心线程默认常驻（可设 `allowCoreThreadTimeOut`）
+   - 非核心线程空闲超过 keepAlive 后退出
+
+5. **优雅关闭**
+   - `shutdown()`：不再接新任务，执行完队列中已有任务。
+   - `shutdownNow()`：中断工作线程，返回未执行任务列表。
+
+6. **异常处理**
+   - 任务抛异常会导致工作线程死亡，需 `try/catch` 包裹或在 `ThreadFactory` 设 `UncaughtExceptionHandler`，并补建线程。
+
+7. **线程工厂**
+   - 自定义线程名、优先级、守护属性、异常处理器，便于排查。
