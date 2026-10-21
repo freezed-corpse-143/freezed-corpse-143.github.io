@@ -2593,4 +2593,27 @@ CPU 线程也可以共享内存和使用屏障，但 CUDA 把这种局部协作�
 
 ## Thread：一次计算代码的逻辑执行实例
 
+每个 GPU thread 都执行 kernel 函数体，通过自己的索引决定处理什么数据。
 
+一维情况下：
+
+```
+int i = blockIdx.x * blockDim.x + threadIdx.x;
+```
+
+| 标识          | 含义                          |
+| ------------- | ----------------------------- |
+| `blockIdx.x`  | 当前 block 在 grid 中的编号   |
+| `blockDim.x`  | 每个 block 的线程数量         |
+| `threadIdx.x` | 当前 thread 在 block 中的编号 |
+| `i`           | 根据上述信息计算出的全局索引  |
+
+比如每个 block 有 256 个线程，编号为 2 的 block 中，编号为 7 的线程得到：
+
+$$ i = 2 \times 256 + 7 = 519 $$
+
+于是它处理第 519 个元素。
+
+**“一个线程对应一个元素”只是常用写法。** 一个线程也可以循环处理多个元素，多个线程也可以协作处理同一个计算任务。
+
+GPU thread 不是由 OS 单独调度的 CPU 线程，也不是一颗独立物理核心。它是 CUDA 程序中的逻辑执行实例。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide)
