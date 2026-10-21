@@ -1029,3 +1029,93 @@ dv.container.appendChild(holder2);
 
 # mega gate
 
+> gate kernel（`bf16_mega_gate`）= **GEMM + 路由 epilogue**：矩阵乘算出每个 token 对每个专家的打分，再在片上做激活、TopK、归一化。输出的 `topk_idx` / `topk_weights` 直接喂给 Mega MoE 主 kernel。
+
+## 第一步：打分矩阵乘
+
+$$
+\ell_i = W_g\,x_i,\qquad W_g\in\mathbb{R}^{E\times d},\quad \ell_i\in\mathbb{R}^{E}
+$$
+
+- $x_i\in\mathbb{R}^{d}$：第 $i$ 个 token 的隐向量（bf16）
+- $W_g\in\mathbb{R}^{E\times d}$：全局门控权重，$E$ = 路由专家数
+- $\ell_{i,e}$：token $i$ 对专家 $e$ 的**原始打分**（logit），fp32 累加
+- 这一步就是普通 GEMM：$M=T$（token 数）、$N=E$、$K=d$，累加结果先落在 TMEM 里
+
+## 第二步：sqrt-softplus 激活
+
+$$
+s_{i,e}=\sqrt{\operatorname{softplus}(\ell_{i,e})},\qquad
+\operatorname{softplus}(u)=\log\!\left(1+e^{u}\right)
+$$
+
+实现取数值稳定分支（`epilogue/sm100_mega_gate.cuh:19-23`）：
+
+$$
+\operatorname{softplus}(u)=
+\begin{cases}
+u, & u>20\\[2pt]
+\operatorname{log1p}\!\left(e^{u}\right), & u\le 20
+\end{cases}
+$$
+
+- 为什么分支：$e^{20}\approx4.85\times10^{8}$，再大 `expf` 就溢出成 `inf`；而 $u>20$ 时 $\log(1+e^{u})\approx u$ 在 fp32 下已经相等
+- 为什么开根号：softplus 只保证非负，分布仍是长尾；开方压缩动态范围，让 TopK 的相对差距更平滑（**推断**——源码只体现做法，未写动机）
+- $s_{i,e}$ 非负、单调于 $\ell_{i,e}$，这是后面"无偏置时可省激活"的前提
+
+## 第三步：TopK 选择（含偏置）
+
+$$
+r_{i,e}=s_{i,e}+b_e,\qquad
+\mathcal{T}_i=\operatorname{TopK}_{K}\big\{r_{i,e}\big\}_{e=1}^{E}
+$$
+
+- $b_e$：可选打分偏置；图像 token 改用另一套 `image_bias`
+- 偏置**只进排序**，不进入权重（见下一步）
+- 平局取专家下标更小者（`compare_swap_best_first` 里显式比较 index）
+- $E$ 不是 128 的整数倍时，尾部填充专家置 $r=-\infty$
+- 无偏置时因 $s$ 单调，直接按 $\ell$ 排序即可，等价且更省
+
+## 第四步：权重归一化
+
+$$
+g_{i,e}=\gamma\cdot\frac{s_{i,e}}{\displaystyle\sum_{e'\in\mathcal{T}_i}s_{i,e'}+10^{-20}},
+\qquad e\in\mathcal{T}_i
+$$
+
+- 分子是**未加偏置**的 $s_{i,e}$：偏置决定"选谁"，不决定"权重多大"
+- $10^{-20}$ 防零除（专家全 0 时）
+- $\gamma$ = `routed_scaling_factor`，全局缩放，不参与除
+
+## 第五步：写回（含共享专家）
+
+$$
+\operatorname{topk\_idx}[i,:]=\big[\,e_1,\dots,e_K,\ \underbrace{E,\,E+1,\,\dots}_{S\ \text{个共享专家}}\,\big]
+$$
+
+$$
+\operatorname{topk\_weights}[i,:]=\big[\,g_{i,e_1},\dots,g_{i,e_K},\ \underbrace{1,\dots,1}_{S\ \text{个}}\,\big]
+$$
+
+共享专家固定权重 1，不进归一化分母。
+
+## 合起来（单 split、无偏置）
+
+$$
+g_{i,e}=\gamma\cdot
+\frac{\sqrt{\operatorname{softplus}\!\big(x_i w^{g}_{e}\big)}}
+{\displaystyle\sum_{e'\in\mathcal{T}_i}\sqrt{\operatorname{softplus}\!\big(x_i w^{g}_{e'}\big)}+10^{-20}}
+$$
+
+## 实现细节
+
+| 项 | 处理 | 原因 |
+|---|---|---|
+| split-K | 先把各 split 的部分和相加，再激活 | sqrt-softplus 非线性，不能先激活再相加 |
+| 无偏置 + 单 split | 只对选中的 $K$ 个专家激活 | 排序可用原始 logit，省 $E-K$ 次 `exp/log/sqrt` |
+| 有偏置 + 单 split | 在 TMEM 存回时就激活（`kScoreOnStore`） | 偏置要加在激活后的分数上 |
+| masked token | `topk_idx = -1`，`weight = 0` | 直接跳过计算 |
+| force_random | curand 随机抽 $K$ 个**不同**专家，权重是同一个随机数 | 压力测试路由 |
+| 重复专家 | 逻辑→物理：$\text{dup}=(\text{rank\_idx}+i\cdot 23333)\bmod D$ | 各 rank 打散到不同副本 |
+| 专家分波 | 每波 128 个专家（`kNumExpertsPerWave = 32 lane × 4`），每 lane 持 4 个 | warp 内一次排序即可覆盖 128 专家 |
+
