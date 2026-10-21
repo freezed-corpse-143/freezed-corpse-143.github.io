@@ -133,4 +133,8 @@ $$
 
 与 MQA 的区别只在第 $h$ 个头的点积（只在选中的 KV 上）
 
-对每个 query 行 
+对每个 query 行 $i$，取 $\tilde{K}$ 中行索引属于 $\mathcal{S}_i$ 的子矩阵 $\tilde{K}_{\mathcal{S}_i}\in \mathbb{R}^{|\mathcal{S}_i|\times D}$
+
+$$
+P_h[i,j]=(Q_h\tilde{K}_{\mathcal{S}_i}^\top)[i,\cdot], j\in \mathcal{S}_i
+$$
