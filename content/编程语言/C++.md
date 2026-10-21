@@ -1054,3 +1054,19 @@ Java 的 `Runnable`、C++ 的闭包或 `std::function<void()>`，都能承担类
 
 ## 工作线程如何获取任务？
 
+你给出的共享队列模型是常见实现：
+
+```
+提交线程：构造任务 → 放入队列 → 必要时唤醒等待者
+工作线程：等待任务 → 取出任务 → 调用入口 → 再次等待
+```
+
+这里要区分两个机制：
+
+**任务传递**：通过共享内存中的队列、槽位等数据结构完成。
+
+**线程唤醒**：队列为空时，工作线程可以阻塞；提交任务后，通知机制使其有机会恢复运行。底层可能涉及操作系统，但唤醒不等于操作系统替线程调用业务函数。
+
+正确的并发队列还负责**内存可见性**。例如 Java `BlockingQueue` 保证，入队之前的操作 happens-before 另一个线程访问或取出该元素之后的操作。这使工作线程能够看到已经发布的任务数据；它不自动保护入队之后的并发修改。[docs.oracle.com](https://docs.oracle.com/javase/tutorial/essential/concurrency/collections.html)
+
+另外，**“所有线程池都从一个共享队列拉取”并不成立**。线程池也可以使用每线程队列、任务窃取，或者给新建工作线程直接提供第一个任务。OpenJDK 的 `ThreadPoolExecutor` 就存在 `firstTask` 路径，因此任务不一定先经过队列。[GitHub](https://github.com/openjdk/jdk17/blob/master/src/java.base/share/classes/java/util/concurrent/ThreadPoolExecutor.java)
