@@ -772,8 +772,8 @@ g += box(300, 338, 190, 40, P.common, "下一层 x'（H 维）");
 g += `<text x="395" y="398" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.6">→ 下一层</text>`;
 
 // ---- 右：mHC｜右列 = 路由 / 系数（上移一格，与左列逐行对齐） ----
-g += box(610, 4, 190, 40, P.mhc, "上一层 R̃, p, q, M", true);
-g += arrow(705, 44, 705, 58, true);
+g += box(580, 4, 210, 40, P.mhc, "上一层 R̃, p, q, M", true);
+g += arrow(685, 44, 685, 58, true);
 g += box(580, 58, 210, 40, P.mhc, "Mix  q·x + M·R̃");
 g += arrow(685, 98, 685, 114);
 g += box(580, 114, 210, 40, P.mhc, "u（R×H）");
@@ -786,7 +786,7 @@ g += `<text x="685" y="286" text-anchor="middle" font-size="11.5" fill="currentC
 // ---- 跨列连线 ----
 g += path("M490,78 H580");                          // x → Mix（水平对齐）
 g += path("M580,134 H490");                         // u → Collapse（水平对齐）
-g += path("M610,34 H545 V124 H490", true, true);    // 上一层的 p → Collapse
+g += path("M580,34 H545 V124 H490", true, true);    // 上一层的 p → Collapse
 
 // ---- 图例 ----
 function legend(x, color, label) {
