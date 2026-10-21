@@ -8,7 +8,6 @@ GEMM = 分块矩阵乘 + 量化缩放 + 让相邻块共享缓存 + 一个 CTA �
 
 ```dataviewjs
 // ===== GEMM 格子图: D = C + A B =====
-// A: 2x3, B: 3x4  =>  D, C: 2x4
 const m = 2, k = 3, n = 4;
 
 const cell = (txt, bg, title) => {
@@ -44,7 +43,6 @@ const makeTable = (rows, cols, label, bg, isResult) => {
         for (let p = 1; p <= k; p++) terms.push(`A${sub(i+1)}${sub(p)}·B${sub(p)}${sub(j+1)}`);
         title = `D${sub(i+1)}${sub(j+1)} = C${sub(i+1)}${sub(j+1)} + ` + terms.join(" + ");
       } else {
-        // 输入矩阵用字母+下标
         txt = `${label[0]}${sub(i+1)}${sub(j+1)}`;
         title = txt;
       }
@@ -57,10 +55,16 @@ const makeTable = (rows, cols, label, bg, isResult) => {
   return wrap;
 };
 
-// 下标数字转 Unicode 小写（1-9 够用）
 function sub(num) {
   const map = {0:"₀",1:"₁",2:"₂",3:"₃",4:"₄",5:"₅",6:"₆",7:"₇",8:"₈",9:"₉"};
   return String(num).split("").map(d => map[d] || d).join("");
+}
+
+function opSym(s, css) {
+  const d = document.createElement("div");
+  d.textContent = s;
+  d.style.cssText = css;
+  return d;
 }
 
 const container = document.createElement("div");
@@ -83,27 +87,5 @@ row.appendChild(opSym("=", "font-size:26px; padding:0 10px;"));
 row.appendChild(makeTable(m, n, "D", "#fce4ec", true));
 
 container.appendChild(row);
-
-// 说明
-const note = document.createElement("div");
-note.style.cssText = "margin-top:12px; font-size:13px; color:#555; line-height:1.7;";
-note.innerHTML = `
-<b>怎么看这张图：</b><br>
-• 每格是一个标量。<b>悬停 D 的格子</b>可看到完整的展开式，例如
-  D₁₁ = C₁₁ + A₁₁·B₁₁ + A₁₂·B₂₁ + A₁₃·B₃₁。<br>
-• 结果 D 的第 (i,j) 格 = C 的同位置格 + <b>A 第 i 行</b> 与 <b>B 第 j 列</b> 的逐项乘积和（K=${k} 项）。<br>
-• 行数关系：A 的行数(${m}) = D 的行数；B 的列数(${n}) = D 的列数；中间维度 K(${k}) 在相乘时被"消掉"。<br>
-• 在 GPU 里，这些格子会被切成 tile（如 BLOCK_M×BLOCK_N），分给不同 SM 并行算，A/B 的 tile 通过 TMA 搬进 shared memory 的环里。
-`;
-container.appendChild(note);
-
-// 操作符元素
-function opSym(s, css) {
-  const d = document.createElement("div");
-  d.textContent = s;
-  d.style.cssText = css;
-  return d;
-}
-
 dv.container.appendChild(container);
 ```
