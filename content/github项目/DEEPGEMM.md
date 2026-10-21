@@ -778,18 +778,21 @@ g += arrow(425, 406, 425, 422);
 g += box(310, 422, 230, 40, P.common, "RMSNorm");
 g += arrow(425, 462, 425, 478);
 g += box(310, 478, 230, 40, P.common, "Layer");
+g += arrow(425, 518, 425, 534);
+g += box(310, 534, 230, 40, P.common, "x'（H 维）");
+g += `<text x="425" y="592" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.65">→ 下一次调用的 x</text>`;
 
 // ---- 图例 ----
 function legend(x, color, label) {
-  return `<rect x="${x}" y="556" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"/>` +
-    `<text x="${x + 24}" y="569" font-size="12.5" fill="currentColor" opacity="0.85">${esc(label)}</text>`;
+  return `<rect x="${x}" y="612" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"/>` +
+    `<text x="${x + 24}" y="625" font-size="12.5" fill="currentColor" opacity="0.85">${esc(label)}</text>`;
 }
 g += legend(40, P.common, "两者共有");
 g += legend(190, P.std, "仅标准残差（残差直加）");
 g += legend(420, P.mhc, "仅 mHC（路由 / Mix / Collapse / Sinkhorn）");
-g += `<text x="40" y="598" font-size="11.5" fill="currentColor" opacity="0.6">虚线 = 上一层传入 / 传给下一层的系数</text>`;
+g += `<text x="40" y="650" font-size="11.5" fill="currentColor" opacity="0.6">虚线 = 上一层传入 / 传给下一层的系数</text>`;
 
-const svg = `<svg viewBox="0 0 830 610" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
+const svg = `<svg viewBox="0 0 830 670" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
   xmlns="http://www.w3.org/2000/svg"
   font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
   <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
