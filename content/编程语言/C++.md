@@ -975,4 +975,61 @@ quality = 90
 
 ## 怎么把“函数和参数”包装成可以排队的东西？
 
+用 C 风格的结构表达最直接：
+
+```
+// 线程池只认识这个统一接口
+struct Task {
+    void (*entry)(void *);  // 执行入口
+    void *data;            // 本次任务的数据
+};
+
+// 具体任务需要的数据
+struct ImageJob {
+    Image *image;
+    int quality;
+};
+
+// 把统一接口转换成具体函数调用
+void execute_image_job(void *data) {
+    struct ImageJob *job = data;
+    process_image(job->image, job->quality);
+}
+```
+
+提交者准备：
+
+```
+// 示意：job 和 image 必须在任务执行期间保持有效
+struct Task task = {
+    .entry = execute_image_job,
+    .data = job
+};
+
+pool_submit(pool, task);
+```
+
+工作线程执行：
+
+```
+void worker_loop(Pool *pool) {
+    struct Task task;
+
+    while (queue_take(pool->queue, &task)) {
+        task.entry(task.data);
+    }
+}
+```
+
+这里没有神秘的“线程理解任务”过程，只有：
+
+1. 从队列读出 `entry` 和 `data`。
+2. 调用 `entry(data)`。
+3. 入口函数从 `data` 中读取具体参数。
+4. 调用实际业务函数。
+
+**线程池只需要知道怎样调用统一入口，不需要理解图片、质量等业务含义。**
+
+Java 的 `Runnable`、C++ 的闭包或 `std::function<void()>`，都能承担类似的封装作用，但它们的具体内存布局不必相同。
+
 
