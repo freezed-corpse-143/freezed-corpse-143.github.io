@@ -2479,3 +2479,6 @@ $$ \boxed{ \text{GEMM} + \text{Bias} + \text{Activation} } $$
                 ↓
              时间 ↓
 ```
+
+# Kernel 理解
+
