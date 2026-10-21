@@ -936,4 +936,5 @@ RejectedHandler (Abort/Discard/CallerRuns/...)
 - **Condition/信号量**：用于 `awaitTermination` 等待池终止。
 - **Worker 本身是一个"任务+线程"的封装**：既持有线程引用，又实现 Runnable，便于中断和状态追踪。
 
-# 
+# 线程如何获取任务并执行？
+
