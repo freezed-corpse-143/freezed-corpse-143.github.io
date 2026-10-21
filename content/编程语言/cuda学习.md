@@ -2549,3 +2549,44 @@ CPU 进程拥有地址空间、文件描述符等资源。类似地，程序要�
 
 ## Kernel 与 Grid：函数定义和一次执行任务
 
+这两个概念最容易混在一起。
+
+```
+__global__ void doubleValues(...) { ... }
+```
+
+这是 **Kernel 函数定义**，描述计算逻辑。它本身没有规定这一次要启动多少线程。
+
+```
+doubleValues<<<100, 256>>>(...);
+```
+
+这是**一次 Kernel 启动**，指定：
+
+- 100 个 block；
+- 每个 block 256 个 thread；
+- 总共 25,600 个逻辑线程。
+
+这 100 个 block 合起来，就是这次启动的 **Grid**。
+
+可以类比 CPU：
+
+> Kernel 函数像一个工作函数；Kernel 启动像提交一次并行任务；Grid 是这次任务展开后的全部工作。
+
+同一个 kernel 函数可以启动很多次，每次使用不同的数据和 grid 大小。大量逻辑线程也不代表它们全部同时执行，硬件会根据资源容量安排执行。[developer.nvidia.com](https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model)
+
+## Block：能够共享资源、同步协作的线程组
+
+如果只为了给线程编号，直接使用一个很大的线程数组就够了。CUDA 引入 Block，主要是为了提供一个明确的**协作范围**。
+
+同一个 block 内的线程可以：
+
+- 使用该 block 的 **shared memory** 交换中间数据；
+- 使用 `__syncthreads()` 等机制进行块内同步；
+- 协作完成归约、矩阵分块计算等任务。
+
+例如，计算一组数的总和时，每个线程先计算局部结果，再把结果放入 shared memory，由块内线程协作合并。
+
+在通常的执行模型下，**一个 block 在一个 SM 上执行，一个 SM 可以同时容纳多个 block**。不同 block 默认应能独立执行，不能假设谁先运行，也不能假设所有 block 同时驻留；跨 block 协作需要另外设计。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide/?utm_source=chatgpt.com)
+
+CPU 线程也可以共享内存和使用屏障，但 CUDA 把这种局部协作直接纳入了线程组织模型。
