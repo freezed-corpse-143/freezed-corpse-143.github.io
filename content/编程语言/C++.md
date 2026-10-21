@@ -935,3 +935,5 @@ RejectedHandler (Abort/Discard/CallerRuns/...)
 - **状态与线程数打包为原子变量**（Java 的 `ctl`：高 3 位状态、低 29 位线程数）：一次 CAS 同时改状态和计数，避免竞态。
 - **Condition/信号量**：用于 `awaitTermination` 等待池终止。
 - **Worker 本身是一个"任务+线程"的封装**：既持有线程引用，又实现 Runnable，便于中断和状态追踪。
+
+# 

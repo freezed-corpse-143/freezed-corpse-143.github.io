@@ -67,7 +67,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -267,11 +267,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "f06da1c884a9753c",
+  "active": "a17e9b1763649221",
   "lastOpenFiles": [
     "编程语言/cuda学习.md",
-    "TODO.canvas",
     "编程语言/C++.md",
+    "TODO.canvas",
     "编程语言/C & Zig 混合学习之路.md",
     "人工智能/多智能体设计.md",
     "元学习/参考学习法.md",
