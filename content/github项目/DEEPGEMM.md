@@ -102,6 +102,33 @@ dv.container.appendChild(container);
 
 # MQA
 
+1. KV 缩放（逐渐 Token 还原）
 $$
+\tilde{K} = \text{diag}(2^{s^{kv}})K
+$$
+其中 $K,\tilde{K}\in \mathbb{R}^{S_{kv}\times D}$
+
+2. 每个头的点积
+
+对第 $h$ 个头，query 矩阵 $Q_h\in \mathbb{R}^{S_q\times D}$：
 
 $$
+P_h = Q_h \tilde{K}^\top \in \mathbb{R}^{S_q\times S_{kv}}
+$$
+经过 ReLU
+
+$$
+P_h^+ = \text{ReLU}(P_h) \in \mathbb{R}^{S_q\times S_{kv}}
+$$
+头加权求和
+
+$$
+\text{score}= \sum_{h=1}^H P_h^+ \odot (1_{S_{kv}} w^\top_{:,h})
+$$
+
+其中 $w_{:,h}\in\mathbb{R}^{S_q}$ 是第 $h$ 个头的权重列，$1_{S_{kv}}$ 是全 1 列向量，$\odot$ 是逐元素乘，结果 $\text{score} \in \mathbb{R}^{S_q \times S_{kv}}$
+
+# Sparse MQA
+
+
+与 MQA 的
