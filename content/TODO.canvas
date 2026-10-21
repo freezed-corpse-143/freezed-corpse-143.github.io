@@ -90,6 +90,26 @@
 			"y":860,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"6340e233e2a4e306",
+			"type":"text",
+			"text":"线程池的数据结构",
+			"styleAttributes":{},
+			"x":-5040,
+			"y":1060,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"cbbc2c882e1894ad",
+			"type":"text",
+			"text":"stream 资源是什么",
+			"styleAttributes":{},
+			"x":-4940,
+			"y":1180,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

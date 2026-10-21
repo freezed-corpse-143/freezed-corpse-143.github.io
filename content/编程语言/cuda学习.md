@@ -2487,3 +2487,46 @@ $$ \boxed{ \text{GEMM} + \text{Bias} + \text{Activation} } $$
 以下以 NVIDIA CUDA 为例。
 
 ## 先从熟悉的 CPU 程序开始
+
+假设我们要处理一百万个数组元素：
+
+```
+for (int i = 0; i < N; ++i) {
+    output[i] = input[i] * 2;
+}
+```
+
+在 CPU 上，可以建立线程池，把循环分成许多任务，让多个工作线程并行处理。
+
+CUDA 采用另一种表达方式：**写出一个 GPU 线程需要执行的代码，再指定启动多少线程、如何分组。**
+
+```
+__global__ void doubleValues(
+    const float* input, float* output, int N)
+{
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (i < N) {
+        output[i] = input[i] * 2;
+    }
+}
+
+// 每个 block 256 个线程，启动足够多的 block。
+int blocks = (N + 255) / 256;
+doubleValues<<<blocks, 256>>>(input, output, N);
+```
+
+这里已经包含了 Kernel、Grid、Block、Thread。Context 是它们所依托的执行环境，Warp 则涉及这些线程如何在硬件上执行。
+
+## 各个概念与 CPU 的类比
+
+| CUDA 概念          | 借助 CPU 理解             | 准确定义与类比边界                                     |
+| ---------------- | --------------------- | --------------------------------------------- |
+| **Context**      | 一个进程使用 GPU 时的资源与执行环境  | 关联设备内存、代码模块、stream 等资源；它不是完整的 OS 进程           |
+| **Kernel 函数**    | 并行任务的函数体              | 定义一个 GPU 线程要执行的代码                             |
+| **一次 Kernel 启动** | 向并行执行系统提交一次任务         | 指定函数、参数、线程组织及 stream，通常相对主机异步执行               |
+| **Grid**         | 一次并行任务包含的全部任务分组       | 一次普通 kernel 启动产生的所有 block                     |
+| **Block**        | 一组能够紧密协作的工作线程         | 线程可以使用块内共享内存、执行块内同步                           |
+| **Thread**       | 一个执行函数体的逻辑工作者         | 拥有自己的线程索引、寄存器状态等；不是 OS 线程                     |
+| **Warp**         | 可以借助 CPU SIMD 的执行分组理解 | 常规 CUDA 模型下，由同一 block 内的 32 个线程组成，按 SIMT 模型执行 |
+| **SM**           | 类似一个能够容纳多组工作线程的计算核心   | GPU 的硬件计算单元，内部包含执行资源、寄存器、共享内存及 warp 调度器       |
