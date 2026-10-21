@@ -2587,6 +2587,10 @@ doubleValues<<<100, 256>>>(...);
 
 例如，计算一组数的总和时，每个线程先计算局部结果，再把结果放入 shared memory，由块内线程协作合并。
 
-在通常的执行模型下，**一个 block 在一个 SM 上执行，一个 SM 可以同时容纳多个 block**。不同 block 默认应能独立执行，不能假设谁先运行，也不能假设所有 block 同时驻留；跨 block 协作需要另外设计。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide/?utm_source=chatgpt.com)
+在通常的执行模型下，**一个 block 在一个 SM 上执行，一个 SM 可以同时容纳多个 block**。不同 block 默认应能独立执行，不能假设谁先运行，也不能假设所有 block 同时驻留；跨 block 协作需要另外设计。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide)
 
 CPU 线程也可以共享内存和使用屏障，但 CUDA 把这种局部协作直接纳入了线程组织模型。
+
+## Thread：一次计算代码的逻辑执行实例
+
+
