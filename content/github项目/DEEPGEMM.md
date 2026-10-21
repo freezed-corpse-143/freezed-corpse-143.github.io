@@ -138,3 +138,147 @@ $$
 $$
 P_h[i,j]=(Q_h\tilde{K}_{\mathcal{S}_i}^\top)[i,\cdot], j\in \mathcal{S}_i
 $$
+
+```dataviewjs
+// ===== Sparse MQA 实例: P_h = Q_h · K_{S_i}^T =====
+// Q_h: 3x2, K: 6x2 (S_kv=6), 每行 query 有自己的 S_i
+const H = 1;
+const Sq = 3, D = 2, Skv = 6;
+
+// 每行 query 选中的全局 KV 索引（0-based）
+const S = [
+  [0, 2, 5],      // query 行 0 选中 KV 0,2,5
+  [1, 2, 3, 4],   // query 行 1 选中 KV 1,2,3,4
+  [0, 5],         // query 行 2 选中 KV 0,5
+];
+
+// 模拟数值（仅示意）
+const Q = [[1, 0], [0, 1], [1, 1]];           // 3x2
+const K = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10], [11, 12]]; // 6x2
+
+const cell = (txt, bg, title) => {
+  const td = document.createElement("td");
+  td.textContent = txt;
+  td.title = title || "";
+  td.style.cssText = `
+    border:1px solid #888; padding:6px 10px; text-align:center;
+    font-family:monospace; font-size:13px; background:${bg};
+    min-width:46px; border-radius:4px; cursor:default;`;
+  return td;
+};
+
+const makeTable = (rows, cols, label, bg, getCell) => {
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "display:inline-block; margin:8px 14px; vertical-align:top;";
+  const cap = document.createElement("div");
+  cap.textContent = label;
+  cap.style.cssText = "font-weight:bold; margin-bottom:5px; font-size:14px;";
+  wrap.appendChild(cap);
+
+  const table = document.createElement("table");
+  table.style.cssText = "border-collapse:separate; border-spacing:2px;";
+  const tb = document.createElement("tbody");
+  for (let i = 0; i < rows; i++) {
+    const tr = document.createElement("tr");
+    for (let j = 0; j < cols; j++) {
+      const r = getCell(i, j);
+      tr.appendChild(cell(r.txt, r.bg, r.title));
+    }
+    tb.appendChild(tr);
+  }
+  table.appendChild(tb);
+  wrap.appendChild(table);
+  return wrap;
+};
+
+function sub(num) {
+  const map = {0:"₀",1:"₁",2:"₂",3:"₃",4:"₄",5:"₅",6:"₆",7:"₇",8:"₈",9:"₉"};
+  return String(num).split("").map(d => map[d] || d).join("");
+}
+
+const container = document.createElement("div");
+container.style.cssText = "padding:14px; border:1px solid #ccc; border-radius:8px; overflow-x:auto;";
+
+const title = document.createElement("div");
+title.textContent = `Sparse MQA 实例：Q_h (3×2) · K_{S_i}^T ，每行 query 的 S_i 不同`;
+title.style.cssText = "font-size:16px; font-weight:bold; margin-bottom:12px;";
+container.appendChild(title);
+
+// ---- 第一行：Q_h, K (全量) ----
+const row1 = document.createElement("div");
+row1.style.cssText = "display:flex; align-items:flex-start; flex-wrap:wrap;";
+
+row1.appendChild(makeTable(Sq, D, "Q_h (3×2)", "#e3f2fd", (i, j) => ({
+  txt: `q${sub(i)}${sub(j)}=${Q[i][j]}`,
+  bg: "#e3f2fd",
+  title: `q_${i}${j} = ${Q[i][j]}`
+})));
+
+row1.appendChild(makeTable(Skv, D, "K (6×2，全量)", "#e8f5e9", (i, j) => ({
+  txt: `k${sub(i)}${sub(j)}=${K[i][j]}`,
+  bg: "#e8f5e9",
+  title: `k_${i}${j} = ${K[i][j]}  (全局 KV 索引 ${i})`
+})));
+
+container.appendChild(row1);
+
+// ---- 第二行：每行的 K_{S_i} 与 P_h ----
+const row2 = document.createElement("div");
+row2.style.cssText = "display:flex; align-items:flex-start; flex-wrap:wrap; margin-top:10px;";
+
+for (let i = 0; i < Sq; i++) {
+  const Si = S[i];
+
+  // K_{S_i}: |S_i| x D
+  row2.appendChild(makeTable(Si.length, D, `行 ${i}: K_{S_i} (${Si.length}×2)`, "#e8f5e9", (r, c) => {
+    const j = Si[r];  // 局部 r -> 全局 j
+    return {
+      txt: `k${sub(j)}${sub(c)}=${K[j][c]}`,
+      bg: "#e8f5e9",
+      title: `局部第 ${r} 行 -> 全局 KV 索引 ${j}`
+    };
+  }));
+
+  // P_h[i, :] = Q_h[i] · K_{S_i}^T  -> 长度 |S_i|
+  const pRow = Si.map(j => {
+    let s = 0;
+    for (let d = 0; d < D; d++) s += Q[i][d] * K[j][d];
+    return s;
+  });
+  row2.appendChild(makeTable(1, Si.length, `行 ${i}: P_h[i,ℓ] (1×${Si.length})`, "#fce4ec", (r, c) => ({
+    txt: `ℓ${sub(c)}=${pRow[c]}`,
+    bg: "#fce4ec",
+    title: `P_h[${i},ℓ=${c}] = ${pRow[c]}，对应全局 KV j=${Si[c]}`
+  })));
+
+  // 映射说明
+  const mapDiv = document.createElement("div");
+  mapDiv.style.cssText = "font-size:12px; color:#555; margin:4px 0 0 14px; font-family:monospace;";
+  mapDiv.innerHTML = `ℓ → j : ` + Si.map((j, l) => `${l}→${j}`).join(", ");
+  row2.appendChild(mapDiv);
+}
+
+container.appendChild(row2);
+
+// ---- 第三行：score（ReLU + 头加权，H=1 时 w=1 简化）----
+const row3 = document.createElement("div");
+row3.style.cssText = "margin-top:12px;";
+
+for (let i = 0; i < Sq; i++) {
+  const Si = S[i];
+  const pRow = Si.map(j => {
+    let s = 0;
+    for (let d = 0; d < D; d++) s += Q[i][d] * K[j][d];
+    return s;
+  });
+  const score = pRow.map(v => Math.max(0, v)); // ReLU, H=1 w=1
+  const div = document.createElement("div");
+  div.style.cssText = "font-family:monospace; font-size:13px; margin:3px 0;";
+  div.innerHTML = `行 ${i}: score_{${i},j} = ReLU(P_h) = [` +
+    Si.map((j, l) => `j=${j}:${score[l]}`).join(", ") + `]`;
+  row3.appendChild(div);
+}
+container.appendChild(row3);
+
+dv.container.appendChild(container);
+```
