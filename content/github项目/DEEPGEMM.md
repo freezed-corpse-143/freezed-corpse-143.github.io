@@ -360,3 +360,139 @@ $$
 $$
 \mathrm{MoE}(x_i)=\sum_{e\in\mathcal{T}_i}g_{i,e}\cdot\Big(\big[(x_iW_{e,1})\odot\mathrm{SiLU}(x_iW_{e,3})\big]W_{e,2}\Big)
 $$
+```dataviewjs
+// ===== Mega MoE 流水线格子图 =====
+// 展示: L1 (linear1+SwiGLU) 与 L2 (linear2) 按 N 方向切 cluster 交错
+// 用格子表示每个 SM 在时间轴上执行的阶段
+
+const numL1N = 4;        // L1 的 N cluster 数
+const numL2N = 3;        // L2 的 N cluster 数
+const numMBlocks = 5;    // M block 数
+const warmupWaves = Math.ceil((numL1N - numL2N) * (numMBlocks - 1) / numL1N) + 1;
+const numSMs = 8;        // 展示用的 SM 数
+const timeSteps = 18;    // 时间轴步数
+
+// 阶段颜色
+const PHASE = {
+  IDLE:      { txt: "·",   bg: "#f5f5f5", color: "#aaa" },
+  L1:        { txt: "L1",  bg: "#e3f2fd", color: "#1565c0" },
+  L2:        { txt: "L2",  bg: "#fce4ec", color: "#c2185b" },
+  SHARED_L1: { txt: "sL1", bg: "#e8f5e9", color: "#2e7d32" },
+  SHARED_L2: { txt: "sL2", bg: "#fff3e0", color: "#e65100" },
+  SYNC:      { txt: "⇄",   bg: "#ede7f6", color: "#4527a0" },
+  WARMUP:    { txt: "W",   bg: "#fff9c4", color: "#f57f17" },
+};
+
+// 构造一个简化的流水线调度表: [sm][t] -> phase key
+// 策略: 前 warmupWaves 个时间步集中发 L1, 之后 L1/L2 交错, 偶有 sync
+const grid = [];
+for (let sm = 0; sm < numSMs; sm++) grid.push(new Array(timeSteps).fill("IDLE"));
+
+// warmup 阶段: 所有 SM 先跑 L1
+for (let sm = 0; sm < numSMs; sm++) {
+  for (let t = 0; t < warmupWaves; t++) grid[sm][t] = "WARMUP";
+}
+// 交错阶段: 偶数 SM 偏 L1, 奇数 SM 偏 L2, 按节奏交替
+for (let sm = 0; sm < numSMs; sm++) {
+  for (let t = warmupWaves; t < timeSteps; t++) {
+    const k = t - warmupWaves;
+    if (sm % 2 === 0) {
+      // L1 侧
+      if (k % 3 === 2) grid[sm][t] = "SHARED_L1";
+      else grid[sm][t] = "L1";
+    } else {
+      // L2 侧
+      if (k % 4 === 3) grid[sm][t] = "SHARED_L2";
+      else if (k % 5 === 4) grid[sm][t] = "SYNC";
+      else grid[sm][t] = "L2";
+    }
+  }
+}
+
+const cell = (phase, sm, t) => {
+  const p = PHASE[phase];
+  const td = document.createElement("td");
+  td.textContent = p.txt;
+  td.title = `SM ${sm}, t=${t}: ${phase}`;
+  td.style.cssText = `
+    border:1px solid #ccc; padding:4px 6px; text-align:center;
+    font-family:monospace; font-size:11px; background:${p.bg};
+    color:${p.color}; min-width:28px; border-radius:3px;`;
+  return td;
+};
+
+const container = document.createElement("div");
+container.style.cssText = "padding:14px; border:1px solid #ccc; border-radius:8px; overflow-x:auto;";
+
+const title = document.createElement("div");
+title.textContent = `Mega MoE 流水线：L1 (linear1+SwiGLU) ⇄ L2 (linear2) 两级交错，前 ${warmupWaves} 步为 warmup`;
+title.style.cssText = "font-size:15px; font-weight:bold; margin-bottom:10px;";
+container.appendChild(title);
+
+const table = document.createElement("table");
+table.style.cssText = "border-collapse:separate; border-spacing:2px;";
+
+// 表头: 时间轴
+const thead = document.createElement("thead");
+const htr = document.createElement("tr");
+const corner = document.createElement("th");
+corner.textContent = "SM\\t";
+corner.style.cssText = "font-size:11px; padding:4px; color:#555;";
+htr.appendChild(corner);
+for (let t = 0; t < timeSteps; t++) {
+  const th = document.createElement("th");
+  th.textContent = t;
+  th.style.cssText = "font-size:10px; padding:3px; color:#777; font-weight:normal;";
+  htr.appendChild(th);
+}
+thead.appendChild(htr);
+table.appendChild(thead);
+
+// 表体
+const tb = document.createElement("tbody");
+for (let sm = 0; sm < numSMs; sm++) {
+  const tr = document.createElement("tr");
+  const smTh = document.createElement("td");
+  smTh.textContent = `SM${sm}`;
+  smTh.style.cssText = "font-size:11px; padding:3px 6px; color:#555; font-family:monospace;";
+  tr.appendChild(smTh);
+  for (let t = 0; t < timeSteps; t++) {
+    tr.appendChild(cell(grid[sm][t], sm, t));
+  }
+  tb.appendChild(tr);
+}
+table.appendChild(tb);
+container.appendChild(table);
+
+// 图例
+const legend = document.createElement("div");
+legend.style.cssText = "margin-top:12px; font-size:12px; display:flex; flex-wrap:wrap; gap:12px;";
+for (const [key, p] of Object.entries(PHASE)) {
+  if (key === "IDLE") continue;
+  const item = document.createElement("div");
+  item.style.cssText = "display:flex; align-items:center; gap:4px;";
+  const sw = document.createElement("span");
+  sw.textContent = p.txt;
+  sw.style.cssText = `display:inline-block; padding:2px 6px; background:${p.bg}; color:${p.color};
+    border:1px solid #ccc; border-radius:3px; font-family:monospace; font-size:11px;`;
+  const lb = document.createElement("span");
+  lb.textContent = key;
+  item.appendChild(sw);
+  item.appendChild(lb);
+  legend.appendChild(item);
+}
+container.appendChild(legend);
+
+// 说明: warmup 防死锁
+const note = document.createElement("div");
+note.style.cssText = "margin-top:10px; font-size:12px; color:#555; line-height:1.6;";
+note.innerHTML = `
+<b>为什么需要 warmup 波次：</b>L2 的最后一个 M block 需要自己 <code>num_l1_pair_n_blocks</code> 个 L1 任务；
+前面 ${numMBlocks-1} 个 M block 累计了 <code>(num_l1_n - num_l2_n) = ${numL1N-numL2N}</code> 个待发 L1 任务。
+若不先把这批 L1 冲出去，L1 会等 L2 释放 ring、L2 又等 L1 产出 → 死锁。
+图中前 ${warmupWaves} 步全为 <b>W</b>（warmup），之后偶数 SM 走 L1 侧、奇数 SM 走 L2 侧交错推进，<b>⇄</b> 表示同步/ring 交换点。
+`;
+container.appendChild(note);
+
+dv.container.appendChild(container);
+```
