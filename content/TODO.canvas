@@ -92,17 +92,6 @@
 			"height":90
 		},
 		{
-			"id":"f336d1d74a6efe4f",
-			"type":"text",
-			"text":"DEEPGEEM",
-			"styleAttributes":{},
-			"x":-5540,
-			"y":890,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"f8f87a41f4abc361",
 			"type":"text",
 			"text":"面试内容准备 = 简历内容的闭包。",
@@ -113,14 +102,15 @@
 			"height":60
 		},
 		{
-			"id":"6340e233e2a4e306",
+			"id":"f336d1d74a6efe4f",
 			"type":"text",
-			"text":"线程池的数据结构",
+			"text":"DEEPGEEM",
 			"styleAttributes":{},
-			"x":-5140,
-			"y":1000,
+			"x":-5540,
+			"y":860,
 			"width":260,
-			"height":60
+			"height":60,
+			"color":"1"
 		}
 	],
 	"edges":[
