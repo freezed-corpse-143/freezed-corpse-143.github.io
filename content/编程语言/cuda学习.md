@@ -2480,5 +2480,8 @@ $$ \boxed{ \text{GEMM} + \text{Bias} + \text{Activation} } $$
              时间 ↓
 ```
 
-# Kernel 理解
+# 从 CPU 的角度理解 GPU 相关概念
 
+要区分三个层面：**资源归谁管理、任务如何组织、硬件如何执行。** Kernel、Context、Grid、Block、Thread、Warp 分别处在不同层面，不能全部拿来与 CPU 进程或线程一一对应。
+
+以下以 NVIDIA CUDA 为例。

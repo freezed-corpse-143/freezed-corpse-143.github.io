@@ -64,7 +64,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -264,10 +264,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "1357c7a69b37917d",
+  "active": "a17e9b1763649221",
   "lastOpenFiles": [
-    "元学习/并行学习法.md",
     "元学习/参考学习法.md",
+    "元学习/并行学习法.md",
     "元学习/关系定位法.md",
     "TODO.canvas",
     "编程语言/cuda学习.md",
