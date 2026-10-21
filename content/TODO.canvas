@@ -72,26 +72,6 @@
 			"height":60
 		},
 		{
-			"id":"1aa28f8561c6dd92",
-			"type":"text",
-			"text":"曙光信息大模型推理优化面试 22 日早上。",
-			"styleAttributes":{},
-			"x":-4860,
-			"y":850,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"02b41a199aab116e",
-			"type":"text",
-			"text":"THOUGHTDAG",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":850,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"f8eec502649a38f5",
 			"type":"text",
 			"text":"DSpark 技术",
@@ -100,6 +80,17 @@
 			"y":850,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"1aa28f8561c6dd92",
+			"type":"text",
+			"text":"曙光信息大模型推理优化面试 22 日早上。",
+			"styleAttributes":{},
+			"x":-5540,
+			"y":980,
+			"width":260,
+			"height":60,
+			"color":"1"
 		}
 	],
 	"edges":[
@@ -110,15 +101,6 @@
 			"fromNode":"6c42ce4e31f88ee4",
 			"fromSide":"right",
 			"toNode":"df0eb5b024e36f90",
-			"toSide":"left"
-		},
-		{
-			"id":"2680bea25149b121",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"02b41a199aab116e",
-			"fromSide":"right",
-			"toNode":"1aa28f8561c6dd92",
 			"toSide":"left"
 		}
 	],
