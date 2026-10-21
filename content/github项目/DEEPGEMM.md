@@ -327,6 +327,7 @@ $$
 - $g_{i,e}\in\mathbb{R}$：token $i$ 对专家 $e$ 的门控分数
 - $\mathcal{T}_i$：token $i$ 选中的 TopK 专家集合，$|\mathcal{T}_i|=K$
 - `norm` 是门控归一化（如 softmax 或 top-k 归一化），文档未展开具体形式
+- 实现上权重还要乘一个全局缩放 $\gamma$（`routed_scaling_factor`）；`RoutingArgs` 里另有逻辑→物理专家映射（`to_physical_map`）、重复专家（`num_duplicate_experts`）与共享专家旁路（`num_shared_experts`）
 
 ## 专家计算（SwiGLU）
 
@@ -339,12 +340,12 @@ $$
 $$
 
 - $W_{e,1}\in\mathbb{R}^{d\times d_{ff}}$：上投影（gate 分支）
-- $W_{e,3}\in\mathbb{R}^{d\times d_{ff}}$：上投影（value 分支）
+- $W_{e,3}\in\mathbb{R}^{d\times d_{ff}}$：上投影（up 分支，与 gate 分支逐元素相乘）
 - $W_{e,2}\in\mathbb{R}^{d_{ff}\times d}$：下投影（在 MoE 求和里乘上，见下）
 - $\odot$：逐元素乘
 - $\sigma$：sigmoid
 
-严格说 $\mathrm{SwiGLU}_e(x)\in\mathbb{R}^{d_{ff}}$ 是中间激活，完整专家输出还要乘 $W_{e,2}$ 回到 $d$ 维。文档把 `linear1 → linear2 → SwiGLU` 融进一个 kernel，所以公式里通常写成：
+严格说 $\mathrm{SwiGLU}_e(x)\in\mathbb{R}^{d_{ff}}$ 是中间激活，完整专家输出还要乘 $W_{e,2}$ 回到 $d$ 维。文档把 `linear1 → SwiGLU → linear2` 融进一个 kernel，所以公式里通常写成：
 $$
 \mathrm{Expert}_e(x)=\big[(xW_{e,1})\odot\mathrm{SiLU}(xW_{e,3})\big]\,W_{e,2}
 $$
@@ -352,7 +353,7 @@ $$
 ## MoE 输出
 
 $$
-\mathrm{MoE}(x_i)=\sum_{e\in\mathcal{T}_i}g_{i,e}\,\mathrm{SwiGLU}_e(x_i)
+\mathrm{MoE}(x_i)=\sum_{e\in\mathcal{T}_i}g_{i,e}\,\mathrm{Expert}_e(x_i)
 $$
 
 展开为完整形式：
@@ -362,15 +363,23 @@ $$
 $$
 ```dataviewjs
 // ===== Mega MoE 流水线格子图 =====
-// 展示: L1 (linear1+SwiGLU) 与 L2 (linear2) 按 N 方向切 cluster 交错
+// 展示: L1 (linear1，产出 gate/up) 与 L2 (linear2/down) 按 N 方向切 cluster 交错
 // 用格子表示每个 SM 在时间轴上执行的阶段
 
-const numL1N = 4;        // L1 的 N cluster 数
-const numL2N = 3;        // L2 的 N cluster 数
+// 真实形状由 hidden / intermediate 推得：L1 ∝ 2*intermediate，L2 ∝ hidden
+// （DeepSeek-V3: intermediate=2048, hidden=7168 → L1=16, L2=28，即 L1 < L2）
+const numL1N = 16;       // L1 (gate+up 两路) 的 N cluster 数
+const numL2N = 28;       // L2 (down) 的 N cluster 数
 const numMBlocks = 5;    // M block 数
-const warmupWaves = Math.ceil((numL1N - numL2N) * (numMBlocks - 1) / numL1N) + 1;
-const numSMs = 8;        // 展示用的 SM 数
+const numSMs = 8;        // 展示用的 SM 数（= 4 个 cluster）
+const numClusters = numSMs / 2;  // 2-CTA cluster
 const timeSteps = 18;    // 时间轴步数
+
+// 与 get_num_l1_warmup_waves() 一致：两个候选取 max
+const warmupWaves = Math.max(
+  Math.ceil(Math.ceil(numClusters / numL2N) * numL1N / numClusters),   // 第一波 L2 开始前必须先发的 L1
+  Math.ceil((numL1N + (numMBlocks - 1) * Math.max(0, numL1N - numL2N)) / numClusters) + 1
+);
 
 // 阶段颜色
 const PHASE = {
@@ -383,29 +392,24 @@ const PHASE = {
   WARMUP:    { txt: "W",   bg: "#fff9c4", color: "#f57f17" },
 };
 
-// 构造一个简化的流水线调度表: [sm][t] -> phase key
-// 策略: 前 warmupWaves 个时间步集中发 L1, 之后 L1/L2 交错, 偶有 sync
+// 构造一个【示意图】: [sm][t] -> phase key
+// 注意：真实派活由 cluster 与 (m_block, n_cluster) 决定，不按 SM 奇偶；
+//      这里只示意"warmup 后 L1/L2 按 N 方向交错推进"的节奏。
 const grid = [];
 for (let sm = 0; sm < numSMs; sm++) grid.push(new Array(timeSteps).fill("IDLE"));
 
-// warmup 阶段: 所有 SM 先跑 L1
+// warmup 阶段: 先集中发 L1
 for (let sm = 0; sm < numSMs; sm++) {
   for (let t = 0; t < warmupWaves; t++) grid[sm][t] = "WARMUP";
 }
-// 交错阶段: 偶数 SM 偏 L1, 奇数 SM 偏 L2, 按节奏交替
+
+// 交错阶段: L1:L2 ≈ numL1N:numL2N（16:28 = 4:7），按 cluster 偏移错开
+const pattern = ["L1", "L2", "L2", "L1", "L2", "L2", "L1", "L2", "L2", "L1", "L2"];
 for (let sm = 0; sm < numSMs; sm++) {
+  const cluster = Math.floor(sm / 2);
   for (let t = warmupWaves; t < timeSteps; t++) {
     const k = t - warmupWaves;
-    if (sm % 2 === 0) {
-      // L1 侧
-      if (k % 3 === 2) grid[sm][t] = "SHARED_L1";
-      else grid[sm][t] = "L1";
-    } else {
-      // L2 侧
-      if (k % 4 === 3) grid[sm][t] = "SHARED_L2";
-      else if (k % 5 === 4) grid[sm][t] = "SYNC";
-      else grid[sm][t] = "L2";
-    }
+    grid[sm][t] = pattern[(k + cluster) % pattern.length];
   }
 }
 
@@ -425,7 +429,7 @@ const container = document.createElement("div");
 container.style.cssText = "padding:14px; border:1px solid #ccc; border-radius:8px; overflow-x:auto;";
 
 const title = document.createElement("div");
-title.textContent = `Mega MoE 流水线：L1 (linear1+SwiGLU) ⇄ L2 (linear2) 两级交错，前 ${warmupWaves} 步为 warmup`;
+title.textContent = `Mega MoE 流水线（示意）：L1 (linear1，产出 gate/up) ⇄ L2 (linear2/down) 两级交错，前 ${warmupWaves} 步为 warmup`;
 title.style.cssText = "font-size:15px; font-weight:bold; margin-bottom:10px;";
 container.appendChild(title);
 
@@ -487,10 +491,15 @@ container.appendChild(legend);
 const note = document.createElement("div");
 note.style.cssText = "margin-top:10px; font-size:12px; color:#555; line-height:1.6;";
 note.innerHTML = `
-<b>为什么需要 warmup 波次：</b>L2 的最后一个 M block 需要自己 <code>num_l1_pair_n_blocks</code> 个 L1 任务；
-前面 ${numMBlocks-1} 个 M block 累计了 <code>(num_l1_n - num_l2_n) = ${numL1N-numL2N}</code> 个待发 L1 任务。
+<b>为什么需要 warmup 波次：</b><code>get_num_l1_warmup_waves()</code> 取两个候选的最大值——
+<code>first = ceil(ceil(num_clusters/num_l2_n) * num_l1_n / num_clusters)</code>（第一波 L2 开始前必须先发出的 L1），
+<code>second = ceil((num_l1_n + (M-1)*max(0, num_l1_n - num_l2_n)) / num_clusters) + 1</code>。
+L2 的最后一个 M block 需要自己 <code>num_l1_pair_n_blocks</code> 个 L1 任务；前面 ${numMBlocks-1} 个 M block 累计了
+<code>max(0, num_l1_n - num_l2_n) = ${Math.max(0, numL1N-numL2N)}</code> 个待发 L1 任务。
+DeepSeek-V3 形状下 L1=16 &lt; L2=28，第二项退化为 0，主因是第一项。
 若不先把这批 L1 冲出去，L1 会等 L2 释放 ring、L2 又等 L1 产出 → 死锁。
-图中前 ${warmupWaves} 步全为 <b>W</b>（warmup），之后偶数 SM 走 L1 侧、奇数 SM 走 L2 侧交错推进，<b>⇄</b> 表示同步/ring 交换点。
+图中前 ${warmupWaves} 步全为 <b>W</b>（warmup），之后按 L1:L2 ≈ ${numL1N}:${numL2N} 交错推进。
+<b>图中 sL1 / sL2 / ⇄ 仅在有共享专家等配置时出现，本示意未画。</b>
 `;
 container.appendChild(note);
 
