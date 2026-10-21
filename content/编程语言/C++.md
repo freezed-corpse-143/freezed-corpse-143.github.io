@@ -1032,4 +1032,5 @@ void worker_loop(Pool *pool) {
 
 Java 的 `Runnable`、C++ 的闭包或 `std::function<void()>`，都能承担类似的封装作用，但它们的具体内存布局不必相同。
 
+## 参数究竟是值，还是内存位置？
 
