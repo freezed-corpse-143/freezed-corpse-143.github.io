@@ -753,6 +753,11 @@ const path = (d, color = "var(--muted)", width = 1.6, arrow = true) =>
     stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"
     ${arrow ? `marker-end="url(#${uid}-arrow)"` : ""}/>`;
 
+const dashed = (d, color = "var(--muted)", width = 1.2) =>
+  `<path d="${d}" fill="none" stroke="${color}"
+    stroke-width="${width}" stroke-dasharray="4 5"
+    marker-end="url(#${uid}-arrow)"/>`;
+
 const panel = (x, y, w, h, step, title, subtitle, accent) => {
   g += rect(x, y, w, h, "var(--panel)", "var(--border)", 16);
   g += cell(x + 18, y + 18, 28, 28, accent, step, 12);
@@ -762,28 +767,34 @@ const panel = (x, y, w, h, step, title, subtitle, accent) => {
 
 // ---------- 标题 ----------
 g += text(28, 34, "mHC · 路由与系数", 22, "var(--fg)", "start", 700);
-g += text(28, 59, "并行路由、路由间混合，以及系数的数量分解", 12, "var(--muted)");
+g += text(28, 59, "Pre 作用于分流前，Post 汇合后加回，Comb 做路由间混合", 12, "var(--muted)");
 g += cell(834, 18, 138, 34, "#a78bfa", `R = ${R}  ·  ${total} 个系数`, 12);
 
 // ---------- 三个主面板 ----------
-panel(28, 86, 246, 374, "01", "并行路由",
+panel(28, 86, 246, 420, "01", "并行路由",
   `残差栈 R̃ · [T, ${R}, H]`, "#60a5fa");
-panel(298, 86, 306, 374, "02", "路由间混合",
+panel(298, 86, 306, 420, "02", "路由间混合",
   "行：输入路由 r    列：输出路由 o", "#a78bfa");
-panel(628, 86, 344, 374, "03", "系数分组",
+panel(628, 86, 344, 420, "03", "系数分组",
   `${total} = ${R} Pre + ${R} Post + ${R * R} Comb`, "#2dd4bf");
 
-// ---------- 左侧：输入与分流 ----------
-g += cell(62, 176, 178, 42, "#94a3b8", "输入 x · [T, H]", 13);
+// ---------- 左侧：输入 → Pre → 分流 ----------
+g += cell(62, 160, 178, 38, "#94a3b8", "输入 x · [T, H]", 13);
 
-// 总线放在卡片外，避免穿过路由文字
-const routeStart = 244;
-const routeStep = Math.min(45, 174 / Math.max(R - 1, 1));
-const routeHeight = Math.min(34, routeStep - 7);
+// Pre 作用节点：p ⊙ x
+g += cell(74, 208, 166, 32, "#14b8a6", "p ⊙ x", 13,
+  "Pre 系数 p 逐通道作用于输入 x，结果再分流进 R 条路由");
+g += path("M 151 198 V 208", "#14b8a6", 1.5);
+g += text(246, 229, "Pre", 10, "#14b8a6", "start", 600);
+
+// 从 p⊙x 分流
+const routeStart = 268;
+const routeStep = Math.min(41, 160 / Math.max(R - 1, 1));
+const routeHeight = Math.min(32, routeStep - 6);
 const lastCenter = routeStart + (R - 1) * routeStep + routeHeight / 2;
 
-g += path("M 151 218 V 230 H 48", "#94a3b8", 1.5, false);
-g += path(`M 48 230 V ${lastCenter}`, "#94a3b8", 1.5, false);
+g += path("M 157 240 V 252 H 48", "#94a3b8", 1.5, false);
+g += path(`M 48 252 V ${lastCenter}`, "#94a3b8", 1.5, false);
 
 for (let r = 0; r < R; r++) {
   const y = routeStart + r * routeStep;
@@ -799,13 +810,17 @@ for (let r = 0; r < R; r++) {
   );
 }
 
+// Pre 系数行 → p⊙x 节点的连线
+g += dashed("M 704 196 H 660 V 228 H 244", "#14b8a6", 1.2);
+g += text(452, 218, "p 来自右侧 Pre 行", 9, "#14b8a6", "middle", 500);
+
 // ---------- 中间：矩阵 ----------
-const mx = 354, my = 205;
+const mx = 354, my = 225;
 const matrixSize = 164;
 const pitch = matrixSize / R;
 const box = pitch - 5;
 
-g += text(436, 182, `M · ${R} × ${R}`, 15, "#a78bfa", "middle", 700);
+g += text(436, 202, `M · ${R} × ${R}`, 15, "#a78bfa", "middle", 700);
 
 for (let r = 0; r < R; r++) {
   const color = routeColor(r);
@@ -825,7 +840,7 @@ for (let o = 0; o < R; o++) {
     `o${o + 1}`, 11, "var(--muted)", "middle");
 }
 
-g += text(451, 421, "每个输出路由汇合所有输入路由", 11,
+g += text(451, 441, "每个输出路由汇合所有输入路由", 11,
   "var(--muted)", "middle");
 
 // ---------- 右侧：系数 ----------
@@ -833,22 +848,24 @@ const sx = 704, sw = 236;
 const gap = 7;
 const cw = Math.min(48, (sw - (R - 1) * gap) / R);
 
-function coefficientRow(y, label, symbol, color) {
+function coefficientRow(y, label, symbol, color, note) {
   g += text(650, y + 23, label, 12, color, "start", 650);
   for (let i = 0; i < R; i++) {
     g += cell(sx + i * (cw + gap), y, cw, 34,
       color, `${symbol}${i + 1}`, 11);
   }
+  if (note) g += text(650, y + 46, note, 9, "var(--muted)");
 }
 
-coefficientRow(176, "Pre", "p", "#14b8a6");
-coefficientRow(225, "Post", "q", "#f472b6");
+coefficientRow(176, "Pre", "p", "#14b8a6", "作用于分流前的 x：p ⊙ x");
+coefficientRow(232, "Post", "q", "#f472b6", "汇合后乘回：+ q ⊙ x");
 
-g += path("M 650 277 H 948", "var(--border)", 1, false);
-g += text(650, 303, "Comb", 12, "#c49a6c", "start", 650);
-g += text(948, 303, `${R} × ${R} = ${R * R}`, 11, "var(--muted)", "end");
+g += path("M 650 290 H 948", "var(--border)", 1, false);
+g += text(650, 316, "Comb", 12, "#c49a6c", "start", 650);
+g += text(948, 316, `${R} × ${R} = ${R * R}`, 11, "var(--muted)", "end");
+g += text(650, 334, "经 Sinkhorn 得到 M", 9, "var(--muted)");
 
-const combY = 319;
+const combY = 344;
 const combPitch = Math.min(27, 110 / R);
 
 for (let r = 0; r < R; r++) {
@@ -856,27 +873,30 @@ for (let r = 0; r < R; r++) {
     g += cell(sx + o * (cw + gap), combY + r * combPitch,
       cw, combPitch - 4, "#c49a6c",
       `${r + 1},${o + 1}`, 10,
-      `Comb[${r + 1}, ${o + 1}]`);
+      `Comb[${r + 1}, ${o + 1}] → M[${r + 1}, ${o + 1}]`);
   }
 }
 
-// Comb logits 与 M 的关系使用虚线标注，区别于主数据流
-g += `<path d="M 698 371 H 614 V 247 H 526"
-  fill="none" stroke="#a78bfa" stroke-width="1.5"
-  stroke-dasharray="4 5" marker-end="url(#${uid}-arrow)"/>`;
-g += text(565, 235, "Sinkhorn", 10, "#a78bfa", "middle", 600);
+// Comb logits 与 M 的关系
+g += dashed("M 700 396 H 614 V 267 H 526", "#a78bfa", 1.5);
+g += text(565, 255, "Sinkhorn", 10, "#a78bfa", "middle", 600);
 
 // ---------- 底部：组合示意 ----------
-g += rect(28, 484, 576, 112, "var(--panel)", "var(--border)", 16);
-g += text(48, 511, "组合示意", 12, "var(--muted)", "start", 600);
+g += rect(28, 524, 576, 132, "var(--panel)", "var(--border)", 16);
+g += text(48, 551, "组合示意", 12, "var(--muted)", "start", 600);
 
-g += cell(48, 530, 330, 44, "#a78bfa", "u = q · x + M · R̃", 16);
-g += path("M 390 552 H 430", "#94a3b8", 1.8);
-g += cell(442, 530, 140, 44, "#34d399", "输出 ŷ", 14);
+// 上：路由栈来自 p⊙x
+g += cell(48, 566, 330, 32, "#14b8a6",
+  "R̃ = Routes(p ⊙ x)   ← Pre 在此", 12);
+// 下：组合式
+g += cell(48, 608, 330, 36, "#a78bfa",
+  "u = M · R̃ + q ⊙ x   ← Post 在此", 13);
+g += path("M 390 620 H 430", "#94a3b8", 1.8);
+g += cell(442, 600, 140, 44, "#34d399", "输出 ŷ", 14);
 
 // ---------- 底部：数量分解 ----------
-g += rect(628, 484, 344, 112, "var(--panel)", "var(--border)", 16);
-g += text(648, 511, "系数数量", 12, "var(--muted)", "start", 600);
+g += rect(628, 524, 344, 132, "var(--panel)", "var(--border)", 16);
+g += text(648, 551, "系数数量", 12, "var(--muted)", "start", 600);
 
 const terms = [
   { x: 674, n: R, label: "Pre", color: "#14b8a6" },
@@ -886,21 +906,23 @@ const terms = [
 ];
 
 for (const t of terms) {
-  g += text(t.x, 549, t.n, 25, t.color, "middle", 700);
-  g += text(t.x, 577, t.label, 11, "var(--muted)", "middle");
+  g += text(t.x, 589, t.n, 25, t.color, "middle", 700);
+  g += text(t.x, 617, t.label, 11, "var(--muted)", "middle");
 }
 
-g += text(714, 548, "+", 17, "var(--muted)", "middle");
-g += text(794, 548, "+", 17, "var(--muted)", "middle");
-g += text(884, 548, "=", 17, "var(--muted)", "middle");
+g += text(714, 588, "+", 17, "var(--muted)", "middle");
+g += text(794, 588, "+", 17, "var(--muted)", "middle");
+g += text(884, 588, "=", 17, "var(--muted)", "middle");
 
 holder.querySelector(".frame").innerHTML = `
 <svg xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 1000 618" role="img"
+  viewBox="0 0 1000 678" role="img"
   aria-labelledby="${uid}-title ${uid}-desc">
   <title id="${uid}-title">mHC 路由与系数示意图</title>
   <desc id="${uid}-desc">
-    ${R} 条并行路由，${R} 乘 ${R} 混合矩阵，
+    Pre 系数 p 作用于分流前的输入 x，得到 p 乘 x 后再分流进 ${R} 条并行路由；
+    ${R} 乘 ${R} 混合矩阵 M 由 Comb logits 经 Sinkhorn 得到；
+    组合式为 u 等于 M 乘 R 波浪 + q 乘 x。
     系数分为 Pre、Post、Comb，共 ${total} 个。
   </desc>
   <defs>
