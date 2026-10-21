@@ -313,4 +313,12 @@ container.appendChild(row3);
 dv.container.appendChild(container);
 ```
 
-# 
+# Mega MoE
+
+## 路由（门控打分与 TopK）
+
+对 token $x_i$、专家 $e$：
+
+$$
+g_{i,e}=\text{norm}(x_i \cdot )
+$$
