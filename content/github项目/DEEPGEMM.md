@@ -7,7 +7,9 @@ $$
 GEMM = 分块矩阵乘 + 量化缩放 + 让相邻块共享缓存 + 一个 CTA 连续吃多个块（持久化）
 
 ```dataviewjs
-// ===== GEMM 格子图: D = C + A B =====
+// ===== GEMM 格子图: BᵀAᵀ + Cᵀ = Dᵀ =====
+// 原 A: m×k, B: k×n, C/D: m×n
+// 转置后 Bᵀ: n×k, Aᵀ: k×m, Cᵀ/Dᵀ: n×m
 const m = 2, k = 3, n = 4;
 
 const cell = (txt, bg, title) => {
@@ -38,10 +40,11 @@ const makeTable = (rows, cols, label, bg, isResult) => {
     for (let j = 0; j < cols; j++) {
       let txt, title;
       if (isResult) {
-        txt = `D${sub(i+1)}${sub(j+1)}`;
+        // Dᵀ 的 (i,j) 对应原 D 的 (j,i)
+        txt = `Dᵀ${sub(i+1)}${sub(j+1)}`;
         let terms = [];
-        for (let p = 1; p <= k; p++) terms.push(`A${sub(i+1)}${sub(p)}·B${sub(p)}${sub(j+1)}`);
-        title = `D${sub(i+1)}${sub(j+1)} = C${sub(i+1)}${sub(j+1)} + ` + terms.join(" + ");
+        for (let p = 1; p <= k; p++) terms.push(`Bᵀ${sub(i+1)}${sub(p)}·Aᵀ${sub(p)}${sub(j+1)}`);
+        title = `Dᵀ${sub(i+1)}${sub(j+1)} = Cᵀ${sub(i+1)}${sub(j+1)} + ` + terms.join(" + ");
       } else {
         txt = `${label[0]}${sub(i+1)}${sub(j+1)}`;
         title = txt;
@@ -71,21 +74,34 @@ const container = document.createElement("div");
 container.style.cssText = "padding:14px; border:1px solid #ccc; border-radius:8px; overflow-x:auto;";
 
 const title = document.createElement("div");
-title.textContent = `GEMM:  D = C + A·B   （A: ${m}×${k},  B: ${k}×${n}  ⇒  D, C: ${m}×${n}）`;
+title.textContent = `转置后的 GEMM:  Bᵀ·Aᵀ + Cᵀ = Dᵀ   （Bᵀ: ${n}×${k},  Aᵀ: ${k}×${m}  ⇒  Dᵀ, Cᵀ: ${n}×${m}）`;
 title.style.cssText = "font-size:16px; font-weight:bold; margin-bottom:12px;";
 container.appendChild(title);
 
 const row = document.createElement("div");
 row.style.cssText = "display:flex; align-items:center; flex-wrap:nowrap;";
 
-row.appendChild(makeTable(m, k, "A", "#e3f2fd", false));
+row.appendChild(makeTable(n, k, "Bᵀ", "#e8f5e9", false));
 row.appendChild(opSym("×", "font-size:26px; padding:0 10px;"));
-row.appendChild(makeTable(k, n, "B", "#e8f5e9", false));
+row.appendChild(makeTable(k, m, "Aᵀ", "#e3f2fd", false));
 row.appendChild(opSym("+", "font-size:26px; padding:0 10px;"));
-row.appendChild(makeTable(m, n, "C", "#fff3e0", false));
+row.appendChild(makeTable(n, m, "Cᵀ", "#fff3e0", false));
 row.appendChild(opSym("=", "font-size:26px; padding:0 10px;"));
-row.appendChild(makeTable(m, n, "D", "#fce4ec", true));
+row.appendChild(makeTable(n, m, "Dᵀ", "#fce4ec", true));
 
 container.appendChild(row);
 dv.container.appendChild(container);
 ```
+
+<b>怎么看这张图：</b><br>
+-  每格是一个标量。悬停 D 的格子可看到完整的展开式，例如
+  D₁₁ = C₁₁ + A₁₁·B₁₁ + A₁₂·B₂₁ + A₁₃·B₃₁。
+- 结果 D 的第 (i,j) 格 = C 的同位置格 + A 第 i 行 与 <b>B 第 j 列</b> 的逐项乘积和（K= ${k}$ 项）
+- 行数关系：A 的行数(${m}$) = D 的行数；B 的列数(${n}$) = D 的列数；中间维度 K(${k}$) 在相乘时被"消掉"。
+- 在 GPU 里，这些格子会被切成 tile（如 BLOCK_M×BLOCK_N），分给不同 SM 并行算，A/B 的 tile 通过 TMA 搬进 shared memory 的环里。
+
+# MQA
+
+$$
+
+$$
