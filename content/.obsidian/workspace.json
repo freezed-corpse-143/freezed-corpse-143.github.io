@@ -25,14 +25,17 @@
             "id": "81155fcee2619a49",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "编程语言/cuda学习.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5015.139215686272,
+                  "y": 688.7946866353354,
+                  "zoom": -0.19299863634163866
+                }
               },
-              "icon": "lucide-file",
-              "title": "cuda学习"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -253,9 +256,10 @@
   "active": "096495b989d31394",
   "lastOpenFiles": [
     "TODO.canvas",
+    "index.md",
+    "编程语言/cuda学习.md",
     "github项目/DEEPGEMM.md",
     "经验之谈.md",
-    "编程语言/cuda学习.md",
     "编程语言/C++.md",
     "找工作/简历准备——内容的闭包.md",
     "找工作/招聘.md",
@@ -276,7 +280,6 @@
     "编程语言/Typescript.md",
     "软件工程/依赖管理.md",
     "环境配置.md",
-    "index.md",
     "人工智能/Agent Sandbox.md",
     "编译原理",
     "找工作",

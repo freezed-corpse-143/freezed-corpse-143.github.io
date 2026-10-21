@@ -131,4 +131,6 @@ $$
 # Sparse MQA
 
 
-与 MQA 的
+与 MQA 的区别只在第 $h$ 个头的点积（只在选中的 KV 上）
+
+对每个 query 行 
