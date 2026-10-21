@@ -667,3 +667,174 @@ $$
 
 > 补充：`sinkhorn_eps` 同时出现在初始 softmax（`+ε`）和后续归一化（除以 `sum+ε`）里，作用不同——前者避免 logits 为常数时除零，后者避免行列和为零。
 
+---
+
+## 用一组具体数字走一遍
+
+```dataviewjs
+// ===== mHC 数值演算：R=4, H=4, 单个 token =====
+const R = 4, H = 4;
+const EPS_HC = 1e-6, EPS_PRE = 0.01, EPS_SK = 1e-6, EPS_RMS = 1e-6;
+const S = [0.5, 0.5, 1.0];      // mix_scales: Pre / Post / Comb
+const GAMMA_POST = 1.5;         // hc_post_scale
+
+// 固定种子，保证每次渲染数字一致
+let seed = 7;
+const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+const rv = () => Math.round((rnd() * 2 - 1) * 100) / 100;
+
+// ---- 输入 ----
+const x   = Array.from({ length: H }, rv);
+const res = Array.from({ length: R }, () => Array.from({ length: H }, rv));
+const q   = Array.from({ length: R }, () => Math.round(rnd() * 100) / 100); // 0..1
+const M0  = Array.from({ length: R }, () => Array.from({ length: R }, () => Math.round(rnd() * 100) / 100));
+
+// ---- ① 组合: u[o][h] = q[o]*x[h] + Σ_r M[r][o]*res[r][h] ----
+const u = Array.from({ length: R }, (_, o) =>
+  Array.from({ length: H }, (_, h) => q[o] * x[h] + M0.reduce((s, row, r) => s + row[o] * res[r][h], 0)));
+
+// ---- ② σ 与 logits ----
+const sq = u.flat().reduce((s, v) => s + v * v, 0);
+const sigma = 1 / Math.sqrt(sq / (R * H) + EPS_HC);
+const z = Array.from({ length: R * (R + 2) }, rv);            // fn·u 的 24 个输出
+const b = Array.from({ length: R * (R + 2) }, () => Math.round(rnd() * 40) / 100);
+const alpha = z.map((v, l) => v * sigma * S[l < R ? 0 : l < 2 * R ? 1 : 2] + b[l]);
+
+// ---- ④ Pre / Post ----
+const sig = v => 1 / (1 + Math.exp(-v));
+const p = Array.from({ length: R }, (_, o) => sig(alpha[o]) + EPS_PRE);
+const qq = Array.from({ length: R }, (_, o) => sig(alpha[R + o]) * GAMMA_POST);
+
+// ---- ⑤ Sinkhorn ----
+const comb = Array.from({ length: R }, (_, r) => Array.from({ length: R }, (_, o) => alpha[2 * R + r * R + o]));
+const softmax = a => { const m = Math.max(...a), e = a.map(v => Math.exp(v - m)), s = e.reduce((a, c) => a + c, 0); return e.map(v => v / s); };
+const rowS = M => M.map(r => r.reduce((a, c) => a + c, 0));
+const colS = M => M[0].map((_, o) => M.reduce((a, r) => a + r[o], 0));
+const normRow = (M, eps) => M.map(r => { const s = r.reduce((a, c) => a + c, 0); return r.map(v => v / (s + eps)); });
+const normCol = (M, eps) => { const cs = colS(M); return M.map(r => r.map((v, o) => v / (cs[o] + eps))); };
+
+const MS0 = comb.map(r => { const s = softmax(r); return s.map(v => v + EPS_SK); });   // 行 softmax + ε
+const MS1 = normCol(MS0, EPS_SK);                                                      // 第 1 次列归一
+let MS2 = normRow(MS1, EPS_SK); MS2 = normCol(MS2, EPS_SK);                            // 第 1 轮 (行, 列)
+
+// ---- ⑥ y = Σ p_o u_o ----
+const y = Array.from({ length: H }, (_, h) => p.reduce((s, c, o) => s + c * u[o][h], 0));
+
+// ---- ⑦ RMSNorm（设 weight=1, scale=1）----
+const ysq = y.reduce((s, v) => s + v * v, 0);
+const rms = 1 / Math.sqrt(ysq / H + EPS_RMS);
+const yhat = y.map(v => v * rms);
+
+// ---- 渲染工具 ----
+const f2 = v => v.toFixed(2), f3 = v => v.toFixed(3);
+function tableHTML(headers, rows) {
+  let h = `<table style="border-collapse:collapse;margin:6px 0;font-family:monospace;font-size:12px">`;
+  h += `<tr>` + headers.map(v => `<th style="border:1px solid #bbb;padding:3px 7px;background:#eee">${v}</th>`).join("") + `</tr>`;
+  for (const r of rows) h += `<tr>` + r.map(v => `<td style="border:1px solid #ccc;padding:3px 7px;text-align:right">${v}</td>`).join("") + `</tr>`;
+  return h + `</table>`;
+}
+function vecHTML(name, arr, fmt = f2) {
+  return `<div style="font-family:monospace;font-size:12px;margin:4px 0">
+    <b>${name}</b> = [ ${arr.map(fmt).join(" , ")} ]</div>`;
+}
+function matHTML(name, M, fmt = f2) {
+  return `<div style="margin:4px 0"><b style="font-family:monospace">${name}</b>${tableHTML(
+    ["", ...M[0].map((_, j) => "c" + j)], M.map((r, i) => ["r" + i, ...r.map(fmt)]))}</div>`;
+}
+function matWithSums(label, M) {
+  const rs = rowS(M), cs = colS(M);
+  return `<div style="margin:6px 0"><b>${label}</b>${tableHTML(
+    ["", ...M[0].map((_, j) => "c" + j), "行和"],
+    [...M.map((r, i) => ["r" + i, ...r.map(f3), rs[i].toFixed(3)]),
+     ["列和", ...cs.map(v => v.toFixed(3)), ""]])}</div>`;
+}
+
+const container = document.createElement("div");
+container.style.cssText = "padding:14px;border:1px solid #ccc;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.6";
+container.innerHTML = `<div style="font-weight:bold;font-size:15px;margin-bottom:4px">mHC 数值演算（R=4, H=4, 单个 token）</div>
+<div style="color:#666;font-size:12px;margin-bottom:10px">为了让公式落地，下面用一组固定随机数把 7 步全算一遍。真实 kernel 的 H=7168、R=4、24 个混合通道，形状不同但逻辑完全一致。</div>`;
+
+function card(step, formula, body, desc) {
+  return `<div style="margin:12px 0;padding:10px 12px;border-left:4px solid #7e57c2;background:#faf8ff;border-radius:4px">
+    <div style="font-weight:bold;color:#4527a0">${step}</div>
+    <div style="font-family:monospace;color:#333;margin:3px 0 6px">${formula}</div>
+    ${body}
+    ${desc ? `<div style="color:#666;font-size:12px;margin-top:4px">${desc}</div>` : ""}
+  </div>`;
+}
+
+let html = "";
+
+html += card("输入", "x(1×4)、R̃(4×4)、q(4)、M(4×4)",
+  vecHTML("x", x) + vecHTML("q", q) + matHTML("R̃", res) + matHTML("M", M0),
+  "x 是 token 隐向量；R̃ 是 4 条路由的残差；q、M 是上一层传下来的 Post 系数和 Sinkhorn 矩阵。");
+
+html += card("① 组合出本层路由栈 u", "u[o][h] = q[o]·x[h] + Σ_r M[r][o]·R̃[r][h]", matHTML("u", u),
+  "注意 M 的下标是 [输入路由 r][输出路由 o]，所以是 M 的第 o 列与残差加权。");
+
+const one = `u[0][0] = q[0]·x[0] + M[0][0]·R̃[0][0] + M[1][0]·R̃[1][0] + M[2][0]·R̃[2][0] + M[3][0]·R̃[3][0]
+       = ${f2(q[0])}·${f2(x[0])} + ${f2(M0[0][0])}·${f2(res[0][0])} + ${f2(M0[1][0])}·${f2(res[1][0])} + ${f2(M0[2][0])}·${f2(res[2][0])} + ${f2(M0[3][0])}·${f2(res[3][0])}
+       = ${f2(u[0][0])}`;
+html += card("①' 手算一个格子", "以 u[0][0] 为例",
+  `<pre style="font-family:monospace;font-size:12px;background:#fff;padding:8px;border-radius:4px;overflow-x:auto;margin:0">${one}</pre>`,
+  "只要这一个格子看懂了，其余 15 个格子是同一套乘加。");
+
+html += card("② u 的 RMS 缩放", "σ = 1 / sqrt( mean(u²) + ε_hc )",
+  `<div style="font-family:monospace;font-size:12px">Σu² = ${f2(sq)}<br>mean(u²) = ${f2(sq)} / ${R * H} = ${f3(sq / (R * H))}<br>σ = 1 / sqrt(${f3(sq / (R * H))} + ${EPS_HC}) = <b>${f3(sigma)}</b></div>`,
+  "σ 把整个 u 栈的尺度归一化，避免后面的仿射被整体幅值带偏。");
+
+html += card("② 混合 logits", "z = fn · u（24 个输出）",
+  `<div style="font-family:monospace;font-size:12px">Pre：${z.slice(0, R).map(f2).join(" , ")}<br>
+   Post：${z.slice(R, 2 * R).map(f2).join(" , ")}<br>
+   Comb：${z.slice(2 * R).map(f2).join(" , ")}</div>`,
+  "24 = 4(Pre) + 4(Post) + 16(Comb)。真实 kernel 里这一步是 split-K GEMM，partial 先累加再统一乘 σ。");
+
+html += card("③ 仿射", "α[l] = z[l]·σ·s_g + b[l]",
+  `<div style="font-family:monospace;font-size:12px">Pre（s₀=${S[0]}）：${alpha.slice(0, R).map(f2).join(" , ")}<br>
+   Post（s₁=${S[1]}）：${alpha.slice(R, 2 * R).map(f2).join(" , ")}<br>
+   Comb（s₂=${S[2]}）：${alpha.slice(2 * R).map(f2).join(" , ")}</div>`,
+  "三组通道用三个不同的 scale，这是唯一区分它们的地方。");
+
+html += card("④ Pre / Post 系数", "p = sigmoid(α) + ε_pre　　q = sigmoid(α)·γ_post",
+  vecHTML("p", p, f3) + vecHTML("q", qq, f3),
+  `Pre 是「加 ε」，Post 是「乘 γ=${GAMMA_POST}」——不对称，别记混。`);
+
+html += card("⑤ Comb 的 Sinkhorn", "逐行 softmax + ε → 列归一 → (行, 列) 交替",
+  matWithSums("A：原始 logits（4×4）", comb) +
+  matWithSums("M⁰：行 softmax + ε", MS0) +
+  matWithSums("M¹：第 1 次列归一（列和≈1）", MS1) +
+  matWithSums("M²：再一轮 (行, 列)", MS2),
+  "Sinkhorn 的作用是让矩阵同时接近「行和为 1」和「列和为 1」（双随机）。看最后一张表的行和/列和是否都趋近 1。");
+
+html += card("⑥ token 输出", "ỹ[h] = Σ_o p[o]·u[o][h]",
+  vecHTML("ỹ", y) +
+  `<div style="font-family:monospace;font-size:12px">ỹ[0] = ${p.map((v, o) => `${f3(v)}·${f2(u[o][0])}`).join(" + ")} = <b>${f3(y[0])}</b></div>`,
+  "用刚才算出的 Pre 系数 p 对 4 条路由逐元素加权求和。");
+
+html += card("⑦ RMSNorm + 量化", "ŷ = ỹ · 1/sqrt(mean(ỹ²)+ε_rms) · s_rms · w",
+  `<div style="font-family:monospace;font-size:12px">mean(ỹ²) = ${f3(ysq / H)}<br>rms scale = ${f3(rms)}（这里设 s_rms=1、w=1）</div>` +
+  vecHTML("ŷ", yhat),
+  "真实 kernel 会把 ŷ 同时写 BF16 与 FP8 E4M3，FP8 再按每 32 通道算一个 UE8M0 缩放因子。");
+
+container.innerHTML += html;
+
+// 对照总表
+container.innerHTML += `<div style="margin-top:14px;padding:10px 12px;border:1px solid #d1c4e9;border-radius:4px;background:#f3e5f5">
+<div style="font-weight:bold;color:#4527a0;margin-bottom:6px">一句话对照</div>
+${tableHTML(["步骤", "在干什么", "形状"], [
+  ["① 组合", "用上一层系数把 x 和残差合成新的 4 条路由", "R×H"],
+  ["② RMS + logits", "先算 u 的整体尺度，再投影出 24 个混合通道", "R(R+2)"],
+  ["③ 仿射", "乘 σ、乘分组 scale、加 bias", "R(R+2)"],
+  ["④ Pre/Post", "sigmoid 成系数", "R + R"],
+  ["⑤ Sinkhorn", "把 4×4 的 Comb 矩阵压成双随机", "R×R"],
+  ["⑥ 输出", "用 Pre 系数加权 4 条路由", "H"],
+  ["⑦ 归一化", "RMSNorm 后写 BF16/FP8", "H"],
+])}</div>`;
+
+container.innerHTML += `<div style="margin-top:10px;font-size:12px;color:#666">
+记忆锚点：<b>u 是本层的“新残差”，p/q/M 是下一层的“路由说明书”</b>——一次 kernel 调用同时产出这两样东西。
+</div>`;
+
+dv.container.appendChild(container);
+```
+
