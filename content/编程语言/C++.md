@@ -875,3 +875,33 @@ class ThreadPool:
 
 7. **线程工厂**
    - 自定义线程名、优先级、守护属性、异常处理器，便于排查。
+
+## 抽象数据结构
+
+从抽象角度看，线程池是一组数据结构 + 状态的组合：
+
+### 核心数据结构
+
+```
+ThreadPool {
+    // 1. 任务缓冲：阻塞队列（生产者-消费者核心）
+    taskQueue: BlockingQueue<Task>
+
+    // 2. 工作线程集合（需并发安全）
+    workers: Set<Worker>          // 或 List + 锁
+
+    // 3. 线程池状态机（ctl 概念）
+    state: {RUNNING, SHUTDOWN, STOP, TIDYING, TERMINATED}
+    workerCount: int              // 常与 state 打包为一个原子整数（如 Java 的 ctl）
+
+    // 4. 配置参数
+    corePoolSize, maximumPoolSize: int
+    keepAliveTime: Duration
+    threadFactory: ThreadFactory
+    rejectedHandler: RejectedHandler
+
+    // 5. 同步原语
+    mainLock: ReentrantLock
+    termination: Condition        // 用于 awaitTermination
+}
+```
