@@ -102,12 +102,33 @@
 			"height":60
 		},
 		{
-			"id":"cbbc2c882e1894ad",
+			"id":"2253532c3fbdf26e",
 			"type":"text",
-			"text":"stream 资源是什么",
+			"text":"如何规范化地描述需求以方便开发、越清晰越接近开发层",
 			"styleAttributes":{},
-			"x":-4940,
-			"y":1180,
+			"x":-4480,
+			"y":760,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"f336d1d74a6efe4f",
+			"type":"text",
+			"text":"DEEPGEEM",
+			"styleAttributes":{},
+			"x":-5500,
+			"y":920,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
+			"id":"58961bd4a6a54df3",
+			"type":"text",
+			"text":"Mistral.rs",
+			"styleAttributes":{},
+			"x":-5500,
+			"y":1060,
 			"width":260,
 			"height":60
 		}

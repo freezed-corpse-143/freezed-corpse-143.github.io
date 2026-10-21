@@ -2660,3 +2660,66 @@ if (threadIdx.x % 2 == 0) {
 
 ### 为什么需要 Stream
 
+假设 CPU 要让 GPU 完成三步：
+
+1. 把输入数据从 CPU 内存复制到 GPU。
+2. 执行 kernel，处理这些数据。
+3. 把结果从 GPU 复制回 CPU。
+
+三步存在依赖：数据准备好才能计算，计算完成才能取回结果。把它们提交到同一个 stream，就可以表达这个顺序：
+
+```cpp
+cudaMemcpyAsync(d_input, h_input, bytes,
+                cudaMemcpyHostToDevice, stream);
+
+kernel<<<grid, block, 0, stream>>>(d_input, d_output);
+
+cudaMemcpyAsync(h_output, d_output, bytes,
+                cudaMemcpyDeviceToHost, stream);
+
+cudaStreamSynchronize(stream);  // CPU 等待这些操作完成
+```
+
+**同一个 stream 中，后面的操作按序等待前面的操作完成。CPU 则通常可以在提交后继续执行自己的代码。** API 的实际阻塞行为也受操作类型、主机内存类型等因素影响。[docs.nvidia.com](https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/asynchronous-execution.html)
+
+这里有两个不同的“顺序”：
+
+| 观察者 | 看到的行为 |
+|---|---|
+| CPU | 提交拷贝 → 提交 kernel → 提交拷贝 → 继续工作或等待 |
+| GPU 上的这个 stream | 完成输入拷贝 → 执行 kernel → 完成输出拷贝 |
+
+因此，**异步提交不代表无序执行**。
+
+### 多个 Stream 有什么用？
+
+假设有两批独立数据 A、B：
+
+| Stream A | Stream B |
+|---|---|
+| 上传 A | 上传 B |
+| 计算 A | 计算 B |
+| 下载 A | 下载 B |
+
+每条 stream 内部保持顺序；不同 stream 之间，默认没有相互等待的顺序保证。硬件和资源允许时，可以让“计算 A”与“上传 B”等操作重叠，提高利用率。
+
+不过，**创建两条 stream 不等于 GPU 一定同时执行两条任务**。能否重叠取决于硬件能力、资源占用和同步约束等因素。[docs.nvidia.com](https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/asynchronous-execution.html)
+
+## 不同 Stream 之间有依赖怎么办？
+
+例如，Stream B 中的 kernel 必须使用 Stream A 的计算结果，就需要显式建立依赖，常见方法是 **Event**：
+
+```cpp
+produce<<<grid, block, 0, streamA>>>(data);
+
+cudaEventRecord(ready, streamA);          // A 执行到这里时记录事件
+cudaStreamWaitEvent(streamB, ready, 0);   // B 后续操作等待该事件
+
+consume<<<grid, block, 0, streamB>>>(data);
+```
+
+这相当于告诉 GPU：
+
+> B 的后续任务，要等 A 的这个完成点；CPU 可以继续提交其他工作。[docs.nvidia.com](https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/asynchronous-execution.html)
+
+##

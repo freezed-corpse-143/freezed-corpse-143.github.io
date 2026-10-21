@@ -43,9 +43,9 @@
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -4861.882352941176,
-                  "y": 572.6535465016086,
-                  "zoom": -1.246437895303099
+                  "x": -5105.8594831578885,
+                  "y": 829.7290671105484,
+                  "zoom": -0.24643789530309917
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -254,10 +254,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "81155fcee2619a49",
+  "active": "a17e9b1763649221",
   "lastOpenFiles": [
-    "TODO.canvas",
     "编程语言/cuda学习.md",
+    "TODO.canvas",
     "人工智能/多智能体设计.md",
     "元学习/参考学习法.md",
     "元学习/并行学习法.md",
