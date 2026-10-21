@@ -100,16 +100,6 @@
 			"y":860,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"16ca861ce9453480",
-			"type":"text",
-			"text":"逻辑核心与物理核心的区别",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":1000,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
