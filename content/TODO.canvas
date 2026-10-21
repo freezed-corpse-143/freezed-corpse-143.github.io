@@ -72,22 +72,11 @@
 			"height":60
 		},
 		{
-			"id":"b2c9145c444aca39",
-			"type":"text",
-			"text":"DEEPGEMM",
-			"styleAttributes":{},
-			"x":-5560,
-			"y":820,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"1aa28f8561c6dd92",
 			"type":"text",
 			"text":"曙光信息大模型推理优化面试 22 日早上。",
 			"styleAttributes":{},
-			"x":-4920,
+			"x":-4860,
 			"y":850,
 			"width":260,
 			"height":60
@@ -97,7 +86,7 @@
 			"type":"text",
 			"text":"THOUGHTDAG",
 			"styleAttributes":{},
-			"x":-5230,
+			"x":-5180,
 			"y":850,
 			"width":260,
 			"height":60
@@ -108,7 +97,7 @@
 			"text":"DSpark 技术",
 			"styleAttributes":{},
 			"x":-5540,
-			"y":980,
+			"y":850,
 			"width":260,
 			"height":60
 		}
