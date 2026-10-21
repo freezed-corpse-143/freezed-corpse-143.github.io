@@ -72,16 +72,6 @@
 			"height":60
 		},
 		{
-			"id":"f8f87a41f4abc361",
-			"type":"text",
-			"text":"面试内容准备 = 简历内容的闭包。",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":860,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"1aa28f8561c6dd92",
 			"type":"text",
 			"text":"曙光信息大模型推理优化面试 22 日早上。",
