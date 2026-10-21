@@ -722,3 +722,83 @@ holder.innerHTML = svg;
 dv.container.appendChild(holder);
 ```
 
+## 有无 mHC 对比
+
+```dataviewjs
+// ===== 标准残差 vs mHC 对比图 =====
+const P = { common: "#607d8b", std: "#1565c0", mhc: "#e65100" };
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+function box(x, y, w, h, color, title, dashed = false) {
+  let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${color}" fill-opacity="0.13" stroke="${color}" stroke-opacity="0.85"${dashed ? ' stroke-dasharray="5 4"' : ""}/>`;
+  s += `<text x="${x + w / 2}" y="${y + h / 2 + 5}" text-anchor="middle" font-size="14" font-weight="600" fill="currentColor">${esc(title)}</text>`;
+  return s;
+}
+const arrow = (x1, y1, x2, y2, dashed = false) =>
+  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#888" stroke-width="1.6"${dashed ? ' stroke-dasharray="5 4"' : ""} marker-end="url(#ah2)"/>`;
+const path = (d, marker = true, dashed = false) =>
+  `<path d="${d}" fill="none" stroke="#888" stroke-width="1.6"${dashed ? ' stroke-dasharray="5 4"' : ""}${marker ? ' marker-end="url(#ah2)"' : ""}/>`;
+
+let g = "";
+
+// ---- 标题 + 分隔线 ----
+g += `<text x="180" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">标准残差（无 mHC）</text>`;
+g += `<text x="615" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">mHC（R 条路由）</text>`;
+g += `<line x1="410" y1="36" x2="410" y2="470" stroke="currentColor" stroke-opacity="0.15" stroke-dasharray="4 6"/>`;
+
+// ---- 左：标准残差 ----
+g += box(60, 44, 240, 44, P.common, "h（H 维）");
+g += arrow(180, 88, 180, 108);
+g += box(60, 108, 240, 44, P.common, "Layer");
+g += arrow(180, 152, 180, 172);
+g += box(60, 172, 240, 44, P.std, "＋ 残差直加");
+g += arrow(180, 216, 180, 236);
+g += box(60, 236, 240, 44, P.common, "RMSNorm");
+g += arrow(180, 280, 180, 300);
+g += box(60, 300, 240, 44, P.common, "下一层");
+g += path("M300,66 H370 V194 H300");          // 残差旁路
+
+// ---- 右：mHC ----
+g += box(420, 44, 230, 44, P.mhc, "x + R̃（R×H）");
+g += arrow(535, 88, 535, 108);
+g += box(420, 108, 230, 44, P.mhc, "Mix  q·x + M·R̃");
+g += arrow(535, 152, 535, 172);
+g += box(420, 172, 230, 44, P.mhc, "u（R 条路由）");
+g += arrow(535, 216, 535, 236);
+g += box(420, 236, 230, 44, P.mhc, "Collapse  Σ p_o u_o");
+g += arrow(535, 280, 535, 300);
+g += box(420, 300, 230, 36, P.common, "ỹ（H 维）");
+g += arrow(535, 336, 535, 352);
+g += box(420, 352, 230, 44, P.common, "RMSNorm");
+g += arrow(535, 396, 535, 416);
+g += box(420, 416, 230, 44, P.common, "Layer");
+
+// ---- 右侧分支：Sinkhorn ----
+g += arrow(650, 194, 670, 194, true);
+g += box(670, 172, 140, 44, P.mhc, "Sinkhorn");
+g += arrow(740, 216, 740, 236, true);
+g += box(670, 236, 140, 44, P.mhc, "p, q, M", true);
+g += `<text x="740" y="300" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.65">→ 下一层</text>`;
+
+// ---- 图例 ----
+function legend(x, color, label) {
+  return `<rect x="${x}" y="500" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"/>` +
+    `<text x="${x + 24}" y="513" font-size="12.5" fill="currentColor" opacity="0.85">${esc(label)}</text>`;
+}
+g += legend(40, P.common, "两者共有");
+g += legend(210, P.std, "仅标准残差（残差直加）");
+g += legend(470, P.mhc, "仅 mHC（路由 / Mix / Collapse / Sinkhorn）");
+
+const svg = `<svg viewBox="0 0 830 540" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
+  xmlns="http://www.w3.org/2000/svg"
+  font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker></defs>
+  <g>${g}</g></svg>`;
+
+const holder2 = document.createElement("div");
+holder2.style.cssText = "overflow-x:auto;padding:6px 0";
+holder2.innerHTML = svg;
+dv.container.appendChild(holder2);
+```
+
