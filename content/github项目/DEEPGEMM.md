@@ -742,54 +742,54 @@ const path = (d, marker = true, dashed = false) =>
 let g = "";
 
 // ---- 标题 + 分隔线 ----
-g += `<text x="180" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">标准残差（无 mHC）</text>`;
-g += `<text x="615" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">mHC（R 条路由）</text>`;
-g += `<line x1="410" y1="36" x2="410" y2="470" stroke="currentColor" stroke-opacity="0.15" stroke-dasharray="4 6"/>`;
+g += `<text x="140" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">标准残差（无 mHC）</text>`;
+g += `<text x="425" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">mHC（R 条路由）</text>`;
+g += `<line x1="290" y1="36" x2="290" y2="530" stroke="currentColor" stroke-opacity="0.15" stroke-dasharray="4 6"/>`;
 
 // ---- 左：标准残差 ----
-g += box(60, 44, 240, 44, P.common, "h（H 维）");
-g += arrow(180, 88, 180, 108);
-g += box(60, 108, 240, 44, P.common, "Layer");
-g += arrow(180, 152, 180, 172);
-g += box(60, 172, 240, 44, P.std, "＋ 残差直加");
-g += arrow(180, 216, 180, 236);
-g += box(60, 236, 240, 44, P.common, "RMSNorm");
-g += arrow(180, 280, 180, 300);
-g += box(60, 300, 240, 44, P.common, "下一层");
-g += path("M300,66 H370 V194 H300");          // 残差旁路
+g += box(40, 92, 200, 40, P.common, "h（H 维）");
+g += arrow(140, 132, 140, 148);
+g += box(40, 148, 200, 40, P.common, "Layer");
+g += arrow(140, 188, 140, 204);
+g += box(40, 204, 200, 40, P.std, "＋ 残差直加");
+g += arrow(140, 244, 140, 260);
+g += box(40, 260, 200, 40, P.common, "RMSNorm");
+g += arrow(140, 300, 140, 316);
+g += box(40, 316, 200, 40, P.common, "下一层");
+g += path("M240,112 H265 V224 H240");              // 残差旁路
 
 // ---- 右：mHC ----
-g += box(420, 44, 230, 44, P.mhc, "x + R̃（R×H）");
-g += arrow(535, 88, 535, 108);
-g += box(420, 108, 230, 44, P.mhc, "Mix  q·x + M·R̃");
-g += arrow(535, 152, 535, 172);
-g += box(420, 172, 230, 44, P.mhc, "u（R 条路由）");
-g += arrow(535, 216, 535, 236);
-g += box(420, 236, 230, 44, P.mhc, "Collapse  Σ p_o u_o");
-g += arrow(535, 280, 535, 300);
-g += box(420, 300, 230, 36, P.common, "ỹ（H 维）");
-g += arrow(535, 336, 535, 352);
-g += box(420, 352, 230, 44, P.common, "RMSNorm");
-g += arrow(535, 396, 535, 416);
-g += box(420, 416, 230, 44, P.common, "Layer");
-
-// ---- 右侧分支：Sinkhorn ----
-g += arrow(650, 194, 670, 194, true);
-g += box(670, 172, 140, 44, P.mhc, "Sinkhorn");
-g += arrow(740, 216, 740, 236, true);
-g += box(670, 236, 140, 44, P.mhc, "p, q, M", true);
-g += `<text x="740" y="300" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.65">→ 下一层</text>`;
+// 上一层传入的系数：q/M 给 Mix，p 给 Collapse
+g += box(310, 36, 230, 40, P.mhc, "上一层的 p, q, M", true);
+g += path("M540,56 H560 V168 H540", true, true);   // q, M → Mix
+g += path("M540,56 H580 V336 H540", true, true);   // p → Collapse
+g += box(310, 92, 230, 40, P.mhc, "x + R̃（R×H）");
+g += arrow(425, 132, 425, 148);
+g += box(310, 148, 230, 40, P.mhc, "Mix  q·x + M·R̃");
+g += arrow(425, 188, 425, 204);
+g += box(310, 204, 230, 40, P.mhc, "u（R 条路由）");
+g += arrow(425, 244, 425, 260);
+g += box(310, 260, 230, 40, P.mhc, "Sinkhorn → 新 p/q/M");
+g += arrow(425, 300, 425, 316);
+g += box(310, 316, 230, 40, P.mhc, "Collapse  Σ p·u");
+g += arrow(425, 356, 425, 372);
+g += box(310, 372, 230, 34, P.common, "ỹ（H 维）");
+g += arrow(425, 406, 425, 422);
+g += box(310, 422, 230, 40, P.common, "RMSNorm");
+g += arrow(425, 462, 425, 478);
+g += box(310, 478, 230, 40, P.common, "Layer");
 
 // ---- 图例 ----
 function legend(x, color, label) {
-  return `<rect x="${x}" y="500" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"/>` +
-    `<text x="${x + 24}" y="513" font-size="12.5" fill="currentColor" opacity="0.85">${esc(label)}</text>`;
+  return `<rect x="${x}" y="556" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"/>` +
+    `<text x="${x + 24}" y="569" font-size="12.5" fill="currentColor" opacity="0.85">${esc(label)}</text>`;
 }
 g += legend(40, P.common, "两者共有");
-g += legend(210, P.std, "仅标准残差（残差直加）");
-g += legend(470, P.mhc, "仅 mHC（路由 / Mix / Collapse / Sinkhorn）");
+g += legend(190, P.std, "仅标准残差（残差直加）");
+g += legend(420, P.mhc, "仅 mHC（路由 / Mix / Collapse / Sinkhorn）");
+g += `<text x="40" y="598" font-size="11.5" fill="currentColor" opacity="0.6">虚线 = 上一层传入 / 传给下一层的系数</text>`;
 
-const svg = `<svg viewBox="0 0 830 540" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
+const svg = `<svg viewBox="0 0 830 610" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
   xmlns="http://www.w3.org/2000/svg"
   font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
   <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
