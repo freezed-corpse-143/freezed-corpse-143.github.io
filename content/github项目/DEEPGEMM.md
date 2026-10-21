@@ -1336,3 +1336,106 @@ STORE_BLOCK_N = kSwapAB ? BLOCK_N : kSwizzleCDMode / sizeof(cd_dtype_t);
 
 代价集中在 epilogue：转置必须过一遍寄存器，且 store 只能以 16 行 M 为步长推进；换来的是 MMA 主循环的 tile 形状自由度，以及 grouped 场景下能对每个组的有效 M 做动态收缩。
 
+# barrier
+
+`comm/barrier.cuh` 只有 4 个函数：一个超时保护 + 三种同步。
+
+| 函数 | 同步范围 | 用法 |
+|---|---|---|
+| `wait_until` | — | 带超时的自旋等待（所有屏障的底座） |
+| `cluster_sync_with_relaxed_arrive` | cluster（2 CTA） | 2-CTA TMEM 分配、multicast 前对齐 |
+| `grid_sync` | 整个 grid（所有 SM） | Mega MoE 的 dispatch / epilogue 阶段 |
+| `nvlink_barrier` | 跨 rank | Mega MoE 的跨节点交换 |
+
+## wait_until：先打印，再断言
+
+```cpp
+constexpr int64_t kNumTimeoutCycles = 60ll * 2000000000ll;   // 60 s @ 2 GHz
+
+while (not pred()) {
+    if (clock64() - start_clock >= kNumTimeoutCycles) {
+        print_timeout();            // 打印 rank / 指针值 / 目标值等现场
+        DG_DEVICE_ASSERT(false and "Timeout");
+    }
+}
+```
+
+写成模板而不是直接 `while (!pred)`，是因为**死锁时最需要的是现场信息**：每个调用点都通过 `print_timeout` 把 rank、计数器当前值、期望值、phase、tag 一起打出来，而不是让 kernel 静默挂死到超时被杀。
+
+## cluster_sync_with_relaxed_arrive：更快，但内存序更弱
+
+```cpp
+cute::cluster_arrive_relaxed();
+cute::cluster_wait();
+```
+
+等价于 `cluster.sync` 的拆分版，省掉了 arrive 那一半的内存序保证。适用场合是**只需要「大家都到齐了」这个时间点，不需要借屏障传递数据**——比如 2-CTA 分配 TMEM、或者 multicast 前的纯对齐。
+
+## grid_sync：用 tag 位代替计数器归零
+
+朴素的全 grid 屏障是「每个 SM 加 1，等计数到 N，然后清零」。这里不能清零，因为计数器在 device 全局内存里、所有 SM 都在轮询，谁都没有安全时机去写 0。
+
+改成**让最高位当作轮次标记**：
+
+```cpp
+constexpr uint32_t kFinishSumTag = 0x80000000u;
+const auto old_value = ptx::atomic_add_rel(
+    count_ptr,
+    sm_idx == 0 ? (kFinishSumTag - (kNumSMs - 1)) : 1);   // ① 只有 SM 0 加特殊值
+wait_until([&]() { return ((new_value = ptx::ld_acq(count_ptr)) ^ old_value) & kFinishSumTag; }, ...);
+```
+
+总增量恰好是一个 $2^{31}$：
+
+$$
+\underbrace{2^{31}-(N-1)}_{\text{SM 0}} \;+\; \underbrace{(N-1)\times 1}_{\text{其余 }N-1\text{ 个 SM}} \;=\; 2^{31}
+$$
+
+于是每完成一轮，bit 31 翻转一次、低 31 位不变：
+
+- **判据只看翻转**：`(new ^ old) & 0x80000000`。看到自己到达时的 tag 被翻掉，就说明其他人都到了，不需要知道计数器的绝对值。
+- **永不归零**：计数器单调累加（32 位自然回绕），没有"清零窗口"，也就没有额外的竞态。
+- **背靠背安全**：上一轮的残留值不会让下一轮的判据提前成立，因为每一轮恰好翻转一次 tag 位。
+
+内存序是配对的一对：`atom.release.gpu` 写、`ld.acquire.gpu` 读，屏障之前的所有写对屏障之后的所有线程可见，屏障之后不会重排到屏障之前。
+
+`kGridSyncIndex` 可以取 0~3（`MegaMoESignals::kNumMaxGridSyncCounters = 4`），即**同时存在最多 4 条互不干扰的全 grid 屏障**；Mega MoE 同时用了 dispatch 和 epilogue 两个。
+
+> 前提：所有 block 常驻。DeepGEMM 按 `num_sms` 启动 block、每 SM 一个，任意时刻都在跑，屏障才不会死等。源码注释只说"思路来自 `cooperative_groups::this_grid().sync()`"，没有直接用它的原因应是另需 cooperative launch 且无法带超时与多索引（**推断**）。
+
+## nvlink_barrier：跨 rank 的三段式
+
+```cpp
+if (sync_prologue) grid_sync(...);      // ① 先让本 rank 所有 SM 到齐
+if (sm_idx == 0) { ... }                // ② 只由 SM 0 跟其他 rank 交换信号
+if (sync_epilogue) grid_sync(...);      // ③ 再让本 rank 所有 SM 离开
+```
+
+② 的内部：thread 0~R-1 每个线程负责一个远端 rank，往**对称内存**里的信号槽做 `red.release.sys`（`sys` 域，跨 GPU 可见），然后 thread 0 用 `ld.acquire.sys` 轮询自己的槽。
+
+槽位状态由计数器的低 2 位决定，四个状态轮转：
+
+| `counter & 3` | `phase` | `sign` | 动作 | 目标值 |
+|---|---|---|---|---|
+| 0 | 0 | 0 | 槽 A += 1 | $R$ |
+| 1 | 1 | 0 | 槽 B += 1 | $R$ |
+| 2 | 0 | 1 | 槽 A −= 1 | 0 |
+| 3 | 1 | 1 | 槽 B −= 1 | 0 |
+
+两个设计点：
+
+- **符号交替**：`+1` 走到 $R$、`-1` 走回 0，槽位自己回到初值，不需要任何 rank 去清零。清零在跨 rank 场景里是不可做的——你不知道别人是否还在读。
+- **双槽（phase）**：连续两次 barrier 分别落在 A/B 槽，上一轮的信号不会污染下一轮；同时两轮的"到达"可以部分重叠，减少串行等待（**推断**——源码只体现两块槽按 phase 轮换）。
+
+出错时打印 `rank / counter / signal / target / phase / sign / tag`，其中 `tag` 是调用点传进来的编译期编号，用来区分是哪一个 barrier 卡住（`kTag` 是模板参数）。
+
+## 三层同步的分工
+
+$$
+\text{CTA 内 }(\texttt{\_\_syncthreads}) \;\subset\; \text{cluster }(\texttt{cluster\_sync}) \;\subset\; \text{grid }(\texttt{grid\_sync}) \;\subset\; \text{rank }(\texttt{nvlink\_barrier})
+$$
+
+- `cluster_sync_with_relaxed_arrive` 用在每个需要 2-CTA 协同的 kernel（GEMM 的 TMEM 分配、gate 的 MMA CTA 对、Mega MoE 的启动）。
+- `grid_sync` 用在 Mega MoE 的 dispatch（`sm100_bf16_mega_moe.cuh:348`）与 epilogue（`:1200`）——这两个阶段要做全 GPU 的任务分配与就绪检查。
+- `nvlink_barrier` 用在两处：dispatch 拉取 token 之前（`:377`，tag `kBeforeDispatchPullBarrierTag`），以及 dispatch 末尾、清理完 ring buffer 计数之后（`:619`，tag `kAfterWorkspaceCleanBarrierTag`，此处 `sync_epilogue = false`，kernel 已到尾部不必再同步回来）。
+

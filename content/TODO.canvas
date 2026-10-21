@@ -101,6 +101,16 @@
 			"y":850,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f8eec502649a38f5",
+			"type":"text",
+			"text":"DSpark 技术",
+			"styleAttributes":{},
+			"x":-5540,
+			"y":980,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
