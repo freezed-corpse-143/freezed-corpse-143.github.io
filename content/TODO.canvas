@@ -51,16 +51,6 @@
 			"height":60
 		},
 		{
-			"id":"f2bdee8d86fa44a0",
-			"type":"text",
-			"text":"为 mistral.rs 添加 windows msvc 版",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":610,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"ed710a70c0258c74",
 			"type":"text",
 			"text":"计算需要单独训练",
