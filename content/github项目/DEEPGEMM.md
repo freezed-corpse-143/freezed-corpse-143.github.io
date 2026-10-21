@@ -1119,3 +1119,99 @@ $$
 | 重复专家 | 逻辑→物理：$\text{dup}=(\text{rank\_idx}+i\cdot 23333)\bmod D$ | 各 rank 打散到不同副本 |
 | 专家分波 | 每波 128 个专家（`kNumExpertsPerWave = 32 lane × 4`），每 lane 持 4 个 | warp 内一次排序即可覆盖 128 专家 |
 
+## 示例：4 个路由 + 1 个共享，TopK = 2
+
+```dataviewjs
+// ===== Mega Gate 数值示例：方格 = 专家 =====
+const C = { routed: "#607d8b", sel: "#e65100", shared: "#00897b" };
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+const W = 72, H = 56;
+const sq = (x, y, text, o = {}) => {
+  const c = o.color || C.routed;
+  const fo = o.muted ? 0.05 : (o.strong ? 0.22 : 0.12);
+  const so = o.muted ? 0.3 : 0.85;
+  return `<rect x="${x}" y="${y}" width="${W}" height="${H}" rx="8" fill="${c}" fill-opacity="${fo}" stroke="${c}" stroke-opacity="${so}"${o.dashed ? ' stroke-dasharray="5 4"' : ""}/>`
+    + `<text x="${x + W / 2}" y="${y + H / 2 + 5}" text-anchor="middle" font-size="13.5" font-weight="${o.strong ? 700 : 500}" fill="currentColor" opacity="${o.muted ? 0.4 : 1}">${esc(text)}</text>`;
+};
+
+const COLS = [195, 287, 379, 471, 563];          // E1..E4 路由 / E5 共享
+const CX = COLS.map(x => x + W / 2);
+const ROWS = [76, 154, 232, 310];
+const rowLabel = (y, t) =>
+  `<text x="170" y="${y + 33}" text-anchor="end" font-size="12.5" fill="currentColor" opacity="0.75">${esc(t)}</text>`;
+
+let g = "";
+g += `<text x="415" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Mega Gate 示例：4 个路由专家 + 1 个共享专家，TopK K = 2，γ = 2.5</text>`;
+
+// 专家表头
+["E1", "E2", "E3", "E4", "E5（共享）"].forEach((n, i) => {
+  g += `<text x="${CX[i]}" y="66" text-anchor="middle" font-size="11.5" font-weight="600" fill="currentColor" opacity="0.7">${esc(n)}</text>`;
+});
+
+// ① logits
+g += rowLabel(ROWS[0], "ℓ = Wg x");
+["-1.20", "2.40", "0.80", "3.10", "—"].forEach((v, i) => {
+  g += sq(COLS[i], ROWS[0], v, i === 4 ? { color: C.shared, dashed: true, muted: true } : {});
+});
+
+// ② sqrt-softplus
+g += rowLabel(ROWS[1], "s = √softplus(ℓ)");
+["0.513", "1.577", "1.082", "1.773", "—"].forEach((v, i) => {
+  g += sq(COLS[i], ROWS[1], v, i === 4 ? { color: C.shared, dashed: true, muted: true } : {});
+});
+
+// ③ TopK
+g += rowLabel(ROWS[2], "TopK K = 2");
+["—", "②", "—", "①", "常开"].forEach((v, i) => {
+  if (i === 4) g += sq(COLS[i], ROWS[2], v, { color: C.shared, dashed: true, strong: true });
+  else if (i === 1 || i === 3) g += sq(COLS[i], ROWS[2], v, { color: C.sel, strong: true });
+  else g += sq(COLS[i], ROWS[2], v, { muted: true });
+});
+
+// ④ 归一化权重
+g += rowLabel(ROWS[3], "g = γ·s / Σs");
+["—", "1.177", "—", "1.323", "1.000"].forEach((v, i) => {
+  if (i === 4) g += sq(COLS[i], ROWS[3], v, { color: C.shared, dashed: true });
+  else if (i === 1 || i === 3) g += sq(COLS[i], ROWS[3], v, { color: C.sel, strong: true });
+  else g += sq(COLS[i], ROWS[3], v, { muted: true });
+});
+
+// 行间箭头
+const ar = (x, y1, y2) =>
+  `<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="#888" stroke-width="1.6" marker-end="url(#ah3)"/>`;
+g += ar(415, 136, 150) + ar(415, 214, 228) + ar(415, 292, 306) + ar(415, 370, 398);
+
+// ⑤ 写回槽位
+const SX = [219, 355, 491];
+[["E4 · 1.323", C.sel], ["E2 · 1.177", C.sel], ["E5 · 1.000", C.shared]].forEach(([t, c], i) => {
+  g += `<rect x="${SX[i]}" y="404" width="120" height="50" rx="8" fill="${c}" fill-opacity="0.15" stroke="${c}" stroke-opacity="0.85"/>`
+    + `<text x="${SX[i] + 60}" y="435" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">${esc(t)}</text>`;
+});
+
+// 说明
+g += `<text x="415" y="476" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.7">Σs = 1.773 + 1.577 = 3.350，× γ = 2.5 得 g；最后 1 个槽位是共享专家，权重恒为 1</text>`;
+
+// 图例
+const legend = (x, color, label, dashed = false) =>
+  `<rect x="${x}" y="500" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"${dashed ? ' stroke-dasharray="4 3"' : ""}/>`
+  + `<text x="${x + 24}" y="513" font-size="12" fill="currentColor" opacity="0.8">${esc(label)}</text>`;
+g += legend(195, C.sel, "TopK 选中");
+g += legend(340, C.routed, "未选中（不参与写回）");
+g += legend(560, C.shared, "共享专家（不打分）", true);
+
+const svg = `<svg viewBox="0 0 830 540" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
+  xmlns="http://www.w3.org/2000/svg"
+  font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker></defs>
+  <g>${g}</g></svg>`;
+
+const holder3 = document.createElement("div");
+holder3.style.cssText = "overflow-x:auto;padding:6px 0";
+holder3.innerHTML = svg;
+dv.container.appendChild(holder3);
+```
+
+读法：同一列是同一个专家，从上往下走完 $\ell \to s \to \text{TopK} \to g$；$E_5$ 整列虚线，因为它不参与打分和排序，只在最后被追加一个固定权重 1 的槽位。
+

@@ -31,7 +31,7 @@
                 "viewState": {
                   "x": -5015.139215686272,
                   "y": 688.7946866353354,
-                  "zoom": -0.19299863634163866
+                  "zoom": -0.526331969674972
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -129,7 +129,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "github项目/DEEPGEMM.md",
+                "file": "TODO.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -252,12 +252,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "096495b989d31394",
+  "active": "81155fcee2619a49",
   "lastOpenFiles": [
+    "github项目/DEEPGEMM.md",
     "TODO.canvas",
     "index.md",
     "编程语言/cuda学习.md",
-    "github项目/DEEPGEMM.md",
     "经验之谈.md",
     "编程语言/C++.md",
     "找工作/简历准备——内容的闭包.md",
