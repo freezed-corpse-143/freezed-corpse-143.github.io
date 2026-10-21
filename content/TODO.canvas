@@ -80,6 +80,16 @@
 			"y":450,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"f8f87a41f4abc361",
+			"type":"text",
+			"text":"面试内容准备 = 简历内容的闭包。",
+			"styleAttributes":{},
+			"x":-5160,
+			"y":900,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[

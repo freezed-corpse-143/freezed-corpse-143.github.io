@@ -67,7 +67,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -268,8 +268,9 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a17e9b1763649221",
+  "active": "1357c7a69b37917d",
   "lastOpenFiles": [
+    "编程语言/cuda学习.md",
     "TODO.canvas",
     "人工智能/多智能体设计.md",
     "人工智能/模型文件.md",
