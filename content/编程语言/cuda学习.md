@@ -2722,4 +2722,3 @@ consume<<<grid, block, 0, streamB>>>(data);
 
 > B 的后续任务，要等 A 的这个完成点；CPU 可以继续提交其他工作。[docs.nvidia.com](https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/asynchronous-execution.html)
 
-##

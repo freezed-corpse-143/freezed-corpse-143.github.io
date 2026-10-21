@@ -102,15 +102,14 @@
 			"height":60
 		},
 		{
-			"id":"f336d1d74a6efe4f",
+			"id":"16ca861ce9453480",
 			"type":"text",
-			"text":"DEEPGEEM",
+			"text":"逻辑核心与物理核心的区别",
 			"styleAttributes":{},
-			"x":-5540,
-			"y":860,
+			"x":-5180,
+			"y":1000,
 			"width":260,
-			"height":60,
-			"color":"1"
+			"height":60
 		}
 	],
 	"edges":[
