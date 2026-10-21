@@ -513,4 +513,157 @@ dv.container.appendChild(container);
 
 # mHC
 
-HyperConnection
+HyperConnection：把 token 的隐状态展成 $R$ 条「路由」（route），在层间做**混合 → 归一化 → 归一化输出**。DeepGEMM 的 `mega_mhc` 把下一层的混合系数生成、路由重组合、RMSNorm 与 FP8 量化融进一个 kernel。
+
+## 记号
+
+| 符号 | 含义 | 代码/形状 |
+|---|---|---|
+| $T$ | token 数 | `num_tokens` |
+| $H$ | 隐维 | `kHidden` |
+| $R$ | 路由数，默认 **4** | `hc_mult` / `kNumRoutes` |
+| $x_{i,h}$ | 第 $i$ 个 token 的隐向量 | `x [T,H]` BF16 |
+| $\tilde R_{i,r,h}$ | 路由残差栈 | `residual [T,R,H]` BF16 |
+| $W=\mathrm{fn}$ | 生成混合系数的权重 | `fn [R(R+2), R·H]` FP32 |
+| $s_{0,1,2}$ | 三组缩放 | `mix_scales [3]` FP32 |
+| $b_\ell$ | 通道偏置 | `mix_bases [R(R+2)]` FP32 |
+| $\varepsilon_{\text{hc}},\varepsilon_{\text{pre}},\varepsilon_{\text{sk}},\varepsilon_{\text{rms}}$ | 各处 eps | `hc_norm_eps` / `hc_pre_eps` / `sinkhorn_eps` / `rmsnorm_eps` |
+| $\gamma_{\text{post}}$ | post 缩放 | `hc_post_scale` |
+| $\kappa$ | Sinkhorn 迭代次数 | `num_sinkhorn_iters` |
+
+## 数据流（先看顺序）
+
+一次 kernel 调用同时做两件事：
+
+1. **消费**上一层传入的 $(p,q,M)$，把 $x$ 与残差栈 $\tilde R$ 组合成本层的路由栈 $u$；
+2. **生产**下一层的 $(p,q,M)$：用 $u$ 做 GEMM 与 Sinkhorn。
+
+所以 $(p,q,M)$ 在"组合"里是**输入**，在"Sinkhorn"里是**输出**。
+
+## 第 1 步：组合路由栈
+
+$$
+u_{i,o,h}=q_{i,o}\,x_{i,h}+\sum_{r=1}^{R}M_{i,r,o}\,\tilde R_{i,r,h}
+$$
+
+结果先**舍入到 BF16** 再往下走——代码注释明确这是所有消费者的公共数值边界：
+
+> "this BF16 round is the shared numerical boundary for all consumers"
+
+## 第 2 步：u 的 RMS 缩放与混合 logits
+
+$$
+\sigma_i=\Big(\frac{1}{R H}\sum_{r=1}^{R}\sum_{h=1}^{H}u_{i,r,h}^{2}+\varepsilon_{\text{hc}}\Big)^{-1/2},
+\qquad
+z_{i,\ell}=\sum_{r=1}^{R}\sum_{h=1}^{H}\mathrm{fn}_{\ell,\,(r-1)H+h}\;u_{i,r,h}
+$$
+
+对应 `hc_rms_scale = rsqrtf(hc_norm_sqr_sum / (kNumRoutes*kHidden) + hc_norm_eps)`。GEMM 的 K 维长度是 $R\cdot H$，沿 K 切成 `kNumSplits` 段（默认 16）并行；`gemm_partials [num_m_blocks, kNumSplits, BLOCK_M, R(R+2)]` 与 `hc_norm_sqr_sum_partials` 都是跨 split 的部分和。
+
+## 第 3 步：仿射
+
+$$
+\alpha_{i,\ell}=z_{i,\ell}\cdot\sigma_i\cdot s_{g(\ell)}+b_\ell,
+\qquad
+g(\ell)=
+\begin{cases}
+0, & \ell<R \quad(\text{Pre})\\
+1, & R\le\ell<2R \quad(\text{Post})\\
+2, & 2R\le\ell<R(R+2) \quad(\text{Comb})
+\end{cases}
+$$
+
+## 第 4 步：Pre / Post 系数
+
+$$
+p_{i,o}=\mathrm{sigmoid}(\alpha_{i,o})+\varepsilon_{\text{pre}},
+\qquad
+q_{i,o}=\mathrm{sigmoid}(\alpha_{i,R+o})\cdot\gamma_{\text{post}},
+\qquad o=1,\dots,R
+$$
+
+注意 Post 是**乘** `hc_post_scale`，Pre 是**加** `hc_pre_eps`——两者不对称，代码里就是这样分的。
+
+## 第 5 步：Comb 矩阵的 Sinkhorn 归一化
+
+把后 $R^2$ 个通道排成 $R\times R$ 矩阵 $A$：
+
+$$
+A_{i,r,o}=\alpha_{i,\,2R+(r-1)R+o}
+$$
+
+先按**输出路由 $o$** 逐行 softmax，再做交替的行/列归一化（让矩阵近似双随机）：
+
+$$
+M^{(0)}_{i,r,o}=\operatorname*{softmax}_{o'}\big(A_{i,r,o'}\big)+\varepsilon_{\text{sk}},
+\qquad
+M\leftarrow\frac{M}{\sum_{r'}M_{i,r',o}+\varepsilon_{\text{sk}}}
+$$
+
+$$
+\text{for } t=1,\dots,\kappa-1:\quad
+M\leftarrow\frac{M}{\sum_{o'}M_{i,r,o'}+\varepsilon_{\text{sk}}},
+\quad
+M\leftarrow\frac{M}{\sum_{r'}M_{i,r',o}+\varepsilon_{\text{sk}}}
+$$
+
+即「1 次行 softmax → 1 次列归一 → $(\kappa-1)$ 次（行、列）归一」。列求和在 warp 内用两次 `shfl_xor`（先翻转行号低位、再翻转次低位）合成 4 行的列和。
+
+## 第 6 步：token 输出
+
+$$
+\tilde y_{i,h}=\sum_{o=1}^{R}p_{i,o}\,u_{i,o,h}
+$$
+
+两条路径的式子相同，差别在 $p$ 从哪来：
+
+| | shifted | normal |
+|---|---|---|
+| $p$ 来源 | 上一层传入的 `shifted_prev_mix` | 本次由 $u$ 现场算（sigmoid $+\varepsilon_{\text{pre}}$） |
+| $q$、$M$ 来源 | 上一层传入 | 上一层传入 |
+| 归一化时机 | Post worker 先把 $x_1$ 落盘，Norm worker 再读回来做 RMSNorm | Norm worker 直接读 $u$ 组合后做 RMSNorm |
+| `new_prev_mix` | 写 | 不写 |
+
+## 第 7 步：RMSNorm + 量化
+
+$$
+\hat y_{i,h}=\tilde y_{i,h}\cdot
+\underbrace{\Big(\frac{1}{H}\sum_{h'=1}^{H}\tilde y_{i,h'}^{2}+\varepsilon_{\text{rms}}\Big)^{-1/2}s_{\text{rms}}}_{\text{rms scale}}\cdot w_h
+$$
+
+- normal 路径的 RMS 用**已舍入到 BF16** 的值算；shifted 路径用 BF16 的 $x_1$ 算，保证与下游消费者看到的一致。
+- 输出可同时给 BF16 与 FP8 E4M3；FP8 用 `gran_k=32`、4 个 UE8M0 打包进一个 `int32`，并支持三种 SF 布局（`y_gemm_sf` 列主 TMA 对齐 / `y_routed_sf` 行主连续 / `y_shared_sf` Mega MoE 共享专家布局）。
+
+## 输出张量
+
+| 输出 | 公式 |
+|---|---|
+| `new_residual [T,R,H]` | $u$（BF16） |
+| `new_prev_mix [T,R,1]` | $p$（仅 shifted 写） |
+| `new_post_mix [T,R,1]` | $q$ |
+| `new_comb_res_mix [T,R,R]` | $M$ |
+| `y_bf16` / `y_fp8` | $\hat y$ |
+
+## 为什么是 $R(R+2)=24$
+
+$R(R+2)$ 就是三类系数的总数：
+
+$$
+\underbrace{R}_{\text{Pre}}+\underbrace{R}_{\text{Post}}+\underbrace{R\times R}_{\text{Comb}}=4+4+16=24
+$$
+
+这正是 `kNumHCOutputs = kNumRoutes * (kNumRoutes + 2)`，也是 GEMM 的 `BLOCK_N`。
+
+## 实现落点
+
+| 位置 | 内容 |
+|---|---|
+| `layout/mega_mhc.cuh` | $R=4$、$R(R+2)=24$、`BLOCK_M=64/BLOCK_K=64`、split-K workspace 布局 |
+| `epilogue/sm100_mega_mhc.cuh:17` | `run_mix_task`：跨 split 归约 logits 与平方和、sigmoid、Sinkhorn |
+| `epilogue/sm100_mega_mhc.cuh:332` | shifted 路径的 RMS scale |
+| `epilogue/sm100_mega_mhc.cuh:220` | normal 路径的 RMS scale（先 BF16 舍入） |
+| `impls/sm100_mega_mhc.cuh:489-523` | 第 1/6 步：$u$ 与 $x_1$ 的累加、BF16 舍入、平方和 |
+| `scheduler/mega_mhc.cuh` | `Norm` / `Mix` 两道 split barrier + epoch 标记 |
+
+> 补充：`sinkhorn_eps` 同时出现在初始 softmax（`+ε`）和后续归一化（除以 `sum+ε`）里，作用不同——前者避免 logits 为常数时除零，后者避免行列和为零。
+
