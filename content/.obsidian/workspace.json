@@ -39,17 +39,14 @@
             "id": "096495b989d31394",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 746,
-                  "zoom": 0
-                }
+                "file": "github项目/DEEPGEMM.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "DEEPGEMM"
             }
           }
         ],
@@ -112,7 +109,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -254,13 +252,14 @@
   },
   "active": "096495b989d31394",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "github项目/DEEPGEMM.md",
     "经验之谈.md",
     "编程语言/cuda学习.md",
     "编程语言/C++.md",
     "找工作/简历准备——内容的闭包.md",
     "找工作/招聘.md",
     "找工作/实习.md",
-    "TODO.canvas",
     "开发日记/需求描述.md",
     "编程语言/C & Zig 混合学习之路.md",
     "人工智能/多智能体设计.md",
@@ -279,8 +278,6 @@
     "环境配置.md",
     "index.md",
     "人工智能/Agent Sandbox.md",
-    "软件工程/错误类型.md",
-    "编译原理/基础.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
