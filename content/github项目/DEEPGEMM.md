@@ -672,134 +672,247 @@ $$
 ## 流程图（一图看懂）
 
 ```dataviewjs
-// ===== mHC：R 条路由 + 混合 + 24 通道来源 =====
 const R = 4;
-const C = {
-  route: ["#1565c0", "#2e7d32", "#e65100", "#6a1b9a"], // R 条路由各自颜色
-  mix: "#7e57c2", pre: "#00838f", post: "#ad1457", comb: "#5d4037",
-  gray: "#888",
-};
-const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const total = R * (R + 2);
+const uid = `mhc-${Math.random().toString(36).slice(2, 10)}`;
+const colors = ["#60a5fa", "#34d399", "#fb923c", "#c084fc"];
+const routeColor = i => colors[i % colors.length];
 
-let g = "";
-const arrow = (x1,y1,x2,y2,col="#888",w=1.4) =>
-  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${w}" marker-end="url(#ah)"/>`;
-const txt = (x,y,s,size=12,fill="currentColor",anchor="middle",weight="normal",opacity=1) =>
-  `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="${size}" font-weight="${weight}" fill="${fill}" opacity="${opacity}">${esc(s)}</text>`;
-
-// ---------- 左：输入 x 与 R 条路由残差栈 ----------
-const LX = 40, LY = 60, RH = 46, RGAP = 12;
-g += `<rect x="${LX}" y="${LY}" width="150" height="40" rx="8" fill="#607d8b" fill-opacity="0.12" stroke="#607d8b"/>`;
-g += txt(LX+75, LY+25, "输入 x [T,H]", 13, "currentColor", "middle", "600");
-
-// 残差栈 R 条路由
-const stackX = LX + 10, stackY = LY + 80;
-g += txt(stackX+70, stackY-10, "残差栈 R̃ [T,R,H]", 12, "#555", "middle", "600");
-for (let r = 0; r < R; r++) {
-  const y = stackY + r*(RH+RGAP);
-  g += `<rect x="${stackX}" y="${y}" width="140" height="${RH}" rx="8"
-        fill="${C.route[r]}" fill-opacity="0.14" stroke="${C.route[r]}" stroke-width="1.4"/>`;
-  g += txt(stackX+70, y+RH/2+5, `路由 r=${r+1}  R̃[${r+1}]`, 12, C.route[r], "middle", "600");
-  // 从输入到每条路由的箭头
-  g += arrow(LX+75, LY+40, LX+75, y+RH/2, C.gray, 1);
-  g += arrow(LX+75, y+RH/2, stackX, y+RH/2, C.route[r], 1.2);
-}
-
-// ---------- 中：R×R 混合矩阵 M ----------
-const MX = 300, MY = 120, MCELL = 40;
-g += txt(MX + MCELL*R/2, MY-22, `混合矩阵 M  (${R}×${R})`, 13, C.mix, "middle", "700");
-g += txt(MX + MCELL*R/2, MY-6, "输出路由 o ← 所有输入路由 r 的加权和", 10.5, "#666", "middle");
-for (let r = 0; r < R; r++) {
-  for (let o = 0; o < R; o++) {
-    const x = MX + o*MCELL, y = MY + r*MCELL;
-    g += `<rect x="${x}" y="${y}" width="${MCELL-3}" height="${MCELL-3}" rx="5"
-          fill="${C.route[r]}" fill-opacity="0.18" stroke="${C.route[r]}" stroke-opacity="0.7"/>`;
-    g += txt(x+(MCELL-3)/2, y+(MCELL-3)/2+4, `M${r+1}${o+1}`, 10.5, C.route[r], "middle", "600");
-  }
-}
-// 行/列标签
-for (let r = 0; r < R; r++) g += txt(MX-8, MY + r*MCELL + MCELL/2, `r=${r+1}`, 10, "#777", "end");
-for (let o = 0; o < R; o++) g += txt(MX + o*MCELL + MCELL/2, MY + MCELL*R + 14, `o=${o+1}`, 10, "#777", "middle");
-
-// 从每条输入路由连到 M 的整行
-for (let r = 0; r < R; r++) {
-  const fromY = stackY + r*(RH+RGAP) + RH/2;
-  g += arrow(stackX+140, fromY, MX-4, MY + r*MCELL + MCELL/2, C.route[r], 1.2);
-}
-
-// ---------- 右上：24 个输出通道分区 ----------
-const OX = 520, OY = 120, CW = 20, CH = 30, GAP = 6;
-g += txt(OX + (R*(CW+GAP)*1.9), OY-22, "输出系数 24 个 = R(R+2)", 13, "#333", "middle", "700");
-
-// Pre: R 个
-g += txt(OX-6, OY+18, "Pre", 11, C.pre, "end", "700");
-for (let i = 0; i < R; i++) {
-  const x = OX + i*(CW+GAP);
-  g += `<rect x="${x}" y="${OY}" width="${CW}" height="${CH}" rx="4" fill="${C.pre}" fill-opacity="0.16" stroke="${C.pre}"/>`;
-  g += txt(x+CW/2, OY+CH/2+4, `p${i+1}`, 10.5, C.pre);
-}
-// Post: R 个
-const OY2 = OY + CH + 14;
-g += txt(OX-6, OY2+18, "Post", 11, C.post, "end", "700");
-for (let i = 0; i < R; i++) {
-  const x = OX + i*(CW+GAP);
-  g += `<rect x="${x}" y="${OY2}" width="${CW}" height="${CH}" rx="4" fill="${C.post}" fill-opacity="0.16" stroke="${C.post}"/>`;
-  g += txt(x+CW/2, OY2+CH/2+4, `q${i+1}`, 10.5, C.post);
-}
-// Comb: R×R 个，画成 R 行小矩阵
-const OY3 = OY2 + CH + 18;
-g += txt(OX-6, OY3+CH/2+4, "Comb", 11, C.comb, "end", "700");
-for (let r = 0; r < R; r++) {
-  for (let o = 0; o < R; o++) {
-    const x = OX + o*(CW+GAP), y = OY3 + r*(CH*0.75);
-    g += `<rect x="${x}" y="${y}" width="${CW}" height="${CH*0.75-2}" rx="4" fill="${C.comb}" fill-opacity="0.14" stroke="${C.comb}"/>`;
-    g += txt(x+CW/2, y+(CH*0.75-2)/2+3.5, `M${r+1}${o+1}`, 9.5, C.comb);
-  }
-}
-// 从 M 矩阵到 Comb 区（示意：混合 logits 经 Sinkhorn 变成 Comb）
-g += arrow(MX + MCELL*R + 8, MY + MCELL*R/2, OX-14, OY3 + CH*1.2, C.mix, 1.6);
-g += txt((MX+MCELL*R+OX)/2, MY+MCELL*R/2-8, "Sinkhorn → M", 10.5, C.mix, "middle", "600");
-
-// 从输入路由到 Pre/Post（示意：路由信息也参与 p/q 生成）
-g += arrow(MX-4, MY-8, OX-14, OY+CH/2, C.pre, 1.1);
-g += arrow(MX-4, MY-8, OX-14, OY2+CH/2, C.post, 1.1);
-
-// ---------- 底部：组合 u 与输出 ----------
-const BY = 430;
-g += `<rect x="${LX}" y="${BY}" width="150" height="40" rx="8" fill="${C.mix}" fill-opacity="0.12" stroke="${C.mix}"/>`;
-g += txt(LX+75, BY+25, "组合 u = q·x + M·R̃", 11.5, C.mix, "middle", "600");
-g += arrow(LX+75, BY-14, LX+75, BY, C.mix, 1.4);
-// 从每条路由汇聚到 u
-for (let r = 0; r < R; r++) {
-  const fromY = stackY + r*(RH+RGAP) + RH/2;
-  g += arrow(stackX+140, fromY, LX+75, BY, C.route[r], 0.9);
-}
-g += arrow(LX+75, BY+40, LX+75, BY+70, "#888", 1.4);
-g += `<rect x="${LX}" y="${BY+70}" width="150" height="40" rx="8" fill="#2e7d32" fill-opacity="0.12" stroke="#2e7d32"/>`;
-g += txt(LX+75, BY+95, "输出 ŷ [T,H]", 12, "#2e7d32", "middle", "600");
-
-// ---------- 右侧注释：为什么是 R、R、R² ----------
-const NX = 520, NY = 430;
-g += `<rect x="${NX}" y="${NY}" width="290" height="115" rx="8" fill="#fff8e1" fill-opacity="0.7" stroke="#f9a825"/>`;
-g += txt(NX+12, NY+22, "为什么是 R(R+2)=24 ?", 12.5, "#8d6e63", "start", "700");
-g += txt(NX+12, NY+44, `• Pre  (${R} 个): 每条路由 1 个 → 控制 x 注入`, 10.5, "#555", "start");
-g += txt(NX+12, NY+64, `• Post (${R} 个): 每条路由 1 个 → 控制路由输出`, 10.5, "#555", "start");
-g += txt(NX+12, NY+84, `• Comb (${R}×${R}=${R*R} 个): 路由两两混合 → M`, 10.5, "#555", "start");
-g += txt(NX+12, NY+104, `${R} + ${R} + ${R*R} = ${R*(R+2)}`, 11, "#8d6e63", "start", "700");
-
-// ---------- 顶部总标题 ----------
-g += txt(415, 24, `mHC：R=${R} 条并行路由，M 在路由间混合，24 个系数 = R + R + R²`, 14, "currentColor", "middle", "700");
-
-const svg = `<svg viewBox="0 0 840 570" width="100%" style="max-width:840px;height:auto;display:block;margin:0 auto"
-  xmlns="http://www.w3.org/2000/svg"
-  font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
-  <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
-    <path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker></defs>
-  <g>${g}</g></svg>`;
+const esc = s => String(s)
+  .replace(/&/g, "&amp;")
+  .replace(/</g, "&lt;")
+  .replace(/"/g, "&quot;");
 
 const holder = document.createElement("div");
-holder.style.cssText = "overflow-x:auto;padding:6px 0";
-holder.innerHTML = svg;
+holder.className = uid;
+
+holder.innerHTML = `
+<style>
+.${uid} {
+  --fg: var(--text-normal, #263244);
+  --muted: var(--text-muted, #738094);
+  --surface: var(--background-primary, #fff);
+  --panel: var(--background-secondary, #f5f7fa);
+  --border: var(--background-modifier-border, #dde3eb);
+  margin: 12px 0;
+}
+.${uid} .frame {
+  overflow-x: auto;
+  padding: 16px 12px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+}
+.${uid} svg {
+  display: block;
+  width: 100%;
+  min-width: 780px;
+  max-width: 1080px;
+  height: auto;
+  margin: auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.${uid} .cell {
+  transition: fill-opacity .15s ease, stroke-opacity .15s ease;
+}
+.${uid} .cell:hover {
+  fill-opacity: .3;
+  stroke-opacity: 1;
+}
+</style>
+<div class="frame"></div>
+`;
+
+let g = "";
+
+const text = (
+  x, y, value, size = 12,
+  fill = "var(--fg)", anchor = "start", weight = 400
+) => `<text x="${x}" y="${y}" fill="${fill}"
+  font-size="${size}" text-anchor="${anchor}" font-weight="${weight}"
+  >${esc(value)}</text>`;
+
+const rect = (
+  x, y, w, h,
+  fill = "var(--surface)", stroke = "var(--border)", radius = 12
+) => `<rect x="${x}" y="${y}" width="${w}" height="${h}"
+  rx="${radius}" fill="${fill}" stroke="${stroke}"/>`;
+
+const cell = (x, y, w, h, color, label, size = 12, title = label) => `
+  <g>
+    <title>${esc(title)}</title>
+    <rect class="cell" x="${x}" y="${y}" width="${w}" height="${h}"
+      rx="8" fill="${color}" fill-opacity=".12"
+      stroke="${color}" stroke-opacity=".65"/>
+    ${text(x + w / 2, y + h / 2 + 4, label, size, color, "middle", 600)}
+  </g>`;
+
+const path = (d, color = "var(--muted)", width = 1.6, arrow = true) =>
+  `<path d="${d}" fill="none" stroke="${color}"
+    stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"
+    ${arrow ? `marker-end="url(#${uid}-arrow)"` : ""}/>`;
+
+const panel = (x, y, w, h, step, title, subtitle, accent) => {
+  g += rect(x, y, w, h, "var(--panel)", "var(--border)", 16);
+  g += cell(x + 18, y + 18, 28, 28, accent, step, 12);
+  g += text(x + 57, y + 37, title, 15, "var(--fg)", "start", 650);
+  g += text(x + 18, y + 69, subtitle, 11, "var(--muted)");
+};
+
+// ---------- 标题 ----------
+g += text(28, 34, "mHC · 路由与系数", 22, "var(--fg)", "start", 700);
+g += text(28, 59, "并行路由、路由间混合，以及系数的数量分解", 12, "var(--muted)");
+g += cell(834, 18, 138, 34, "#a78bfa", `R = ${R}  ·  ${total} 个系数`, 12);
+
+// ---------- 三个主面板 ----------
+panel(28, 86, 246, 374, "01", "并行路由",
+  `残差栈 R̃ · [T, ${R}, H]`, "#60a5fa");
+panel(298, 86, 306, 374, "02", "路由间混合",
+  "行：输入路由 r    列：输出路由 o", "#a78bfa");
+panel(628, 86, 344, 374, "03", "系数分组",
+  `${total} = ${R} Pre + ${R} Post + ${R * R} Comb`, "#2dd4bf");
+
+// ---------- 左侧：输入与分流 ----------
+g += cell(62, 176, 178, 42, "#94a3b8", "输入 x · [T, H]", 13);
+
+// 总线放在卡片外，避免穿过路由文字
+const routeStart = 244;
+const routeStep = Math.min(45, 174 / Math.max(R - 1, 1));
+const routeHeight = Math.min(34, routeStep - 7);
+const lastCenter = routeStart + (R - 1) * routeStep + routeHeight / 2;
+
+g += path("M 151 218 V 230 H 48", "#94a3b8", 1.5, false);
+g += path(`M 48 230 V ${lastCenter}`, "#94a3b8", 1.5, false);
+
+for (let r = 0; r < R; r++) {
+  const y = routeStart + r * routeStep;
+  const cy = y + routeHeight / 2;
+  const color = routeColor(r);
+
+  g += path(`M 48 ${cy} H 70`, color, 1.5);
+  g += cell(74, y, 166, routeHeight, color, `路由 ${r + 1} · R̃[${r + 1}]`, 12);
+
+  g += path(
+    `M 240 ${cy} C 272 ${cy}, 282 ${225 + r * 41}, 320 ${225 + r * 41}`,
+    color, 1.4
+  );
+}
+
+// ---------- 中间：矩阵 ----------
+const mx = 354, my = 205;
+const matrixSize = 164;
+const pitch = matrixSize / R;
+const box = pitch - 5;
+
+g += text(436, 182, `M · ${R} × ${R}`, 15, "#a78bfa", "middle", 700);
+
+for (let r = 0; r < R; r++) {
+  const color = routeColor(r);
+
+  g += text(mx - 12, my + r * pitch + box / 2 + 4,
+    `r${r + 1}`, 11, color, "end", 600);
+
+  for (let o = 0; o < R; o++) {
+    g += cell(mx + o * pitch, my + r * pitch, box, box, color,
+      `${r + 1},${o + 1}`, 11,
+      `M[${r + 1}, ${o + 1}]：输入路由 ${r + 1} → 输出路由 ${o + 1}`);
+  }
+}
+
+for (let o = 0; o < R; o++) {
+  g += text(mx + o * pitch + box / 2, my + matrixSize + 16,
+    `o${o + 1}`, 11, "var(--muted)", "middle");
+}
+
+g += text(451, 421, "每个输出路由汇合所有输入路由", 11,
+  "var(--muted)", "middle");
+
+// ---------- 右侧：系数 ----------
+const sx = 704, sw = 236;
+const gap = 7;
+const cw = Math.min(48, (sw - (R - 1) * gap) / R);
+
+function coefficientRow(y, label, symbol, color) {
+  g += text(650, y + 23, label, 12, color, "start", 650);
+  for (let i = 0; i < R; i++) {
+    g += cell(sx + i * (cw + gap), y, cw, 34,
+      color, `${symbol}${i + 1}`, 11);
+  }
+}
+
+coefficientRow(176, "Pre", "p", "#14b8a6");
+coefficientRow(225, "Post", "q", "#f472b6");
+
+g += path("M 650 277 H 948", "var(--border)", 1, false);
+g += text(650, 303, "Comb", 12, "#c49a6c", "start", 650);
+g += text(948, 303, `${R} × ${R} = ${R * R}`, 11, "var(--muted)", "end");
+
+const combY = 319;
+const combPitch = Math.min(27, 110 / R);
+
+for (let r = 0; r < R; r++) {
+  for (let o = 0; o < R; o++) {
+    g += cell(sx + o * (cw + gap), combY + r * combPitch,
+      cw, combPitch - 4, "#c49a6c",
+      `${r + 1},${o + 1}`, 10,
+      `Comb[${r + 1}, ${o + 1}]`);
+  }
+}
+
+// Comb logits 与 M 的关系使用虚线标注，区别于主数据流
+g += `<path d="M 698 371 H 614 V 247 H 526"
+  fill="none" stroke="#a78bfa" stroke-width="1.5"
+  stroke-dasharray="4 5" marker-end="url(#${uid}-arrow)"/>`;
+g += text(565, 235, "Sinkhorn", 10, "#a78bfa", "middle", 600);
+
+// ---------- 底部：组合示意 ----------
+g += rect(28, 484, 576, 112, "var(--panel)", "var(--border)", 16);
+g += text(48, 511, "组合示意", 12, "var(--muted)", "start", 600);
+
+g += cell(48, 530, 330, 44, "#a78bfa", "u = q · x + M · R̃", 16);
+g += path("M 390 552 H 430", "#94a3b8", 1.8);
+g += cell(442, 530, 140, 44, "#34d399", "输出 ŷ", 14);
+
+// ---------- 底部：数量分解 ----------
+g += rect(628, 484, 344, 112, "var(--panel)", "var(--border)", 16);
+g += text(648, 511, "系数数量", 12, "var(--muted)", "start", 600);
+
+const terms = [
+  { x: 674, n: R, label: "Pre", color: "#14b8a6" },
+  { x: 754, n: R, label: "Post", color: "#f472b6" },
+  { x: 834, n: R * R, label: "Comb", color: "#c49a6c" },
+  { x: 933, n: total, label: "总计", color: "#a78bfa" },
+];
+
+for (const t of terms) {
+  g += text(t.x, 549, t.n, 25, t.color, "middle", 700);
+  g += text(t.x, 577, t.label, 11, "var(--muted)", "middle");
+}
+
+g += text(714, 548, "+", 17, "var(--muted)", "middle");
+g += text(794, 548, "+", 17, "var(--muted)", "middle");
+g += text(884, 548, "=", 17, "var(--muted)", "middle");
+
+holder.querySelector(".frame").innerHTML = `
+<svg xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 618" role="img"
+  aria-labelledby="${uid}-title ${uid}-desc">
+  <title id="${uid}-title">mHC 路由与系数示意图</title>
+  <desc id="${uid}-desc">
+    ${R} 条并行路由，${R} 乘 ${R} 混合矩阵，
+    系数分为 Pre、Post、Comb，共 ${total} 个。
+  </desc>
+  <defs>
+    <marker id="${uid}-arrow" viewBox="0 0 10 10"
+      refX="9" refY="5" markerWidth="5" markerHeight="5"
+      orient="auto">
+      <path d="M 1 1 L 9 5 L 1 9 Z" fill="context-stroke"/>
+    </marker>
+  </defs>
+  ${g}
+</svg>`;
+
 dv.container.appendChild(holder);
 ```
 
