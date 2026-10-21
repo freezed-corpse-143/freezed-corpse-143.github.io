@@ -82,11 +82,32 @@
 			"height":60
 		},
 		{
+			"id":"2253532c3fbdf26e",
+			"type":"text",
+			"text":"如何规范化地描述需求以方便开发、越清晰越接近开发层",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":580,
+			"width":260,
+			"height":90
+		},
+		{
+			"id":"f336d1d74a6efe4f",
+			"type":"text",
+			"text":"DEEPGEEM",
+			"styleAttributes":{},
+			"x":-5540,
+			"y":890,
+			"width":260,
+			"height":60,
+			"color":"1"
+		},
+		{
 			"id":"f8f87a41f4abc361",
 			"type":"text",
 			"text":"面试内容准备 = 简历内容的闭包。",
 			"styleAttributes":{},
-			"x":-4970,
+			"x":-5180,
 			"y":860,
 			"width":260,
 			"height":60
@@ -96,39 +117,8 @@
 			"type":"text",
 			"text":"线程池的数据结构",
 			"styleAttributes":{},
-			"x":-5040,
-			"y":1060,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"2253532c3fbdf26e",
-			"type":"text",
-			"text":"如何规范化地描述需求以方便开发、越清晰越接近开发层",
-			"styleAttributes":{},
-			"x":-4480,
-			"y":760,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"f336d1d74a6efe4f",
-			"type":"text",
-			"text":"DEEPGEEM",
-			"styleAttributes":{},
-			"x":-5500,
-			"y":920,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
-			"id":"58961bd4a6a54df3",
-			"type":"text",
-			"text":"Mistral.rs",
-			"styleAttributes":{},
-			"x":-5500,
-			"y":1060,
+			"x":-5140,
+			"y":1000,
 			"width":260,
 			"height":60
 		}
