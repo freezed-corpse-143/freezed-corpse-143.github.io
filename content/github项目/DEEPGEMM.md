@@ -317,17 +317,22 @@ dv.container.appendChild(container);
 
 ## 路由（门控打分与 TopK）
 
+> 分工：路由由独立的 gate kernel（`bf16_mega_gate`）完成，Mega MoE 主 kernel 只消费它的输出 `topk_idx` / `topk_weights`，自己不做门控。
+
 对 token $x_i$、专家 $e$：
 
 $$
-g_{i,e}=\text{norm}(x_i \cdot w_e^g),\ \ \ \  \mathcal{T}_i = \text{TopK}_e \{g_{i,e}\}_{e=1}^E
+s_{i,e}=\sqrt{\operatorname{softplus}(x_i\cdot w_e^g)},\qquad
+\mathcal{T}_i=\operatorname{TopK}_e\{s_{i,e}+b_e\}_{e=1}^{E},\qquad
+g_{i,e}=\frac{s_{i,e}}{\sum_{e'\in\mathcal{T}_i}s_{i,e'}+10^{-20}}\,\gamma
 $$
 - $x_i\in\mathbb{R}^{d}$：第 $i$ 个 token 的隐向量
 - $w^{g}_e\in\mathbb{R}^{d}$：专家 $e$ 的门控权重
-- $g_{i,e}\in\mathbb{R}$：token $i$ 对专家 $e$ 的门控分数
-- $\mathcal{T}_i$：token $i$ 选中的 TopK 专家集合，$|\mathcal{T}_i|=K$
-- `norm` 是门控归一化（如 softmax 或 top-k 归一化），文档未展开具体形式
-- 实现上权重还要乘一个全局缩放 $\gamma$（`routed_scaling_factor`）；`RoutingArgs` 里另有逻辑→物理专家映射（`to_physical_map`）、重复专家（`num_duplicate_experts`）与共享专家旁路（`num_shared_experts`）
+- $s_{i,e}$：**sqrt-softplus** 激活后的门控分数，$\operatorname{softplus}(u)=\log(1+e^{u})$（实现取数值稳定分支：$u>20$ 时直接取 $u$，否则 `log1p(exp(u))`）
+- $b_e$：可选的打分偏置（图像 token 用另一套 `image_bias`），**只参与排序、不进入权重**；无效/填充专家置 $-\infty$
+- $\mathcal{T}_i$：按 $s_{i,e}+b_e$ 选出的 TopK 专家集合，$|\mathcal{T}_i|=K$。无偏置时因 sqrt-softplus 单调，等价于直接按原始打分排序，且只对选中的专家做激活
+- $g_{i,e}$：对**未加偏置**的 $s_{i,e}$ 在 TopK 内归一化，再乘全局缩放 $\gamma$（`routed_scaling_factor`）；分母的 $10^{-20}$ 用于防零除
+- `RoutingArgs` 里另有逻辑→物理专家映射（`to_physical_map`）、重复专家（`num_duplicate_experts`，按 `(rank_idx + token_idx*23333) % num_duplicates` 分散）与共享专家旁路（`num_shared_experts`）
 
 ## 专家计算（SwiGLU）
 
@@ -505,3 +510,7 @@ container.appendChild(note);
 
 dv.container.appendChild(container);
 ```
+
+# mHC
+
+HyperConnection
