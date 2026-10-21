@@ -72,26 +72,6 @@
 			"height":60
 		},
 		{
-			"id":"1aa28f8561c6dd92",
-			"type":"text",
-			"text":"曙光信息大模型推理优化面试 22 日早上。",
-			"styleAttributes":{},
-			"x":-4700,
-			"y":450,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"2253532c3fbdf26e",
-			"type":"text",
-			"text":"如何规范化地描述需求以方便开发、越清晰越接近开发层",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":580,
-			"width":260,
-			"height":90
-		},
-		{
 			"id":"f8f87a41f4abc361",
 			"type":"text",
 			"text":"面试内容准备 = 简历内容的闭包。",
@@ -108,6 +88,16 @@
 			"styleAttributes":{},
 			"x":-5520,
 			"y":860,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"1aa28f8561c6dd92",
+			"type":"text",
+			"text":"曙光信息大模型推理优化面试 22 日早上。",
+			"styleAttributes":{},
+			"x":-5120,
+			"y":610,
 			"width":260,
 			"height":60
 		}
