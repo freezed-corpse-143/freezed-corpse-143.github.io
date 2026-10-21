@@ -744,7 +744,7 @@ let g = "";
 // ---- 标题 + 分隔线 ----
 g += `<text x="140" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">标准残差（无 mHC）</text>`;
 g += `<text x="545" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">mHC（两列：H 维 / 路由）</text>`;
-g += `<line x1="290" y1="36" x2="290" y2="450" stroke="currentColor" stroke-opacity="0.15" stroke-dasharray="4 6"/>`;
+g += `<line x1="290" y1="36" x2="290" y2="390" stroke="currentColor" stroke-opacity="0.15" stroke-dasharray="4 6"/>`;
 
 // ---- 左：标准残差 ----
 g += box(40, 92, 200, 40, P.common, "h（H 维）");
@@ -760,45 +760,45 @@ g += path("M240,112 H265 V224 H240");              // 残差旁路
 
 // ---- 右：mHC｜左列 = H 维链路 ----
 g += box(300, 44, 190, 40, P.common, "上一层 x（H 维）");
-g += box(300, 166, 190, 40, P.mhc, "Collapse  Σ p·u");
-g += arrow(395, 206, 395, 222);
-g += box(300, 222, 190, 40, P.common, "ỹ（H 维）");
-g += arrow(395, 262, 395, 278);
-g += box(300, 278, 190, 40, P.common, "RMSNorm");
-g += arrow(395, 318, 395, 334);
-g += box(300, 334, 190, 40, P.common, "Layer");
-g += arrow(395, 374, 395, 390);
-g += box(300, 390, 190, 40, P.common, "下一层 x'（H 维）");
-g += `<text x="395" y="450" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.6">→ 下一层</text>`;
+g += box(300, 100, 190, 40, P.mhc, "Collapse  Σ p·u");
+g += arrow(395, 140, 395, 156);
+g += box(300, 156, 190, 40, P.common, "ỹ（H 维）");
+g += arrow(395, 196, 395, 212);
+g += box(300, 212, 190, 40, P.common, "RMSNorm");
+g += arrow(395, 252, 395, 268);
+g += box(300, 268, 190, 40, P.common, "Layer");
+g += arrow(395, 308, 395, 324);
+g += box(300, 324, 190, 40, P.common, "下一层 x'（H 维）");
+g += `<text x="395" y="384" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.6">→ 下一层</text>`;
 
 // ---- 右：mHC｜右列 = 路由 / 系数 ----
 g += box(580, 44, 210, 40, P.mhc, "上一层 R̃, p, q, M", true);
-g += arrow(685, 84, 685, 110);
-g += box(580, 110, 210, 40, P.mhc, "Mix  q·x + M·R̃");
-g += arrow(685, 150, 685, 166);
-g += box(580, 166, 210, 40, P.mhc, "u（R×H）");
-g += arrow(685, 206, 685, 222);
-g += box(580, 222, 210, 40, P.mhc, "Sinkhorn → 新 p/q/M");
-g += arrow(685, 262, 685, 278);
-g += box(580, 278, 210, 40, P.mhc, "下一层 u, 新 p/q/M", true);
-g += `<text x="685" y="336" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.6">→ 下一层</text>`;
+g += arrow(685, 84, 685, 100);
+g += box(580, 100, 210, 40, P.mhc, "Mix  q·x + M·R̃");
+g += arrow(685, 140, 685, 156);
+g += box(580, 156, 210, 40, P.mhc, "u（R×H）");
+g += arrow(685, 196, 685, 212);
+g += box(580, 212, 210, 40, P.mhc, "Sinkhorn → 新 p/q/M");
+g += arrow(685, 252, 685, 268);
+g += box(580, 268, 210, 40, P.mhc, "下一层 u, 新 p/q/M", true);
+g += `<text x="685" y="326" text-anchor="middle" font-size="11.5" fill="currentColor" opacity="0.6">→ 下一层</text>`;
 
 // ---- 跨列连线 ----
-g += path("M490,64 H530 V130 H580");               // x → Mix
-g += arrow(580, 186, 490, 186);                    // u → Collapse
-g += path("M580,64 H550 V176 H490", true, true);   // 上一层的 p → Collapse
+g += path("M490,64 V36 H805 V120 H790");           // x → Mix（从上方右侧绕入，不穿框）
+g += path("M580,176 H540 V130 H490");              // u → Collapse
+g += path("M580,64 H555 V110 H490", true, true);   // 上一层的 p → Collapse
 
 // ---- 图例 ----
 function legend(x, color, label) {
-  return `<rect x="${x}" y="470" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"/>` +
-    `<text x="${x + 24}" y="483" font-size="12.5" fill="currentColor" opacity="0.85">${esc(label)}</text>`;
+  return `<rect x="${x}" y="404" width="16" height="16" rx="4" fill="${color}" fill-opacity="0.2" stroke="${color}"/>` +
+    `<text x="${x + 24}" y="417" font-size="12.5" fill="currentColor" opacity="0.85">${esc(label)}</text>`;
 }
 g += legend(40, P.common, "两者共有");
 g += legend(190, P.std, "仅标准残差（残差直加）");
 g += legend(420, P.mhc, "仅 mHC（路由 / Mix / Collapse / Sinkhorn）");
-g += `<text x="40" y="508" font-size="11.5" fill="currentColor" opacity="0.6">虚线 = 上一层传入 / 传给下一层的系数</text>`;
+g += `<text x="40" y="440" font-size="11.5" fill="currentColor" opacity="0.6">虚线 = 上一层传入 / 传给下一层的系数</text>`;
 
-const svg = `<svg viewBox="0 0 830 530" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
+const svg = `<svg viewBox="0 0 830 460" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
   xmlns="http://www.w3.org/2000/svg"
   font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
   <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
