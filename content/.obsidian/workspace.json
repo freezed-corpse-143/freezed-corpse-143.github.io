@@ -39,17 +39,14 @@
             "id": "1357c7a69b37917d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 834,
-                  "zoom": 0
-                }
+                "file": "元学习/参考学习法.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "参考学习法"
             }
           },
           {
@@ -122,13 +119,11 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -270,15 +265,17 @@
   },
   "active": "1357c7a69b37917d",
   "lastOpenFiles": [
-    "编程语言/cuda学习.md",
+    "元学习/并行学习法.md",
+    "元学习/参考学习法.md",
+    "元学习/关系定位法.md",
     "TODO.canvas",
+    "编程语言/cuda学习.md",
     "人工智能/多智能体设计.md",
     "人工智能/模型文件.md",
     "人工智能/大模型推理加速.md",
     "经验之谈.md",
     "现代UI/树形谱系生成算法.md",
     "编程语言/C & Zig 混合学习之路.md",
-    "元学习/关系定位法.md",
     "需求.md",
     "开发日记/任务分解.md",
     "开发日记/环境自检.md",
@@ -295,8 +292,6 @@
     "算法/递归回溯.md",
     "算法/字符串.md",
     "算法/栈.md",
-    "算法/位运算.md",
-    "算法/贪心.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
