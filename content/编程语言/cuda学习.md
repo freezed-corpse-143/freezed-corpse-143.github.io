@@ -2485,3 +2485,5 @@ $$ \boxed{ \text{GEMM} + \text{Bias} + \text{Activation} } $$
 要区分三个层面：**资源归谁管理、任务如何组织、硬件如何执行。** Kernel、Context、Grid、Block、Thread、Warp 分别处在不同层面，不能全部拿来与 CPU 进程或线程一一对应。
 
 以下以 NVIDIA CUDA 为例。
+
+## 先从熟悉的 CPU 程序开始
