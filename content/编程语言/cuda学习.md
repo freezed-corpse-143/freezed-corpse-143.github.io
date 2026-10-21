@@ -2534,5 +2534,18 @@ doubleValues<<<blocks, 256>>>(input, output, N);
 
 ## Context：程序使用 GPU 的执行环境
 
+CPU 进程拥有地址空间、文件描述符等资源。类似地，程序要使用 GPU，也需要一个环境来关联和管理 GPU 资源，这就是 **CUDA Context**。
 
+例如，一个程序可以在某个 context 中：
+
+- 分配设备内存；
+- 加载 kernel 所在的代码模块；
+- 创建 stream 和 event；
+- 提交计算及内存拷贝操作。
+
+不过，**Context 不与 CPU 线程一一对应**。通常使用 CUDA Runtime 时，一个进程内的多个 CPU 线程共享同一个设备的 primary context；Driver API 也允许显式管理多个 context。[docs.nvidia.com](https://docs.nvidia.com/cuda/archive/12.0.1/cuda-c-programming-guide)
+
+因此，可以把它理解成“这个程序使用这张 GPU 时所依托的环境”，但不能直接把它当成进程。
+
+## Kernel 与 Grid：函数定义和一次执行任务
 
