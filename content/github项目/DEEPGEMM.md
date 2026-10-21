@@ -320,5 +320,5 @@ dv.container.appendChild(container);
 对 token $x_i$、专家 $e$：
 
 $$
-g_{i,e}=\text{norm}(x_i \cdot )
+g_{i,e}=\text{norm}(x_i \cdot w_e^g),\ \ \ \  \mathcal{T}_i = \text{TopK}_e \{\}
 $$
