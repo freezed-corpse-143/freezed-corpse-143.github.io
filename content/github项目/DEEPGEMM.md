@@ -1235,6 +1235,23 @@ $$
 | 操作数顺序 | `fma(a_desc, b_desc)` | `fma(b_desc, a_desc)` | `:308-312` |
 | 维度语义 | `UMMA_N = BLOCK_N` | `UMMA_N = BLOCK_M` | `:64` |
 
+## 一句话：差在"谁占 M 维、谁占 N 维"
+
+数学公式始终是 $D=AB^\top$，换的只是**交给 tensor core 时，谁被当成 A 操作数**：
+
+| 操作数 | 非 swap | swap |
+|---|---|---|
+| A（token 维 M） | 占 **M 维**（TMEM 行，≤128） | 占 **N 维**（TMEM 列，可达 256） |
+| B（输出维 N） | 占 **N 维**（TMEM 列，可达 256） | 占 **M 维**（TMEM 行，必须 =128） |
+
+由此三条：
+
+- **谁占 M 维，谁就被 128 卡住**：非 swap 时是 A 的 M 只能取 32/64/128；swap 后是 B 的 N 必须等于 128，A 的 M 反而能到 256。
+- **两个操作数的数据布局本身不变**，都是 `[行, K]` 的 K-major 数据；变的只是 TMA 把谁加载成"MMA 的 A"，载入 SMEM 的 tile 尺寸也随之互换。
+- **epilogue 跟着整体换掉**：谁占 M 维，谁就是 TMEM 行，决定 store 能否一次铺满整个 warpgroup——这正是 `sm100_store_cd.cuh` 与 `sm100_store_cd_swap_ab.cuh` 两个文件的分界。
+
+说白了：**swap 就是把"块大小上限 128"这条硬约束从 A 挪到 B**，代价是在 epilogue 那边多一次转置。
+
 ## 出现原因：TMEM 的 128 行是硬约束
 
 SM100 的累加器放在 TMEM：**固定 128 个 lane（行）** × 最多 512 个 32-bit 列。UMMA 的 **M 维必须映射到 lane**，所以单 CTA 的 MMA M 只有 32/64/128 三档；**N 维映射到列**，可以取 8 的倍数、最大 256。
@@ -1249,10 +1266,6 @@ $$
 
 | | 非 swap | swap |
 |---|---|---|
-| MMA 的 M | `BLOCK_M`（≤128） | `BLOCK_N`（=128） |
-| MMA 的 N | `BLOCK_N`（≤256） | `BLOCK_M`（≤256） |
-| TMEM 行 | M | N |
-| TMEM 列 | N | M |
 | `BLOCK_M` 可选 | 32 / 64 / 128 | 16 的倍数，≤256 |
 | `BLOCK_N` 可选 | 16 的倍数，≤256 | **恒为 128** |
 
@@ -1311,14 +1324,15 @@ STORE_BLOCK_N = kSwapAB ? BLOCK_N : kSwizzleCDMode / sizeof(cd_dtype_t);
 
 ## 作用与代价
 
-| 项 | 结论 |
-|---|---|
-| 主要收益 | `BLOCK_M` 可到 256；m-grouped 下按组实际 M 收缩 MMA；cluster 可切 N |
-| store tile | `16 × BLOCK_N`（非 swap：`BLOCK_M × 64`） |
-| store 切分 | swap：沿 M 每 16 行一个阶段，覆盖整个 N；非 swap：沿 N 每 64 列一个阶段 |
-| epilogue 线程 | 固定 128（整个 warpgroup；非 swap 只需 `STORE_BLOCK_M` 个） |
-| 硬限制 | `BLOCK_N` 必须 128；`STORE_BLOCK_N` 必须 128 |
-| 架构限制 | SM90 不支持（`heuristics/sm90.hpp:125` 直接断言 `swap_ab == 0`） |
+| 项            | 结论                                                                    |
+| ------------ | --------------------------------------------------------------------- |
+| 主要收益         | `BLOCK_M` 可到 256；m-grouped 下按组实际 M 收缩 MMA；cluster 可切 N                |
+| store tile   | `16 × BLOCK_N`（非 swap：`BLOCK_M × 64`）                                 |
+| store 切分     | swap：沿 M 每 16 行一个阶段，覆盖整个 N；非 swap：沿 N 每 64 列一个阶段                      |
+| epilogue 线程  | 固定 128（整个 warpgroup；非 swap 只需 `STORE_BLOCK_M` 个）                      |
+| 硬限制          | `BLOCK_N` 必须 128；`STORE_BLOCK_N` 必须 128                               |
+| 架构限制         | SM90 不支持（`heuristics/sm90.hpp:125` 直接断言 `swap_ab == 0`）               |
 | FP8 clamp 输出 | 要求 `STORE_BLOCK_M == 16` 且 128 线程（`sm100_store_cd_swap_ab.cuh:52-53`） |
 
 代价集中在 epilogue：转置必须过一遍寄存器，且 store 只能以 16 行 M 为步长推进；换来的是 MMA 主循环的 tile 形状自由度，以及 grouped 场景下能对每个组的有效 M 做动态收缩。
+
