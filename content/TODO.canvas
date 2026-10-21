@@ -80,16 +80,6 @@
 			"y":610,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"5ed90f8eb5cf5250",
-			"type":"text",
-			"text":"联通填写",
-			"styleAttributes":{},
-			"x":-5160,
-			"y":880,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[
