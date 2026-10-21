@@ -2532,3 +2532,7 @@ doubleValues<<<blocks, 256>>>(input, output, N);
 | **SM**           | 类似一个能够容纳多组工作线程的计算核心   | GPU 的硬件计算单元，内部包含执行资源、寄存器、共享内存及 warp 调度器       |
 **Context 属于资源环境；Grid、Block、Thread 属于任务组织；Warp 和 SM 则帮助解释硬件执行。** CUDA 的执行模型将 kernel 组织成由 block 和 thread 构成的 grid。[developer.nvidia.com](https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model/)
 
+## Context：程序使用 GPU 的执行环境
+
+
+
