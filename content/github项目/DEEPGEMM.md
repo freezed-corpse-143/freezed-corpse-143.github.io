@@ -676,12 +676,9 @@ $$
 const C = { input: "#607d8b", calc: "#7e57c2", out: "#2e7d32" };
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
-function box(x, y, w, h, color, title, lines = []) {
+function box(x, y, w, h, color, title) {
   let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${color}" fill-opacity="0.12" stroke="${color}" stroke-opacity="0.8"/>`;
-  s += `<text x="${x + w / 2}" y="${y + 24}" text-anchor="middle" font-size="15" font-weight="600" fill="currentColor">${esc(title)}</text>`;
-  lines.forEach((l, i) => {
-    s += `<text x="${x + w / 2}" y="${y + 46 + i * 18}" text-anchor="middle" font-size="12.5" fill="currentColor" opacity="0.72">${esc(l)}</text>`;
-  });
+  s += `<text x="${x + w / 2}" y="${y + h / 2 + 5}" text-anchor="middle" font-size="15" font-weight="600" fill="currentColor">${esc(title)}</text>`;
   return s;
 }
 const arrow = (x1, y1, x2, y2) =>
@@ -690,29 +687,29 @@ const path = (d, marker = true) =>
   `<path d="${d}" fill="none" stroke="#888" stroke-width="1.6" ${marker ? 'marker-end="url(#ah)"' : ""}/>`;
 
 let g = "";
-g += box(195, 14, 440, 76, C.input, "输入", ["x (1×H)   R̃ (R×H)   q (R)   M (R×R)", "R = 4 条路由   ·   24 = R(R+2) 个混合通道"]);
-g += arrow(415, 90, 415, 110);
-g += box(195, 110, 440, 76, C.calc, "① 组合路由栈", ["u = q·x + M·R̃", "→ u (R×H)"]);
-g += arrow(415, 186, 415, 206);
-g += box(195, 206, 440, 76, C.calc, "② RMS 缩放 + 混合 logits", ["σ = 1/√(mean(u²)+ε)   z = fn·u", "→ 24 个通道"]);
-g += arrow(415, 282, 415, 302);
-g += box(195, 302, 440, 58, C.calc, "③ 仿射", ["α = z·σ·s_g + b"]);
-g += path("M415,360 V376 H220 V390");
-g += path("M415,360 V376 H610 V390");
-g += box(45, 390, 350, 94, C.calc, "④ Pre / Post", ["p = sigmoid(α) + ε_pre", "q = sigmoid(α) · γ_post", "→ R + R"]);
-g += box(435, 390, 350, 94, C.calc, "⑤ Sinkhorn（Comb）", ["行 softmax → 列归一", "→ 行/列重复 κ-1 次", "→ M (R×R) 双随机"]);
-g += path("M220,484 V496 H415", false);
-g += path("M610,484 V496 H415", false);
-g += arrow(415, 496, 415, 508);
-g += box(195, 508, 440, 76, C.calc, "⑥ token 输出", ["ỹ = Σ_o p_o · u_o", "→ H"]);
-g += arrow(415, 584, 415, 604);
-g += box(195, 604, 440, 76, C.calc, "⑦ RMSNorm + 量化", ["ŷ = ỹ · 1/√(mean(ỹ²)+ε) · s · w", "→ BF16 / FP8"]);
-g += arrow(415, 680, 415, 700);
-g += box(195, 700, 440, 94, C.out, "输出", ["new_residual = u", "new_prev_mix = p   new_post_mix = q", "new_comb_res_mix = M   y_bf16 / y_fp8"]);
-g += path("M195,747 H22 V52 H190");
-g += `<text x="10" y="400" transform="rotate(-90 10 400)" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">p / q / M → 下一层</text>`;
+g += box(195, 14, 440, 52, C.input, "输入");
+g += arrow(415, 66, 415, 86);
+g += box(195, 86, 440, 52, C.calc, "① 组合路由栈");
+g += arrow(415, 138, 415, 158);
+g += box(195, 158, 440, 52, C.calc, "② RMS 缩放 + 混合 logits");
+g += arrow(415, 210, 415, 230);
+g += box(195, 230, 440, 52, C.calc, "③ 仿射");
+g += path("M415,282 V298 H220 V312");
+g += path("M415,282 V298 H610 V312");
+g += box(45, 312, 350, 52, C.calc, "④ Pre / Post");
+g += box(435, 312, 350, 52, C.calc, "⑤ Sinkhorn（Comb）");
+g += path("M220,364 V376 H415", false);
+g += path("M610,364 V376 H415", false);
+g += arrow(415, 376, 415, 390);
+g += box(195, 390, 440, 52, C.calc, "⑥ token 输出");
+g += arrow(415, 442, 415, 462);
+g += box(195, 462, 440, 52, C.calc, "⑦ RMSNorm + 量化");
+g += arrow(415, 514, 415, 534);
+g += box(195, 534, 440, 52, C.out, "输出");
+g += path("M195,560 H22 V40 H190");
+g += `<text x="10" y="300" transform="rotate(-90 10 300)" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">p / q / M → 下一层</text>`;
 
-const svg = `<svg viewBox="0 0 830 810" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
+const svg = `<svg viewBox="0 0 830 600" width="100%" style="max-width:830px;height:auto;display:block;margin:0 auto"
   xmlns="http://www.w3.org/2000/svg"
   font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
   <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
