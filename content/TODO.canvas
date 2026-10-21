@@ -82,16 +82,6 @@
 			"height":60
 		},
 		{
-			"id":"1d84fccb277b7bf1",
-			"type":"text",
-			"text":"27 年烟草投递公告",
-			"styleAttributes":{},
-			"x":-5520,
-			"y":860,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"1aa28f8561c6dd92",
 			"type":"text",
 			"text":"曙光信息大模型推理优化面试 22 日早上。",

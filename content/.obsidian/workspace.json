@@ -39,17 +39,14 @@
             "id": "a17e9b1763649221",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4990,
-                  "y": 560,
-                  "zoom": 0
-                }
+                "file": "找工作/招聘.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "招聘"
             }
           },
           {
@@ -268,9 +265,11 @@
   },
   "active": "a17e9b1763649221",
   "lastOpenFiles": [
+    "找工作/实习.md",
+    "找工作/招聘.md",
+    "TODO.canvas",
     "开发日记/需求描述.md",
     "编程语言/cuda学习.md",
-    "TODO.canvas",
     "编程语言/C++.md",
     "编程语言/C & Zig 混合学习之路.md",
     "人工智能/多智能体设计.md",
@@ -293,7 +292,6 @@
     "软件工程/错误类型.md",
     "编译原理/基础.md",
     "现代UI/浅色模式与深色模式.md",
-    "算法/递归回溯.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
