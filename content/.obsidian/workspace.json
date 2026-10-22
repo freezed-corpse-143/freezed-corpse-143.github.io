@@ -25,17 +25,14 @@
             "id": "81155fcee2619a49",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 560,
-                  "zoom": 0
-                }
+                "file": "人工智能/大模型推理加速.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "大模型推理加速"
             }
           },
           {
@@ -128,7 +125,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TODO.canvas",
+                "file": "人工智能/大模型推理加速.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -253,6 +250,7 @@
   },
   "active": "81155fcee2619a49",
   "lastOpenFiles": [
+    "TODO.canvas",
     "杂项/充值.md",
     "现代UI/tauri+vue的结合.md",
     "开发日记/任务分解.md",
@@ -264,7 +262,6 @@
     "编程语言/RUST & C++混合学习之路.md",
     "分布式/Raft算法.md",
     "人工智能/大模型推理加速.md",
-    "TODO.canvas",
     "开发日记/需求描述.md",
     "开发日记/环境自检.md",
     "经验之谈.md",
@@ -279,7 +276,6 @@
     "编程语言/C & Zig 混合学习之路.md",
     "人工智能/多智能体设计.md",
     "元学习/参考学习法.md",
-    "元学习/并行学习法.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",

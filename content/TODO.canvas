@@ -50,16 +50,6 @@
 			"y":410,
 			"width":260,
 			"height":140
-		},
-		{
-			"id":"364f497c779e1423",
-			"type":"text",
-			"text":"prefill 阶段怎么做序列并行。",
-			"styleAttributes":{},
-			"x":-5540,
-			"y":840,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
