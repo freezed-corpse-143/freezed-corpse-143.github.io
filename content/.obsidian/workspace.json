@@ -25,17 +25,14 @@
             "id": "81155fcee2619a49",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5015.139215686272,
-                  "y": 688.7946866353354,
-                  "zoom": -0.526331969674972
-                }
+                "file": "找工作/简历准备——内容的闭包.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "简历准备——内容的闭包"
             }
           }
         ],
@@ -114,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TODO.canvas",
+                "file": "找工作/简历准备——内容的闭包.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -237,10 +234,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "81155fcee2619a49",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
-    "github项目/DEEPGEMM.md",
     "TODO.canvas",
+    "github项目/DEEPGEMM.md",
     "index.md",
     "编程语言/cuda学习.md",
     "经验之谈.md",
