@@ -80,6 +80,16 @@
 			"y":840,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"bacf1034858fd504",
+			"type":"text",
+			"text":"问题分解与沙盒环境探索",
+			"styleAttributes":{},
+			"x":-5120,
+			"y":860,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[
