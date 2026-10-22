@@ -31,16 +31,6 @@
 			"height":120
 		},
 		{
-			"id":"de3ba6cd0ddae0b8",
-			"type":"text",
-			"text":"多智能体 decode 阶段、将辩论视为耦合，使用 kaplan-york 理论，分析策略诱导多步后的混沌行为与吸引子收敛",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":200,
-			"width":260,
-			"height":140
-		},
-		{
 			"id":"6c42ce4e31f88ee4",
 			"type":"text",
 			"text":"射击微调训练",
@@ -72,25 +62,14 @@
 			"height":60
 		},
 		{
-			"id":"f8eec502649a38f5",
+			"id":"de3ba6cd0ddae0b8",
 			"type":"text",
-			"text":"DSpark 技术",
+			"text":"多智能体 decode 阶段、将辩论视为耦合，使用 kaplan-york 理论，分析策略诱导多步后的混沌行为与吸引子收敛",
 			"styleAttributes":{},
 			"x":-5540,
-			"y":850,
+			"y":410,
 			"width":260,
-			"height":60
-		},
-		{
-			"id":"1aa28f8561c6dd92",
-			"type":"text",
-			"text":"曙光信息大模型推理优化面试 22 日早上。",
-			"styleAttributes":{},
-			"x":-5540,
-			"y":980,
-			"width":260,
-			"height":60,
-			"color":"1"
+			"height":140
 		}
 	],
 	"edges":[
