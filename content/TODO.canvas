@@ -11,16 +11,6 @@
 			"height":150
 		},
 		{
-			"id":"df0eb5b024e36f90",
-			"type":"text",
-			"text":"射击中加入音游节奏",
-			"styleAttributes":{},
-			"x":-4860,
-			"y":720,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"9a23c801ec292bcf",
 			"type":"text",
 			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101 ，24 日考试准备。",
@@ -29,16 +19,6 @@
 			"y":420,
 			"width":420,
 			"height":120
-		},
-		{
-			"id":"6c42ce4e31f88ee4",
-			"type":"text",
-			"text":"射击微调训练",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":720,
-			"width":260,
-			"height":60
 		},
 		{
 			"id":"ed710a70c0258c74",
@@ -80,29 +60,9 @@
 			"y":840,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"bacf1034858fd504",
-			"type":"text",
-			"text":"问题分解与沙盒环境探索",
-			"styleAttributes":{},
-			"x":-5120,
-			"y":860,
-			"width":260,
-			"height":60
 		}
 	],
-	"edges":[
-		{
-			"id":"1e2a08ca67087068",
-			"styleAttributes":{},
-			"toFloating":false,
-			"fromNode":"6c42ce4e31f88ee4",
-			"fromSide":"right",
-			"toNode":"df0eb5b024e36f90",
-			"toSide":"left"
-		}
-	],
+	"edges":[],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
