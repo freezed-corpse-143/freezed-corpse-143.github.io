@@ -142,7 +142,7 @@ logits
       token
 ```
 
-而不是让上层框架自己拼一串 GPU operation。[FlashInfer](https://docs.flashinfer.ai/api/sampling.html?utm_source=chatgpt.com)
+而不是让上层框架自己拼一串 GPU operation。[FlashInfer](https://docs.flashinfer.ai/api/sampling.html)
 
 ## 与 FlashAttention 的关系
 
@@ -202,7 +202,7 @@ FlashInfer
 
 也就是说，**TVM 更像“如何自动生成/优化计算程序”的编译器基础设施；FlashInfer 更像“LLM inference 中这些最重要的算子，我直接给你高度优化好的实现和调度框架”。**
 
-FlashInfer 现在甚至会根据模型架构、精度、GPU 世代和 serving workload 选择不同 kernel 配置；2026 年 9 月的 v 0.7 更新还进一步强化了 kernel selection/autotuning。[FlashInfer](https://flashinfer.ai/2026/09/22/flashinfer-v07.html?utm_source=chatgpt.com)
+FlashInfer 现在甚至会根据模型架构、精度、GPU 世代和 serving workload 选择不同 kernel 配置；2026 年 9 月的 v 0.7 更新还进一步强化了 kernel selection/autotuning。[FlashInfer](https://flashinfer.ai/2026/09/22/flashinfer-v07.html)
 
 ## 在 LLM 推理系统体系中的位置
 

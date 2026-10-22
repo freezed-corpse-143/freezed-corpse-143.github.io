@@ -27,33 +27,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "人工智能/大模型推理加速.md",
+                "file": "github项目/flashinfer.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "大模型推理加速"
+              "title": "flashinfer"
             }
           },
           {
             "id": "50273f96f3f06a46",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 560,
-                  "zoom": 0
-                }
+                "file": "现代UI/tauri+vue的结合.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "tauri+vue的结合"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -87,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "chunked",
+                "query": "chatgpt",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -108,7 +105,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -128,7 +126,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "找工作/简历准备——内容的闭包.md",
+                "file": "github项目/flashinfer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -251,11 +249,16 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "50273f96f3f06a46",
+  "active": "81155fcee2619a49",
   "lastOpenFiles": [
-    "开发日记/任务分解.md",
-    "TODO.canvas",
+    "经典库学习/langchain.md",
+    "调试/NCCL.md",
+    "编程语言/RUST & C++混合学习之路.md",
+    "分布式/Raft算法.md",
+    "现代UI/tauri+vue的结合.md",
     "人工智能/大模型推理加速.md",
+    "TODO.canvas",
+    "开发日记/任务分解.md",
     "开发日记/需求描述.md",
     "开发日记/环境自检.md",
     "经验之谈.md",
@@ -275,10 +278,6 @@
     "人工智能/模型文件.md",
     "现代UI/树形谱系生成算法.md",
     "需求.md",
-    "软件工程/从业务角度理解语言特性.md",
-    "编程语言/Typescript.md",
-    "软件工程/依赖管理.md",
-    "环境配置.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",

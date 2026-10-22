@@ -164,7 +164,7 @@ A 的第 9 条：SET x = 7，已经执行
 C 的第 9 条：SET x = 9，已经执行
 ```
 
-因此，Raft 允许暂时落后，但不能让已经执行的历史互相矛盾。[raft.github.io](https://raft.github.io/raft.pdf?utm_source=chatgpt.com)
+因此，Raft 允许暂时落后，但不能让已经执行的历史互相矛盾。[raft.github.io](https://raft.github.io/raft.pdf)
 
 # Leader 宕机后，为什么不会丢掉已提交的数据？
 
@@ -275,7 +275,7 @@ index 11：当前 term 的日志
 
 当第 11 条在当前 term 获得多数复制并提交时，前面的第 10 条也随整个前缀一起提交。
 
-原因是：日志新旧比较优先看最后一条的 term。某个拥有更高 term 分叉日志的节点，在特定历史中仍可能当选并覆盖旧条目；当前 term 的多数提交才能建立所需的安全保证。原论文 Figure 8 专门展示了这个反例。[web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf?utm_source=chatgpt.com)
+原因是：日志新旧比较优先看最后一条的 term。某个拥有更高 term 分叉日志的节点，在特定历史中仍可能当选并覆盖旧条目；当前 term 的多数提交才能建立所需的安全保证。原论文 Figure 8 专门展示了这个反例。[web.stanford.edu](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-extended.pdf)
 
 初学时先牢牢记住这条规则，之后再推演 Figure 8。
 

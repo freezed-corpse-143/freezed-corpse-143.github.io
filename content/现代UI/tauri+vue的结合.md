@@ -30,7 +30,7 @@ button { color: blue; }
 | `assets/*.css` |样式|
 |图片、字体等|页面资源|
 
-**Vue 的模板通常编译成 JavaScript 渲染函数，因此打包后的 HTML 可能非常简单。**页面的大部分内容由 JS 在运行时创建和更新。Vue 官方推荐的构建流程会把生产产物放到 `dist` 目录。[GitHub](https://github.com/vuejs/docs/blob/main/src/guide/quick-start.md?utm_source=chatgpt.com)
+**Vue 的模板通常编译成 JavaScript 渲染函数，因此打包后的 HTML 可能非常简单。**页面的大部分内容由 JS 在运行时创建和更新。Vue 官方推荐的构建流程会把生产产物放到 `dist` 目录。[GitHub](https://github.com/vuejs/docs/blob/main/src/guide/quick-start.md)
 
 与此同时，Rust 编译器把 **Tauri 框架代码和你的 Rust 代码**编译成原生程序。典型的 Tauri 构建再将前端资源纳入应用，生成可执行文件和安装包。
 
@@ -64,7 +64,7 @@ flowchart TD
 |操作系统与驱动|系统层|进程调度、文件、网络、窗口合成、设备访问|
 |硬件|物理执行层|计算、内存读写、存储、显示和输入|
 
-Tauri 的核心进程管理 WebView，并通过 IPC 与前端通信；具体进程划分还取决于平台的 WebView 实现。[Tauri](https://v2.tauri.app/concept/process-model/?utm_source=chatgpt.com)
+Tauri 的核心进程管理 WebView，并通过 IPC 与前端通信；具体进程划分还取决于平台的 WebView 实现。[Tauri](https://v2.tauri.app/concept/process-model/)
 
 **3. WebView 到底是什么？**
 
@@ -80,7 +80,7 @@ Tauri 的核心进程管理 WebView，并通过 IPC 与前端通信；具体进�
 
 它通常没有完整浏览器的地址栏、标签页等外壳。
 
-Tauri 在 Windows 使用 **WebView 2**，macOS 使用 **WKWebView**，Linux 使用 **WebKitGTK**。[Tauri](https://v2.tauri.app/concept/process-model/?utm_source=chatgpt.com)
+Tauri 在 Windows 使用 **WebView 2**，macOS 使用 **WKWebView**，Linux 使用 **WebKitGTK**。[Tauri](https://v2.tauri.app/concept/process-model/)
 
 所以，**Vue 运行在 WebView 里面；WebView 被 Tauri 创建和管理。**
 
@@ -102,7 +102,7 @@ const content = await invoke('read_document', {
 })
 ```
 
-这里的 `invoke` 会跨越前端与原生核心的边界，调用你注册的 Rust 命令；它不是普通的同进程 JS 函数调用。Tauri 用命令、事件等 IPC 机制连接两端。[Tauri](https://v2.tauri.app/concept/inter-process-communication/?utm_source=chatgpt.com)
+这里的 `invoke` 会跨越前端与原生核心的边界，调用你注册的 Rust 命令；它不是普通的同进程 JS 函数调用。Tauri 用命令、事件等 IPC 机制连接两端。[Tauri](https://v2.tauri.app/concept/inter-process-communication/)
 
 **5. 硬件什么时候参与？看两个具体过程**
 

@@ -106,7 +106,7 @@ C++ 和 Rust 很适合对照学习：C++ 让你理解对象、资源和性能控
 - Rust 的 `Send` / `Sync` 帮助约束线程间传递和共享；安全 Rust 仍然可能出现死锁和业务逻辑竞争。
 - C++ 协程和 Rust `async` 都需要理解执行和调度机制；语法本身不会自动提供完整的运行时。
 
-Rust 可以用 Tokio 学习异步运行时；C++ 可以用 Boost.Asio 学习异步 I/O。两者都应在基本线程和同步机制之后引入。[An asynchronous Rust runtime](https://tokio.rs/?utm_source=chatgpt.com)
+Rust 可以用 Tokio 学习异步运行时；C++ 可以用 Boost.Asio 学习异步 I/O。两者都应在基本线程和同步机制之后引入。[An asynchronous Rust runtime](https://tokio.rs/)
 
 完成标准：能够解释任务如何退出、错误如何传播、队列满了怎么办，以及性能瓶颈的测量依据。
 
@@ -123,7 +123,7 @@ Rust 可以用 Tokio 学习异步运行时；C++ 可以用 Boost.Asio 学习异�
 | 系统接口       | 文件描述符、socket、mmap、系统调用                 |
 | 跨语言调用     | C ABI、FFI、数据布局、资源释放、错误边界           |
 
-要真正混合使用 C++ 和 Rust，建议先通过 C ABI 做一个小例子，再学习 [CXX](https://github.com/dtolnay/cxx?utm_source=chatgpt.com) 提供的 C++/Rust 桥接能力。[GitHub](https://github.com/dtolnay/cxx?utm_source=chatgpt.com)
+要真正混合使用 C++ 和 Rust，建议先通过 C ABI 做一个小例子，再学习 [CXX](https://github.com/dtolnay/cxx) 提供的 C++/Rust 桥接能力。[GitHub](https://github.com/dtolnay/cxx)
 
 练习项目：**Rust 命令行程序调用 C++ 计算库**。边界设计必须明确：谁分配、谁释放，字符串如何传递，错误如何返回，以及双方是否保存传入对象的引用。
 
@@ -133,14 +133,14 @@ Rust 可以用 Tokio 学习异步运行时；C++ 可以用 Boost.Asio 学习异�
 
 | 用途       | C++ 学习入口                                                 | Rust 学习入口                                                |
 | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 格式化输出 | [fmt](https://github.com/fmtlib/fmt?utm_source=chatgpt.com)  | 标准库 `format!`、`println!`                                 |
-| 单元测试   | [GoogleTest](https://github.com/google/googletest?utm_source=chatgpt.com) | 内置测试框架                                                 |
-| 序列化     | 随项目选择 JSON 等格式库                                     | [Serde](https://serde.rs/?utm_source=chatgpt.com)            |
-| 命令行解析 | 随项目选择参数解析库                                         | [clap](https://github.com/clap-rs/clap?utm_source=chatgpt.com) |
-| 异步网络   | [Boost.Asio](https://www.boost.org/library/latest/asio/?utm_source=chatgpt.com) | [Tokio](https://tokio.rs/?utm_source=chatgpt.com)            |
+| 格式化输出 | [fmt](https://github.com/fmtlib/fmt)  | 标准库 `format!`、`println!`                                 |
+| 单元测试   | [GoogleTest](https://github.com/google/googletest) | 内置测试框架                                                 |
+| 序列化     | 随项目选择 JSON 等格式库                                     | [Serde](https://serde.rs/)            |
+| 命令行解析 | 随项目选择参数解析库                                         | [clap](https://github.com/clap-rs/clap) |
+| 异步网络   | [Boost.Asio](https://www.boost.org/library/latest/asio/) | [Tokio](https://tokio.rs/)            |
 | 跨语言桥接 | 与 Rust 共同使用 CXX                                         | 与 C++ 共同使用 CXX                                          |
 
-fmt、GoogleTest、Serde 和 clap 分别提供格式化、测试、序列化和命令行解析能力。学习时关注它们怎样设计接口、表达约束和处理错误。[GitHub](https://github.com/fmtlib/fmt?utm_source=chatgpt.com)
+fmt、GoogleTest、Serde 和 clap 分别提供格式化、测试、序列化和命令行解析能力。学习时关注它们怎样设计接口、表达约束和处理错误。[GitHub](https://github.com/fmtlib/fmt)
 
 同时补上工程工具链：C++ 学会 CMake 和一种依赖管理方式；Rust 学会 Cargo 的依赖、features、workspace 和测试组织。调试、测试和性能测量应贯穿整个过程。
 
@@ -162,4 +162,4 @@ fmt、GoogleTest、Serde 和 clap 分别提供格式化、测试、序列化和�
 
 每轮学习固定采用：**读概念 → 写最小例子 → 制造一个错误 → 用工具定位 → 加入项目 → 比较两种实现**。
 
-资料上，Rust 用 [The Rust Programming Language](https://doc.rust-lang.org/book/?utm_source=chatgpt.com) 作为主线，[Rust By Example](https://doc.rust-lang.org/rust-by-example/) 用于练习，标准库文档用于查询；这些也是 Rust 官方学习入口提供的资源。[Rust Programming Language](https://rust-lang.org/learn/?trk=public_profile__reactions-text&utm_source=chatgpt.com) C++ 用一本系统教材作主线，配合 [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) 检查资源管理、接口和并发设计；Guidelines 更适合作为实践准则查阅。[isocpp.github.io](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?source=services-main&version=1&utm_source=chatgpt.com)
+资料上，Rust 用 [The Rust Programming Language](https://doc.rust-lang.org/book/) 作为主线，[Rust By Example](https://doc.rust-lang.org/rust-by-example/) 用于练习，标准库文档用于查询；这些也是 Rust 官方学习入口提供的资源。[Rust Programming Language](https://rust-lang.org/learn/?trk=public_profile__reactions-text) C++ 用一本系统教材作主线，配合 [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines) 检查资源管理、接口和并发设计；Guidelines 更适合作为实践准则查阅。[isocpp.github.io](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?source=services-main&version=1)

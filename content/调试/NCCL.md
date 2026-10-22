@@ -14,7 +14,7 @@ export NCCL_DEBUG_FILE=/tmp/nccl-logs/nccl.%h.%p.log
 torchrun --standalone --nproc_per_node=2 train.py
 ```
 
-多机时，每个节点都要设置这些变量并收集日志。`%h` 是主机名，`%p` 是进程号，避免不同进程写入同一个文件。官方支持按子系统过滤日志，也支持用 `TRACE + CALL` 追踪调用。[NCCL 2.31.2 documentation](https://docs.nvidia.com/deeplearning/nccl/archives/nccl_2312/user-guide/docs/troubleshooting/logging.html?utm_source=chatgpt.com)
+多机时，每个节点都要设置这些变量并收集日志。`%h` 是主机名，`%p` 是进程号，避免不同进程写入同一个文件。官方支持按子系统过滤日志，也支持用 `TRACE + CALL` 追踪调用。[NCCL 2.31.2 documentation](https://docs.nvidia.com/deeplearning/nccl/archives/nccl_2312/user-guide/docs/troubleshooting/logging.html)
 
 重点看这些信息：
 
@@ -60,7 +60,7 @@ export TORCH_CPP_LOG_LEVEL=INFO
 export TORCH_DISTRIBUTED_DEBUG=DETAIL
 ```
 
-该模式能帮助报告 collective 的不一致，也会增加调试开销。[torch.distributed — PyTorch 2.14 documentation](https://docs.pytorch.org/docs/stable/distributed.html?utm_source=chatgpt.com)
+该模式能帮助报告 collective 的不一致，也会增加调试开销。[torch.distributed — PyTorch 2.14 documentation](https://docs.pytorch.org/docs/stable/distributed.html)
 
 **NCCL timeout 只说明通信没有按时完成；根因可能是另一个 rank 更早发生的异常。** 所以要对照所有 rank 的日志，而不是只看报 timeout 的那个进程。
 
@@ -93,17 +93,17 @@ export TORCH_NCCL_TRACE_BUFFER_SIZE=20000
 export TORCH_NCCL_DUMP_ON_TIMEOUT=1
 ```
 
-它会记录通信事件，在 watchdog 超时时导出诊断信息；启用超时导出必须同时设置非零 trace buffer。[PyTorch 2.14 documentation](https://docs.pytorch.org/docs/stable/torch_nccl_environment_variables.html?utm_source=chatgpt.com)
+它会记录通信事件，在 watchdog 超时时导出诊断信息；启用超时导出必须同时设置非零 trace buffer。[PyTorch 2.14 documentation](https://docs.pytorch.org/docs/stable/torch_nccl_environment_variables.html)
 
 # 用 nccl-tests，把训练代码和通信环境分开检查
 
-如果已经编译了 NVIDIA 的 [nccl-tests](https://github.com/NVIDIA/nccl-tests?utm_source=chatgpt.com)，先测单机双卡：
+如果已经编译了 NVIDIA 的 [nccl-tests](https://github.com/NVIDIA/nccl-tests)，先测单机双卡：
 
 ```
 ./build/all_reduce_perf -b 8 -e 128M -f 2 -g 2
 ```
 
-它从 8 字节测到 128 MiB，每次大小翻倍，使用两张 GPU。多机测试需要使用 MPI 构建和相应的启动配置。[NVIDIA/nccl-tests: NCCL Tests · GitHub](https://github.com/NVIDIA/nccl-tests?utm_source=chatgpt.com)
+它从 8 字节测到 128 MiB，每次大小翻倍，使用两张 GPU。多机测试需要使用 MPI 构建和相应的启动配置。[NVIDIA/nccl-tests: NCCL Tests · GitHub](https://github.com/NVIDIA/nccl-tests)
 
 重点看：
 
@@ -114,7 +114,7 @@ export TORCH_NCCL_DUMP_ON_TIMEOUT=1
 | `busbw`  | 根据 collective 通信量换算的带宽 |
 | `#wrong` | 正确性检查错误数                 |
 
-`busbw` 是归一化指标，不是网卡实际吞吐的直接读数。[GitHub](https://github.com/NVIDIA/nccl-tests/blob/master/doc/PERFORMANCE.md?plain=1&utm_source=chatgpt.com)
+`busbw` 是归一化指标，不是网卡实际吞吐的直接读数。[GitHub](https://github.com/NVIDIA/nccl-tests/blob/master/doc/PERFORMANCE.md?plain=1)
 
 逐步扩大测试范围：
 
@@ -137,7 +137,7 @@ nsys profile \
   torchrun --standalone --nproc_per_node=2 train.py
 ```
 
-新版 Nsight Systems 还支持 NCCL 专用 tracing；是否可用要结合本机版本和 `nsys profile --help` 检查。[Nsight Systems](https://docs.nvidia.com/nsight-systems/UserGuide/index.html?utm_source=chatgpt.com)
+新版 Nsight Systems 还支持 NCCL 专用 tracing；是否可用要结合本机版本和 `nsys profile --help` 检查。[Nsight Systems](https://docs.nvidia.com/nsight-systems/UserGuide/index.html)
 
 打开 `.nsys-rep` 后，对齐你的 NVTX 标记、CUDA stream 和 NCCL kernel：
 
@@ -166,6 +166,6 @@ NCCL_IB_DISABLE=1 torchrun ...
 NCCL_P2P_DISABLE=1 torchrun ...
 ```
 
-如果禁用某条路径后恢复正常，说明值得继续检查该路径，但还不能单凭这一点确定根因。每次只改一个变量并保留原始基线；NCCL 官方也建议调试选项不要长期保留在生产配置中。[GitHub](https://github.com/NVIDIA/nccl/blob/master/docs/userguide/source/env.rst?utm_source=chatgpt.com)
+如果禁用某条路径后恢复正常，说明值得继续检查该路径，但还不能单凭这一点确定根因。每次只改一个变量并保留原始基线；NCCL 官方也建议调试选项不要长期保留在生产配置中。[GitHub](https://github.com/NVIDIA/nccl/blob/master/docs/userguide/source/env.rst)
 
 实际排查时，最有价值的一组证据是：**所有 rank 的日志、最后一个匹配的通信序号、nccl-tests 结果，以及一小段带 NVTX 标记的 nsys 时间线。**
