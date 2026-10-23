@@ -8,23 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e49ac38b976822f5",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 540,
-                  "zoom": 0
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
-            }
-          },
-          {
             "id": "81155fcee2619a49",
             "type": "leaf",
             "state": {
@@ -86,7 +69,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "chatgpt",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -250,10 +233,14 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "e49ac38b976822f5",
+  "active": "81155fcee2619a49",
   "lastOpenFiles": [
-    "开发日记/任务分解.md",
+    "环境配置.md",
+    "软件使用.md",
+    "windows.md",
+    "我的项目.md",
     "TODO.canvas",
+    "开发日记/任务分解.md",
     "人工智能/大模型推理加速.md",
     "现代UI/tauri+vue的结合.md",
     "杂项/充值.md",
@@ -275,9 +262,6 @@
     "编程语言/C++.md",
     "找工作/招聘.md",
     "找工作/实习.md",
-    "编程语言/C & Zig 混合学习之路.md",
-    "人工智能/多智能体设计.md",
-    "元学习/参考学习法.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
