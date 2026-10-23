@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -251,10 +251,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "81155fcee2619a49",
+  "active": "36a51aa82a10fec8",
   "lastOpenFiles": [
-    "TODO.canvas",
     "人工智能/大模型推理加速.md",
+    "TODO.canvas",
     "现代UI/tauri+vue的结合.md",
     "杂项/充值.md",
     "开发日记/任务分解.md",
