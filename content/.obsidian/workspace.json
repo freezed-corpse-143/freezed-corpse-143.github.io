@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "小说idea/火影同人.md",
+                "file": "小说idea/火影忍者/火影同人.md",
                 "mode": "source",
                 "source": false
               },
@@ -221,6 +221,9 @@
   },
   "active": "d673bd0db9fc53ad",
   "lastOpenFiles": [
+    "小说idea/火影忍者/三代目的合法性赤字与影子政治.md",
+    "小说idea/火影忍者/火影同人.md",
+    "小说idea/火影忍者",
     "运动与健身/练腹肌.md",
     "运动与健身/练肩膀.md",
     "运动与健身/乒乓.md",
@@ -247,8 +250,6 @@
     "人工智能/推理框架.md",
     "找工作/简历准备——内容的闭包.md",
     "github项目/DEEPGEMM.md",
-    "index.md",
-    "编程语言/cuda学习.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
@@ -267,7 +268,6 @@
     "images/Pasted image 20261002160840.png",
     "现代UI",
     "小说idea",
-    "软件工程",
     "开发经验/全栈开发.canvas"
   ]
 }
