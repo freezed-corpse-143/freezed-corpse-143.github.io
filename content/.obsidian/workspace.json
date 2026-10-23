@@ -11,14 +11,17 @@
             "id": "e49ac38b976822f5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "开发日记/任务分解.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5020,
+                  "y": 540,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "任务分解"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -39,21 +42,17 @@
             "id": "36a51aa82a10fec8",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -4925.227450980389,
-                  "y": 648.1879056444357,
-                  "zoom": -0.16551789991953159
-                }
+                "file": "开发日记/任务分解.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "任务分解"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -251,13 +250,13 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "36a51aa82a10fec8",
+  "active": "e49ac38b976822f5",
   "lastOpenFiles": [
-    "人工智能/大模型推理加速.md",
+    "开发日记/任务分解.md",
     "TODO.canvas",
+    "人工智能/大模型推理加速.md",
     "现代UI/tauri+vue的结合.md",
     "杂项/充值.md",
-    "开发日记/任务分解.md",
     "现代UI/学习之路.md",
     "人工智能/现代模型.md",
     "github项目/flashinfer.md",
