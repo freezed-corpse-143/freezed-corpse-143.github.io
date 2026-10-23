@@ -50,6 +50,16 @@
 			"y":410,
 			"width":260,
 			"height":140
+		},
+		{
+			"id":"9525b6c7d900935a",
+			"type":"text",
+			"text":"中国石油统一考试：https://vip.eztest.cn/cnpc2026qj/， 25 日",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":580,
+			"width":560,
+			"height":60
 		}
 	],
 	"edges":[],
