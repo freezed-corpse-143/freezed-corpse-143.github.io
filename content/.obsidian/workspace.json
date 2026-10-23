@@ -36,21 +36,24 @@
             }
           },
           {
-            "id": "50273f96f3f06a46",
+            "id": "36a51aa82a10fec8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "现代UI/tauri+vue的结合.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -4925.227450980389,
+                  "y": 648.1879056444357,
+                  "zoom": -0.16551789991953159
+                }
               },
-              "icon": "lucide-file",
-              "title": "tauri+vue的结合"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -109,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -126,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/大模型推理加速.md",
+                "file": "TODO.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -249,11 +251,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "81155fcee2619a49",
+  "active": "36a51aa82a10fec8",
   "lastOpenFiles": [
+    "人工智能/大模型推理加速.md",
+    "现代UI/tauri+vue的结合.md",
     "TODO.canvas",
     "杂项/充值.md",
-    "现代UI/tauri+vue的结合.md",
     "开发日记/任务分解.md",
     "现代UI/学习之路.md",
     "人工智能/现代模型.md",
@@ -262,7 +265,6 @@
     "调试/NCCL.md",
     "编程语言/RUST & C++混合学习之路.md",
     "分布式/Raft算法.md",
-    "人工智能/大模型推理加速.md",
     "开发日记/需求描述.md",
     "开发日记/环境自检.md",
     "经验之谈.md",
