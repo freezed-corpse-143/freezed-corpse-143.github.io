@@ -81,12 +81,12 @@ test "basics" {
 
 ## 类比卡：变量与类型
 
-| 项目 | 内容 |
-| :--- | :--- |
-| 旧参照 | C 的 `int`/`const`；Rust 的 `let`/`let mut` |
-| 相似关系 | 都有编译期类型、都有不可变性 |
-| 不能迁移 | Zig 的整数位宽显式（`u8`、`i32`、`usize`），**没有隐式整数转换**；`comptime_int` 只在编译期存在；`const` 是"这个绑定不可重新赋值"，不保证指向的数据不可变 |
-| 影响 | 任何跨类型赋值要么是安全的放宽（coercion），要么必须写 `@intCast` / `@truncate` / `@floatFromInt`，溢出行为显式（见 [Casting](https://ziglang.org/documentation/0.17.0/#Casting)） |
+| 项目   | 内容                                                                                                                                                |
+| :--- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 旧参照  | C 的 `int`/`const`；Rust 的 `let`/`let mut`                                                                                                          |
+| 相似关系 | 都有编译期类型、都有不可变性                                                                                                                                    |
+| 不能迁移 | Zig 的整数位宽显式（`u8`、`i32`、`usize`），**没有隐式整数转换**；`comptime_int` 只在编译期存在；`const` 是"这个绑定不可重新赋值"，不保证指向的数据不可变                                             |
+| 影响   | 任何跨类型赋值要么是安全的放宽（coercion），要么必须写 `@intCast` / `@truncate` / `@floatFromInt`，溢出行为显式（见 [Casting](https://ziglang.org/documentation/0.17.0/#Casting)） |
 
 **可检验预测**：`const x: u8 = 300;` 应该在编译期就报错，而不是截断成 44。→ 用 `zig test` 验证。
 
