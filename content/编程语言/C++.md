@@ -1256,3 +1256,52 @@ CPU 的**物理核心**和**逻辑核心**是描述处理器计算能力的两�
 
 简单说：参数化的是“值”->普通函数；参数化的是“类型”->泛型/类型参数化。
 
+C++用模板（template）实现类型参数化。核心思想一样：把类型当参数传进去，一份代码适配多种类型。
+
+## 没有类型参数化
+
+```cpp
+// 三个几乎一模一样的类，只有类型不同
+class IntBox {
+    int value;
+public:
+    IntBox(int v) : value(v) {}
+    int get() const { return value; }
+};
+
+class DoubleBox {
+    double value;
+public:
+    DoubleBox(double v) : value(v) {}
+    double get() const { return value; }
+};
+
+class StringBox {
+    std::string value;
+public:
+    StringBox(std::string v) : value(v) {}
+    std::string get() const { return value; }
+};
+```
+
+## 有类型参数化
+
+```cpp
+template <typename T>       // T 是"类型参数"
+class Box {
+    T value;
+public:
+    Box(T v) : value(v) {}
+    T get() const { return value; }
+};
+
+int main() {
+    Box<int>         a(42);        // T = int
+    Box<double>      b(3.14);      // T = double
+    Box<std::string> c("hello");   // T = std::string
+
+    int    x = a.get();            // 返回 int
+    double y = b.get();            // 返回 double
+    std::string s = c.get();       // 返回 std::string
+}
+```
