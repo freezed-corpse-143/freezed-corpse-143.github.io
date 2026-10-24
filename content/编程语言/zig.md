@@ -12,11 +12,11 @@
 
 # 1．先把参照系选对
 
-| 旧参照 | 为什么能当入口 | 哪些性质绝不能带过来 |
-| :--- | :--- | :--- |
-| C | 手动内存、指针、结构体布局、C ABI、`.c → .o → 可执行` | Zig 没有默认分配器，没有隐式整数转换，没有可空裸指针，错误是值不是返回码约定 |
-| Rust | 用类型表达"合法状态"、错误值 `Result`、单态化泛型 | Zig 没有 trait/生命周期检查/借用检查，`defer` 不是 `Drop`，`comptime` 不是 trait bound |
-| Python/JS | 快速写命令行小工具的动机 | 这里的"对象"、"异常"、"GC"三个概念在 Zig 中都不存在对应物 |
+| 旧参照       | 为什么能当入口                             | 哪些性质绝不能带过来                                                           |
+| :-------- | :---------------------------------- | :------------------------------------------------------------------- |
+| C         | 手动内存、指针、结构体布局、C ABI、`.c → .o → 可执行` | Zig 没有默认分配器，没有隐式整数转换，没有可空裸指针，错误是值不是返回码约定                             |
+| Rust      | 用类型表达"合法状态"、错误值 `Result`、单态化泛型      | Zig 没有 trait/生命周期检查/借用检查，`defer` 不是 `Drop`，`comptime` 不是 trait bound |
+| Python/JS | 快速写命令行小工具的动机                        | 这里的"对象"、"异常"、"GC"三个概念在 Zig 中都不存在对应物                                  |
 
 先把一句结论钉住，后面每阶段都回来核对：
 
@@ -34,16 +34,16 @@ flowchart LR
     S8 -.->|回填缺口| S2
 ```
 
-| 阶段 | 官方章节 | 产出物 | 验收标准 |
-| :--- | :--- | :--- | :--- |
-| 1 骨架 | Hello World、Values、Variables、Operators、Blocks、if/while/for/switch、Functions、Zig Test | 能用 `zig test` 写断言 | 不查文档写出带测试的小函数 |
-| 2 数据与内存视图 | Arrays、Slices、Pointers、struct、enum、union、opaque、Vectors | 画出"数组/切片/指针/结构体"的内存图 | 能回答"地址、长度、容量、所有权、生命周期"各是什么 |
-| 3 错误与可空 | Errors、Optionals、Casting、Zero Bit Types、Result Location Semantics | 自定义 error set + 传播链 | 能解释错误在哪一层被吞掉、`try` 之外还漏了什么 |
-| 4 资源与分配器 | Memory（含 Choosing an Allocator、Where are the bytes?、Lifetime and Ownership）、defer | 动态数组、字符串构建器、arena 版解析器 | 能回答"谁分配、谁释放、返回值借用了谁、失败后清理什么" |
-| 5 comptime 与泛型 | comptime、Functions（inline fn、函数反射）、Builtin Functions | 泛型栈/队列 + 接口对象 | 能说明哪些工作被提前到编译期、哪些错误只在实例化时暴露 |
-| 6 工程化 | Zig Test、Compilation Model、Zig Build System、Optimization Mode、Illegal Behavior、Style Guide | `zig build` / `zig build run` / `zig build test` 全套 | 能定位一次构建错误、一次测试失败、一次 panic 属于哪个阶段 |
-| 7 系统边界 | C、Atomics、Assembly、Targets、WebAssembly、Compile Variables、Async Functions（现状） | 调用一个 C 库 + 一份二进制解析器 | 能说明布局、字节序、对齐、并发内存序各自的保证边界 |
-| 8 标准库与源码 | Zig Standard Library、`zig std`、`lib/std` | 读源码解释一个 API 的行为 | 能判断某个 API 的分配与生命周期契约 |
+| 阶段             | 官方章节                                                                                       | 产出物                                                 | 验收标准                             |
+| :------------- | :----------------------------------------------------------------------------------------- | :-------------------------------------------------- | :------------------------------- |
+| 1 骨架           | Hello World、Values、Variables、Operators、Blocks、if/while/for/switch、Functions、Zig Test       | 能用 `zig test` 写断言                                   | 不查文档写出带测试的小函数                    |
+| 2 数据与内存视图      | Arrays、Slices、Pointers、struct、enum、union、opaque、Vectors                                    | 画出"数组/切片/指针/结构体"的内存图                                | 能回答"地址、长度、容量、所有权、生命周期"各是什么       |
+| 3 错误与可空        | Errors、Optionals、Casting、Zero Bit Types、Result Location Semantics                          | 自定义 error set + 传播链                                 | 能解释错误在哪一层被吞掉、`try` 之外还漏了什么       |
+| 4 资源与分配器       | Memory（含 Choosing an Allocator、Where are the bytes?、Lifetime and Ownership）、defer          | 动态数组、字符串构建器、arena 版解析器                              | 能回答"谁分配、谁释放、返回值借用了谁、失败后清理什么"     |
+| 5 comptime 与泛型 | comptime、Functions（inline fn、函数反射）、Builtin Functions                                       | 泛型栈/队列 + 接口对象                                       | 能说明哪些工作被提前到编译期、哪些错误只在实例化时暴露      |
+| 6 工程化          | Zig Test、Compilation Model、Zig Build System、Optimization Mode、Illegal Behavior、Style Guide | `zig build` / `zig build run` / `zig build test` 全套 | 能定位一次构建错误、一次测试失败、一次 panic 属于哪个阶段 |
+| 7 系统边界         | C、Atomics、Assembly、Targets、WebAssembly、Compile Variables、Async Functions（现状）               | 调用一个 C 库 + 一份二进制解析器                                 | 能说明布局、字节序、对齐、并发内存序各自的保证边界        |
+| 8 标准库与源码       | Zig Standard Library、`zig std`、`lib/std`                                                   | 读源码解释一个 API 的行为                                     | 能判断某个 API 的分配与生命周期契约             |
 
 每阶段固定循环：**读一节 → 写最小可跑样例 → 故意造一个错误 → 用编译器/测试定位 → 回填到项目 → 与 C（或 Rust）实现对照**。
 
