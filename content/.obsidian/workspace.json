@@ -11,17 +11,14 @@
             "id": "d673bd0db9fc53ad",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 633,
-                  "zoom": 0
-                }
+                "file": "编程语言/zig.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "zig"
             }
           }
         ]
@@ -224,6 +221,11 @@
   },
   "active": "d673bd0db9fc53ad",
   "lastOpenFiles": [
+    "编程语言/C & Zig 混合学习之路.md",
+    "编程语言/zig.md",
+    "元学习/参考学习法.md",
+    "元学习/关系定位法.md",
+    "TODO.canvas",
     "小说idea/武侠小说/武侠小说的批判.md",
     "小说idea/火影忍者/建村的原始契约与第一笔钱.md",
     "小说idea/火影忍者/三代目的合法性赤字与影子政治.md",
@@ -242,7 +244,6 @@
     "软件使用.md",
     "windows.md",
     "我的项目.md",
-    "TODO.canvas",
     "现代UI/tauri+vue的结合.md",
     "杂项/充值.md",
     "现代UI/学习之路.md",
@@ -250,10 +251,6 @@
     "github项目/flashinfer.md",
     "经典库学习/langchain.md",
     "调试/NCCL.md",
-    "编程语言/RUST & C++混合学习之路.md",
-    "分布式/Raft算法.md",
-    "开发日记/需求描述.md",
-    "开发日记/环境自检.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
