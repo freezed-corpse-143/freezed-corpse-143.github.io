@@ -217,7 +217,7 @@ test "optionals and errors" {
 | 项目 | 内容 |
 | :--- | :--- |
 | 相似关系 | 都是"可能有、可能没有"，都必须显式解包 |
-| 不能迁移 | Zig 没有 `null` 引用这回事，`?*T` 保证与普通指针同样大小；`?T` 的 `orelse`、`if (x) |v|`、`while (it.next()) |v|` 是三种不同解包方式 |
+| 不能迁移 | Zig 没有 `null` 引用这回事，`?*T` 保证与普通指针同样大小；`?T` 的 `orelse`、`if (x) \|v\|`、`while (it.next()) \|v\|` 是三种不同解包方式 |
 | 影响 | 接口设计上，"失败"分两类：**预期内的缺失**用 optional，**需要区分原因**用 error union；混用会让调用方多一层判断 |
 
 **可检验预测**：`?i32` 与 `i32` 的 `@sizeOf` 不同，而 `?*T` 与 `*T` 相同。→ 用 `comptime { @compileLog(@sizeOf(?i32), @sizeOf(i32), @sizeOf(?*u8), @sizeOf(*u8)); }` 验证。
@@ -365,7 +365,7 @@ const Sink = struct {
 
 **可检验预测**：`max(bool, true, false)` 应在实例化时报 "operator > not allowed for type 'bool'"（官方示例即此）。→ 说明约束在**使用处**才成立。
 
-**反例**：`comptime` 不是"更快的运行期代码"。它把工作搬到编译期，换来更长的编译时间和更大的二进制；`inline fn` 在 Zig 里是**语义承诺**（参数与调用点绑定），不是优化建议。
+**反例**：`comptime` 不是"更快的运行期代码"。它把工作搬到编译期，换来更长的编译时间和更大的二进制；`inline fn` 更不是优化建议——它**限制**编译器能做什么（官方原话：可能伤害二进制大小、编译速度甚至运行性能），换取调用栈可控、comptime 参数传到返回值等保证，只想提示内联该用 `@branchHint`。
 
 **验收**：写出泛型栈、泛型最小堆或固定容量环缓冲，并给出一处 `@compileError` 把非法用法挡在编译期。
 
@@ -521,7 +521,7 @@ pub fn main(init: std.process.Init) !void {
 
 注意这里所有权的流动：`bytes` 由 `gpa` 分配、`gpa` 释放；`counts` 的 key 借用 `bytes`；`rows` 借用 key，不复制字符串。**如果把 `rows` 移出函数，就得先让 key 有独立生命周期。**
 
-**验收**：挑一个标准库 API（例如 `std.Io.Reader.readAlloc` 或 `ArrayList` 的增长策略），用源码回答：谁分配、失败时是否已分配、返回值借用谁、多大 O(n)。
+**验收**：挑一个标准库 API（例如 `std.Io.Reader.allocRemaining` 或 `ArrayList` 的增长策略），用源码回答：谁分配、失败时是否已分配、返回值借用谁、多大 O(n)。
 
 ---
 
