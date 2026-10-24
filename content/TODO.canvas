@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"9751bcc38bd1052d",
-			"type":"text",
-			"text":"更新投递计划：\n- 牛客网\n- 163 邮箱\n- 电力大学就业公众号",
-			"styleAttributes":{},
-			"x":-4760,
-			"y":200,
-			"width":260,
-			"height":150
-		},
-		{
 			"id":"9a23c801ec292bcf",
 			"type":"text",
 			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101 ，24 日考试准备。",
