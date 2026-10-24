@@ -70,6 +70,16 @@
 			"y":820,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"93160580ae0a3bc7",
+			"type":"text",
+			"text":"zig 重写基础库",
+			"styleAttributes":{},
+			"x":-5100,
+			"y":260,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
