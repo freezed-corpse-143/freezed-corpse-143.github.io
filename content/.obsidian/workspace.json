@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "zig学习计划"
             }
+          },
+          {
+            "id": "a4bbefa1fb1656db",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5130,
+                  "y": 570,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -219,10 +237,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d673bd0db9fc53ad",
+  "active": "a4bbefa1fb1656db",
   "lastOpenFiles": [
-    "编程语言/zig/zig.md",
     "编程语言/zig/zig学习计划.md",
+    "编程语言/zig/zig.md",
     "编程语言/zig",
     "编程语言/C++.md",
     "编程语言/C & Zig 混合学习之路.md",

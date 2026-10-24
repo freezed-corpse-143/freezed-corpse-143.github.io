@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"9a23c801ec292bcf",
-			"type":"text",
-			"text":"中国移动考试网站：https://t.weicewang.com/client/143600_0_1101269101 ，24 日考试准备。",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":420,
-			"width":420,
-			"height":120
-		},
-		{
 			"id":"ed710a70c0258c74",
 			"type":"text",
 			"text":"计算需要单独训练",
