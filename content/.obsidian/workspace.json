@@ -38,8 +38,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -237,8 +236,9 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a4bbefa1fb1656db",
+  "active": "d673bd0db9fc53ad",
   "lastOpenFiles": [
+    "TODO.canvas",
     "编程语言/zig/zig学习计划.md",
     "编程语言/zig/zig.md",
     "编程语言/zig",
@@ -246,7 +246,6 @@
     "编程语言/C & Zig 混合学习之路.md",
     "元学习/参考学习法.md",
     "元学习/关系定位法.md",
-    "TODO.canvas",
     "小说idea/武侠小说/武侠小说的批判.md",
     "小说idea/火影忍者/建村的原始契约与第一笔钱.md",
     "小说idea/火影忍者/三代目的合法性赤字与影子政治.md",
@@ -269,7 +268,6 @@
     "杂项/充值.md",
     "现代UI/学习之路.md",
     "人工智能/现代模型.md",
-    "github项目/flashinfer.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
