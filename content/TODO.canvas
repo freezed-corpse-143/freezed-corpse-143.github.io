@@ -70,6 +70,16 @@
 			"y":260,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"897d70ad36329055",
+			"type":"text",
+			"text":"为 agents/skill 增加多跳搜索、交错搜索等搜索策略",
+			"styleAttributes":{},
+			"x":-5540,
+			"y":920,
+			"width":260,
+			"height":120
 		}
 	],
 	"edges":[],

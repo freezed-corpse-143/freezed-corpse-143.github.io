@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -5130,
-                  "y": 570,
+                  "y": 756,
                   "zoom": 0
                 }
               },
@@ -38,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -236,10 +237,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d673bd0db9fc53ad",
+  "active": "a4bbefa1fb1656db",
   "lastOpenFiles": [
-    "TODO.canvas",
     "编程语言/zig/zig学习计划.md",
+    "TODO.canvas",
     "编程语言/zig/zig.md",
     "编程语言/zig",
     "编程语言/C++.md",
