@@ -80,6 +80,16 @@
 			"y":920,
 			"width":260,
 			"height":120
+		},
+		{
+			"id":"e9b3df673c0ffdcd",
+			"type":"text",
+			"text":"网络版的 skill",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":950,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
