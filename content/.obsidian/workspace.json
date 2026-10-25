@@ -25,35 +25,35 @@
             "id": "a4bbefa1fb1656db",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "编程语言/Rust.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5130,
+                  "y": 755,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "Rust"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
             "id": "27f49920232e5933",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5234.351131964823,
-                  "y": 1050.5144041536591,
-                  "zoom": 0.6666666666666666
-                }
+                "file": "环境配置.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "环境配置"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -87,7 +87,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "oh-my-pi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -251,12 +251,16 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "27f49920232e5933",
+  "active": "a4bbefa1fb1656db",
   "lastOpenFiles": [
-    "编程语言/C++.md",
     "编程语言/Rust.md",
-    "编程语言/zig/zig学习计划.md",
+    "环境配置.md",
+    "软件使用.md",
+    "报错.md",
+    "服务使用.md",
     "TODO.canvas",
+    "编程语言/C++.md",
+    "编程语言/zig/zig学习计划.md",
     "编程语言/zig/zig.md",
     "编程语言/zig",
     "编程语言/C & Zig 混合学习之路.md",
@@ -273,17 +277,13 @@
     "运动与健身/练腹肌.md",
     "运动与健身/练肩膀.md",
     "运动与健身/乒乓.md",
-    "环境配置.md",
     "运动与健身",
     "开发日记/任务分解.md",
     "人工智能/大模型推理加速.md",
-    "软件使用.md",
     "windows.md",
     "我的项目.md",
     "现代UI/tauri+vue的结合.md",
     "杂项/充值.md",
-    "现代UI/学习之路.md",
-    "人工智能/现代模型.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
