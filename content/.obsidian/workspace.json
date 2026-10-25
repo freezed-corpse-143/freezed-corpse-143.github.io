@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "编程语言/zig/zig学习计划.md",
+                "file": "编程语言/C++.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "zig学习计划"
+              "title": "C++"
             }
           },
           {
@@ -35,8 +35,7 @@
               "title": "Rust"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -235,10 +234,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a4bbefa1fb1656db",
+  "active": "d673bd0db9fc53ad",
   "lastOpenFiles": [
-    "TODO.canvas",
     "编程语言/zig/zig学习计划.md",
+    "编程语言/Rust.md",
+    "TODO.canvas",
     "编程语言/zig/zig.md",
     "编程语言/zig",
     "编程语言/C++.md",
