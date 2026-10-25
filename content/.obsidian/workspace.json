@@ -34,8 +34,26 @@
               "icon": "lucide-file",
               "title": "Rust"
             }
+          },
+          {
+            "id": "27f49920232e5933",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5234.351131964823,
+                  "y": 672.3313322224353,
+                  "zoom": 0.6666666666666666
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -94,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -234,10 +251,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "d673bd0db9fc53ad",
+  "active": "27f49920232e5933",
   "lastOpenFiles": [
-    "编程语言/Rust.md",
     "编程语言/C++.md",
+    "编程语言/Rust.md",
     "编程语言/zig/zig学习计划.md",
     "TODO.canvas",
     "编程语言/zig/zig.md",
