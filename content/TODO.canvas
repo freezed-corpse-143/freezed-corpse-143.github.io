@@ -62,22 +62,42 @@
 			"height":60
 		},
 		{
-			"id":"93160580ae0a3bc7",
-			"type":"text",
-			"text":"zig 重写基础库",
-			"styleAttributes":{},
-			"x":-5100,
-			"y":260,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"11a86aeea28b5dbf",
 			"type":"text",
 			"text":"转 docx 的方式：pandoc",
 			"styleAttributes":{},
 			"x":-5540,
 			"y":840,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"6f202eb86752256f",
+			"type":"text",
+			"text":"cuda-rust",
+			"styleAttributes":{},
+			"x":-5540,
+			"y":960,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"93160580ae0a3bc7",
+			"type":"text",
+			"text":"zig 重写基础库",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":940,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"f5ecc10b2b243e03",
+			"type":"text",
+			"text":"zig 重写 winEnvInsert",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":1040,
 			"width":260,
 			"height":60
 		}
