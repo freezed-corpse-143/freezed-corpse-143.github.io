@@ -30,17 +30,15 @@
 
 ## 怎么解析：只判断形式，不判断语义
 
-以下是三段内容的 Markdown 表格：
-
 **先分形式，再谈实现：**
 
-| 形式 | 本项目 | 表示 |
-|---|---|---|
-| 开关（无值） | --force、--verbose | takes_value == false |
-| 取值（恰好一个） | --shell、--out、--shims、--shim-dir | takes_value == true |
-| 位置、定长 | 无 | positional: &[] |
-| 位置、0..1 | help [COMMAND] | positional: &["COMMAND"] |
-| 变长 | 不需要 | 要时加 rest 字段，别用"多收几个裸词"代替 |
+| 形式       | 本项目                              | 表示                       |
+| -------- | -------------------------------- | ------------------------ |
+| 开关（无值）   | --force、--verbose                | takes_value == false     |
+| 取值（恰好一个） | --shell、--out、--shims、--shim-dir | takes_value == true      |
+| 位置、定长    | 无                                | positional: &[]          |
+| 位置、0..1  | help [COMMAND]                   | positional: &["COMMAND"] |
+| 变长       | 不需要                              | 要时加 rest 字段，别用"多收几个裸词"代替 |
 
 **"解析只满足形式的范围"——对，但要划清形式与语义的界：**
 
@@ -59,3 +57,5 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 ```
 
 > 中间态不跨模块边界，所以允许字符串、允许重复、允许非法值。跨边界的只有 Command。
+
+## 参数如何影响
