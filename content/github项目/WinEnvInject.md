@@ -102,3 +102,5 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 | 位置参数槽位不与选项冲突                         | 机械  | ✅ 槽位只吃裸词，选项 token 已被消费                     |
 | 选项归属正交                               | 半机械 | ✅ 表里一眼可见：--out 只属 env，--force 只属 env/shims |
 | 语义互斥（--shims never + --shim-dir DIR） | 人工  | ❌ 现在静默接受，--shim-dir 被忽略                    |
+## 配置加载模块
+
