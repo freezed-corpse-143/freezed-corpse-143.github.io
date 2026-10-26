@@ -450,3 +450,31 @@ shim 把 62 个目录压成 1 个条目（本机实测：4113 → 4153 字符，
 
 # 适配模块
 
+## 为什么需要适配层
+
+三个不可回避的差异决定了它必须存在：
+
+| 差异 | 事实 |
+|---|---|
+| 注入机制 | 子进程改不了父 shell。唯一通道是"输出文本、让 shell 自己 eval"，而 eval 的语法由 shell 决定 |
+| 语法 | cmd 用 `set "K=V"`，PowerShell 用 `$env:K = '...'`，nushell 用 `$env.K = '...'`；PATH 在 cmd/pwsh 是字符串，在 nushell 是列表 |
+| 编码与换行 | Windows PowerShell 5.1 读无 BOM 的 UTF-8 会乱码；cmd 按 OEM 代码页读；nushell/json/dotenv 都是 UTF-8 |
+
+没有这一层，方言判断会散进 main 和 model，转义规则和长度预算会被复制到每个调用点，Env 的结构化契约也会被 shell 细节污染。所以边界定得很死：
+
+```
+输入: Env { vars, prepend, current, ... }        （结构化）
+输出: (String, skipped)                           （纯文本）
+```
+
+不读盘、不做决策、不写文件——写文件（原子写、BOM、目录 ACL）由 main 负责。
+
+## 适配了哪些？
+
+| 方言 | 消费者 | 为什么存在 | PATH 形态 |
+|---|---|---|---|
+| cmd | `Command.cmd AutoRun → call env.cmd` | cmd 无法 source PowerShell 语法；还受 8191 行宽限制 | 一条字符串赋值 |
+| pwsh | `$PROFILE → . env.ps1` | PowerShell 5.1 需要 BOM；7 兼容 | 一条字符串拼接 |
+| nu | `nushell config.nu → source wex.nu` | nushell 的 `$env.PATH` 是 list，字符串赋值会被当成单元素 | 一个列表表达式 |
+| json | 脚本/jq/其它工具 | 结构化消费，避免解析 shell 语法 | 增量数组（不含继承 PATH） |
+| dotenv | 任意读 `.env` 的工具/人 | 可复用的行式格式 | 每个目录一行（见缺陷） |

@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -130,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TODO.canvas",
+                "file": "github项目/WinEnvInject.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -192,7 +192,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TODO.canvas",
+                "file": "github项目/WinEnvInject.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -254,13 +254,13 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a4bbefa1fb1656db",
+  "active": "27f49920232e5933",
   "lastOpenFiles": [
+    "TODO.canvas",
     "github项目/WinEnvInject.md",
     "环境配置.md",
     "编程语言/C++.md",
     "编程语言/Rust.md",
-    "TODO.canvas",
     "软件使用.md",
     "报错.md",
     "服务使用.md",
@@ -286,7 +286,6 @@
     "人工智能/大模型推理加速.md",
     "windows.md",
     "我的项目.md",
-    "现代UI/tauri+vue的结合.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
