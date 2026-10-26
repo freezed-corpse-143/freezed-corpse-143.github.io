@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -251,10 +251,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "27f49920232e5933",
+  "active": "a4bbefa1fb1656db",
   "lastOpenFiles": [
-    "TODO.canvas",
     "环境配置.md",
+    "TODO.canvas",
     "编程语言/Rust.md",
     "软件使用.md",
     "报错.md",
