@@ -32,13 +32,13 @@
 			"height":140
 		},
 		{
-			"id":"9525b6c7d900935a",
+			"id":"6f202eb86752256f",
 			"type":"text",
-			"text":"中国石油统一考试：https://vip.eztest.cn/cnpc2026qj/， 25 日",
+			"text":"cuda-rust",
 			"styleAttributes":{},
-			"x":-5180,
-			"y":580,
-			"width":460,
+			"x":-5540,
+			"y":820,
+			"width":260,
 			"height":60
 		},
 		{
@@ -46,8 +46,8 @@
 			"type":"text",
 			"text":"编写一个最小的算子，并调试特化，调用。",
 			"styleAttributes":{},
-			"x":-5180,
-			"y":720,
+			"x":-5200,
+			"y":480,
 			"width":260,
 			"height":60
 		},
@@ -56,8 +56,8 @@
 			"type":"text",
 			"text":"编写通信算子",
 			"styleAttributes":{},
-			"x":-5180,
-			"y":820,
+			"x":-5200,
+			"y":580,
 			"width":260,
 			"height":60
 		},
@@ -66,8 +66,8 @@
 			"type":"text",
 			"text":"zig 重写基础库",
 			"styleAttributes":{},
-			"x":-5180,
-			"y":940,
+			"x":-5200,
+			"y":700,
 			"width":260,
 			"height":60
 		},
@@ -76,18 +76,8 @@
 			"type":"text",
 			"text":"zig 重写 winEnvInsert",
 			"styleAttributes":{},
-			"x":-5180,
-			"y":1040,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"6f202eb86752256f",
-			"type":"text",
-			"text":"cuda-rust",
-			"styleAttributes":{},
-			"x":-5540,
-			"y":820,
+			"x":-5200,
+			"y":800,
 			"width":260,
 			"height":60
 		}
