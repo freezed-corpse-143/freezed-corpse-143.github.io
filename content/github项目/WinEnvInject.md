@@ -478,3 +478,57 @@ shim 把 62 个目录压成 1 个条目（本机实测：4113 → 4153 字符，
 | nu | `nushell config.nu → source wex.nu` | nushell 的 `$env.PATH` 是 list，字符串赋值会被当成单元素 | 一个列表表达式 |
 | json | 脚本/jq/其它工具 | 结构化消费，避免解析 shell 语法 | 增量数组（不含继承 PATH） |
 | dotenv | 任意读 `.env` 的工具/人 | 可复用的行式格式 | 每个目录一行（见缺陷） |
+## 怎么适配的？
+
+统一骨架：先按 `.env` 文件顺序输出变量，最后输出 PATH；prepend 为空就不输出 PATH（不覆盖继承值）。
+
+**逐方言的产物**
+
+```bat
+:: cmd —— 值不含 " 时用引号形式
+set "KEY=VALUE"
+set "PATH=C:\...\wex\shims;C:\...\.env\bin;%PATH%"
+```
+
+```powershell
+# pwsh —— 单引号字面量，PATH 用前置串拼接
+$env:KEY = 'VALUE'
+$env:PATH = 'C:\...\wex\shims;' + $env:PATH
+```
+
+```nu
+# nu —— PATH 是 list
+$env.KEY = 'VALUE'
+$env.PATH = (['C:\...\wex\shims'] | append $env.PATH | uniq)
+```
+
+```json
+{ "path": ["C:\\...\\wex\\shims"], "vars": {"KEY": "VALUE"} }
+```
+
+```dotenv
+KEY=VALUE
+PATH=C:\...\wex\shims
+```
+
+**转义规则（每种语法的最小区）**
+
+| 方言 | 规则 | 实现位置 |
+|---|---|---|
+| cmd 值含 `"` | 退化为无引号 `set K=...`，`^ & < >` 前加 `^`，`%→%%` | — |
+| cmd 值不含 `"` | `set "K=V"`，理论上仍需 `%→%%` | `cmd_var`（现缺） |
+| pwsh / nu | 单引号内除 `'` 外全字面，`'→''` | `sq_escape` |
+| json | `"` `\` 控制字符标准转义 | `json_escape` |
+| dotenv | 不转义（按行原样，值不能含换行—— `.env` 解析器保证了这点） | — |
+
+**换行与编码**
+
+| 方言 | 换行 | BOM |
+|---|---|---|
+| cmd / pwsh / nu | CRLF | 只有 `pwsh --out` 加（PS 5.1 的要求） |
+| json / dotenv | LF | 不加 |
+
+**边界语义**
+
+- cmd 超预算时返回 `skipped=true`、不写 PATH 行——现在决策层已提前报错，这是防御性兜底。
+- `--out` 由 main 原子写；目录首次创建时加固 ACL。
