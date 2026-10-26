@@ -60,3 +60,45 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 
 ## 参数如何影响执行
 
+| 类别 | 参数 | 机制 |
+|---|---|---|
+| 选择（改输出内容） | --shell、--shims、--shim-dir | 填入 Env，决定 emitter 与 PATH 形态 |
+| 副作用（改 IO） | --out、--force、--verbose | 决定写到哪、是否绕过缓存、是否打点 |
+| 短路 | --help | 根本不构建 Env，直接返回 |
+表决定能说什么（合法性与文档），match 决定做什么（控制流）。两者之间唯一的强约束是那个穷尽 match；其余靠测试或 review。加命令的成本因此不在解析器——tokenize/bind一行都不用改——而在"表 + 变体 + 一条 dispatch"这三处同步。
+
+## 怎么组合：累积+收窄+必填
+
+ 四个组合规则，全在 bind 里：
+
+ 1. 累积：同选项重复 → 后者覆盖（GNU 惯例）。
+ 2. 顺序无关：wex --shims always check 与 wex check --shims always 等价。
+ 3. 收窄：选项必须在该命令的 opts 里，否则 not accepted by。
+ 4. 必填：required 里每一项都要出现。
+
+## 错误处理：按层分类，不是按“用户哪里错了”
+
+| 层   | 用户做错了什么                | 现在的消息                                                                                           | 检测点           |
+| --- | ---------------------- | ----------------------------------------------------------------------------------------------- | ------------- |
+| 名字  | 写了个不存在的选项/命令           | unknown option '--x' / unknown command 'x' (expected ...)                                       | tokenize / 查表 |
+| 形式  | 该带值没带、不该带值却带了          | --shims needs a value / --force does not take a value                                           | tokenize      |
+| 值域  | 值不在闭集里                 | --shims must be auto\|always\|never                                                             | bind          |
+| 组合  | 缺必填、给了该命令不接受的东西、位置参数超量 | 'env' needs --shell / --shell is not accepted by 'check' / unexpected argument 'pwsh' for 'env' | bind          |
+
+三条规则：
+
+- 一条错误点名一个 token，并给期望集合。不要 "invalid arguments"。
+- 用户输入不 panic：必填项在 required 检查通过后用 `unwrap_or_default()`，再由值域校验兜底。
+- exit 2 / stderr；显式 help 走 stdout、exit 0，便于重定向导出。
+
+## 正交性：避免参数之间的冲突
+
+| 检查项                                  | 性质  | 现状                                         |
+| ------------------------------------ | --- | ------------------------------------------ |
+| 选项名唯一                                | 机械  | ✅ 枚举保证                                     |
+| 命令名唯一                                | 机械  | ⚠️ 手工维护，4 条太少没出事；表变大要加 debug_assert        |
+| required ⊆ opts                      | 机械  | ⚠️ 目前靠人看。漏了会得到"永远无法满足"的死规则                 |
+| 同命令 opts 内无重复                        | 机械  | ⚠️ 同上，重复无害但表明表写错了                          |
+| 位置参数槽位不与选项冲突                         | 机械  | ✅ 槽位只吃裸词，选项 token 已被消费                     |
+| 选项归属正交                               | 半机械 | ✅ 表里一眼可见：--out 只属 env，--force 只属 env/shims |
+| 语义互斥（--shims never + --shim-dir DIR） | 人工  | ❌ 现在静默接受，--shim-dir 被忽略                    |
