@@ -58,4 +58,5 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 
 > 中间态不跨模块边界，所以允许字符串、允许重复、允许非法值。跨边界的只有 Command。
 
-## 参数如何影响
+## 参数如何影响执行
+
