@@ -28,4 +28,34 @@
 | 必填 | CmdSpec.required | 组合校验用 |
 表是数据（可遍历、可生成文档、可静态校验）。
 
-## 
+## 怎么解析：只判断形式，不判断语义
+
+以下是三段内容的 Markdown 表格：
+
+**先分形式，再谈实现：**
+
+| 形式 | 本项目 | 表示 |
+|---|---|---|
+| 开关（无值） | --force、--verbose | takes_value == false |
+| 取值（恰好一个） | --shell、--out、--shims、--shim-dir | takes_value == true |
+| 位置、定长 | 无 | positional: &[] |
+| 位置、0..1 | help [COMMAND] | positional: &["COMMAND"] |
+| 变长 | 不需要 | 要时加 rest 字段，别用"多收几个裸词"代替 |
+
+**"解析只满足形式的范围"——对，但要划清形式与语义的界：**
+
+| 层 | 例子 | 在哪判 |
+|---|---|---|
+| 形式 | --out 后面有没有 token | cli::parse |
+| 值域（语法内） | --shims=maybe | cli::parse（有限枚举） |
+| 语义/资源 | --out 的目录能不能写 | win::write_file_atomic |
+
+> 值域放解析器的理由：有限枚举报错能统一、能列期望集；而"目录是否可写"必须等到真正写，提前检查反而是 TOCTOU。
+
+**实现上只有两个阶段，中间态刻意是"脏"的：**
+
+```
+argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind──> Command
+```
+
+> 中间态不跨模块边界，所以允许字符串、允许重复、允许非法值。跨边界的只有 Command。
