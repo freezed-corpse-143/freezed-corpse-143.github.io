@@ -104,3 +104,94 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 | 语义互斥（--shims never + --shim-dir DIR） | 人工  | ❌ 现在静默接受，--shim-dir 被忽略                    |
 ## 配置加载模块
 
+## 为什么需要配置
+
+有状态程序的标配。
+
+## 从哪里加载
+
+ 结论：参数（已校验）+ 环境变量（唯一真相）+ 文件（不是配置）。
+
+| 来源 | 归属 | 现状 |
+|---|---|---|
+| 参数 | cli 负责形式与值域；配置层只做优先级 | `Config::load(mode, shim_dir)` 接收 Option，不再校验 |
+| 环境变量 | `Config::load` 是唯一读者 | WEX_ENV_FILE / WEX_APPS_DIR / WEX_SHIM_DIR / WEX_SHIMS + USERPROFILE / LOCALAPPDATA |
+| 文件 | dotenv 是数据，不是配置 | 在配置解析之后才读，所以 .env 里的 WEX_* 永远不生效——现在 check 会点名 |
+1. 自举：配置文件的位置本身要先被配置（这里由 `WEX_ENV_FILE` 指），多一个来源就多一层"先有鸡还是先有蛋"。
+2. 优先级链：flag > env > file > default 四级链必须写进文档并被测试，而收益是零——现有 4 个值放在环境里已经够用。
+3. 失败语义：文件缺失、格式错、权限错都要定义行为；环境变量缺失天然等价于"未设"，语义免费。
+
+## 加载后怎么存
+
+结论：Config 存"外部输入"，Env 存"计算结果"，用 Option 证明来源。
+
+ ```rust
+pub struct Config {
+    pub home: String,
+    pub env_file: Option<String>,   // None = 默认 ~\.env
+    pub apps_root: Option<String>,  // None = 默认 ~\Applications
+    pub shim_dir: Option<String>,   // None = %LOCALAPPDATA%\wex\shims
+    pub mode: Mode,
+}
+ ```
+
+ - env_file_path() / apps_root_path() / shim_dir_path() 在取用处补默认。
+ - 加载后不可变。
+ - Env::build(&Config, refresh, force, want_map)：Config 是输入，Env 是产物。
+
+## 加载过程的错误处理
+
+| 类别 | 判据 | 处理 | 例子 |
+|---|---|---|---|
+| 缺失 | 未设或为空 | 用默认，正常路径 | `WEX_APPS_DIR=` |
+| 非法 | 值在闭集外 | exit 2，消息带期望集合 | `WEX_SHIMS=maybe` |
+| 不可用 | 路径不存在 / 读不了 | 降级继续，只在 check 暴露 | 删掉的 `~/Applications` 子目录 |
+
+## 加载是否涉及 I/O 的时序
+
+**结论：不用异步，模型不成立；真正的约束是顺序与惰性。**
+
+本机 debug 构建实测（各 25 次）：
+
+| 调用 | min | median |
+|---|---|---|
+| wex help（进程地板） | 8.2 ms | 8.6 ms |
+| wex env --shell json --shims never | 10.6 ms | 11.0 ms |
+| wex check（62 目录 + dotenv + 294 个名字） | 21.5 ms | 22.4 ms |
+
+配置读取（4~6 次 `GetEnvironmentVariableW`）在 0.1 ms 以下，测不出来。成本中心是进程创建和目录枚举。
+
+时序规则：
+
+1. 先便宜后昂贵：配置解析完 → 非法立刻退出，不碰磁盘。
+2. 惰性：`use_shims` 决定要不要 `is_dir` / `ensure`；`want_map` 决定要不要扫 shim 表。`env --shims never` 完全不扫。
+3. 不取消、不超时：单次调用，毫秒级，没有可取消的等待。
+
+> 反驳"异步是否必要"：异步解决的是"等待期间能做别的事"。这里的调用模型是 shell 阻塞等待我们退出，期间无事可做；引入 runtime 只会把 8.6 ms 的地板抬高。若将来要并行枚举多个目录，线程池足够，仍然不需要 async。
+
+> 补充一条容易被忽略的时序：`wex-shim` 是唯一需要关心信号的地方——它把 Ctrl+C 转发给子进程并等待退出码，然后再 `ExitProcess`。配置加载完全不需要这种处理。
+
+## 加载是否需要缓存
+
+**结论：配置不缓存；缓存只用于派生工件；版本号只对持久化产物有意义。**
+
+> 反驳"配置能否缓存加速"：缓存要成立，必须满足两条——被缓存的工作比缓存本身贵；被缓存的值有可靠的失效信号。配置两条都不满足：读 4 个环境变量比"打开缓存文件 + 解析 + 校验"更便宜；进程环境没有版本、没有 mtime、没有通知，跨进程缓存必然产生"读到过期配置"。加缓存是净负收益。
+
+正确的缓存对象是派生工件，项目里的 `.wex-stamp` 是可复制的模板：
+
+| 键 | 作用 |
+|---|---|
+| 格式版本（本轮新增） | 布局变化 → 强制重建 |
+| fp（命令集 FNV-1 a） | 命令增删改名 → 失效 |
+| vol + idx（wex-shim.exe 卷号 + 文件索引） | 换二进制 → 失效 |
+| count | 枚举漂移兜底 |
+
+> 注意第三条：缓存键里包含源的身份，这是它正确的根本原因。反例是把 `~/Applications` 的扫描结果缓存起来——目录内容随时变，要判断"没变"就得再枚举一遍，和扫描同价（实测 2.5 ms）。缓存不能比被缓存的工作更贵。
+
+> 反驳"给配置加版本号/校验"：进程环境是一次性的（每次启动重新读），没有"版本"这个概念。版本化只对持久化产物成立：
+>
+> - `.wex-stamp`：已加首行版本；未知版本直接重建（实测 4 行旧格式被重写）。
+> - `wex-shims.tsv`：不单独加版本，靠 stamp 版本兜住——两者在同一次 ensure 里一起重写，格式变更必须同时改 `STAMP_VERSION`。这是一条约定，不是机制，写在这里提醒将来的人。
+> - 输出文本（cmd/pwsh/json…）：不加版本头。它被 eval，头部是噪声且改变字节。
+
+> 若将来真的加配置文件，正确形态是：`version = 1`、未知键 fail-closed、环境变量覆盖文件、不做热重载。不是现在。
