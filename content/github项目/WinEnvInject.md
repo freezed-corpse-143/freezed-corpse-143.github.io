@@ -532,3 +532,72 @@ PATH=C:\...\wex\shims
 
 - cmd 超预算时返回 `skipped=true`、不写 PATH 行——现在决策层已提前报错，这是防御性兜底。
 - `--out` 由 main 原子写；目录首次创建时加固 ACL。
+
+# 平台适配层
+win.rs 是平台层：把“Windows 上只有 Win 32 能做、或只有 Win 32 才能做得对”的操作，包成不暴露 unsafe、失败可见的安全函数。上层四个模块不直接碰 FFI。
+
+ ┌──────────────────────┐
+ │                      │
+ │       model.rs       │
+ │ 配置 / 扫描 / .env / ├────────┐
+ │         PATH         │        │
+ │                      │        │
+ └──────────────────────┘        │
+                                 │
+                                 │
+                                 │
+                                 │
+                                 ▼
+ ┌──────────────────────┐     ┌─────┐     ┌──────────┐
+ │                      │     │     │     │          │
+ │                      │     │     │     │          │
+ │       shim.rs        ├────►│ win ├────►│kernel 32 │
+ │     建表 / 落盘      │     │     │     │          │
+ │                      │     │     │     │          │
+ └──────────────────────┘     └──┬──┘     └──────────┘
+                                 ▲
+                                 │
+                                 │
+                                 │
+                                 │
+ ┌──────────────────────┐        │        ┌──────────┐
+ │                      │        │        │          │
+ │                      │        │        │          │
+ │       main.rs        ├────────┼───────►│advapi 32 │
+ │   输出文件 / 诊断    │        │        │          │
+ │                      │        │        │          │
+ └──────────────────────┘        │        └──────────┘
+                                 │
+                                 │
+                                 │
+                                 │
+                                 │
+ ┌──────────────────────┐        │
+ │                      │        │
+ │                      │        │
+ │     wex-shim.rs      ├────────┘
+ │      运行期转发      │
+ │                      │
+ └──────────────────────┘
+## 哪些暴露的能力
+
+| 使用方 | 用到的能力 | 为什么必须自己做 |
+|---|---|---|
+| `model.rs` | `env_var`、`join/last_sep`、`list_dir`、`dir_meta`、`is_dir`、`read_text/read_text_or` | 环境变量要 W 版避免编码转换；枚举要 `FindFirstFileEx + LARGE_FETCH`；目录变化判断要 `GetFileAttributesExW`，枚举返回的时间会滞后；读文件要有 1 MiB 上限、BOM 剥离、非法 UTF-8 回落 ANSI |
+| `shim.rs` | `ensure_dir`、`harden_dir`、`write_file_atomic`、`file_identity`、`DeleteFileW/CreateHardLinkW/CopyFileW`、`list_dir` | 硬链接 + 失败退化复制；"这个 shim 是否已指向当前启动器"只能比 inode（卷号+文件索引）；TSV/脚本/stamp 必须原子替换；SDDL 收窄 ACL |
+| `main.rs` | `write_file_atomic`（含 BOM）、`ensure_parent_dirs`、`harden_dir`、`last_sep` | `--out` 生成的脚本会被 shell 启动时读取，不能出现半截；`.env` 里有变量值，落盘目录要先加固 |
+| `wex-shim.rs` | `module_path`、`read_text`、`GetCommandLineW`、`CreateProcessW`、`WaitForSingleObject`、`GetExitCodeProcess`、`ExitProcess`、`SetConsoleCtrlHandler`、`GetStdHandle/WriteFile` | 用全路径启动目标、原样转发参数、继承 stdio、把子进程退出码带回来；自身路径超长时不能截断 |
+| `cli.rs` / `emit.rs` | 无 | 纯字符串处理——这正是分层成立的证据 |
+
+## 三条隐含契约
+
+1. **失败必须能被看到**：`read_file → Result<_, ReadError>`（区分 missing / too-large / io）、`harden_dir → bool`、`write_file_atomic → bool`。调用方不能"以为成功了"。
+2. **不替用户猜编码**：UTF-8 优先（有 BOM 就剥掉），只有真的不是 UTF-8 才用 ANSI 代码页；值本身一个字节都不改写。
+3. **写盘要么全有要么全无；身份判断只认 inode**：临时文件 + rename（带并发重试）、硬链接身份用卷号+64 位索引，不用 mtime/大小。
+
+## 边界
+
+`win.rs` 不做：`.env` 语法、PATH 合并、shim 分类规则、shell 方言、任何输出格式。它只回答"Windows 上这一步怎么做才正确"，不回答"这一步该不该做"。
+
+# shim 转发层
+
