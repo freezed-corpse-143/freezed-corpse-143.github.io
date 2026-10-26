@@ -699,3 +699,51 @@ Windows 没有 argv 数组，只有一条命令行；argv 是 CRT 自己拆的�
 | 自动修复 TSV 与文件不一致 | TSV 与硬链接由建表层原子写+顺序保证；异常状态用 `wex shims --force` 修 |
 # 装配层
 
+## 装配了哪些模块？
+
+`main.rs` 自己不做任何规则判断，只把五个模块接起来：
+
+| 模块 | 它在装配中的角色 | main 取用什么 |
+|---|---|---|
+| cli | 一次性把 argv 变成类型化的 Command，或给出错误/帮助文本 | `parse(&argv)`、`usage_text(topic)` |
+| model | 读环境、扫描、`.env`、PATH 合并、shim 决策，产出完整的 Env | `Config::load`、`Env::build`、Env 的字段 |
+| shim | shim 目录的落盘与 stamp | 只用于诊断：`stamp_sig(dir)`、`Env.map` 的计数 |
+| emit | 把 Env 渲染成五种方言的文本 | `cmd` / `pwsh` / `nu` / `json` / `dotenv` |
+| win | 平台机制 | `ensure_parent_dirs`、`harden_dir`、`write_file_atomic`、`last_sep`、`is_dir` |
+| std | 进程边界 | `env::args`、`ExitCode`、`print!` / `eprintln!` |
+
+对应关系一句话：cli 决定"要做什么"，model 决定"环境长什么样"，emit 决定"怎么写出来"，win 决定"怎么落到 Windows 上"，main 决定"成功失败各自怎么收场"。
+
+## 怎么组织它们工作？
+
+```mermaid
+flowchart TD
+    A["argv"] --> B["cli::parse"]
+
+    B -->|Help| C["usage_text → stdout<br/>exit 0"]
+    B -->|Command| D["Config::load<br/>flag > WEX_* > 默认"]
+
+    D --> E["Env::build（refresh /<br/>force / want_map）"]
+
+    E --> F{"e.error?"}
+
+    F -->|是| G["stderr: wex: msg<br/>exit 2"]
+    F -->|否| H{"命令"}
+
+    H -->|shims| I["打印统计（写入已在 build<br/>里完成）"]
+    H -->|check| J["只读：打印 20<br/>行诊断；verdict 不对则<br/>exit 1"]
+    H -->|env| K["emit 方言文本"]
+
+    K --> L{"--out?"}
+
+    L -->|有| M["建目录 → 加固 →<br/>原子写（pwsh 加 BOM）"]
+    L -->|无| N["stdout"]
+
+    B -.->|Err| H
+```
+
+## 装配定律
+
+ 1. 先判错，再产出：e.error 在 emit 之前检查。错误时既不写 --out，也不往 stdout 打半套环境。
+ 2. 错误与诊断分开：env/shims 用 Result<i32, String>，main 统一加 wex:  前缀并 exit 2；check 把问题写进 verdict 并返回 Ok(1)，因为它必须先把自己诊断完。
+ 3. 文件卫生只做一次：--out 的“建目录 → 只在新建时加固 ACL → 原子写 → pwsh BOM”集中在这一个地方，emit 不碰文件系统。
