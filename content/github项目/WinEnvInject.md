@@ -336,3 +336,5 @@ PATH=C:\PROGRA~1      -> C:\PROGRA~1             ← 8.3 短名不被当 ~ 展�
 PATH=~/Applications   -> C:\Users\...\Applications
 PATH=~/nope           -> skipped: not a directory: C:\Users\...\nope
 ```
+
+# shim 决策层
