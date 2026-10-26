@@ -30,7 +30,7 @@
                 "file": "TODO.canvas",
                 "viewState": {
                   "x": -5130,
-                  "y": 755,
+                  "y": 941,
                   "zoom": 0
                 }
               },
@@ -53,7 +53,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -251,14 +251,14 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "a4bbefa1fb1656db",
+  "active": "27f49920232e5933",
   "lastOpenFiles": [
-    "编程语言/Rust.md",
+    "TODO.canvas",
     "环境配置.md",
+    "编程语言/Rust.md",
     "软件使用.md",
     "报错.md",
     "服务使用.md",
-    "TODO.canvas",
     "编程语言/C++.md",
     "编程语言/zig/zig学习计划.md",
     "编程语言/zig/zig.md",
@@ -283,7 +283,6 @@
     "windows.md",
     "我的项目.md",
     "现代UI/tauri+vue的结合.md",
-    "杂项/充值.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
