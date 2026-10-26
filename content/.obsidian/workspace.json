@@ -130,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TODO.canvas",
+                "file": "github项目/WinEnvInject.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -192,7 +192,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "需求.md",
+                "file": "github项目/WinEnvInject.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -233,7 +233,8 @@
               "title": "参考上述内容，在C:\\Projects\\jojo-blog\\content\\编程语言\\Rust..."
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",

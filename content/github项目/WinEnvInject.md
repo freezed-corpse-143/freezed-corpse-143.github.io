@@ -102,7 +102,7 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 | 位置参数槽位不与选项冲突                         | 机械  | ✅ 槽位只吃裸词，选项 token 已被消费                     |
 | 选项归属正交                               | 半机械 | ✅ 表里一眼可见：--out 只属 env，--force 只属 env/shims |
 | 语义互斥（--shims never + --shim-dir DIR） | 人工  | ❌ 现在静默接受，--shim-dir 被忽略                    |
-## 配置加载模块
+# 配置加载模块
 
 ## 为什么需要配置
 
@@ -196,7 +196,7 @@ pub struct Config {
 
 > 若将来真的加配置文件，正确形态是：`version = 1`、未知键 fail-closed、环境变量覆盖文件、不做热重载。不是现在。
 
-# 应用扫描层
+# 应用扫描模块
 
 遍历应用层根目录（暂定为 `~/Applictions/`）：
 - 一个子目录等于一个工具
@@ -205,7 +205,7 @@ pub struct Config {
 - 不排序
 - 不过滤
 
-# .env 加载层
+# .env 加载模块
 
 ## 从那加载
 
@@ -337,7 +337,7 @@ PATH=~/Applications   -> C:\Users\...\Applications
 PATH=~/nope           -> skipped: not a directory: C:\Users\...\nope
 ```
 
-# shim 决策层
+# shim 决策模块
 
 ## shim 技术是什么？
 
