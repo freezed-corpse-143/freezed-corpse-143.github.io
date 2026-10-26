@@ -599,5 +599,101 @@ win.rs 是平台层：把“Windows 上只有 Win 32 能做、或只有 Win 32 �
 
 `win.rs` 不做：`.env` 语法、PATH 合并、shim 分类规则、shell 方言、任何输出格式。它只回答"Windows 上这一步怎么做才正确"，不回答"这一步该不该做"。
 
-# shim 转发层
+# shim 转发模块
 
+## 转发层在整条链路里的位置？
+
+```
+shell 输入 git -v
+        │
+        ▼
+PATH 解析：命中 shims\git.exe
+        │
+        ▼
+wex-shim.exe（硬链接）
+        │
+        ▼
+读 wex-shims.tsv
+        │
+        ▼
+CreateProcessW 全路径启动真 git
+        │
+        ▼
+等待 + 转发退出码
+```
+
+它是"命令名 → 真实程序"的唯一运行时环节。上游（决策层/建表层）负责让 `git.exe` 这个名字存在且可解析，转发层负责名字被敲下之后发生的事。
+
+## 为什么必须是独立 exe，不能是 DLL 或钩子？
+
+要让一个裸命令名能被解析，PATH 目录里必须有一个 `CreateProcess` / `ShellExecute` 能直接执行的文件。DLL 需要注入到宿主（shell）进程，属于不受支持的代码注入，还要处理位数、UIPI、卸载；钩子同理。独立 PE + 硬链接是唯一"受支持且零注入"的形态。
+
+##  它怎么知道自己是谁？
+
+用 `GetModuleFileNameW` 取自身路径，再取 leaf，不读 `argv[0]`。因为裸名调用时 `argv[0]` 只是 `git`，没有目录信息；而 TSV 在 exe 旁边，必须知道目录。leaf 是 `wex-shim(.exe)` 时直接拒绝运行——防止有人误调启动器本身。
+
+## 它怎么找到目标？为什么查表要保留扩展名？
+
+读同目录 `wex-shims.tsv`（名字\<TAB\>全路径），按**完整文件名**大小写不敏感匹配。
+
+保留扩展名是因为同一个名字可能有多个真实目标：`noctty.com` 与 `noctty.exe` 是不同程序；cmd 的 `PATHEXT` 也会按扩展名决定胜负。表由建表层一次性写好，转发层只读——查表成本实测可忽略（TSV 追加到 100 KB 也无差别）。
+
+## 为什么参数是"原样转发"，而不是解析后重组？
+
+Windows 没有 argv 数组，只有一条命令行；argv 是 CRT 自己拆的，拆法有十几种引号/反斜杠规则。任何"解析再重排"都会引入引号地狱（`"a b"`、空串、`&`、`%PATH%`）。
+
+所以：取 `GetCommandLineW`，跳过 `argv[0]`（识别引号形式），剩下的 u 16 序列一字节不改地接在目标路径后面。实测 `["a b","","x&y","中 文"]` 全部原样到达子进程。
+
+## 怎么启动目标？
+
+`CreateProcessW`：
+
+| 参数                | 值                          | 原因                                                         |
+| ------------------- | --------------------------- | ------------------------------------------------------------ |
+| `lpApplicationName` | NULL                        | 让 Windows 从命令行首个（带引号的）token 解析模块名          |
+| 命令行              | `"<目标全路径>" <原样参数>` | 全路径避免二次 PATH 解析                                     |
+| `bInheritHandles`   | TRUE                        | 子进程拿到 stdin/stdout/stderr，重定向与管道才有意义（实测三者都透传） |
+| 环境 / cwd          | NULL                        | 继承 shim 的环境与当前目录——相对路径参数因此仍然正确         |
+
+## 退出码和 Ctrl+C 怎么处理？
+
+`WaitForSingleObject(INFINITE)` → `GetExitCodeProcess` → `ExitProcess(code)`，一比一返回（实测子进程 42 → shim 42）。
+
+同时注册一个 `SetConsoleCtrlHandler`，对 CTRL_C/CTRL_BREAK 返回"已处理"。目的不是吞掉信号，而是让自己活到能读到子进程退出码——子进程在同一个控制台里，会自己收到 Ctrl+C。代价是：如果子进程忽略 Ctrl+C，shim 也无法用 Ctrl+C 强杀。
+
+## 失败时发生什么？
+
+统一：写一行 stderr，退出 127。
+
+| 失败           | 消息                                                         |
+| -------------- | ------------------------------------------------------------ |
+| 取不到自身路径 | cannot determine the running path                            |
+| 直接调用启动器 | invoked directly; run it through a shim name instead         |
+| 读不到 TSV     | cannot read wex-shims.tsv next to the shim                   |
+| 名字未登记     | no target registered for this name                           |
+| 目标起不来     | cannot start the registered target (error 2) ← 现在带系统错误码 |
+| 命令行超限     | command line too long (32794 characters; the limit is 32766) |
+
+127 是"命令不可用"的自定义约定（cmd 自己的"未找到"是 9009），与"启动失败"区分得开。
+
+## 每次调用多花多少？
+
+实测 `git --version`：直连 35.3 ms，经 shim 45.5 ms → +10.2 ms。构成：
+
+| 部分                               | 量级                           |
+| ---------------------------------- | ------------------------------ |
+| 额外一次进程创建（含安全软件回调） | ~8–9 ms                        |
+| 读 TSV（约 15 KB）+ 线性查找       | ~0.1 ms（100 KB 也无可测差异） |
+| 等待与退出码转发                   | < 0.5 ms                       |
+
+所以不再优化查表结构——瓶颈在进程创建，不在我们的代码。
+
+## 它明确不做什么？
+
+| 不做                      | 原因                                                         |
+| ------------------------- | ------------------------------------------------------------ |
+| 改父 shell 的环境变量     | 进程环境不可跨进程写，只有 shell 自己 eval 才有效            |
+| 给工具注入 `.env` 变量    | 只覆盖"经 shim 启动"的命令，会出现时有时无；PATH 解析发生在 shell，注入太晚 |
+| 缓存查表结果              | 每次都是新进程，进程内缓存无意义                             |
+| 解析/改写参数             | 保真是唯一不会错的选择                                       |
+| 自动修复 TSV 与文件不一致 | TSV 与硬链接由建表层原子写+顺序保证；异常状态用 `wex shims --force` 修 |
