@@ -695,5 +695,4 @@ test_step.dependOn(&run_mod_tests.step);   // 两条边互不依赖 → 运行�
 test_step.dependOn(&run_exe_tests.step);
  ```
 
- 为什么是两个测试产物：一个测试可执行文件只能测一个模块。root.zig 的 add() 测试和
- main.zig 的 简单测试 / 模糊测试分属两个模块。
+ 为什么是两个测试产物：一个测试可执行文件只能测一个模块。root.zig 的 add() 测试和 main.zig 的 简单测试 / 模糊测试分属两个模块。
