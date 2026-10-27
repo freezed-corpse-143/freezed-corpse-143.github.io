@@ -10,9 +10,9 @@
 
 | 闭集 | 内容 | 开放的那部分 |
 |---|---|---|
-| 命令 | env / shims / check / persist / help | — |
-| 选项 | 8 个 Opt 变体 | — |
-| 值域 | Dialect 5 个、Mode 3 个 | — |
+| 命令 | env / shims / check / persist / version / help | — |
+| 选项 | 9 个 Opt 变体 | — |
+| 值域 | Dialect 5 个、Mode 2 个（always\|never） | — |
 | 位置参数 | 由命令声明槽位数 | help [COMMAND] 是唯一 0..1 的 |
 位置参数是唯一"开放"的东西，而它也被每个命令的 positional.len() 夹住了。没有闭集就没有解析器，只有字符串搜索。
 
@@ -64,7 +64,8 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 |---|---|---|
 | 选择（改输出内容） | --shell、--shims、--shim-dir | 填入 Env，决定 emitter 与 PATH 形态 |
 | 副作用（改 IO） | --out、--force、--verbose | 决定写到哪、是否绕过缓存、是否打点 |
-| 短路 | --help | 根本不构建 Env，直接返回 |
+| 只读报告 | --dry-run（persist） | 复用 `plan()` 算出增量，但不写日志、不碰注册表、不广播 |
+| 短路 | --help、version | 根本不构建 Env，直接返回 |
 表决定能说什么（合法性与文档），match 决定做什么（控制流）。两者之间唯一的强约束是那个穷尽 match；其余靠测试或 review。加命令的成本因此不在解析器——tokenize/bind一行都不用改——而在"表 + 变体 + 一条 dispatch"这三处同步。
 
 ## 怎么组合：累积+收窄+必填
@@ -82,7 +83,7 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 | --- | ---------------------- | ----------------------------------------------------------------------------------------------- | ------------- |
 | 名字  | 写了个不存在的选项/命令           | unknown option '--x' / unknown command 'x' (expected ...)                                       | tokenize / 查表 |
 | 形式  | 该带值没带、不该带值却带了          | --shims needs a value / --force does not take a value                                           | tokenize      |
-| 值域  | 值不在闭集里                 | --shims must be auto\|always\|never                                                             | bind          |
+| 值域  | 值不在闭集里                 | --shims must be always\|never                                                                    | bind          |
 | 组合  | 缺必填、给了该命令不接受的东西、位置参数超量 | 'env' needs --shell / --shell is not accepted by 'check' / unexpected argument 'pwsh' for 'env' | bind          |
 
 三条规则：
@@ -96,17 +97,19 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 | 检查项                                  | 性质  | 现状                                         |
 | ------------------------------------ | --- | ------------------------------------------ |
 | 选项名唯一                                | 机械  | ✅ 枚举保证                                     |
-| 命令名唯一                                | 机械  | ⚠️ 手工维护，4 条太少没出事；表变大要加 debug_assert        |
-| required ⊆ opts                      | 机械  | ⚠️ 目前靠人看。漏了会得到"永远无法满足"的死规则                 |
-| 同命令 opts 内无重复                        | 机械  | ⚠️ 同上，重复无害但表明表写错了                          |
+| 命令名唯一                                | 机械  | ✅ `check_tables()` 在 debug 构建里断言（编译期枚举不出来） |
+| required ⊆ opts                      | 机械  | ✅ 同上，debug 断言                        |
+| 同命令 opts 内无重复                        | 机械  | ✅ 同上                         |
 | 位置参数槽位不与选项冲突                         | 机械  | ✅ 槽位只吃裸词，选项 token 已被消费                     |
-| 选项归属正交                               | 半机械 | ✅ 表里一眼可见：--out 只属 env，--force 只属 env/shims，--undo 只属 persist |
-| 语义互斥（--shims never + --shim-dir DIR） | 人工  | ❌ 现在静默接受，--shim-dir 被忽略                    |
+| 选项归属正交                               | 半机械 | ✅ 表里一眼可见：--out 只属 env，--force 只属 env/shims，--undo/--dry-run 只属 persist |
+| 语义互斥（--shims never + --shim-dir DIR） | 人工  | ✅ 解析期直接报 `--shim-dir has no effect with --shims never`；环境变量来源的组合留给 resolve（那里目录只是未被使用） |
 # 配置加载模块
 
 ## 为什么需要配置
 
 有状态程序的标配。
+
+本轮拆分后，这一层是独立的 `src/config.rs`：`Mode`、`Config`、三个派生路径、`current_path` 都在这里，它也是唯一为配置读进程环境的地方。`model.rs` 只剩扫描、签名、PATH 合并与长度预算。
 
 ## 从哪里加载
 
@@ -151,15 +154,15 @@ pub struct Config {
 
 **结论：不用异步，模型不成立；真正的约束是顺序与惰性。**
 
-本机 debug 构建实测（各 25 次）：
+本机 release 构建（`opt-level = "z"`，40 次中位）：
 
-| 调用 | min | median |
-|---|---|---|
-| wex help（进程地板） | 8.2 ms | 8.6 ms |
-| wex env --shell json --shims never | 10.6 ms | 11.0 ms |
-| wex check（62 目录 + dotenv + 294 个名字） | 21.5 ms | 22.4 ms |
+| 调用 | 中位 |
+|---|---|
+| wex --help（进程地板） | 10.4 ms |
+| wex env --shell cmd（stamp 命中） | 13.3 ms |
+| wex check（63 目录 + dotenv + 295 个名字） | 19.0 ms |
 
-配置读取（4~6 次 `GetEnvironmentVariableW`）在 0.1 ms 以下，测不出来。成本中心是进程创建和目录枚举。
+配置读取（4~6 次 `GetEnvironmentVariableW`，两段式按长度分配）在 0.1 ms 以下，测不出来。成本中心是进程创建和目录枚举。
 
 时序规则：
 
@@ -198,12 +201,13 @@ pub struct Config {
 
 # 应用扫描模块
 
-遍历应用层根目录（暂定为 `~/Applictions/`）：
-- 一个子目录等于一个工具
-- 有 bin，取 bin，无 bin 取子目录
-- 不做验证
-- 不排序
-- 不过滤
+遍历 `~/Applications`（`WEX_APPS_DIR` 可覆盖）：
+
+- 一个子目录等于一个工具；有 `bin\` 取 `bin\`，否则取子目录本身
+- 只收目录；取不到 mtime 的子目录直接跳过（它无法进入签名）
+- 枚举后按名字小写排序：PATH 优先级与 shim 冲突的胜者不能依赖文件系统枚举顺序
+- 不做"是不是可执行"的验证——那是 shim 层的扩展名规则
+- 同时算一个 FNV-1a 签名（路径 + mtime 的 little-endian 字节，按 PATH 顺序）：`shim::scan` 能不能整段跳过，全看它。任一项 mtime 为 0 时签名返回 0，0 永不匹配已存签名
 
 # .env 加载模块
 
@@ -218,6 +222,8 @@ pub struct Config {
 | 何时读        | 只有 `wex env / check / shims` 构建 Env；`wex help` 不碰文件 |
 
 ## 怎么解析
+
+解析这一层不认识 Win32：`$NAME` 的环境查询与 PATH 条目的“是不是目录”通过 `dotenv::Deps { get_env, is_dir }` 注入，装配点只有 `model::parse_dotenv` 一处（生产实现是 `win::env_var` / `win::is_dir`）。所以 11 个解析测试全部用假实现，不读磁盘、不依赖真实环境。
 
 一条流水线，两个存储目标：
 
@@ -257,7 +263,7 @@ pub struct Config {
 | 校验 | 必须是已存在目录，否则 `skipped: not a directory: ...`       |
 | 去重 | 与已有条目大小写不敏感比较，保留首次                         |
 
-解析期就访问文件系统，这是这一层唯一不纯的地方，也是主要成本（约 22 µs/条目）。
+校验要问一次“是不是目录”（注入的 `is_dir`，生产环境就是一次 `GetFileAttributesW`），这是这一层唯一的 I/O，也是主要成本（约 22 µs/条目）。
 
 ### 值的变量展开
 
@@ -267,7 +273,7 @@ HashMap 不是存储结构：值存在 `Vec` 里保序，HashMap 只提供「小
 | ---- | ---------------------- | ------------------------------------------------- |
 | 1    | `HOME` / `USERPROFILE` | 恒等于 `%USERPROFILE%`，文件里写 `HOME=` 不改变它 |
 | 2    | 本文件更早的键         | O(1)；自上而下单向，不能引用后面的键              |
-| 3    | 进程环境               | 每次未命中一次 `GetEnvironmentVariableW`          |
+| 3    | 进程环境               | 每次未命中一次注入的 `get_env`（生产：`win::env_var`，两段式按长度分配）|
 | 4    | 都没有                 | 原样保留 `$NAME`（含 `$`）                        |
 
 不支持：`${NAME}`、`$$` 转义、默认值语法、`\$` 转义（Windows 的 `C:\$Recycle.Bin` 会冲突）。
@@ -343,24 +349,24 @@ PATH=~/nope           -> skipped: not a directory: C:\Users\...\nope
 
 一句话：在一个统一目录里放"命令名"，让 PATH 只需要指向这个目录。
 
-实现上不是给每个目标 exe 建硬链接，而是把同一个启动器 `wex-shim.exe` 硬链接成 294 个文件名，旁边一张表记录"名字 → 真实全路径"。
+实现上不是给每个目标 exe 建硬链接，而是把同一个启动器 `wex-shim.exe` 硬链接成 295 个文件名，旁边一张表记录"名字 → 真实全路径"。
 
 ```
 %LOCALAPPDATA%\wex\shims\git.exe   ──硬链接──┐
 %LOCALAPPDATA%\wex\shims\rg.exe    ──硬链接──┤  同一个 inode
-...294 个名字                                │  = 安装目录里的 wex-shim.exe
+...295 个名字                                │  = 安装目录里的 wex-shim.exe
 %LOCALAPPDATA%\wex\shims\wex-shims.tsv        名字 → 目标
 ```
 
 启动时读自己的文件名（`git.exe`）查表，用全路径 `CreateProcessW` 启动真实程序，参数原样转发，退出码原样返回。
 
-为什么 link 启动器而不是直接 link 目标 exe？直接 link 也能启动，但工具升级替换文件后旧链接仍指向旧 inode；而"启动器 + 表"只需改一行表。代价是每次调用多一次进程创建（约 10 ms）。
+为什么 link 启动器而不是直接 link 目标 exe？直接 link 也能启动，但工具升级替换文件后旧链接仍指向旧 inode；而"启动器 + 表"只需改一行表。代价是每次调用多一次进程创建（实测 8.6–9.8 ms）。
 
 ## 为什么需要 shim?
 
-Windows 的 PATH 是一条字符串，cmd.exe 有硬上限（真实悬崖 8139 字符，工作预算 8100）。62 个工具目录总共约 4 KB，再加上用户已有的 PATH，很快就撞线。
+Windows 的 PATH 是一条字符串，cmd.exe 有硬上限（真实悬崖 8139 字符，工作预算 8100）。63 个工具目录总共约 4.6 KB，再加上用户已有的 PATH，很快就撞线。
 
-shim 把 62 个目录压成 1 个条目（本机实测：4113 → 4153 字符，只多 40）。这既是长度问题，也是"注入点唯一"的问题——shell 启动时只需要把一个目录放进 PATH。
+shim 把 63 个目录压成 1 个条目（本机实测：4637 → 1949 字符）。这既是长度问题，也是"注入点唯一"的问题——shell 启动时只需要把一个目录放进 PATH。
 
 ## 哪些东西需要 shim？
 
@@ -368,7 +374,7 @@ shim 把 62 个目录压成 1 个条目（本机实测：4113 → 4153 字符，
 
 | 来源 | 是否 shim | 原因 |
 |---|---|---|
-| `~/Applications` 扫描出的 62 个目录（或其 `bin`） | ✅ | 数量多、路径长，是长度问题的主体；扫描层存在的意义就是找出它们 |
+| `~/Applications` 扫描出的 63 个目录（或其 `bin`） | ✅ | 数量多、路径长，是长度问题的主体；扫描层存在的意义就是找出它们 |
 | `.env` 里的 `PATH=` 条目 | ❌ 原样追加 | 数量少、是用户显式写的顺序，保持可见 |
 | `.env` 里的普通变量 | ❌ | 与 PATH/shim 无关，原样注入 |
 
@@ -409,17 +415,21 @@ shim 把 62 个目录压成 1 个条目（本机实测：4113 → 4153 字符，
 
 **A. 建表（`shim::scan`）**
 
-1. 按 PATH 顺序遍历 62 个目录，只收 5 种扩展名；
+1. 按 PATH 顺序遍历 63 个目录，只收 5 种扩展名；
 2. 同名同扩展名去重（先到者胜，计数）；
 3. 应用两条"名字层"规则（`.ps1` 有搭档则丢、`PATHEXT` 抢占则丢）；
-4. 得到 294 条：277 个 launcher + 17 个包装脚本。
+4. 得到 295 条：278 个 launcher + 17 个包装脚本。
 
 **B. 落盘（`shim::ensure`）**
 
 1. 读 `wex-shim.exe` 的卷号+文件索引；
 2. 读 `.wex-stamp`（版本/指纹/身份/条数/目录签名），全等则直接返回；
 3. 先原子写 `wex-shims.tsv`（先表后链接，刷新中途启动的 shim 也能查到完整目标）；
-4. 逐条写：exe/com → `DeleteFileW` + `CreateHardLinkW`（失败退化为复制）；脚本 → 原子写两行包装；
+4. 逐条写：
+   - `exe`/`com` → `DeleteFileW` + `CreateHardLinkW`（20 × 2 ms 重试应对并发）；
+   - 仍然失败，说明这个 shim 正被某个进程当作映像映射着（`node.exe`、`zls.exe` 这类常驻工具）：**删除会被拒绝，改名却可以**。把它改名成 `<name>.old-<pid>-<seq>` 让出名字，再建链；旧文件由后续刷新清理；
+   - 硬链被拒（跨卷、不支持）→ 退化为复制；
+   - 脚本 → 原子写两行包装；
 5. 列一次 shim 目录，删掉不在 keep 集合里的旧文件；
 6. 最后写 stamp（stamp 存在 ⇒ 上一轮完整跑完，这是快路径可信的依据）。
 
@@ -434,12 +444,13 @@ shim 把 62 个目录压成 1 个条目（本机实测：4113 → 4153 字符，
 
 | 技巧 | 效果（实测） |
 |---|---|
-| 硬链接而不是复制 | 294 个名字共享 1 个 inode，额外磁盘占用 0 |
-| 一个目录替代 62 个 | PATH 从约 +4 KB 变成 +40 字符 |
-| 目录 mtime 签名跳过扫描 | 命中时不做 62 次枚举：17.0 → 11.5 ms |
+| 硬链接而不是复制 | 295 个名字共享 1 个 inode，额外磁盘占用 0 |
+| 一个目录替代 63 个 | PATH 从 4637 字符变成 1949 字符（注册表值 1052，含 `.env` 条目） |
+| 目录 mtime 签名跳过扫描 | 命中时不做 63 次枚举；release 构建 `env --shell cmd` 中位 13.3 ms |
 | 增量写入（已正确的条目不重建） | 300 条目录上新增一条：127 → 34 ms |
+| 删不掉的文件改名让路 | 常驻工具从 shim 目录运行时，整次刷新不再失败（回归测试用只读属性固定同一形状） |
 | `FindFirstFile` 的目录时间不用 | 实测滞后，会漏检新工具；改用 `GetFileAttributesExW`（+1 ms 换正确性） |
-| 不并行 | 实测 294 个链接：单线程 96–119 ms，4 线程 1.3 s（Defender 回调 + 目录锁） |
+| 不并行 | 实测 295 个链接：单线程 96–119 ms，4 线程 1.3 s（Defender 回调 + 目录锁） |
 | 不异步 | 元数据调用无等待可重叠，纯 syscall 开销 |
 | 一次枚举同时拿名字和属性 | `scan_apps` 一次根枚举 + 每个目标一次 `dir_meta` |
 | 表先写、stamp 后写 | 刷新中断不会留下"表说有条目、盘上没有"的状态 |
@@ -477,7 +488,7 @@ shim 把 62 个目录压成 1 个条目（本机实测：4113 → 4153 字符，
 | pwsh | `$PROFILE → . env.ps1` | PowerShell 5.1 需要 BOM；7 兼容 | 一条字符串拼接 |
 | nu | `nushell config.nu → source wex.nu` | nushell 的 `$env.PATH` 是 list，字符串赋值会被当成单元素 | 一个列表表达式 |
 | json | 脚本/jq/其它工具 | 结构化消费，避免解析 shell 语法 | 增量数组（不含继承 PATH） |
-| dotenv | 任意读 `.env` 的工具/人 | 可复用的行式格式 | 每个目录一行（见缺陷） |
+| dotenv | 任意读 `.env` 的工具/人 | 可复用的行式格式 | 一条 PATH 行（整值拼接；拆成多行会被“后者覆盖”丢掉前面的目录） |
 ## 怎么适配的？
 
 统一骨架：先按 `.env` 文件顺序输出变量，最后输出 PATH；prepend 为空就不输出 PATH（不覆盖继承值）。
@@ -516,7 +527,7 @@ PATH=C:\...\wex\shims
 | 方言 | 规则 | 实现位置 |
 |---|---|---|
 | cmd 值含 `"` | 退化为无引号 `set K=...`，`^ & < >` 前加 `^`，`%→%%` | — |
-| cmd 值不含 `"` | `set "K=V"`，理论上仍需 `%→%%` | `cmd_var`（现缺） |
+| cmd 值不含 `"` | `set "K=V"`，`%→%%` | `cmd_var` + `pct`（两种形态都成对转义） |
 | pwsh / nu | 单引号内除 `'` 外全字面，`'→''` | `sq_escape` |
 | json | `"` `\` 控制字符标准转义 | `json_escape` |
 | dotenv | 不转义（按行原样，值不能含换行—— `.env` 解析器保证了这点） | — |
@@ -530,70 +541,59 @@ PATH=C:\...\wex\shims
 
 **边界语义**
 
-- cmd 超预算时返回 `skipped=true`、不写 PATH 行——现在决策层已提前报错，这是防御性兜底。
+- 8100 的拼接预算是 **cmd 专属**：`wex env --shell cmd` 遇到 `budget_error` 直接 exit 2；`pwsh`/`nu`/`json`/`dotenv` 的消费者不是 cmd.exe（单个环境值上限 32766 UTF-16 单元），所以合并后的 PATH 再长也照常输出。
+- `emit::cmd` 仍保留 `skipped=true` 兜底（不写 PATH 行），`wex check` 用它在 verdict 里报 `PATH left untouched`——正常路径不会走到，因为决策层已先拒绝。
 - `--out` 由 main 原子写；目录首次创建时加固 ACL。
 
 # 平台适配层
-win.rs 是平台层：把“Windows 上只有 Win 32 能做、或只有 Win 32 才能做得对”的操作，包成不暴露 unsafe、失败可见的安全函数。上层四个模块不直接碰 FFI。
+win.rs 是平台层：把“Windows 上只有 Win 32 能做、或只有 Win 32 才能做得对”的操作，包成不暴露 unsafe、失败可见的安全函数。上层模块不直接碰 FFI。
 
- ┌──────────────────────┐
- │                      │
- │       model.rs       │
- │ 配置 / 扫描 / .env / ├────────┐
- │         PATH         │        │
- │                      │        │
- └──────────────────────┘        │
-                                 │
-                                 │
-                                 │
-                                 │
-                                 ▼
- ┌──────────────────────┐     ┌─────┐     ┌──────────┐
- │                      │     │     │     │          │
- │                      │     │     │     │          │
- │       shim.rs        ├────►│ win ├────►│kernel 32 │
- │     建表 / 落盘      │     │     │     │          │
- │                      │     │     │     │          │
- └──────────────────────┘     └──┬──┘     └──────────┘
-                                 ▲
-                                 │
-                                 │
-                                 │
-                                 │
- ┌──────────────────────┐        │        ┌──────────┐
- │                      │        │        │          │
- │                      │        │        │          │
- │       main.rs        ├────────┼───────►│advapi 32 │
- │   输出文件 / 诊断    │        │        │          │
- │                      │        │        │          │
- └──────────────────────┘        │        └──────────┘
-                                 │
-                                 │
-                                 │
-                                 │
-                                 │
- ┌──────────────────────┐        │
- │                      │        │
- │                      │        │
- │     wex-shim.rs      ├────────┘
- │      运行期转发      │
- │                      │
- └──────────────────────┘
+```mermaid
+flowchart TD
+    subgraph L["纯逻辑 / 决策层"]
+        CLI[cli.rs]
+        CFG[config.rs]
+        DOT[dotenv.rs]
+        MOD["model.rs<br/>扫描 / 签名 / PATH / 预算"]
+        SHIM[shim.rs]
+        EMIT[emit.rs]
+        PERS[persist.rs]
+    end
+    subgraph P["平台层"]
+        WIN["win.rs<br/>FFI / 原子写 / ACL / getenv"]
+        WP["win/persist.rs<br/>注册表 / 广播 / 锁"]
+    end
+    CLI --> CFG
+    MOD --> CFG
+    MOD --> DOT
+    MOD --> SHIM
+    EMIT --> MOD
+    PERS --> MOD
+    PERS --> WP
+    CFG --> WIN
+    SHIM --> WIN
+    DOT -.->|Deps 注入| WIN
+    WP --> WIN
+    WIN --> K32[kernel32 / advapi32 / userenv / user32]
+```
+
 ## 哪些暴露的能力
 
 | 使用方 | 用到的能力 | 为什么必须自己做 |
 |---|---|---|
-| `model.rs` | `env_var`、`join/last_sep`、`list_dir`、`dir_meta`、`is_dir`、`read_text/read_text_or` | 环境变量要 W 版避免编码转换；枚举要 `FindFirstFileEx + LARGE_FETCH`；目录变化判断要 `GetFileAttributesExW`，枚举返回的时间会滞后；读文件要有 1 MiB 上限、BOM 剥离、非法 UTF-8 回落 ANSI |
-| `shim.rs` | `ensure_dir`、`harden_dir`、`write_file_atomic`、`file_identity`、`DeleteFileW/CreateHardLinkW/CopyFileW`、`list_dir` | 硬链接 + 失败退化复制；"这个 shim 是否已指向当前启动器"只能比 inode（卷号+文件索引）；TSV/脚本/stamp 必须原子替换；SDDL 收窄 ACL |
+| `config.rs` / `model.rs` | `env_var`、`join/last_sep/norm_slashes`、`list_dir`、`dir_meta`、`is_dir`、`read_text/read_text_or` | 环境变量要 W 版避免编码转换；`getenv` 要两段式（先问长度，再按需分配，否则每个命令凭空多出几百 KB）；枚举要 `FindFirstFileEx + LARGE_FETCH`；目录变化判断要 `GetFileAttributesExW`，枚举返回的时间会滞后；读文件要有 1 MiB 上限、BOM 剥离、非法 UTF-8 回落 ANSI |
+| `dotenv.rs` | 无直接调用：`get_env` / `is_dir` 由 `model` 注入 | 纯解析器不认识 Win32，所以规则可以用假实现测 |
+| `shim.rs` | `ensure_dir`、`harden_dir`、`write_file_atomic`、`file_identity`、`DeleteFileW/CreateHardLinkW/CopyFileW/MoveFileExW`、`list_dir`、`handle_count` | 硬链接 + 改名让路 + 失败退化复制；"这个 shim 是否已指向当前启动器"只能比 inode（卷号+文件索引）；TSV/脚本/stamp 必须原子替换；SDDL 收窄 ACL；句柄数要能验证不增长 |
 | `main.rs` | `write_file_atomic`（含 BOM）、`ensure_parent_dirs`、`harden_dir`、`last_sep` | `--out` 生成的脚本会被 shell 启动时读取，不能出现半截；`.env` 里有变量值，落盘目录要先加固 |
-| `wex-shim.rs` | `module_path`、`read_text`、`GetCommandLineW`、`CreateProcessW`、`WaitForSingleObject`、`GetExitCodeProcess`、`ExitProcess`、`SetConsoleCtrlHandler`、`GetStdHandle/WriteFile` | 用全路径启动目标、原样转发参数、继承 stdio、把子进程退出码带回来；自身路径超长时不能截断 |
+| `wex-shim.rs` | `module_path`、`read_bytes`、`GetCommandLineW`、`CreateProcessW`、`WaitForSingleObject`、`GetExitCodeProcess`、`ExitProcess`、`SetConsoleCtrlHandler`、`GetStdHandle/WriteFile` | 用全路径启动目标、原样转发参数、继承 stdio、把子进程退出码带回来；自身路径超长时不能截断；TSV 按字节扫描、命令行借用系统缓冲，避免每次命令多两次拷贝 |
 | `cli.rs` / `emit.rs` | 无 | 纯字符串处理——这正是分层成立的证据 |
 
-## 三条隐含契约
+## 四条隐含契约
 
 1. **失败必须能被看到**：`read_file → Result<_, ReadError>`（区分 missing / too-large / io）、`harden_dir → bool`、`write_file_atomic → bool`。调用方不能"以为成功了"。
 2. **不替用户猜编码**：UTF-8 优先（有 BOM 就剥掉），只有真的不是 UTF-8 才用 ANSI 代码页；值本身一个字节都不改写。
 3. **写盘要么全有要么全无；身份判断只认 inode**：临时文件 + rename（带并发重试）、硬链接身份用卷号+64 位索引，不用 mtime/大小。
+4. **句柄不留尾巴**：堆由进程寿命兜底，句柄是唯一现实的泄漏面。测试预热后连续 50 轮刷新，`GetProcessHandleCount` 必须完全不变（首次 ACL 工作会一次性多出十几个，那不是泄漏）。
 
 ## 边界
 
@@ -636,13 +636,13 @@ CreateProcessW 全路径启动真 git
 
 读同目录 `wex-shims.tsv`（名字\<TAB\>全路径），按**完整文件名**大小写不敏感匹配。
 
-保留扩展名是因为同一个名字可能有多个真实目标：`noctty.com` 与 `noctty.exe` 是不同程序；cmd 的 `PATHEXT` 也会按扩展名决定胜负。表由建表层一次性写好，转发层只读——查表成本实测可忽略（TSV 追加到 100 KB 也无差别）。
+保留扩展名是因为同一个名字可能有多个真实目标：`noctty.com` 与 `noctty.exe` 是不同程序；cmd 的 `PATHEXT` 也会按扩展名决定胜负。表由建表层一次性写好，转发层只读：整张表**按字节扫描**（`\t` 与 `\r\n` 切分），只把命中那一行的目标转成 UTF-16——不再把 TSV 解码成 `String` 再逐行 `lines()`，每次命令少两次分配与一次全表 UTF-8 校验。查表成本实测可忽略（TSV 追加到 100 KB 也无差别）。
 
 ## 为什么参数是"原样转发"，而不是解析后重组？
 
 Windows 没有 argv 数组，只有一条命令行；argv 是 CRT 自己拆的，拆法有十几种引号/反斜杠规则。任何"解析再重排"都会引入引号地狱（`"a b"`、空串、`&`、`%PATH%`）。
 
-所以：取 `GetCommandLineW`，跳过 `argv[0]`（识别引号形式），剩下的 u 16 序列一字节不改地接在目标路径后面。实测 `["a b","","x&y","中 文"]` 全部原样到达子进程。
+所以：取 `GetCommandLineW`，跳过 `argv[0]`（识别引号形式），剩下的 u16 序列一字节不改地接在目标路径后面。实现上直接借用系统缓冲的切片，只做一次 `Vec<u16>` 组装，没有 32 KiB 中间拷贝。实测 `["a b","","x&y","中 文"]` 全部原样到达子进程。
 
 ## 怎么启动目标？
 
@@ -678,15 +678,15 @@ Windows 没有 argv 数组，只有一条命令行；argv 是 CRT 自己拆的�
 
 ## 每次调用多花多少？
 
-实测 `git --version`：直连 35.3 ms，经 shim 45.5 ms → +10.2 ms。构成：
+实测 `jq --version`（release 构建，50 次中位）：直连 9.0 ms，经 shim 18.1 ms → **+9.0 ms**（另一轮 18.9 ms → +9.8 ms）。构成：
 
 | 部分                               | 量级                           |
 | ---------------------------------- | ------------------------------ |
-| 额外一次进程创建（含安全软件回调） | ~8–9 ms                        |
-| 读 TSV（约 15 KB）+ 线性查找       | ~0.1 ms（100 KB 也无可测差异） |
+| 额外一次进程创建（含安全软件回调） | ~8.6–9.5 ms                    |
+| 读 TSV（约 20 KB）按字节扫描 + 线性查找 | < 0.1 ms（100 KB 也无可测差异） |
 | 等待与退出码转发                   | < 0.5 ms                       |
 
-所以不再优化查表结构——瓶颈在进程创建，不在我们的代码。
+所以查表结构只做了一次"少拷贝"清理（按字节扫描、借用命令行），没有可测收益——瓶颈在进程创建，不在我们的代码。
 
 ## 它明确不做什么？
 
@@ -869,7 +869,7 @@ flowchart LR
 | 复用 | 用法 |
 |---|---|
 | `model::Inputs` | 扫描 + dotenv，与继承 PATH 无关；`wex env` 也用同一份 |
-| `model::Mode` | persist 固定按 shim 语义走，不看 `WEX_SHIMS=never`——那不是"命令去哪找"，而是"注册表里放什么" |
+| `config::Mode` | persist 固定按 shim 语义走，不看 `WEX_SHIMS=never`——那不是"命令去哪找"，而是"注册表里放什么" |
 | `shim::is_current / scan / ensure` | 先确认 stamp，命中就不做 63 次目录枚举 |
 | `win` 平台层 | 注册表原始值、环境块快照、广播、独占锁、原子写、ACL 加固、目录判断 |
 | `cli::COMMANDS` | `persist` 只是表里多一条，加 `--undo` 一个开关；解析器一行没改 |
@@ -897,6 +897,29 @@ flowchart LR
 
 本机实测：同一次调用，`env --shell=cmd` 到 stdout 只出 3 行赋值，`--out` 写文件出 16 行（全部 `.env` 变量）。"未设置"与"设为空"算不同，不会把空值当成已满足。
 
+## --dry-run 报什么？
+
+`wex persist --dry-run` 复用同一套 `plan()`，但整条路径只读：
+
+| 项 | dry-run 行为 |
+|---|---|
+| 状态目录 | 只拼路径，不创建、不加固 |
+| 状态日志 | 只读；发现 `Prepared`/`Notify` 直接报错（续做一定会写，不能假装能预览） |
+| shim 目录 | 不刷新 |
+| 注册表 | 只读打开 `HKCU\Environment`，不创建键 |
+| 广播 | 不发 |
+
+输出的是"将要发生什么"，不是"已经发生"：
+
+```
+persist (dry run): no registry change, no notification
+user PATH   : 1052 -> 1052 chars (UTF-16)
+owned       : 11 -> 11 directories
+result      : unchanged
+```
+
+有变化时会逐条列出 `+ 目录` / `- 目录`。它的价值在切换与排障：先看清将要写什么，再决定是否真的执行。
+
 ## 验收现状
 
 | 项 | 结果 |
@@ -907,30 +930,34 @@ flowchart LR
 | 原有目录不被认领 | 通过（11 条 `.env` 目录中 1 条已在用户 PATH） |
 | 外部修改、写入失败、广播失败、日志损坏 | 通过（单测覆盖各自分支） |
 | 事务恢复（写入前 / 后中断） | 通过（两个方向的 `Prepared` 都能续做） |
+| `--dry-run` 无副作用 | 通过（单测比对注册表与日志前后不变；有未完成事务时直接报错） |
+| 另一实现写的日志 | 拒绝而不是猜：magic 不符报 `unsupported persist state version`，交接必须由原主 `--undo` 完成 |
 | 新 GUI 进程实际继承 | **未验证**——需真正重启 Explorer 或重新登录 |
 | 同名命令搜索优先级 | **未验证**——已知不改变 System PATH 优先 |
 
-`cargo test --all-targets`：46 passed。
+`cargo test --all-targets`：59 passed（56 lib + 3 wex-shim）。
 
 # 装配层
 
 ## 装配了哪些模块？
 
-`main.rs` 自己不做任何规则判断，只把六个模块接起来：
+`main.rs` 自己不做任何规则判断，只把模块接起来：
 
 | 模块 | 它在装配中的角色 | main 取用什么 |
 |---|---|---|
 | cli | 一次性把 argv 变成类型化的 Command，或给出错误/帮助文本 | `parse(&argv)`、`usage_text(topic)` |
-| model | 读环境、扫描、`.env`、PATH 合并、shim 决策，产出完整的 Env | `Config::load`、`Env::build`、Env 的字段 |
+| config | 配置来源（flag > WEX_* > 默认）、三个派生路径、继承 PATH | `Config::load`、`current_path` |
+| dotenv | `.env` 纯解析；环境查询与目录判断由 model 注入 | 经 `Inputs::load` 间接使用 |
+| model | 扫描 + 签名、PATH 合并、shim 决策、长度预算，产出完整的 Env | `Env::build`、Env 的字段 |
 | shim | shim 目录的落盘与 stamp | 只用于诊断：`stamp_sig(dir)`、`Env.map` 的计数 |
 | emit | 把 Env 渲染成五种方言的文本 | `cmd(e, dedup)` / `pwsh` / `nu` / `json` / `dotenv` |
-| persist | 注册表 PATH 同步、所有权、事务日志、撤销 | 整条命令一次 `persist::run(undo)` |
+| persist | 注册表 PATH 同步、所有权、事务日志、撤销、只读预演 | 整条命令一次 `persist::run(undo, dry_run)` |
 | win | 平台机制 | `ensure_parent_dirs`、`harden_dir`、`write_file_atomic`、`last_sep`、`is_dir` |
 | std | 进程边界 | `env::args`、`ExitCode`、`print!` / `eprintln!` |
 
-对应关系一句话：cli 决定"要做什么"，model 决定"环境长什么样"，emit 决定"怎么写出来"，win 决定"怎么落到 Windows 上"，main 决定"成功失败各自怎么收场"。
+对应关系一句话：cli 决定"要做什么"，config/dotenv/model 决定"环境长什么样"，emit 决定"怎么写出来"，win 决定"怎么落到 Windows 上"，main 决定"成功失败各自怎么收场"。
 
-persist 是唯一"变更 Windows 状态"的命令，所以整条逻辑收在一个模块里（`persist::run(undo) -> Result<(), String>`）：main 只做分发和错误出口，不参与合并、所有权或事务判断。
+persist 是唯一"变更 Windows 状态"的命令，所以整条逻辑收在一个模块里（`persist::run(undo, dry_run) -> Result<(), String>`）：main 只做分发和错误出口，不参与合并、所有权或事务判断。`version` 则由 `lib::version_text()` 直接产出，连 Env 都不构建。
 
 ## 怎么组织它们工作？
 
@@ -939,19 +966,22 @@ flowchart TD
     A["argv"] --> B["cli::parse"]
 
     B -->|Help| C["usage_text → stdout<br/>exit 0"]
+    B -->|Version| V["version_text → stdout<br/>exit 0"]
     B -->|Command| D["Config::load<br/>flag > WEX_* > 默认"]
 
     D --> E["Env::build（refresh /<br/>force / want_map）"]
 
-    E --> F{"e.error?"}
+    E --> F{"shim 失败?"}
 
     F -->|是| G["stderr: wex: msg<br/>exit 2"]
-    F -->|否| H{"命令"}
+    F -->|否| F2{"cmd 且预算超限?"}
+    F2 -->|是| G
+    F2 -->|否| H{"命令"}
 
     H -->|shims| I["打印统计（写入已在 build<br/>里完成）"]
     H -->|check| J["只读：打印 20<br/>行诊断；verdict 不对则<br/>exit 1"]
     H -->|env| K["emit 方言文本"]
-    H -->|persist| P["persist::run<br/>Inputs + stamp + 事务日志"]
+    H -->|persist| P["persist::run<br/>Inputs + stamp + 事务日志<br/>或 --dry-run 预演"]
 
     K --> L{"--out?"}
 
@@ -965,7 +995,41 @@ flowchart TD
 
 ## 装配定律
 
- 1. 先判错，再产出：e.error 在 emit 之前检查。错误时既不写 --out，也不往 stdout 打半套环境。
+ 1. 先判错，再产出：shim 刷新失败对所有方言都是硬失败；cmd 行预算只拦 `cmd`（`pwsh`/`nu`/`json`/`dotenv` 的消费者不是 cmd.exe）。任何硬失败都不写 `--out`、也不往 stdout 打半套环境。
  2. 错误与诊断分开：env/shims 用 Result<i32, String>，main 统一加 wex:  前缀并 exit 2；check 把问题写进 verdict 并返回 Ok(1)，因为它必须先把自己诊断完。
  3. 文件卫生只做一次：--out 的“建目录 → 只在新建时加固 ACL → 原子写 → pwsh BOM”集中在这一个地方，emit 不碰文件系统。
  4. 变更外部状态只走一条路：只有 persist 写注册表，而且只写 `HKCU\Environment\Path`；env/shims/check 依旧完全不碰注册表，check 仍然只读。
+# 版本与门禁
+
+## 怎么确认装的是哪一次构建？
+
+`wex version` 打印 `wex <crate version>[+<build tag>]`，tag 由构建脚本通过 `WEX_BUILD` 注入（`option_env!`）。在此之前，判断"安装目录里到底是哪一次构建"只能比哈希——切换实现时正好需要这个能力。
+
+## 门禁怎么定？
+
+`build.ps1` 把三类检查固化下来（`-BuildOnly` 只跳过安装与重链，不跳过门禁；`-SkipTests` 只跳过测试）：
+
+| 门禁 | 硬/软 | 内容 |
+|---|---|---|
+| 测试 | 硬 | `cargo test --all-targets`：56 + 0 + 3 |
+| 体积 | 硬 | `wex.exe` ≤ 260,000 B、`wex-shim.exe` ≤ 116,000 B |
+| 计时 | 软（只报告） | `--help`、`env --shell cmd`、shim 转发相对直呼的增量，各 20 次中位 |
+
+计时不判定：`Measure-Command` 自带管道开销，机器忙时写死阈值只会让构建因无关原因失败。体积门禁抓的是一类回归（误引入格式化/调试机制会让体积一次跳几十 KB），不是钉死今天这个字节数。
+
+# 本轮优化记录（2026-10-28）
+
+| 问题 | 修复 | 证据 |
+|---|---|---|
+| 运行中的 shim 删不掉（被进程映射为映像） | 删除失败 → 改名 `.old-<pid>-<seq>` 让出名字 → 重建硬链 → 再失败才复制 | 真机 `zoxide.exe` 曾让整次刷新失败；测试用只读属性固定同一形状 |
+| cmd 的 8100 预算被套到所有方言 | `Env` 拆出 `budget_error` / `shim_error`；预算只拒绝 `cmd` | 8520 字符 PATH：cmd exit 2，pwsh/nu/json/dotenv exit 0 |
+| `getenv` 每次分配 64 KiB | 两段式：先问长度再按需分配；`ERROR_ENVVAR_NOT_FOUND` 区分未设置与空值 | 每个命令少约 1 MB 临时分配 |
+| `model.rs` 843 行五个职责 | 拆出 `config.rs` / `dotenv.rs`；解析器用 `Deps` 注入，测试零磁盘零环境 | 解析测试 11 个；`model.rs` 降到 430 行 |
+| 句柄泄漏没有守卫 | 预热 20 轮后连续 50 轮刷新，句柄数必须完全相等 | 首次 ACL 工作一次性 +14 是初始化，不是泄漏 |
+| 体积 309,760 B | `opt-level = "z"`：253,440 B（−18%），启动差异在噪声内 | 40 次中位 13.3 ms（3 档并列） |
+
+`wex persist --dry-run` 与 `wex version` 是这一轮新增的两个只读入口：前者让"将要写什么"可检查，后者让"装的是哪一次构建"可回答。
+
+# 交接备忘
+
+两个实现写同一种日志时，`persist` 的 magic 是**归属标记**而不是版本号：Rust 只认 `WEXP\x01`、Zig 只认 `WEXP\x02`，互相拒绝。切换实现的唯一正确顺序是"原主 `persist --undo` → 换二进制 → 新主 `persist`"。删日志再同步会把原主加过的目录变成用户自己的基线，从此 `--undo` 再也删不掉。
