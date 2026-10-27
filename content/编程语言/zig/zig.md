@@ -719,6 +719,10 @@ test_step.dependOn(&run_exe_tests.step);
 
 结构体初始化时的字段名
 
+#  `&.{ a, b}`
+
+匿名数组字面量取地址 -> 自动转成切片 `[]const T`
+
 # ''和 "" 的区别
 
 
