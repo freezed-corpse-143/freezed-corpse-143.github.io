@@ -617,6 +617,84 @@ pub fn main(init: std.process.Init) !void {
 
 **可检查的入门完成线**：不谈"像不像 C"，能独立回答——这段数据的地址、长度、容量在哪；谁分配谁释放；失败时哪些资源已被获取；哪些错误在编译期发现、哪些在安全检查下 panic、哪些完全没人管。
 
-# 常用命令
+# zig build
 
-- `zig build`：就是执行当前目录下的 `build.zig` 文件
+## 核心心智模型：build() 不编译，只画图
+
+ ```zig
+pub fn build(b: *std.Build) void { ... }
+ ```
+
+ 这个函数是构建脚本的入口，由 zig build 调用。它做的全部工作是往 *std.Build 里登
+ 记节点（Step）和边（dependOn），然后返回。真正的编译/安装/运行由构建运行器在之后
+ 调度——所以调用顺序无关，只有依赖关系决定先后与并行。
+
+ 三个概念：
+
+| 概念       | 是什么                                                   | 本文件中的实例                                             |
+| -------- | ----------------------------------------------------- | --------------------------------------------------- |
+| Module   | 一组源文件 + 编译选项（target、optimize、imports、链接库）。Zig 的"编译单元" | mod（导出给使用者）、b.createModule（exe 私有根模块）               |
+| Step     | 构建图里的一个动作节点，有输入/输出，可缓存                                | exe(Compile)、run_cmd(Run)、mod_tests/exe_tests(Test) |
+| dependOn | 有向边，决定调度顺序，无依赖的并行跑                                    | test_step.dependOn(&run_mod_tests.step)             |
+## 逐步拆解这些对象
+
+```zig
+// ① 两个标准选项：从命令行 -Dtarget= / -Doptimize= 取值，无值时用默认（原生 +
+Debug）
+const target   = b.standardTargetOptions(.{});
+const optimize = b.standardOptimizeOption(.{});
+
+// ② 对外导出模块：addModule 会给它起名，包使用者可
+@import("WinEnvInjector_zig")
+//    注意必须设 target —— 因为它稍后被复用作测试目标的根模块
+const mod = b.addModule("WinEnvInjector_zig", .{
+    .root_source_file = b.path("src/root.zig"),
+    .target = target,
+});
+
+// ③ 可执行文件的根模块：createModule 不导出，所以不需要名字
+const exe = b.addExecutable(.{
+    .name = "WinEnvInjector_zig",
+    .root_module = b.createModule(.{
+        .root_source_file = b.path("src/main.zig"),  // 这里要有 pub fn main
+        .target = target, .optimize = optimize,      // exe/库必须显式接入
+        .imports = &.{ .{ .name = "WinEnvInjector_zig", .module = mod } }, // 左
+侧是源码里的导入名
+    }),
+});
+
+// ④ 只加仓库不执行：声明"默认步骤要安装这个产物到 prefix（默认 zig-out/）"
+b.installArtifact(exe);
+```
+
+ imports 那行就是 src/main.zig 里 @import("WinEnvInjector_zig") 能成立的原因——名
+ 字不是约定，是这里写死的，可以改成任意名字（用来消解重名冲突）。
+
+ 运行与测试：
+
+ ```zig
+const run_step = b.step("run", "运行应用");     // 顶层步骤：起个名字，`zig
+build run` 可调用
+const run_cmd  = b.addRunArtifact(exe);         // 节点：执行 exe
+run_step.dependOn(&run_cmd.step);               // 边：run → run_cmd
+run_cmd.step.dependOn(b.getInstallStep());      // 从 zig-out/ 跑，而不是从缓存
+的 exe 跑
+run_cmd.addPassthruArgs();                      // 允许 `zig build run -- --foo
+bar`
+ ```
+
+ ```zig
+const mod_tests     = b.addTest(.{ .root_module = mod });            // 跑
+root.zig 的 test 块
+const run_mod_tests = b.addRunArtifact(mod_tests);
+const exe_tests     = b.addTest(.{ .root_module = exe.root_module });// 跑
+main.zig 的 test 块
+const run_exe_tests = b.addRunArtifact(exe_tests);
+
+const test_step = b.step("test", "运行测试");
+test_step.dependOn(&run_mod_tests.step);   // 两条边互不依赖 → 运行器并行
+test_step.dependOn(&run_exe_tests.step);
+ ```
+
+ 为什么是两个测试产物：一个测试可执行文件只能测一个模块。root.zig 的 add() 测试和
+ main.zig 的 简单测试 / 模糊测试分属两个模块。
