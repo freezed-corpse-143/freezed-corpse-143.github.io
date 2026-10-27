@@ -25,17 +25,14 @@
             "id": "a4bbefa1fb1656db",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5130,
-                  "y": 848,
-                  "zoom": 0
-                }
+                "file": "编程语言/zig/zig.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "zig"
             }
           },
           {
@@ -108,13 +105,11 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -256,8 +251,8 @@
   },
   "active": "a4bbefa1fb1656db",
   "lastOpenFiles": [
-    "github项目/WinEnvInject.md",
     "TODO.canvas",
+    "github项目/WinEnvInject.md",
     "环境配置.md",
     "编程语言/C++.md",
     "编程语言/Rust.md",
