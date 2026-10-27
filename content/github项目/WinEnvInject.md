@@ -10,8 +10,8 @@
 
 | 闭集 | 内容 | 开放的那部分 |
 |---|---|---|
-| 命令 | env / shims / check / help | — |
-| 选项 | 7 个 Opt 变体 | — |
+| 命令 | env / shims / check / persist / help | — |
+| 选项 | 8 个 Opt 变体 | — |
 | 值域 | Dialect 5 个、Mode 3 个 | — |
 | 位置参数 | 由命令声明槽位数 | help [COMMAND] 是唯一 0..1 的 |
 位置参数是唯一"开放"的东西，而它也被每个命令的 positional.len() 夹住了。没有闭集就没有解析器，只有字符串搜索。
@@ -34,7 +34,7 @@
 
 | 形式       | 本项目                              | 表示                       |
 | -------- | -------------------------------- | ------------------------ |
-| 开关（无值）   | --force、--verbose                | takes_value == false     |
+| 开关（无值）   | --force、--verbose、--undo          | takes_value == false     |
 | 取值（恰好一个） | --shell、--out、--shims、--shim-dir | takes_value == true      |
 | 位置、定长    | 无                                | positional: &[]          |
 | 位置、0..1  | help [COMMAND]                   | positional: &["COMMAND"] |
@@ -100,7 +100,7 @@ argv ──tokenize──> (Vec<(Opt, Option<String>)>, Vec<&str>) ──bind─
 | required ⊆ opts                      | 机械  | ⚠️ 目前靠人看。漏了会得到"永远无法满足"的死规则                 |
 | 同命令 opts 内无重复                        | 机械  | ⚠️ 同上，重复无害但表明表写错了                          |
 | 位置参数槽位不与选项冲突                         | 机械  | ✅ 槽位只吃裸词，选项 token 已被消费                     |
-| 选项归属正交                               | 半机械 | ✅ 表里一眼可见：--out 只属 env，--force 只属 env/shims |
+| 选项归属正交                               | 半机械 | ✅ 表里一眼可见：--out 只属 env，--force 只属 env/shims，--undo 只属 persist |
 | 语义互斥（--shims never + --shim-dir DIR） | 人工  | ❌ 现在静默接受，--shim-dir 被忽略                    |
 # 配置加载模块
 
@@ -697,22 +697,240 @@ Windows 没有 argv 数组，只有一条命令行；argv 是 CRT 自己拆的�
 | 缓存查表结果              | 每次都是新进程，进程内缓存无意义                             |
 | 解析/改写参数             | 保真是唯一不会错的选择                                       |
 | 自动修复 TSV 与文件不一致 | TSV 与硬链接由建表层原子写+顺序保证；异常状态用 `wex shims --force` 修 |
+
+# persist 模块
+
+## persist 是什么？
+
+一句话：**把 wex 管理的那几个目录写进用户注册表 PATH，然后让 Explorer 知道环境变了。**
+
+它不是"注入环境"，只改一个值：
+
+| 维度 | 内容 |
+|---|---|
+| 写入对象 | `HKCU\Environment` 的 `Path`，**仅此一个值** |
+| 写入内容 | shim 目录 + `.env` 里的 `PATH=` 目录，且只加"原本不在 PATH 里"的那些 |
+| 通知方式 | `WM_SETTINGCHANGE`，`lpsz` 为 `Environment` |
+| 撤销 | `wex persist --undo`，只删自己加过的目录 |
+| 需要权限 | 当前用户，不需要管理员 |
+
+明确不做的：不注入 Explorer、不改 HKLM、不建登录任务、不定时同步、不起常驻进程、**不持久化 `.env` 的普通变量**（令牌和密钥不该发给所有 GUI 程序）。
+
+## 为什么 shell 注入不够？
+
+因为 Windows 的环境不是一份全局字典：
+
+| 层 | 它是什么 | shell 改了它吗 |
+|---|---|---|
+| 注册表 `HKCU\Environment` | 登录时用来**构造**初始环境 | 不会 |
+| Explorer | 有自己的一份运行时环境副本 | 不会 |
+| 子进程 | 创建时复制父进程的一份 | 反向改不了父进程 |
+
+所以 `wex env` 只能影响"执行它的 shell 及其子进程"。从 Explorer 双击启动的程序（编辑器、IDE、GUI 工具）走的是另一条链：注册表 → Explorer → 新进程。起因很具体——一台由 Explorer 启动的 Zed 里，ZLS 报 `zig executable could not be found`，因为那个进程的 PATH 里既没有 shim 目录，也没有 Zig 安装目录。
+
+验证这件事只需要一个无敏感值的探针变量：
+
+| 阶段 | Explorer 环境块 |
+|---|---|
+| 写入前 | 无探针 |
+| 写 `HKCU\Environment` + 广播，等 3 s | 出现探针 |
+| 删除 + 广播，等 2 s | 探针消失 |
+
+`broadcast -> 0` 这种消息返回值不能当作"成功"的证据，能证明的只有 Explorer 环境块前后变了。
+
+## 为什么不做注入或常驻？
+
+| 路线 | 为什么不采用 |
+|---|---|
+| 远程线程 / DLL 注入 Explorer | 无必要，跨进程改内存、兼容性与杀软风险都高 |
+| 常驻监听进程 | 用户明确不需要；多一个要管理、要开机启动、会崩的东西 |
+| 登录任务 / 定时任务 | 同上。配置持久化之后，"下次登录"自然会读到 |
+| `wex run` + 改快捷方式 | 只覆盖经它启动的程序，一般桌面使用路径没解决 |
+| 默认持久化全部 `.env` | 把秘密的持久化范围和继承范围同时放大 |
+
+代价是显式：改了 `.env` 的 PATH、装了新工具，要再跑一次 `wex persist`。这是选定的语义，不是缺陷。
+
+## 怎么算目标路径：为什么不看进程 PATH？
+
+这是整个模块最容易做错的地方。已注入的终端里，进程 PATH 已经包含 shim 目录，去重后的增量是空的——但那不代表注册表已经同步。
+
+本机实测：persist 之前 `wex check` 报 `PATH: 36 entries -> 36 (+0)`，即当前进程一个目录都不缺；persist 照样写入了 11 个自有目录。
+
+四个东西必须分开：
+
+| 对象 | 用途 |
+|---|---|
+| 本次期望管理的目录集合 | shim 目录 + `.env` PATH 条目（已解析、已存在性校验） |
+| 用户原有的注册表 PATH | 合并的**基线**，原样保留在后面 |
+| 上次由 wex 管理的改动 | 撤销与"配置删掉后清理"的依据 |
+| 有效系统 + 用户 PATH | 只用于长度校验，不参与写入 |
+
+实现上，扫描与 dotenv 解析被抽成 `Inputs`——它不接收继承 PATH、也不套 cmd 的长度预算。`wex env` 继续在 `Inputs` 之上算"本次还缺什么"，persist 在 `Inputs` 之上算"注册表该是什么"。
+
+原则一句话：**持久化状态回答"哪些注册表改动由 wex 管理"；当前进程环境回答"本次 shell 还需要哪些赋值"。二者不能互相替代。**
+
+## 怎么写进去：只加不减，保留原文
+
+| 规则 | 行为 | 原因 |
+|---|---|---|
+| 类型 | 原值 `REG_SZ` 就写 `REG_SZ`，`REG_EXPAND_SZ` 就写 `REG_EXPAND_SZ` | 改类型会改变 Windows 的展开行为 |
+| 用户条目 | 原字节原样保留在后面，空条目、尾随 `;`、`%VAR%` 文本都不动 | 那不是我们的数据 |
+| 新增位置 | 自有目录拼在最前，**但不移动用户已有项** | 只增不重排，撤销才能精确还原 |
+| 空值 | 原值存在但为空时，不追加分隔符 | `C:\Shims;` 会产生零长度条目，Windows 把它当当前目录 |
+| `%` | 目标类型是 `REG_EXPAND_SZ` 且目录含 `%` 时**报错** | 该类型无法转义字面 `%`，硬写会展开成另一个目录 |
+| 长度 | 32766 个 UTF-16 单位，同时校验"存储值"和"系统 + 用户的有效 PATH" | 这是环境块的上限，不是 cmd 的 8100 |
+
+`REG_EXPAND_SZ` 的展开由 `CreateEnvironmentBlock` 提供：它按当前令牌返回已展开的用户变量（传 NULL 令牌则只有系统变量）。自己递归解析 `%VAR%` 会重新实现一遍 Windows 的查找顺序，还会把循环引用、未定义变量这些边界重新发明一次。
+
+## 所有权：怎么知道哪些是自己的？
+
+只记录**本次真正新增**的目录。比较对象是展开后的 PATH 条目，大小写不敏感——本机 `.env` 有 11 条 PATH，其中 1 条已在用户 PATH 里，所以实际认领的是 shim 目录 + 10 条 = 11 个。
+
+这条规则是撤销能安全的前提：
+
+| 情况 | 结果 |
+|---|---|
+| 目录本来就在用户 PATH 里 | 不认领，撤销时不会删 |
+| 目录是 wex 加的 | 认领，撤销时删 |
+| 两次同步之间用户又加了目录 | 快照不匹配 → 报冲突，不改写、不撤销 |
+| 配置删掉了某个目录 | 重算时不再需要它 → 从自有项里移除，注册表里也删掉 |
+
+撤销不是"恢复旧快照"——那会覆盖用户在同步之后新增的内容。
+
+## 冲突和失败：为什么要先写日志？
+
+注册表读写没有"比较并交换"。能做的只有：把意图先落盘，再动注册表，然后核对。
+
+`%LOCALAPPDATA%\wex\persist\state.bin` 是版本化二进制，存三个快照（基线 / 改动前 / 改动后）、阶段和自有目录列表——**不含任何 `.env` 值**。状态目录在每次运行前都收窄 ACL（加固失败即拒绝继续，不再信任里面的日志），文件用原子写（短写检测 + `FlushFileBuffers` + 带 `WRITE_THROUGH` 的替换）。
+
+三个阶段与崩溃后的行为：
+
+| 阶段 | 已发生 | 重跑时 |
+|---|---|---|
+| `Prepared` | 意图已落盘，注册表可能还没写 | 值仍是"改动前" → 写入；已是"改动后" → 继续 |
+| `Notify` | 路径已写，广播可能没发 | 值必须等于"改动后"，否则报冲突；然后补一次广播 |
+| `Committed` | 全部完成，只差删日志 | 先把它收尾（删日志），再开始新一轮 |
+
+| 失败 | 报告 | 是否谎报成功 |
+|---|---|---|
+| 写注册表失败 | 保留 `Prepared` 日志，报错 | 否 |
+| 广播失败 | 报 `PATH persisted, but environment notification failed`，保留 `Notify` | 否，且重跑补发 |
+| 日志损坏 / 不可读 | 拒绝任何注册表改动，消息带日志路径和"删除该文件可重置" | 否 |
+| 用户改过 PATH | 报冲突，不动注册表 | 否 |
+
+广播用 `SMTO_BLOCK | SMTO_ABORTIFHUNG`，每个接收者最多等 2 秒。刻意不带 `SMTO_ERRORONEXIT`：桌面上有个窗口正在关闭就会让返回值变 0，而那时代码已经把值写成功了——那会变成一次假故障。
+
+并发靠状态目录里的独占文件句柄（`share_mode(0)`）：第二个实例拿到 `ERROR_SHARING_VIOLATION`，直接报 `persist busy`。崩溃即释放，不会留下"陈旧锁"。
+
+## 撤销怎么做？
+
+`wex persist --undo` 写回日志里的基线值，然后删日志。
+
+| 情况 | 行为 |
+|---|---|
+| 有日志 | 校验当前值 == 上次写入值 → 写回基线 → 广播 → 删日志 |
+| 当前值被外部改过 | 报冲突，不写 |
+| 没有日志 | **报错** `no persist state; nothing to undo`，exit 2 |
+
+最后一条是刻意的：日志没了但 PATH 里可能还留着 wex 加的目录。如果这时"成功返回不变"，用户会以为清理完了，而且下一次 `persist` 会把那些目录当成用户自己的基线——它们就永远删不掉了。
+
+实测：`persist` 之后 `persist --undo`，`reg export` 里的 `Path` 行与操作前**逐字节相同**（686 B，类型仍是 `REG_SZ`）；再执行一次 `--undo` 得到 exit 2 和上面那句。
+
+## persist 不承诺什么？
+
+| 不承诺 | 原因 |
+|---|---|
+| 覆盖系统 PATH 里的同名工具 | System PATH 通常排在用户 PATH 前面，本模块不写 HKLM、也不重排 |
+| 已运行的进程立刻更新 | 环境是创建时复制的；GUI 程序要真正退出再启动 |
+| 新窗口一定拿到新环境 | 单实例程序会把请求转交给旧进程；新标签页可能仍由旧宿主创建 |
+| 完全等价于文件系统路径比较 | 去重是词法级、大小写不敏感；`C:\x` 与 `C:\x\` 是两条 |
+| 自动清理继承环境里的残留 | shell 注入只补不清；这与持久化层清理自有注册表项是两个问题 |
+| 在 `.env` 有非法行时照常同步 | 有 `skipped` 条目、`.env` 存在但读不了、目标目录已不存在，都直接报错不做 |
+
+## 与已有模块的关系
+
+persist 没有自己的解析器、没有自己的扫描器、也没有自己的 shim 实现：
+
+```mermaid
+flowchart LR
+    A["wex persist"] --> B["Config::load<br/>固定 Mode::Shims"]
+    B --> C["Inputs::load<br/>扫描 + dotenv，不看继承 PATH"]
+    C --> D{"stamp 命中?"}
+    D -->|否| E["shim::scan + shim::ensure"]
+    D -->|是| F["跳过枚举"]
+    E --> G["目标目录集合<br/>shim 目录 + .env 条目"]
+    F --> G
+    G --> H["synchronize<br/>基线 + 自有项"]
+    H --> I["state.bin<br/>Prepared → Notify → Committed"]
+    I --> J["注册表 HKCU Environment 的 Path"]
+    I --> K["WM_SETTINGCHANGE"]
+```
+
+| 复用 | 用法 |
+|---|---|
+| `model::Inputs` | 扫描 + dotenv，与继承 PATH 无关；`wex env` 也用同一份 |
+| `model::Mode` | persist 固定按 shim 语义走，不看 `WEX_SHIMS=never`——那不是"命令去哪找"，而是"注册表里放什么" |
+| `shim::is_current / scan / ensure` | 先确认 stamp，命中就不做 63 次目录枚举 |
+| `win` 平台层 | 注册表原始值、环境块快照、广播、独占锁、原子写、ACL 加固、目录判断 |
+| `cli::COMMANDS` | `persist` 只是表里多一条，加 `--undo` 一个开关；解析器一行没改 |
+
+`emit` 与它无关：persist 不产生任何 shell 文本。`wex-shim` 也与它无关：转发层照旧继承调用者环境，不重新注入 `.env`。
+
+## 和 shell 注入的取舍：为什么不"persist 过就跳过注入"？
+
+最初的想法是记一个"已持久化"标记，`wex env` 见到就短路。讨论后否掉了——判断依据错了一层：
+
+| 反例 | 后果 |
+|---|---|
+| 旧终端、旧编辑器 | 注册表变了，它们的进程环境没变；短路会让它们在下次启动 shell 时缺环境 |
+| 只持久化了 PATH | `.env` 的普通变量从没进注册表，短路会漏掉它们 |
+| 完全短路 | 连 shim 新鲜度检查都跳过，后来装的工具没有入口 |
+| `.env` 后来又改了 | 历史成功记录不代表当前配置已同步 |
+
+所以保留 shell 注入，只做两处收敛，且都只作用于 shell 方言的**普通变量**：
+
+| 输出去向 | 跳过与当前进程值相同的变量？ | 原因 |
+|---|---|---|
+| stdout | 是 | 读它的 shell 继承了本进程环境，重复赋值没有意义 |
+| `--out` 写出的文件 | **否** | 文件是在之后（可能是登录时）由另一个进程求值的，省略项会过时 |
+| `json` / `dotenv` | 否 | 消费者契约不变，始终全量 |
+
+本机实测：同一次调用，`env --shell=cmd` 到 stdout 只出 3 行赋值，`--out` 写文件出 16 行（全部 `.env` 变量）。"未设置"与"设为空"算不同，不会把空值当成已满足。
+
+## 验收现状
+
+| 项 | 结果 |
+|---|---|
+| 已注入终端执行 persist 仍算出完整目标 | 通过（进程 PATH `36 → 36 (+0)`，仍写 11 项） |
+| 保留原类型与用户条目；重复执行无重复项 | 通过（第二次输出 `unchanged`，无广播） |
+| 撤销还原 | 通过（`Path` 与基线逐字节相同） |
+| 原有目录不被认领 | 通过（11 条 `.env` 目录中 1 条已在用户 PATH） |
+| 外部修改、写入失败、广播失败、日志损坏 | 通过（单测覆盖各自分支） |
+| 事务恢复（写入前 / 后中断） | 通过（两个方向的 `Prepared` 都能续做） |
+| 新 GUI 进程实际继承 | **未验证**——需真正重启 Explorer 或重新登录 |
+| 同名命令搜索优先级 | **未验证**——已知不改变 System PATH 优先 |
+
+`cargo test --all-targets`：46 passed。
+
 # 装配层
 
 ## 装配了哪些模块？
 
-`main.rs` 自己不做任何规则判断，只把五个模块接起来：
+`main.rs` 自己不做任何规则判断，只把六个模块接起来：
 
 | 模块 | 它在装配中的角色 | main 取用什么 |
 |---|---|---|
 | cli | 一次性把 argv 变成类型化的 Command，或给出错误/帮助文本 | `parse(&argv)`、`usage_text(topic)` |
 | model | 读环境、扫描、`.env`、PATH 合并、shim 决策，产出完整的 Env | `Config::load`、`Env::build`、Env 的字段 |
 | shim | shim 目录的落盘与 stamp | 只用于诊断：`stamp_sig(dir)`、`Env.map` 的计数 |
-| emit | 把 Env 渲染成五种方言的文本 | `cmd` / `pwsh` / `nu` / `json` / `dotenv` |
+| emit | 把 Env 渲染成五种方言的文本 | `cmd(e, dedup)` / `pwsh` / `nu` / `json` / `dotenv` |
+| persist | 注册表 PATH 同步、所有权、事务日志、撤销 | 整条命令一次 `persist::run(undo)` |
 | win | 平台机制 | `ensure_parent_dirs`、`harden_dir`、`write_file_atomic`、`last_sep`、`is_dir` |
 | std | 进程边界 | `env::args`、`ExitCode`、`print!` / `eprintln!` |
 
 对应关系一句话：cli 决定"要做什么"，model 决定"环境长什么样"，emit 决定"怎么写出来"，win 决定"怎么落到 Windows 上"，main 决定"成功失败各自怎么收场"。
+
+persist 是唯一"变更 Windows 状态"的命令，所以整条逻辑收在一个模块里（`persist::run(undo) -> Result<(), String>`）：main 只做分发和错误出口，不参与合并、所有权或事务判断。
 
 ## 怎么组织它们工作？
 
@@ -733,11 +951,14 @@ flowchart TD
     H -->|shims| I["打印统计（写入已在 build<br/>里完成）"]
     H -->|check| J["只读：打印 20<br/>行诊断；verdict 不对则<br/>exit 1"]
     H -->|env| K["emit 方言文本"]
+    H -->|persist| P["persist::run<br/>Inputs + stamp + 事务日志"]
 
     K --> L{"--out?"}
 
     L -->|有| M["建目录 → 加固 →<br/>原子写（pwsh 加 BOM）"]
     L -->|无| N["stdout"]
+
+    P --> Q["注册表 HKCU Environment 的 Path<br/>+ WM_SETTINGCHANGE"]
 
     B -.->|Err| H
 ```
@@ -747,3 +968,4 @@ flowchart TD
  1. 先判错，再产出：e.error 在 emit 之前检查。错误时既不写 --out，也不往 stdout 打半套环境。
  2. 错误与诊断分开：env/shims 用 Result<i32, String>，main 统一加 wex:  前缀并 exit 2；check 把问题写进 verdict 并返回 Ok(1)，因为它必须先把自己诊断完。
  3. 文件卫生只做一次：--out 的“建目录 → 只在新建时加固 ACL → 原子写 → pwsh BOM”集中在这一个地方，emit 不碰文件系统。
+ 4. 变更外部状态只走一条路：只有 persist 写注册表，而且只写 `HKCU\Environment\Path`；env/shims/check 依旧完全不碰注册表，check 仍然只读。
