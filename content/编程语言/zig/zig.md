@@ -710,3 +710,6 @@ test_step.dependOn(&run_exe_tests.step);
 | zig build test             | test → 两个 run 节点        | 并行跑两套测试                                   |
 | zig build -Doptimize=small | 覆盖 ① 的 optimize         | 体积优先；Debug 默认会带 .pdb 和 -O0                |
 | zig build --fuzz           | test 下 std.testing.fuzz | 模糊测试                                      |
+# ''和 "" 的区别
+
+
