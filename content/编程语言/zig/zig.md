@@ -696,3 +696,17 @@ test_step.dependOn(&run_exe_tests.step);
  ```
 
  为什么是两个测试产物：一个测试可执行文件只能测一个模块。root.zig 的 add() 测试和 main.zig 的 简单测试 / 模糊测试分属两个模块。
+
+## 构建图
+
+![[Pasted image 20261027152204.png]]
+
+## 命令行与文件的映射
+
+| 命令                         | 走哪条边                    | 结果                                        |
+| -------------------------- | ----------------------- | ----------------------------------------- |
+| zig build                  | 默认 install              | zig-out/bin/WinEnvInjector_zig.exe + .pdb |
+| zig build run -- arg1      | run → run_cmd           | 运行并透传参数                                   |
+| zig build test             | test → 两个 run 节点        | 并行跑两套测试                                   |
+| zig build -Doptimize=small | 覆盖 ① 的 optimize         | 体积优先；Debug 默认会带 .pdb 和 -O0                |
+| zig build --fuzz           | test 下 std.testing.fuzz | 模糊测试                                      |
