@@ -667,10 +667,9 @@ const exe = b.addExecutable(.{
 b.installArtifact(exe);
 ```
 
- imports 那行就是 src/main.zig 里 @import("WinEnvInjector_zig") 能成立的原因——名
- 字不是约定，是这里写死的，可以改成任意名字（用来消解重名冲突）。
+imports 那行就是 src/main.zig 里 @import("WinEnvInjector_zig") 能成立的原因——名字不是约定，是这里写死的，可以改成任意名字（用来消解重名冲突）。
 
- 运行与测试：
+运行与测试：
 
  ```zig
 const run_step = b.step("run", "运行应用");     // 顶层步骤：起个名字，`zig
