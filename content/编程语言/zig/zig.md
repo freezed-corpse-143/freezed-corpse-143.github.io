@@ -808,3 +808,13 @@ pub const GENERIC_READ: windows.DWORD = 0x8000_0000;
 pub const INVALID_FILE_ATTRIBUTES: windows.DWORD = 0xFFFF_FFFF;
 ```
 注意 Zig 支持 `_` 分隔数字，可读性更好；并且给常量显式标注了类型。
+
+# ?T
+
+要么是一个 T，要么是 null。对应 C 里可能返回 NULL 的指针。
+
+# !T
+
+要么成功返回 T，要么返回一个错误值。
+
+# 错误集（error set）
