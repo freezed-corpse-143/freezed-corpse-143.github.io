@@ -42,12 +42,12 @@
 			"height":60
 		},
 		{
-			"id":"3557d84cbc426bf6",
+			"id":"93160580ae0a3bc7",
 			"type":"text",
-			"text":"编写一个最小的算子，并调试特化，调用。",
+			"text":"zig 重写基础库",
 			"styleAttributes":{},
 			"x":-5200,
-			"y":480,
+			"y":820,
 			"width":260,
 			"height":60
 		},
@@ -56,28 +56,18 @@
 			"type":"text",
 			"text":"编写通信算子",
 			"styleAttributes":{},
-			"x":-5200,
-			"y":580,
+			"x":-5180,
+			"y":720,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"93160580ae0a3bc7",
+			"id":"3557d84cbc426bf6",
 			"type":"text",
-			"text":"zig 重写基础库",
+			"text":"编写一个最小的算子，并调试特化，调用。",
 			"styleAttributes":{},
-			"x":-5200,
-			"y":700,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"f5ecc10b2b243e03",
-			"type":"text",
-			"text":"zig 重写 winEnvInsert",
-			"styleAttributes":{},
-			"x":-5200,
-			"y":820,
+			"x":-5180,
+			"y":610,
 			"width":260,
 			"height":60
 		}
