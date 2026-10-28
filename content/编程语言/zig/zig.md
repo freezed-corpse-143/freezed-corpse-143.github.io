@@ -803,5 +803,8 @@ pub extern "kernel32" fn SetConsoleCtrlHandler(handler: CtrlHandler, add: window
 Windows 里哪些 `#define` 宏常量，Zig 用 `pub const` 复刻：
 
 ```zig
-
+pub const FILE_ATTRIBUTE_DIRECTORY: windows.DWORD = 0x10;
+pub const GENERIC_READ: windows.DWORD = 0x8000_0000;
+pub const INVALID_FILE_ATTRIBUTES: windows.DWORD = 0xFFFF_FFFF;
 ```
+注意 Zig 支持 `_` 分隔数字，可读性更好；并且给常量显式标注了类型。
