@@ -752,4 +752,7 @@ pub extern "kernel32" fn CreateFileW(
 
 ## extern 声明
 
-调用外部 (C ABI 或 Window API)
+调用外部 (C ABI 或 Window API) 的核心语法就是 `extern '库名' fn`
+
+- `extern 'kernel32'`：声明这个符号来自 `kernel32.dll`（动态链接库名，不带扩展名）
+- 
