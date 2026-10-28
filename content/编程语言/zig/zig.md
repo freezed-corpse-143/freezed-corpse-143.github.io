@@ -761,3 +761,13 @@ pub extern "kernel32" fn CreateFileW(
 
 ## 类型映射：C 类型 -> Zig 类型
 
+| C 类型               | Zig 写法               | 说明                                                         |
+| -------------------- | ---------------------- | ------------------------------------------------------------ |
+| `DWORD`              | `windows.DWORD`（u32） | 直接复用 `std.os.windows`                                    |
+| `wchar_t*`（字符串） | `[*:0]const u16`       | **哨兵指针**：`[*:0]` 表示以 0 结尾的连续序列，等价于 C 的 NUL-terminated 裸指针 |
+| `HANDLE`             | `windows.HANDLE`       |                                                              |
+| `BOOL`               | `windows.BOOL`         |                                                              |
+| `void*` / 可选指针   | `?*anyopaque`          | Zig 用 `?` 表示可为 null 的指针                              |
+| `NULL` 参数          | `?T`（可选类型）       | 见 `sa: ?*anyopaque`                                         |
+| 输出参数 `DWORD*`    | `*windows.DWORD`       | 非可空单指针                                                 |
+| 调用约定             | `callconv(.winapi)`    |                                                              |
