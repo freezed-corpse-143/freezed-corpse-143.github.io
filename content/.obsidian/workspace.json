@@ -11,14 +11,17 @@
             "id": "ae2d19c7af23c1ca",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "人工智能/深度学习.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5240,
+                  "y": 645,
+                  "zoom": -0.3719687773869579
+                }
               },
-              "icon": "lucide-file",
-              "title": "深度学习"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -223,6 +226,7 @@
   },
   "active": "ae2d19c7af23c1ca",
   "lastOpenFiles": [
+    "人工智能/深度学习.md",
     "人工智能/Prompt Engineer.md",
     "人工智能/Prompt.md",
     "人工智能/大模型推理加速.md",
@@ -254,7 +258,6 @@
     "运动与健身/练肩膀.md",
     "运动与健身/乒乓.md",
     "运动与健身",
-    "开发日记/任务分解.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
