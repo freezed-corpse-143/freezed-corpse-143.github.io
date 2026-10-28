@@ -771,3 +771,37 @@ pub extern "kernel32" fn CreateFileW(
 | `NULL` 参数          | `?T`（可选类型）       | 见 `sa: ?*anyopaque`                                         |
 | 输出参数 `DWORD*`    | `*windows.DWORD`       | 非可空单指针                                                 |
 | 调用约定             | `callconv(.winapi)`    |                                                              |
+## C 结构体：`extern struct`
+
+任何要传给 C API 的结构体都用 `extern struct` 声明，保证内存布局与 C 一致（顺序、对齐）：
+
+```zig
+pub const STARTUPINFOW = extern struct {
+    cb: windows.DWORD,
+    lpReserved: ?*u16,
+    ...
+};
+```
+
+## 回调函数指针：`CtrlHandler`
+
+```
+pub const CtrlHandler = ?*const fn (kind: windows.DWORD) callconv(.winapi) windows.BOOL;
+```
+
+这就是 C 的函数指针 `BOOL (__stdcall *)(DWORD)` 的 Zig 对应写法：
+
+- `?*const fn(...)` = 可空函数指针
+- 同样带 `callconv(.winapi)`，回调被系统调用时约定要对。
+
+```zig
+pub extern "kernel32" fn SetConsoleCtrlHandler(handler: CtrlHandler, add: windows.BOOL) ...
+```
+
+## 常量：直接照抄数值
+
+Windows 里哪些 `#define` 宏常量，Zig 用 `pub const` 复刻：
+
+```zig
+
+```
