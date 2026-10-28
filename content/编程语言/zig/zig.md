@@ -740,3 +740,16 @@ test_step.dependOn(&run_exe_tests.step);
 
 # 调用 windows api
 
+举个例子
+
+```zig
+pub extern "kernel32" fn CreateFileW(
+    name: LPCWSTR, access: windows.DWORD, share: windows.DWORD,
+    sa: ?*anyopaque, disp: windows.DWORD, flags: windows.DWORD,
+    tmpl: ?windows.HANDLE,
+) callconv(.winapi) windows.HANDLE;
+```
+
+## extern 声明
+
+调用外部 (C ABI 或 Window API)
