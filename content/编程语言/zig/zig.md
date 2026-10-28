@@ -818,3 +818,39 @@ pub const INVALID_FILE_ATTRIBUTES: windows.DWORD = 0xFFFF_FFFF;
 要么成功返回 T，要么返回一个错误值。
 
 # 错误集（error set）
+
+`!T` 左边其实省略了一个错误集，完整写法可以是：
+
+```zig
+fn foo() Allocator.Error!u32      // 只能返回 Allocator.Error 里的错误
+fn bar() anyerror!u32             // 可返回任何错误
+fn baz() error{OutOfMemory, InvalidUtf8}!u32  // 自定义错误集
+```
+
+写 `!T` 是让编译器自动推导错误集 (inferred error set)，最终收敛成所有 `try` 里出现过的错误的并集。
+
+Zig 的 `error` 是语言内置类型，错误值不是异常，没有栈展开，没有 `throw/catch` 关键字。
+
+# try
+
+`try expr` 的语义是：
+
+求值 `expr`；如果它返回错误，立刻把这个错误作为当前函数的返回值向上抛；如果成功，解包出值继续用。
+
+```zig
+const w = try toWide(a, name);
+// 等价于（伪代码）：
+// const w = toWide(a, name) catch |e| return e;
+```
+
+# catch 
+
+不想往上抛，就在原地处理：
+
+```zig
+const n = std.unicode.utf8Encode(cp, &buf) catch unreachable;
+// utf8Encode 可能失败，但这里逻辑上不可能失败 → catch unreachable 断言
+
+const text = try fromWide(a, buf[0..n]);
+return std.mem.trimEnd(u8, text, "\r\n");
+```
