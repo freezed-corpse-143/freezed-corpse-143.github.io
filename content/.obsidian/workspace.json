@@ -11,17 +11,14 @@
             "id": "ae2d19c7af23c1ca",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5240,
-                  "y": 645,
-                  "zoom": 0
-                }
+                "file": "人工智能/深度学习.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "深度学习"
             }
           }
         ]
@@ -83,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,8 +221,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "ae2d19c7af23c1ca",
   "lastOpenFiles": [
+    "人工智能/Prompt Engineer.md",
+    "人工智能/Prompt.md",
+    "人工智能/大模型推理加速.md",
+    "TODO.canvas",
     "github项目/WinEnvInject.md",
     "编程语言/zig/zig.md",
     "images/Pasted image 20261027152204.png",
@@ -232,7 +234,6 @@
     "编程语言/C++.md",
     "编程语言/Vue.md",
     "环境配置.md",
-    "TODO.canvas",
     "编程语言/Rust.md",
     "软件使用.md",
     "报错.md",
@@ -254,8 +255,6 @@
     "运动与健身/乒乓.md",
     "运动与健身",
     "开发日记/任务分解.md",
-    "人工智能/大模型推理加速.md",
-    "windows.md",
     "编译原理",
     "找工作",
     "images/Pasted image 20261011194109.png",
