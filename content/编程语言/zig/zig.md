@@ -854,3 +854,7 @@ const n = std.unicode.utf8Encode(cp, &buf) catch unreachable;
 const text = try fromWide(a, buf[0..n]);
 return std.mem.trimEnd(u8, text, "\r\n");
 ```
+
+# dupe
+
+`allocator.dupe` 是 Zig 标准库中分配器接口的方法，作用是分配一块新内存，并把传入的切片内容复制进去，返回一个拥有独立所有权的新切片。
