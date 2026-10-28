@@ -755,4 +755,9 @@ pub extern "kernel32" fn CreateFileW(
 调用外部 (C ABI 或 Window API) 的核心语法就是 `extern '库名' fn`
 
 - `extern 'kernel32'`：声明这个符号来自 `kernel32.dll`（动态链接库名，不带扩展名）
-- 
+- `fn 名字(参数) 返回类型`：与 C 完全一致的函数签名。
+- `callconv(.winapi)`：使用 Windows 调用约定（`stdcall`，x64 上被忽略，但 32 位上必须写）
+- `pub`：对外公开，供工程其他文件 import 使用
+
+## 类型映射：C 类型 -> Zig 类型
+
