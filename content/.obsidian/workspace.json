@@ -25,17 +25,14 @@
             "id": "1a33c7b95e1f5146",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5240,
-                  "y": 645,
-                  "zoom": -0.3719687773869579
-                }
+                "file": "人工智能/硬件-软件优化框架.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "硬件-软件优化框架"
             }
           }
         ],
@@ -98,7 +95,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -240,8 +238,9 @@
   },
   "active": "1a33c7b95e1f5146",
   "lastOpenFiles": [
-    "软件工程/生产级项目要求.md",
     "TODO.canvas",
+    "人工智能/硬件-软件优化框架.md",
+    "软件工程/生产级项目要求.md",
     "编程语言/zig/zig.md",
     "编程语言/zig/zig学习计划.md",
     "人工智能/深度学习.md",
@@ -269,7 +268,6 @@
     "小说idea/火影忍者/木叶官僚制度的建立.md",
     "小说idea/火影忍者/火影同人.md",
     "小说idea/火影忍者",
-    "运动与健身/练腹肌.md",
     "运动与健身",
     "编译原理",
     "找工作",
