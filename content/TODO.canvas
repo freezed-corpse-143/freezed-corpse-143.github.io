@@ -32,16 +32,6 @@
 			"height":140
 		},
 		{
-			"id":"28fb1b9c91a15f03",
-			"type":"text",
-			"text":"将资源环境可视化",
-			"styleAttributes":{},
-			"x":-5500,
-			"y":880,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"93160580ae0a3bc7",
 			"type":"text",
 			"text":"zig 重写基础库",
@@ -68,6 +58,16 @@
 			"styleAttributes":{},
 			"x":-5160,
 			"y":940,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"28fb1b9c91a15f03",
+			"type":"text",
+			"text":"将资源环境可视化",
+			"styleAttributes":{},
+			"x":-5540,
+			"y":880,
 			"width":260,
 			"height":60
 		}
