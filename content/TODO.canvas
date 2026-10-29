@@ -1,17 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"ed710a70c0258c74",
-			"type":"text",
-			"text":"计算需要单独训练",
-			"styleAttributes":{},
-			"x":-5540,
-			"y":610,
-			"width":260,
-			"height":60,
-			"color":"1"
-		},
-		{
 			"id":"7f091f2eff6037c4",
 			"type":"text",
 			"text":"偏转角度、子树干伸缩、",
