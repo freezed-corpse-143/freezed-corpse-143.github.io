@@ -11,14 +11,17 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "算法/傅里叶变换.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5220,
+                  "y": 705,
+                  "zoom": -0.46507818177843924
+                }
               },
-              "icon": "lucide-file",
-              "title": "傅里叶变换"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -223,9 +226,9 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
+    "算法/傅里叶变换.md",
     "人工智能/资源图-图例.svg",
     "人工智能/资源图-单机层级.svg",
-    "算法/傅里叶变换.md",
     "人工智能/资源图-进程通道.svg",
     "软件工程/缓存与并发的矛盾.md",
     "人工智能/硬件-软件优化框架.md",
@@ -269,7 +272,6 @@
     "分布式",
     "元学习",
     "images/Pasted image 20261002203556.png",
-    "images/Pasted image 20261002185820.png",
     "开发经验/全栈开发.canvas"
   ]
 }
