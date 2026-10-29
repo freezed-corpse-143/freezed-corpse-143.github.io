@@ -1,0 +1,24 @@
+{
+  "title": "编码图例：一条边同时承载四个量",
+  "subtitle": "数字为示意；四种通道各占一个，互不挤占",
+  "width": 900,
+  "scale": { "base_px": 3, "px_per_decade": 7, "ticks": [1, 10, 100, 1000] },
+  "nodes": [
+    { "id": "calc", "row": 0, "kind": "compute", "title": "计算单元",
+      "lines": ["每 SM 的算力", "标称 / 可持续 / 实测三级"] },
+    { "id": "cache", "row": 1, "kind": "memory", "title": "片上缓存",
+      "lines": ["容量 · 带宽 · 延迟"] },
+    { "id": "mem", "row": 2, "kind": "memory", "title": "外部内存",
+      "lines": ["容量 · 带宽 · 延迟"] },
+    { "id": "outside", "row": 3, "kind": "domain", "title": "域外资源",
+      "lines": ["不计入本卡/本机预算", "虚框"] }
+  ],
+  "links": [
+    { "a": "calc", "b": "cache", "bw": 3000, "evidence": "measured", "dir": "both",
+      "label": "线宽 = 带宽（双头 = 全双工）", "note": "实线 = 实测" },
+    { "a": "cache", "b": "mem", "bw": 400, "evidence": "measured", "dir": "both", "duty": 0.71,
+      "label": "琥珀色 = U ≥ 60%（绑定项）", "note": "U = 需求 ÷ 可持续上限" },
+    { "a": "mem", "b": "outside", "bw": 6, "evidence": "spec", "dir": "one",
+      "label": "单头 = 单工，虚线 = 标称" }
+  ]
+}

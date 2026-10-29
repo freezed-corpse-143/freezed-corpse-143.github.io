@@ -252,7 +252,7 @@ def render(spec):
                                 f'font-size="{FONT - 2}" fill="{INK}" fill-opacity="0.55">'
                                 f'{esc(lk["note"])}</text>')
             else:
-                tx = lx + w / 2 + 10
+                tx = lx + max(w / 2, w * 0.95) + 8
                 body.append(f'<text x="{tx:.1f}" y="{ly - 3:.1f}" font-size="{FONT}" '
                             f'fill="{colour}" fill-opacity="{1 if bind else 0.9}">'
                             f'{esc(label)}</text>')
