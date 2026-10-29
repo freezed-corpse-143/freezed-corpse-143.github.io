@@ -22,3 +22,8 @@ public
 *.njsproj
 *.sln
 *.sw?
+
+# python tooling used by content figures
+tools/__pycache__/
+*.pyc
+.sandbox*

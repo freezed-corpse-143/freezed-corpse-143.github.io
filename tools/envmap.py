@@ -54,8 +54,8 @@ def esc(s):
 
 def stroke_w(bw, scale):
     """Log scale: DRAM and PCIe differ by 60x, linear would erase everything below DRAM."""
-    w = scale["base_px"] + scale["px_per_decade"] * math.log10(max(bw, 0.1))
-    return max(scale["min_px"], min(scale["max_px"], w))
+    w = scale.get("base_px", 3) + scale.get("px_per_decade", 7) * math.log10(max(bw, 0.1))
+    return max(scale.get("min_px", 2), min(scale.get("max_px", 30), w))
 
 
 class Node:
@@ -272,7 +272,7 @@ def render(spec):
             f'<rect width="{W}" height="{bottom:.0f}" fill="{spec.get("paper", PAPER)}"/>'
             f'<title>{esc(spec.get("title", ""))}</title>'
             f'<desc>{esc(spec.get("subtitle", ""))}</desc>'
-            f'{title}{sub}{"".join(body)}{leg}</svg>')
+            f'{"".join(e + chr(10) for e in [title, sub] + body + [leg])}</svg>')
 
 
 def check(svg, spec):
