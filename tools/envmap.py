@@ -114,7 +114,7 @@ def ports(a, b, horizontal):
 def head(p, u, w, colour):
     """Arrowhead as an explicit triangle: markers default to strokeWidth units and
     their orientation is one more thing to get wrong."""
-    L, hw = max(10.0, w * 1.2), max(4.5, w * 0.52)
+    L, hw = max(12.0, w * 1.5), max(6.0, w * 0.9)
     ax, ay = p[0] + u[0] * 1.5, p[1] + u[1] * 1.5
     bx, by = p[0] - u[0] * L, p[1] - u[1] * L
     px, py = -u[1], u[0]
@@ -152,7 +152,7 @@ def legend(spec, y):
         out.append(f'<line x1="{x:.1f}" y1="{y + 26:.1f}" x2="{x + 44:.1f}" '
                    f'y2="{y + 26:.1f}" stroke="{INK}" stroke-width="{w:.1f}"/>')
         x += 44 + max(26.0, text_w(str(bw)) + 30)
-    y2 = y + 56
+    y2 = y + 66
     out.append(f'<text x="28" y="{y2:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">证据</text>')
     x = 76
     for dash, label in [("", "实测"), ("6 4", "标称"), ("2 3", "推算")]:
@@ -166,9 +166,10 @@ def legend(spec, y):
                f'stroke="{ACCENT}" stroke-width="7"/>')
     out.append(f'<text x="{x + 36}" y="{y2:.1f}" font-size="{FONT - 1}" '
                f'fill-opacity="0.7">U ≥ 60%，本次负载的绑定项</text>')
-    y3 = y2 + 24
+    y3 = y2 + 26
     out.append(f'<text x="28" y="{y3:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">'
-               f'箭头：单头 = 单工，双头 = 全双工；双向链路的粗细取较小的一侧</text>')
+               f'箭头：单头 = 单工，双头 = 全双工，双向链路的粗细取较小的一侧；'
+               f'虚框 = 域外或共享资源，不计入本卡预算</text>')
     return "".join(out), y3 + 16
 
 
