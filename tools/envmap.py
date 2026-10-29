@@ -34,8 +34,13 @@ CJK_ADV = 13.0
 PAD = 14
 GROUP_GAP = 66
 BLOCK_GAP = 26
-INK = "currentColor"
-ACCENT = "#d97706"
+# The figure is embedded as an <img>, i.e. a standalone SVG document: currentColor
+# resolves to black there and disappears on a dark theme, and an <img> cannot see the
+# page's theme toggle. So the figure carries its own paper, matched to the site's
+# light background: invisible in light mode, a legible card in dark mode.
+PAPER = "#faf8f8"
+INK = "#2b2b2b"
+ACCENT = "#b45309"
 
 
 def text_w(s, size=FONT):
@@ -128,7 +133,7 @@ def node_svg(n):
     for i, line in enumerate(n.lines):
         out.append(f'<text x="{n.x + n.w / 2:.1f}" y="{ty + (i + 1) * (FONT + 4):.1f}" '
                    f'text-anchor="middle" font-size="{FONT}" fill="{INK}" '
-                   f'fill-opacity="0.72">{esc(line)}</text>')
+                   f'fill-opacity="0.78">{esc(line)}</text>')
     return "".join(out)
 
 
@@ -210,7 +215,7 @@ def render(spec):
                 x = lane if lane is not None else (p0[0] + p1[0]) / 2
                 d, lx, ly = f"M{x:.1f},{p0[1]:.1f} L{x:.1f},{p1[1]:.1f}", x, (p0[1] + p1[1]) / 2
             dash = {"measured": "", "spec": "6 4", "derived": "2 3"}[lk.get("evidence", "measured")]
-            attrs = [f'd="{d}"', f'stroke="{colour}"', f'stroke-opacity="{0.95 if bind else 0.62}"',
+            attrs = [f'd="{d}"', f'stroke="{colour}"', f'stroke-opacity="{1 if bind else 0.8}"',
                      f'stroke-width="{w:.1f}"', 'fill="none"']
             if dash:
                 attrs.append(f'stroke-dasharray="{dash}"')
@@ -234,7 +239,7 @@ def render(spec):
                 tx = lx - text_w(label) / 2
                 ty = ly + side * (w / 2 + 9) + (0 if side < 0 else FONT)
                 body.append(f'<text x="{tx:.1f}" y="{ty:.1f}" font-size="{FONT}" '
-                            f'fill="{colour}" fill-opacity="{0.95 if bind else 0.8}">'
+                            f'fill="{colour}" fill-opacity="{1 if bind else 0.9}">'
                             f'{esc(label)}</text>')
                 if lk.get("note"):
                     ny = ly + side * (w / 2 + 23) + (0 if side < 0 else FONT)
@@ -244,11 +249,11 @@ def render(spec):
             else:
                 tx = lx + w / 2 + 10
                 body.append(f'<text x="{tx:.1f}" y="{ly - 3:.1f}" font-size="{FONT}" '
-                            f'fill="{colour}" fill-opacity="{0.95 if bind else 0.8}">'
+                            f'fill="{colour}" fill-opacity="{1 if bind else 0.9}">'
                             f'{esc(label)}</text>')
                 if lk.get("note"):
                     body.append(f'<text x="{tx:.1f}" y="{ly + 13:.1f}" font-size="{FONT - 2}" '
-                                f'fill="{INK}" fill-opacity="0.55">{esc(lk["note"])}</text>')
+                                f'fill="{INK}" fill-opacity="0.6">{esc(lk["note"])}</text>')
 
     body += [node_svg(n) for n in nodes.values()]
     leg, bottom = legend(spec, content_end + 26)
@@ -258,10 +263,47 @@ def render(spec):
     sub = ""
     if spec.get("subtitle"):
         sub = (f'<text x="{W / 2:.1f}" y="46" text-anchor="middle" font-size="{FONT}" '
-               f'fill-opacity="0.65">{esc(spec["subtitle"])}</text>')
+               f'fill-opacity="0.7">{esc(spec["subtitle"])}</text>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {bottom:.0f}" '
             f'width="{W}" height="{bottom:.0f}" font-family="system-ui, -apple-system, '
-            f'Segoe UI, sans-serif" color="{INK}">{title}{sub}{"".join(body)}{leg}</svg>')
+            f'Segoe UI, sans-serif" color="{INK}" role="img">'
+            f'<rect width="{W}" height="{bottom:.0f}" fill="{spec.get("paper", PAPER)}"/>'
+            f'<title>{esc(spec.get("title", ""))}</title>'
+            f'<desc>{esc(spec.get("subtitle", ""))}</desc>'
+            f'{title}{sub}{"".join(body)}{leg}</svg>')
+
+
+def check(svg, spec):
+    """Fail loudly on the defects this renderer produced while it was being written:
+    overlapping text, text outside the canvas, and width not monotone in bandwidth.
+    Geometry only, no vision needed."""
+    import re
+    W = spec["width"]
+    H = float(re.search(r'height="(\d+)"', svg).group(1))
+    boxes = []
+    for m in re.finditer(r'<text x="([-\d.]+)" y="([-\d.]+)"([^>]*)>([^<]*)</text>', svg):
+        x, y, attrs, raw = float(m.group(1)), float(m.group(2)), m.group(3), m.group(4)
+        size = float(re.search(r'font-size="([\d.]+)"', attrs).group(1))
+        w = text_w(raw, size)
+        if 'text-anchor="middle"' in attrs:
+            x -= w / 2
+        boxes.append((x, y - size * 0.85, x + w, y + size * 0.25, raw))
+    bad = []
+    for i, a in enumerate(boxes):
+        if a[0] < 0 or a[2] > W + 1 or a[1] < 0 or a[3] > H:
+            bad.append(f"outside canvas: {a[4]!r} ({a[0]:.0f}..{a[2]:.0f} x {a[1]:.0f}..{a[3]:.0f})")
+        for b in boxes[i + 1:]:
+            dx = min(a[2], b[2]) - max(a[0], b[0])
+            dy = min(a[3], b[3]) - max(a[1], b[1])
+            if dx > 1.5 and dy > 1.5:
+                bad.append(f"text overlap: {a[4]!r} / {b[4]!r}")
+    ws = sorted((lk["bw"], stroke_w(lk["bw"], spec["scale"])) for lk in spec["links"])
+    for (b1, w1), (b2, w2) in zip(ws, ws[1:]):
+        if w2 < w1 - 0.01:
+            bad.append(f"width not monotone: {b1:g} -> {b2:g} GB/s")
+    if bad:
+        raise SystemExit("\n".join(bad))
+    return len(boxes)
 
 
 def main():
@@ -270,9 +312,10 @@ def main():
         return 1
     spec = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     svg = render(spec)
+    n = check(svg, spec)
     if len(sys.argv) > 2:
         Path(sys.argv[2]).write_text(svg, encoding="utf-8")
-        print(f'{sys.argv[2]}: {len(svg)} bytes')
+        print(f'{sys.argv[2]}: {len(svg)} bytes, {n} labels, no overlap')
     else:
         sys.stdout.write(svg)
     return 0
