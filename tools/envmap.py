@@ -4,11 +4,11 @@
     python tools/envmap.py tools/envmaps/rtx3080.json out.svg
 
 The value is the encoding, not the drawing. Four quantities share one picture, each on
-its own channel, so a report reader sees capability, evidence grade and the binding
-edge without a paragraph of prose:
+its own channel, so a reader sees capability, evidence grade and the binding edge
+without a paragraph of prose:
 
   edge thickness  ~ sustained bandwidth, LOG scale, fixed px per decade (legend shows real ticks)
-  edge arrowheads ~ direction: one head = simplex, both = duplex, "asym" = duplex but unequal
+  edge arrowheads ~ direction: one head = simplex, both = duplex
   edge dash       ~ evidence: solid = measured on this machine, dashed = spec sheet,
                     dotted = derived / estimated
   edge colour     ~ utilisation U = demand / capability for the target workload
@@ -17,10 +17,10 @@ edge without a paragraph of prose:
 
 Every number drawn comes from the spec; the renderer infers nothing.
 
-Spec: nodes carry "row" (vertical map, the default) or "col" (horizontal map), a title
-and optional detail lines; links name two nodes, a bandwidth in GB/s and optionally
-evidence, dir, duty and notes. Two nodes in different rows with several links between
-them is a fan; two columns of several nodes is a pipeline.
+Spec: a node has "row" (vertical map, the default) or "col" (left-to-right map), a title
+and optional detail lines. A link names two nodes and a bandwidth in GB/s, and may carry
+evidence, dir, duty (0..1) and notes. Several links between the same pair fan out into
+lanes, wide enough that each label lands beside its own line.
 """
 
 import json
@@ -48,23 +48,9 @@ def esc(s):
 
 
 def stroke_w(bw, scale):
-    """Log scale. DRAM and PCIe differ by 60x; linear would erase everything below DRAM."""
+    """Log scale: DRAM and PCIe differ by 60x, linear would erase everything below DRAM."""
     w = scale["base_px"] + scale["px_per_decade"] * math.log10(max(bw, 0.1))
     return max(scale["min_px"], min(scale["max_px"], w))
-
-
-def marker_id(colour, size):
-    return f"a{size}-{colour.lstrip('#')}"
-
-
-def marker(colour, size):
-    """userSpaceOnUse: markerUnits defaults to strokeWidth, which turns a 28 px edge
-    into a 170 px wedge. One marker per (colour, width) keeps the head proportional."""
-    s = max(9, size)
-    return (f'<marker id="{marker_id(colour, size)}" viewBox="0 0 10 10" refX="9.5" refY="5" '
-            f'markerWidth="{s}" markerHeight="{s}" markerUnits="userSpaceOnUse" '
-            f'orient="auto-start-reverse"><path d="M0,0.5 L10,5 L0,9.5 z" fill="{colour}"/>'
-            f'</marker>')
 
 
 class Node:
@@ -81,8 +67,8 @@ class Node:
 
 
 def place(nodes, horizontal, width, margin, gap):
-    """Groups lie along one axis: rows stack vertically (vertical map), columns
-    stack horizontally (left-to-right map). Members of a group are centred."""
+    """Groups lie along one axis: rows stack vertically, columns stack horizontally.
+    Members of a group are centred on the other axis. Returns the content's end."""
     groups = {}
     for n in nodes.values():
         groups.setdefault(n.group, []).append(n)
@@ -93,7 +79,7 @@ def place(nodes, horizontal, width, margin, gap):
                for g in keys}
     bands = {g: max(cross(n) for n in groups[g]) for g in keys}
     along_total = max(extents.values()) if horizontal else width
-    cross_total = sum(bands[g] for g in keys) + gap * (len(keys) - 1)
+    cross_total = sum(bands.values()) + gap * (len(keys) - 1)
     c0 = (width - cross_total) / 2 if horizontal else margin + 34
     for g in keys:
         a0 = (margin + 34 + (along_total - extents[g]) / 2) if horizontal \
@@ -109,28 +95,26 @@ def place(nodes, horizontal, width, margin, gap):
     return margin + 34 + along_total if horizontal else c0 - gap
 
 
-def edge_points(a, b, horizontal):
-    """The port on a facing b and the port on b facing a."""
+def ports(a, b, horizontal):
+    """The port on a facing b, and on b facing a."""
     if horizontal:
-        p0 = ((a.x + a.w) if b.x >= a.x else a.x, a.y + a.h / 2)
-        p1 = (b.x if b.x >= a.x else (b.x + b.w), b.y + b.h / 2)
-        return p0, p1
-    p0 = (a.x + a.w / 2, (a.y + a.h) if b.y >= a.y else a.y)
-    p1 = (b.x + b.w / 2, b.y if b.y >= a.y else (b.y + b.h))
-    return p0, p1
+        right = b.x >= a.x
+        return ((a.x + a.w) if right else a.x, a.y + a.h / 2), \
+               (b.x if right else b.x + b.w, b.y + b.h / 2)
+    down = b.y >= a.y
+    return (a.x + a.w / 2, (a.y + a.h) if down else a.y), \
+           (b.x + b.w / 2, b.y if down else b.y + b.h)
 
 
-def path_for(p0, p1, horizontal, lane):
-    """Straight when the ports line up, elbow otherwise."""
-    c = lane if lane is not None else (p0[0] + p1[0]) / 2
-    if not horizontal:
-        if lane is None:
-            return f"M{c:.1f},{p0[1]:.1f} L{c:.1f},{p1[1]:.1f}", c, (p0[1] + p1[1]) / 2
-        mid = (p0[1] + p1[1]) / 2
-        return (f"M{p0[0]:.1f},{p0[1]:.1f} L{p0[0]:.1f},{mid:.1f} L{p1[0]:.1f},{mid:.1f} "
-                f"L{p1[0]:.1f},{p1[1]:.1f}"), (p0[0] + p1[0]) / 2, mid
-    y = lane if lane is not None else (p0[1] + p1[1]) / 2
-    return (f"M{p0[0]:.1f},{y:.1f} L{p1[0]:.1f},{y:.1f}"), (p0[0] + p1[0]) / 2, y
+def head(p, u, w, colour):
+    """Arrowhead as an explicit triangle: markers default to strokeWidth units and
+    their orientation is one more thing to get wrong."""
+    L, hw = max(10.0, w * 1.2), max(4.5, w * 0.52)
+    ax, ay = p[0] + u[0] * 1.5, p[1] + u[1] * 1.5
+    bx, by = p[0] - u[0] * L, p[1] - u[1] * L
+    px, py = -u[1], u[0]
+    return (f'<path d="M{ax:.1f},{ay:.1f} L{bx + px * hw:.1f},{by + py * hw:.1f} '
+            f'L{bx - px * hw:.1f},{by - py * hw:.1f} Z" fill="{colour}"/>')
 
 
 def node_svg(n):
@@ -149,109 +133,122 @@ def node_svg(n):
 
 
 def legend(spec, y):
+    """The scale claim has to be checkable, so the ticks are drawn at the real widths."""
     sc = spec["scale"]
-    rows = []
-    rows.append([f'<text x="28" y="{y:.1f}" font-size="{FONT}" font-weight="600">粗细</text>',
-                 f'<text x="76" y="{y:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">'
-                 f'{sc["base_px"]:.0f} + {sc["px_per_decade"]}×log10(GB/s)，'
-                 f'对数量表：读数用数字，粗细只给量级</text>'])
-    ticks = []
+    out = [f'<text x="28" y="{y:.1f}" font-size="{FONT}" font-weight="600">粗细</text>',
+           f'<text x="76" y="{y:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">'
+           f'{sc["base_px"]:.0f} + {sc["px_per_decade"]}×log10(GB/s)，对数量表：'
+           f'读数用数字，粗细只给量级</text>']
     x = 76
     for bw in sc.get("ticks", [1, 10, 100, 1000]):
         w = stroke_w(bw, sc)
-        ticks.append(f'<line x1="{x:.1f}" y1="{y + 24:.1f}" x2="{x + 44:.1f}" y2="{y + 24:.1f}" '
-                     f'stroke="{INK}" stroke-width="{w:.1f}"/>')
-        ticks.append(f'<text x="{x + 50:.1f}" y="{y + 28:.1f}" font-size="{FONT - 1}" '
-                     f'fill-opacity="0.7">{bw}</text>')
-        x += 58 + text_w(str(bw)) + 30
-    rows.append(ticks)
-    y2 = y + 52
-    items = [f'<text x="28" y="{y2:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">证据</text>']
+        out.append(f'<text x="{x + 22:.1f}" y="{y + 16:.1f}" text-anchor="middle" '
+                   f'font-size="{FONT - 1}" fill-opacity="0.7">{bw}</text>')
+        out.append(f'<line x1="{x:.1f}" y1="{y + 26:.1f}" x2="{x + 44:.1f}" '
+                   f'y2="{y + 26:.1f}" stroke="{INK}" stroke-width="{w:.1f}"/>')
+        x += 44 + max(26.0, text_w(str(bw)) + 30)
+    y2 = y + 56
+    out.append(f'<text x="28" y="{y2:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">证据</text>')
     x = 76
     for dash, label in [("", "实测"), ("6 4", "标称"), ("2 3", "推算")]:
-        items.append(f'<line x1="{x}" y1="{y2 - 4:.1f}" x2="{x + 30}" y2="{y2 - 4:.1f}" '
-                     f'stroke="{INK}" stroke-width="3" stroke-dasharray="{dash}"/>')
-        items.append(f'<text x="{x + 36}" y="{y2:.1f}" font-size="{FONT - 1}" '
-                     f'fill-opacity="0.7">{label}</text>')
+        out.append(f'<line x1="{x}" y1="{y2 - 4:.1f}" x2="{x + 30}" y2="{y2 - 4:.1f}" '
+                   f'stroke="{INK}" stroke-width="3" stroke-dasharray="{dash}"/>')
+        out.append(f'<text x="{x + 36}" y="{y2:.1f}" font-size="{FONT - 1}" '
+                   f'fill-opacity="0.7">{label}</text>')
         x += 30 + text_w(label) + 26
     x += 14
-    items.append(f'<line x1="{x}" y1="{y2 - 4:.1f}" x2="{x + 30}" y2="{y2 - 4:.1f}" '
-                 f'stroke="{ACCENT}" stroke-width="7"/>')
-    items.append(f'<text x="{x + 36}" y="{y2:.1f}" font-size="{FONT - 1}" '
-                 f'fill-opacity="0.7">U ≥ 60%，本次负载的绑定项</text>')
-    rows.append(items)
+    out.append(f'<line x1="{x}" y1="{y2 - 4:.1f}" x2="{x + 30}" y2="{y2 - 4:.1f}" '
+               f'stroke="{ACCENT}" stroke-width="7"/>')
+    out.append(f'<text x="{x + 36}" y="{y2:.1f}" font-size="{FONT - 1}" '
+               f'fill-opacity="0.7">U ≥ 60%，本次负载的绑定项</text>')
     y3 = y2 + 24
-    rows.append([f'<text x="28" y="{y3:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">'
-                 f'箭头：单头 = 单工，双头 = 全双工；线宽取双向的较小值</text>'])
-    return "".join("".join(r) for r in rows), y3 + 16
+    out.append(f'<text x="28" y="{y3:.1f}" font-size="{FONT - 1}" fill-opacity="0.7">'
+               f'箭头：单头 = 单工，双头 = 全双工；双向链路的粗细取较小的一侧</text>')
+    return "".join(out), y3 + 16
 
 
 def render(spec):
     horizontal = "col" in (spec.get("nodes") or [{}])[0]
     nodes = {s["id"]: Node(s) for s in spec["nodes"]}
     scale = spec["scale"]
-    W = spec["width"]
-    margin = spec.get("margin", 28)
+    W, margin = spec["width"], spec.get("margin", 28)
     gap = spec.get("group_gap", GROUP_GAP)
 
-    # a fan needs enough node edge to land its lanes on
     groups = {}
     for lk in spec["links"]:
         groups.setdefault(tuple(sorted([lk["a"], lk["b"]])), []).append(lk)
-    for (ka, kb), lks in groups.items():
+    for (ka, kb), lks in groups.items():  # room for one lane per link
         if len(lks) > 1:
             need = len(lks) * 26 + 60
-            if horizontal:
-                for k in {ka, kb}:
+            for k in {ka, kb}:
+                if horizontal:
                     nodes[k].h = max(nodes[k].h, need)
-            else:
-                for k in {ka, kb}:
+                else:
                     nodes[k].w = max(nodes[k].w, need)
 
     content_end = place(nodes, horizontal, W, margin, gap)
-
-    body, markers = [], {}
+    body = []
     for (ka, kb), lks in groups.items():
         a, b = nodes[ka], nodes[kb]
         count = len(lks)
         for i, lk in enumerate(lks):
-            # perpendicular lane so a fan does not overprint itself
+            lane = None
             if count > 1:
                 span = (min(a.h, b.h) if horizontal else min(a.w, b.w)) * 0.8
-                step = span / count
-                lane = (a.y + a.h / 2 if horizontal else a.x + a.w / 2) + (i - (count - 1) / 2) * step
-            else:
-                lane = None
-            p0, p1 = edge_points(a, b, horizontal)
-            d, lx, ly = path_for(p0, p1, horizontal, lane)
+                centre = (a.y + a.h / 2) if horizontal else (a.x + a.w / 2)
+                lane = centre + (i - (count - 1) / 2) * span / count
+            p0, p1 = ports(a, b, horizontal)
             w = stroke_w(lk["bw"], scale)
             u = lk.get("duty")
             bind = u is not None and u >= 0.6
             colour = ACCENT if bind else INK
+            if horizontal:
+                y = lane if lane is not None else (p0[1] + p1[1]) / 2
+                d, lx, ly = f"M{p0[0]:.1f},{y:.1f} L{p1[0]:.1f},{y:.1f}", \
+                    (p0[0] + p1[0]) / 2, y
+            else:
+                x = lane if lane is not None else (p0[0] + p1[0]) / 2
+                d, lx, ly = f"M{x:.1f},{p0[1]:.1f} L{x:.1f},{p1[1]:.1f}", x, (p0[1] + p1[1]) / 2
             dash = {"measured": "", "spec": "6 4", "derived": "2 3"}[lk.get("evidence", "measured")]
-            heads = {"one": "end", "both": "end start", "asym": "end start"}[lk.get("dir", "one")]
             attrs = [f'd="{d}"', f'stroke="{colour}"', f'stroke-opacity="{0.95 if bind else 0.62}"',
-                     f'stroke-width="{w:.1f}"', 'fill="none"', 'stroke-linejoin="round"']
+                     f'stroke-width="{w:.1f}"', 'fill="none"']
             if dash:
                 attrs.append(f'stroke-dasharray="{dash}"')
-            mid = marker_id(colour, int(round(w)))
-            markers.setdefault((colour, int(round(w))), None)
-            for h in heads.split():
-                attrs.append(f'marker-{h}="url(#{mid})"')
             body.append(f'<path {" ".join(attrs)}/>')
+
+            length = math.hypot(p1[0] - p0[0], p1[1] - p0[1]) or 1.0
+            u_ab = ((p1[0] - p0[0]) / length, (p1[1] - p0[1]) / length)
+            want = {"one": (False, True), "both": (True, True),
+                    "asym": (True, True)}[lk.get("dir", "one")]
+            for at_start, at_end in [want]:
+                if at_end:
+                    body.append(head(p1, u_ab, w, colour))
+                if at_start:
+                    body.append(head(p0, (-u_ab[0], -u_ab[1]), w, colour))
 
             label = lk.get("label") or f'{lk["bw"]:g} GB/s'
             if u is not None:
                 label += f' · U {u * 100:.0f}%'
-            tx, ty = lx + w / 2 + 10, ly
             if horizontal:
-                tx, ty = (p0[0] + p1[0]) / 2 - text_w(label) / 2, ly - w / 2 - 6
-            body.append(f'<text x="{tx:.1f}" y="{ty + 4:.1f}" font-size="{FONT}" '
-                       f'fill="{colour}" fill-opacity="{0.95 if bind else 0.8}">'
-                       f'{esc(label)}</text>')
-            if lk.get("note"):
-                body.append(f'<text x="{tx:.1f}" y="{ty + 20:.1f}" font-size="{FONT - 2}" '
-                            f'fill="{INK}" fill-opacity="0.55">{esc(lk["note"])}</text>')
+                side = -1 if count == 1 or i % 2 == 0 else 1
+                tx = lx - text_w(label) / 2
+                ty = ly + side * (w / 2 + 9) + (0 if side < 0 else FONT)
+                body.append(f'<text x="{tx:.1f}" y="{ty:.1f}" font-size="{FONT}" '
+                            f'fill="{colour}" fill-opacity="{0.95 if bind else 0.8}">'
+                            f'{esc(label)}</text>')
+                if lk.get("note"):
+                    ny = ly + side * (w / 2 + 23) + (0 if side < 0 else FONT)
+                    body.append(f'<text x="{lx - text_w(lk["note"]) / 2:.1f}" y="{ny:.1f}" '
+                                f'font-size="{FONT - 2}" fill="{INK}" fill-opacity="0.55">'
+                                f'{esc(lk["note"])}</text>')
+            else:
+                tx = lx + w / 2 + 10
+                body.append(f'<text x="{tx:.1f}" y="{ly - 3:.1f}" font-size="{FONT}" '
+                            f'fill="{colour}" fill-opacity="{0.95 if bind else 0.8}">'
+                            f'{esc(label)}</text>')
+                if lk.get("note"):
+                    body.append(f'<text x="{tx:.1f}" y="{ly + 13:.1f}" font-size="{FONT - 2}" '
+                                f'fill="{INK}" fill-opacity="0.55">{esc(lk["note"])}</text>')
 
     body += [node_svg(n) for n in nodes.values()]
     leg, bottom = legend(spec, content_end + 26)
@@ -262,12 +259,9 @@ def render(spec):
     if spec.get("subtitle"):
         sub = (f'<text x="{W / 2:.1f}" y="46" text-anchor="middle" font-size="{FONT}" '
                f'fill-opacity="0.65">{esc(spec["subtitle"])}</text>')
-
-    H = bottom
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H:.0f}" width="{W}" '
-            f'height="{H:.0f}" font-family="system-ui, -apple-system, Segoe UI, sans-serif" '
-            f'color="{INK}"><defs>{"".join(marker(*k) for k in markers)}</defs>{title}{sub}'
-            f'{"".join(body)}{leg}</svg>')
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {bottom:.0f}" '
+            f'width="{W}" height="{bottom:.0f}" font-family="system-ui, -apple-system, '
+            f'Segoe UI, sans-serif" color="{INK}">{title}{sub}{"".join(body)}{leg}</svg>')
 
 
 def main():
