@@ -11,14 +11,10 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "软件工程/缓存与并发的矛盾.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "缓存与并发的矛盾"
+              "title": "新标签页"
             }
           }
         ]
@@ -80,8 +76,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -221,12 +216,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "9a97b270392e373d",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
     "人工智能/资源图-进程通道.svg",
     "人工智能/资源图-单机层级.svg",
-    "人工智能/硬件-软件优化框架.md",
     "软件工程/缓存与并发的矛盾.md",
+    "人工智能/硬件-软件优化框架.md",
     "TODO.canvas",
     "开发日记/任务分解.md",
     "找工作/行测笔算.md",
@@ -269,7 +264,6 @@
     "元学习",
     "images/Pasted image 20261002203556.png",
     "images/Pasted image 20261002185820.png",
-    "images/world-model-genealogy.png",
     "开发经验/全栈开发.canvas"
   ]
 }
