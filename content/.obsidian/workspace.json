@@ -11,17 +11,14 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5220,
-                  "y": 705,
-                  "zoom": -0.46507818177843924
-                }
+                "file": "软件工程/缓存与并发的矛盾.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "缓存与并发的矛盾"
             }
           }
         ]
@@ -226,12 +223,13 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
-    "开发日记/任务分解.md",
+    "人工智能/硬件-软件优化框架.md",
+    "软件工程/缓存与并发的矛盾.md",
     "TODO.canvas",
+    "开发日记/任务分解.md",
     "找工作/行测笔算.md",
     "软件工程/业务发展中的开发规范.md",
     "软件工程/从业务角度理解语言特性.md",
-    "人工智能/硬件-软件优化框架.md",
     "软件工程/生产级项目要求.md",
     "编程语言/zig/zig.md",
     "编程语言/zig/zig学习计划.md",
