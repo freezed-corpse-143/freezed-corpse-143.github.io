@@ -32,11 +32,31 @@
 			"height":140
 		},
 		{
+			"id":"28fb1b9c91a15f03",
+			"type":"text",
+			"text":"将资源环境可视化",
+			"styleAttributes":{},
+			"x":-5500,
+			"y":880,
+			"width":260,
+			"height":60
+		},
+		{
 			"id":"93160580ae0a3bc7",
 			"type":"text",
 			"text":"zig 重写基础库",
 			"styleAttributes":{},
-			"x":-5200,
+			"x":-5160,
+			"y":690,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3557d84cbc426bf6",
+			"type":"text",
+			"text":"编写一个最小的算子，并调试特化，调用。",
+			"styleAttributes":{},
+			"x":-5160,
 			"y":820,
 			"width":260,
 			"height":60
@@ -46,23 +66,32 @@
 			"type":"text",
 			"text":"编写通信算子",
 			"styleAttributes":{},
-			"x":-5200,
-			"y":720,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3557d84cbc426bf6",
-			"type":"text",
-			"text":"编写一个最小的算子，并调试特化，调用。",
-			"styleAttributes":{},
-			"x":-5200,
-			"y":610,
+			"x":-5160,
+			"y":940,
 			"width":260,
 			"height":60
 		}
 	],
-	"edges":[],
+	"edges":[
+		{
+			"id":"909a622d43030d90",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"28fb1b9c91a15f03",
+			"fromSide":"right",
+			"toNode":"3557d84cbc426bf6",
+			"toSide":"left"
+		},
+		{
+			"id":"c0fc034746d92ecb",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"28fb1b9c91a15f03",
+			"fromSide":"right",
+			"toNode":"6b68a49cd2edb89c",
+			"toSide":"left"
+		}
+	],
 	"metadata":{
 		"version":"1.0-1.0",
 		"frontmatter":{},
