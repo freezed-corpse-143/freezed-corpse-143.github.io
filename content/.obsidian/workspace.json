@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "分布式/Zero Stage.md",
+                "file": "github项目/cuda learn.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Zero Stage"
+              "title": "cuda learn"
             }
           }
         ]
@@ -80,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,6 +224,7 @@
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
     "TODO.canvas",
+    "github项目/cuda learn.md",
     "分布式/Zero Stage.md",
     "开发日记/任务分解.md",
     "人工智能/大模型推理加速.md",
@@ -252,7 +254,6 @@
     "github项目/WinEnvInject.md",
     "images/Pasted image 20261027152204.png",
     "编程语言/C & Zig 混合学习之路.md",
-    "编程语言/C++.md",
     "编程语言/zig",
     "小说idea/武侠小说",
     "小说idea/火影忍者",
