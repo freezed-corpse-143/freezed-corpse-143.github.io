@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "编程语言/zig/zig学习计划.md",
+                "file": "github项目/cuda learn.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "zig学习计划"
+              "title": "cuda learn"
             }
           }
         ]
@@ -222,6 +222,7 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
+    "编程语言/zig/zig学习计划.md",
     "TODO.canvas",
     "github项目/cuda learn.md",
     "分布式/Zero Stage.md",
@@ -246,7 +247,6 @@
     "软件工程/从业务角度理解语言特性.md",
     "软件工程/生产级项目要求.md",
     "编程语言/zig/zig.md",
-    "编程语言/zig/zig学习计划.md",
     "人工智能/深度学习.md",
     "人工智能/Prompt Engineer.md",
     "人工智能/Prompt.md",

@@ -302,3 +302,158 @@ import cuda_projectcuda_project.open_model(    model_dir="./model",    weights="
 4. 调用已注册的函数。[pybind11 documentation](https://pybind11.readthedocs.io/en/stable/compiling.html?utm_source=chatgpt.com)
 
 这也解释了上一轮匿名 namespace 的问题：**Python 通过包装层保存的函数关联调用 C++，所以目标函数即使位于匿名 namespace，也可以在同一编译单元中注册给 Python；并不要求每个目标函数都对外导出一个链接符号。**
+
+# OPS 结构
+
+这份文件可以理解为一个 **“Python 接口 + 模型状态管理 + CUDA 推理调度”实现文件**。下面是按职责整理的逻辑目录，**并非实际拆分后的文件目录**。
+
+**代码功能目录**
+
+- **1. 文件说明与依赖引入**（第 1–24 行）
+  - **接口契约注释**
+    - 说明 Tensor 的设备、连续性、数据类型、错误处理和 CUDA Stream 要求。
+  - **第三方依赖**
+    - `torch/extension.h`：PyTorch Tensor 与 Python 扩展支持。
+    - `nlohmann/json.hpp`：JSON 序列化与解析。
+    - CUDA 相关头文件：错误检查、Stream 管理。
+  - **项目内部依赖**
+    - `kernel/kernels.h`：GPU 算子的启动接口。
+    - `loader/config.h`：模型配置。
+    - `loader/safetensors.h`：权重文件读取。
+    - `loader/weights.h`：权重注册与 GPU 权重管理。
+- **2. 基础设施与模型内部状态**（第 26–306 行，匿名 namespace）
+  - **路径工具**
+    - `join()`：拼接目录和文件名。
+  - **会话状态**
+    - `Session`：集中保存当前模型的运行状态。
+      - `file`、`registry`、`spec`：权重文件、权重注册表、模型配置。
+      - `weights`、`f32`、`quant`：不同格式的权重与视图。
+      - `qkv_w`、`qkv_scale`、`qkv_b`：融合后的 Q/K/V 权重和偏置。
+      - `own`、`ipc`：本进程分配和跨进程映射的显存指针。
+      - `ev_start`、`ev_stop` 等：耗时与内存统计状态。
+      - `pos_dev`、`attn_ws`：CUDA Graph 位置参数和 Attention 工作区。
+      - `k_cache`、`v_cache`：各层 KV Cache。
+      - `clear_weights()`：清理权重视图及相关显存资源。
+    - `session()`：取得共享的 `Session` 实例。
+  - **参数检查与错误处理**
+    - `strict_mode()`：读取严格检查开关。
+    - `fail()`：抛出包含函数名的异常。
+    - `has_weights()`：检查是否存在可用权重。
+    - `require_file()`：检查当前模式是否支持访问权重文件。
+    - `check_cuda_tensor()`：检查 CUDA 设备与内存连续性。
+    - `check_dtype()`、`check_f 32()`：检查数据类型。
+    - `check_cuda()`：将 CUDA 错误转换成 C++ 异常。
+  - **配置转换**
+    - `spec_to_dict()`：将模型配置转换为 Python 字典。
+  - **权重访问与格式适配**
+    - `Weight`：统一表示权重 Tensor 和可选的量化 scale。
+    - `weight_bf 16()`：获取 BF 16 权重视图。
+    - `weight_matrix()`：统一获取普通或 INT 8 量化权重。
+    - `weight_f 32()`：转换、反量化并缓存 FP 32 权重。
+    - `layer_weight()`：按层号和后缀获取权重。
+    - `layer_bias()`：获取 FP 32 偏置。
+  - **输入嵌入**
+    - `embedding_lookup()`：根据 token ID 查表，生成 FP 32 激活。
+- **3. 最小 GPU 功能测试**（第 308–317 行）
+  - `add_one()`：调用加一 kernel，检查扩展和 CUDA 调用链是否可用。
+- **4. 模型加载与权重检查**（第 319–450 行）
+  - `inspect_model()`：读取配置和权重元数据，不分配模型 GPU 权重。
+  - `open_model()`：建立模型会话，加载权重，设置权重格式和计算模式。
+  - `verify_weights()`：检查 GPU 权重与文件内容是否一致。
+  - `tensor_bytes()`：导出某个权重的原始设备字节。
+  - `export_weight_f 32()`：导出推理实际使用的 FP 32 权重，便于调试。
+- **5. 基础算子的 C++ 调用接口**（第 452–610 行）
+  - **归一化**
+    - `rms_norm()`：检查参数、分配输出、启动 RMSNorm kernel。
+  - **位置编码**
+    - `apply_rope_impl()`：RoPE 内部实现，支持从设备内存读取位置。
+    - `apply_rope()`：对外的 RoPE 接口。
+  - **计算模式控制**
+    - `set_math()`：切换 Tensor Core 路径与 exact 路径。
+  - **注意力**
+    - `attention()`：启动 GQA Attention 计算。
+  - **线性层**
+    - `dense(x, Weight, bias)`：根据权重格式选择 FP 32、BF 16 或 INT 8 kernel。
+    - `dense(x, Tensor, bias)`：接受普通 Tensor 的入口。
+    - `linear_int 8()`：接受量化权重和 scale 的入口。
+  - **激活与门控**
+    - `silu_mul()`：计算 `SiLU(gate) × up`。
+- **6. Attention 张量布局工具**（第 614–625 行，匿名 namespace）
+  - `to_heads()`：将投影结果整理为多头 Attention 布局。
+  - `from_heads()`：将多头结果合并回隐藏状态布局。
+- **7. KV Cache 管理**（第 627–707 行）
+  - **内部工具**
+    - `cache_bytes()`：统计 KV Cache 占用字节数。
+    - `cache_write()`：将当前 K/V 写入指定缓存位置。
+  - **输入检查**
+    - `check_id_range()`：在严格模式下检查 token ID 范围。
+  - **缓存接口**
+    - `alloc_cache()`：分配各层 KV Cache 和相关工作区。
+    - `cache_info()`：返回缓存容量、使用情况等信息。
+    - `reset_cache()`：重置缓存有效长度。
+- **8. Transformer 核心计算流程**（第 709–828 行，匿名 namespace）
+  - **投影融合准备**
+    - `build_qkv_fused()`：拼接 Q/K/V 权重和偏置，减少投影启动次数。
+  - **共享层循环**
+    - `run_layers()`：供完整前向、Prefill 和 Decode 共用。
+      - 输入 RMSNorm。
+      - 融合 Q/K/V 投影。
+      - 拆分多头并应用 RoPE。
+      - 按需写入 KV Cache。
+      - 执行完整序列 Attention 或缓存 Decode Attention。
+      - 输出投影与残差相加。
+      - MLP：归一化、Gate/Up 投影、SiLU 门控、Down 投影。
+      - MLP 残差相加。
+      - 按需提前返回某层隐藏状态。
+      - 最终归一化与词表投影，生成 logits。
+  - **序列补齐**
+    - `pad_ids()`：将序列补齐至 Attention kernel 所需的块大小。
+- **9. 带 KV Cache 的推理入口**（第 830–874 行）
+  - `prefill()`：处理整段提示词，填充 KV Cache，返回 logits。
+  - `decode()`：处理新 token，追加 KV Cache，返回 logits。
+- **10. CUDA Graph 支持**（第 876–928 行）
+  - `set_pos()`：将当前位置和有效 key 数写入设备内存。
+  - `decode_graph_step()`：提供适合被 CUDA Graph 捕获的单步 Decode。
+  - `decode_split()`：计算 Decode Attention 使用的切分数量。
+- **11. 无 KV Cache 的前向与中间结果接口**（第 930–967 行）
+  - `forward_stop()`：执行前向，支持停在指定层或只输出最后位置。
+  - `forward()`：完整模型前向。
+  - `forward_hidden()`：获取指定层后的隐藏状态。
+- **12. 统计、调试与资源释放**（第 969–1012 行）
+  - `stats()`：读取调用计数、CUDA Event 耗时和内存统计。
+  - `reset_stats()`：重置统计状态。
+  - `debug_cuda_error()`：主动制造 CUDA 错误，验证错误处理。
+  - `close_model()`：释放模型权重及相关计算资源。
+- **13. 跨进程 GPU 权重共享**（第 1014–1189 行）
+  - **内部序列化工具**（匿名 namespace）
+    - `spec_to_json()`：模型配置转 JSON。
+    - `spec_from_json()`：从 JSON 恢复模型配置。
+    - `hex_encode()`：将 CUDA IPC 句柄编码为十六进制字符串。
+    - `hex_decode()`：将字符串还原为句柄字节。
+  - **生产者接口**
+    - `share_weights()`：导出权重的 CUDA IPC 句柄和元数据。
+  - **消费者接口**
+    - `open_model_ipc()`：映射另一进程的 GPU 权重，建立本地 Tensor 视图。
+- **14. Kernel 启动开销探测**（第 1191–1199 行）
+  - `launch_probe()`：在 C++ 循环中连续启动简单 kernel，便于测量启动开销。
+- **15. Python 模块注册入口**（第 1201 行至文件末尾）
+  - `PYBIND 11 _MODULE(TORCH_EXTENSION_NAME, m)`：定义 Python 扩展模块初始化入口。
+  - `m.def(...)`：注册 Python 可以调用的函数。
+    - 注册模型加载、算子、前向、缓存、统计和 IPC 接口。
+    - 设置 Python 参数名、默认值和说明文字。
+    - 将 C++ `dense()` 以 Python 名称 `linear` 暴露。
+    - 通过函数指针类型转换，选择需要注册的 `dense()` 重载。
+    - 注册部分底层控制接口，例如 `set_split_k`。
+
+读代码时，可以先抓住这几个层级关系：
+
+| 层级          | 对应代码                                     | 职责                            |
+| ------------- | -------------------------------------------- | ------------------------------- |
+| Python 入口层 | `PYBIND11_MODULE`、`m.def`                   | 让 Python 找到并调用接口        |
+| 用例入口层    | `open_model`、`forward`、`prefill`、`decode` | 组织一次完整操作                |
+| 模型计算层    | `run_layers`                                 | 串起 Transformer 各层计算       |
+| 算子调度层    | `dense`、`attention`、`rms_norm` 等          | 检查参数、分配输出、启动 kernel |
+| 状态与数据层  | `Session`、权重访问、KV Cache                | 保存模型运行所需的数据          |
+| 底层依赖      | `loader/*`、`kernel/*`                       | 实际文件加载和 GPU kernel 实现  |
+
+**这个文件承担的职责已经超出“绑定”：pybind 11 注册只是末尾一段，大部分代码实际负责模型推理的组织和运行状态管理。**
