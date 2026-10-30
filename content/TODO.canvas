@@ -1,16 +1,6 @@
 {
 	"nodes":[
 		{
-			"id":"7f091f2eff6037c4",
-			"type":"text",
-			"text":"偏转角度、子树干伸缩、",
-			"styleAttributes":{},
-			"x":-5540,
-			"y":600,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"93160580ae0a3bc7",
 			"type":"text",
 			"text":"zig 重写基础库",
@@ -37,6 +27,16 @@
 			"styleAttributes":{},
 			"x":-5180,
 			"y":600,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"7f091f2eff6037c4",
+			"type":"text",
+			"text":"偏转角度、子树干伸缩、",
+			"styleAttributes":{},
+			"x":-5520,
+			"y":410,
 			"width":260,
 			"height":60
 		}
