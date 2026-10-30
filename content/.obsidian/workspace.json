@@ -11,17 +11,14 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5220,
-                  "y": 535,
-                  "zoom": 0
-                }
+                "file": "软件使用.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "软件使用"
             }
           }
         ]
@@ -58,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "oh-my-pi",
+                "query": "zed",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -79,11 +76,13 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -199,11 +198,11 @@
                 "initialAgentId": "pi-acp"
               },
               "icon": "bot-message-square",
-              "title": "参考上述内容，在C:\\Projects\\jojo-blog\\content\\编程语言\\Rust..."
+              "title": "New session"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 7
       }
     ],
     "direction": "horizontal",
@@ -223,13 +222,17 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "9a97b270392e373d",
   "lastOpenFiles": [
+    "经典库学习/PyJWT.md",
+    "经典库学习/langgraph.md",
+    "软件使用.md",
+    "报错.md",
+    "TODO.canvas",
     "人工智能/通信模型.md",
     "人工智能/通信模型-曲线.svg",
     "人工智能/单步推理.md",
     "人工智能/模型文件.md",
-    "TODO.canvas",
     "算法/傅里叶变换.md",
     "人工智能/资源图-图例.svg",
     "人工智能/资源图-单机层级.svg",
@@ -253,10 +256,6 @@
     "编程语言/C++.md",
     "编程语言/Vue.md",
     "环境配置.md",
-    "编程语言/Rust.md",
-    "软件使用.md",
-    "报错.md",
-    "服务使用.md",
     "编程语言/zig",
     "小说idea/武侠小说",
     "小说idea/火影忍者",
