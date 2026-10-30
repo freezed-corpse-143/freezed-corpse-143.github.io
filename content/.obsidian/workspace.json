@@ -223,8 +223,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "9a97b270392e373d",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
+    "人工智能/通信模型.md",
+    "人工智能/通信模型-曲线.svg",
     "人工智能/单步推理.md",
     "人工智能/模型文件.md",
     "TODO.canvas",
@@ -256,7 +258,6 @@
     "报错.md",
     "服务使用.md",
     "编程语言/zig",
-    "元学习/参考学习法.md",
     "小说idea/武侠小说",
     "小说idea/火影忍者",
     "运动与健身",
@@ -271,7 +272,6 @@
     "项目管理",
     "分布式",
     "元学习",
-    "images/Pasted image 20261002203556.png",
     "开发经验/全栈开发.canvas"
   ]
 }
