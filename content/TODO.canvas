@@ -11,26 +11,6 @@
 			"height":60
 		},
 		{
-			"id":"3557d84cbc426bf6",
-			"type":"text",
-			"text":"编写一个最小的算子，并调试特化，调用。",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":490,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"6b68a49cd2edb89c",
-			"type":"text",
-			"text":"编写通信算子",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":600,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"7f091f2eff6037c4",
 			"type":"text",
 			"text":"偏转角度、子树干伸缩、",
