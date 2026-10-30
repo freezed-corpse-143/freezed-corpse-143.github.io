@@ -19,16 +19,6 @@
 			"y":410,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"3bf199d3abae15b1",
-			"type":"text",
-			"text":"个人博客更新",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":500,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],
