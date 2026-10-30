@@ -11,17 +11,14 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5220,
-                  "y": 705,
-                  "zoom": -0.46507818177843924
-                }
+                "file": "人工智能/单步推理.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "单步推理"
             }
           }
         ]
@@ -226,13 +223,15 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
+    "人工智能/模型文件.md",
+    "人工智能/单步推理.md",
+    "TODO.canvas",
     "算法/傅里叶变换.md",
     "人工智能/资源图-图例.svg",
     "人工智能/资源图-单机层级.svg",
     "人工智能/资源图-进程通道.svg",
     "软件工程/缓存与并发的矛盾.md",
     "人工智能/硬件-软件优化框架.md",
-    "TODO.canvas",
     "开发日记/任务分解.md",
     "找工作/行测笔算.md",
     "软件工程/业务发展中的开发规范.md",
@@ -256,7 +255,6 @@
     "服务使用.md",
     "编程语言/zig",
     "元学习/参考学习法.md",
-    "元学习/关系定位法.md",
     "小说idea/武侠小说",
     "小说idea/火影忍者",
     "运动与健身",
