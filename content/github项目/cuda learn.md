@@ -447,13 +447,13 @@ import cuda_projectcuda_project.open_model(    model_dir="./model",    weights="
 
 读代码时，可以先抓住这几个层级关系：
 
-| 层级          | 对应代码                                     | 职责                            |
-| ------------- | -------------------------------------------- | ------------------------------- |
-| Python 入口层 | `PYBIND11_MODULE`、`m.def`                   | 让 Python 找到并调用接口        |
-| 用例入口层    | `open_model`、`forward`、`prefill`、`decode` | 组织一次完整操作                |
-| 模型计算层    | `run_layers`                                 | 串起 Transformer 各层计算       |
-| 算子调度层    | `dense`、`attention`、`rms_norm` 等          | 检查参数、分配输出、启动 kernel |
-| 状态与数据层  | `Session`、权重访问、KV Cache                | 保存模型运行所需的数据          |
-| 底层依赖      | `loader/*`、`kernel/*`                       | 实际文件加载和 GPU kernel 实现  |
+| 层级         | 对应代码                                      | 职责                    |
+| ---------- | ----------------------------------------- | --------------------- |
+| Python 入口层 | `PYBIND11_MODULE`、`m.def`                 | 让 Python 找到并调用接口      |
+| 用例入口层      | `open_model`、`forward`、`prefill`、`decode` | 组织一次完整操作              |
+| 模型计算层      | `run_layers`                              | 串起 Transformer 各层计算   |
+| 算子调度层      | `dense`、`attention`、`rms_norm` 等          | 检查参数、分配输出、启动 kernel   |
+| 状态与数据层     | `Session`、权重访问、KV Cache                   | 保存模型运行所需的数据           |
+| 底层依赖       | `loader/*`、`kernel/*`                     | 实际文件加载和 GPU kernel 实现 |
 
 **这个文件承担的职责已经超出“绑定”：pybind 11 注册只是末尾一段，大部分代码实际负责模型推理的组织和运行状态管理。**
