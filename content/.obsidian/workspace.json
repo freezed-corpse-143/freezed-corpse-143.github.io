@@ -11,17 +11,14 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5220,
-                  "y": 440,
-                  "zoom": -0.3719687773869579
-                }
+                "file": "分布式/Zero Stage.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "Zero Stage"
             }
           }
         ]
@@ -225,12 +222,14 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "分布式/Zero Stage.md",
+    "开发日记/任务分解.md",
     "人工智能/大模型推理加速.md",
     "软件使用.md",
     "经典库学习/PyJWT.md",
     "经典库学习/langgraph.md",
     "报错.md",
-    "TODO.canvas",
     "人工智能/通信模型.md",
     "人工智能/通信模型-曲线.svg",
     "人工智能/单步推理.md",
@@ -241,7 +240,6 @@
     "人工智能/资源图-进程通道.svg",
     "软件工程/缓存与并发的矛盾.md",
     "人工智能/硬件-软件优化框架.md",
-    "开发日记/任务分解.md",
     "找工作/行测笔算.md",
     "软件工程/业务发展中的开发规范.md",
     "软件工程/从业务角度理解语言特性.md",
@@ -255,8 +253,6 @@
     "images/Pasted image 20261027152204.png",
     "编程语言/C & Zig 混合学习之路.md",
     "编程语言/C++.md",
-    "编程语言/Vue.md",
-    "环境配置.md",
     "编程语言/zig",
     "小说idea/武侠小说",
     "小说idea/火影忍者",
