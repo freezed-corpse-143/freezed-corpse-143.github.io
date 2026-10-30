@@ -19,6 +19,26 @@
 			"y":410,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"3798fba1d021714a",
+			"type":"text",
+			"text":"cuda 库的学习",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":500,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"3205aad45180a4d5",
+			"type":"text",
+			"text":"omp 的跨机互联",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":600,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
