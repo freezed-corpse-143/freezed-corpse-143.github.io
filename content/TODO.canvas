@@ -21,24 +21,14 @@
 			"height":60
 		},
 		{
-			"id":"3798fba1d021714a",
-			"type":"text",
-			"text":"cuda 库的学习",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":500,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"1c15abb5ade052a2",
 			"type":"text",
-			"text":"广东电网材料补交",
+			"text":"广东电网材料补交：\n- 找陆佳开绩点证明",
 			"styleAttributes":{},
 			"x":-5520,
 			"y":500,
 			"width":260,
-			"height":60
+			"height":80
 		}
 	],
 	"edges":[],
