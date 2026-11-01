@@ -11,17 +11,14 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5220,
-                  "y": 440,
-                  "zoom": 0
-                }
+                "file": "编程语言/zig/zig学习计划.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "zig学习计划"
             }
           }
         ]
@@ -225,9 +222,9 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
+    "TODO.canvas",
     "github项目/cuda learn.md",
     "编程语言/zig/zig学习计划.md",
-    "TODO.canvas",
     "分布式/Zero Stage.md",
     "开发日记/任务分解.md",
     "人工智能/大模型推理加速.md",
