@@ -3,12 +3,12 @@
 		{
 			"id":"93160580ae0a3bc7",
 			"type":"text",
-			"text":"zig 重写基础库",
+			"text":"zig 重写基础库：\n- json 开始吧\n- 并发库\n- HTTP 库",
 			"styleAttributes":{},
 			"x":-5180,
 			"y":410,
 			"width":260,
-			"height":60
+			"height":160
 		},
 		{
 			"id":"7f091f2eff6037c4",
