@@ -21,14 +21,14 @@
 			"height":60
 		},
 		{
-			"id":"1c15abb5ade052a2",
+			"id":"c487ebae68b7370a",
 			"type":"text",
-			"text":"广东电网材料补交：\n- 找陆佳开绩点证明",
+			"text":"射击游戏不要一上来就用 gdot 开发，而是使用 ts/js 先验证。",
 			"styleAttributes":{},
 			"x":-5520,
-			"y":500,
+			"y":520,
 			"width":260,
-			"height":80
+			"height":100
 		}
 	],
 	"edges":[],
