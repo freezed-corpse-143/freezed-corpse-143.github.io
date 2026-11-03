@@ -39,6 +39,16 @@
 			"y":640,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"39ffc30fc83d4a33",
+			"type":"text",
+			"text":"ai infra 教材",
+			"styleAttributes":{},
+			"x":-5280,
+			"y":740,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],

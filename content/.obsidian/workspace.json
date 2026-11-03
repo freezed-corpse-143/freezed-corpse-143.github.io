@@ -11,14 +11,17 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "github项目/json-zig.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5180,
+                  "y": 555,
+                  "zoom": -0.5525410230287788
+                }
               },
-              "icon": "lucide-file",
-              "title": "json-zig"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           }
         ]
@@ -80,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -223,8 +225,8 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
-    "TODO.canvas",
     "github项目/json-zig.md",
+    "TODO.canvas",
     "编程语言/zig/zig学习计划.md",
     "github项目/cuda learn.md",
     "分布式/Zero Stage.md",
