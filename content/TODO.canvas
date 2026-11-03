@@ -33,7 +33,7 @@
 		{
 			"id":"1a727baf251f5b37",
 			"type":"text",
-			"text":"zig 实现运算符重载、类、注解等功能",
+			"text":"zig 实现运类、注解等功能",
 			"styleAttributes":{},
 			"x":-5100,
 			"y":640,
