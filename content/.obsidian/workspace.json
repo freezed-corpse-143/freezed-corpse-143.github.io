@@ -11,17 +11,14 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5220,
-                  "y": 495,
-                  "zoom": 0
-                }
+                "file": "github项目/json-zig.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "json-zig"
             }
           }
         ]
@@ -225,8 +222,9 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
-    "编程语言/zig/zig学习计划.md",
     "TODO.canvas",
+    "github项目/json-zig.md",
+    "编程语言/zig/zig学习计划.md",
     "github项目/cuda learn.md",
     "分布式/Zero Stage.md",
     "开发日记/任务分解.md",
@@ -255,7 +253,6 @@
     "人工智能/Prompt.md",
     "github项目/WinEnvInject.md",
     "images/Pasted image 20261027152204.png",
-    "编程语言/C & Zig 混合学习之路.md",
     "编程语言/zig",
     "小说idea/武侠小说",
     "小说idea/火影忍者",
