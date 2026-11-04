@@ -31,34 +31,24 @@
 			"height":100
 		},
 		{
-			"id":"1a727baf251f5b37",
-			"type":"text",
-			"text":"zig 实现运类、注解等功能",
-			"styleAttributes":{},
-			"x":-5100,
-			"y":640,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"39ffc30fc83d4a33",
 			"type":"text",
 			"text":"ai infra 教材",
 			"styleAttributes":{},
-			"x":-5100,
+			"x":-5180,
 			"y":740,
 			"width":260,
 			"height":60
 		},
 		{
-			"id":"505ecef7dffcfff5",
+			"id":"1a727baf251f5b37",
 			"type":"text",
-			"text":"量化与 KV cache 中的自我思考与成长，对模型的思考",
+			"text":"zig 实现运类、注解等功能",
 			"styleAttributes":{},
-			"x":-5520,
-			"y":770,
+			"x":-5180,
+			"y":640,
 			"width":260,
-			"height":100
+			"height":60
 		}
 	],
 	"edges":[],
