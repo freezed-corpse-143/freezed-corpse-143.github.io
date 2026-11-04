@@ -41,16 +41,6 @@
 			"height":60
 		},
 		{
-			"id":"220899b48dc281f4",
-			"type":"text",
-			"text":"AI 模拟面试：niu",
-			"styleAttributes":{},
-			"x":-5560,
-			"y":740,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"39ffc30fc83d4a33",
 			"type":"text",
 			"text":"ai infra 教材",
@@ -59,6 +49,16 @@
 			"y":740,
 			"width":260,
 			"height":60
+		},
+		{
+			"id":"505ecef7dffcfff5",
+			"type":"text",
+			"text":"量化与 KV cache 中的自我思考与成长，对模型的思考",
+			"styleAttributes":{},
+			"x":-5520,
+			"y":900,
+			"width":260,
+			"height":100
 		}
 	],
 	"edges":[],
