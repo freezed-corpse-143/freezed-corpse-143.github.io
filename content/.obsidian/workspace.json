@@ -11,17 +11,14 @@
             "id": "9a97b270392e373d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5188.8,
-                  "y": 552.0666666666666,
-                  "zoom": -0.5525410230287788
-                }
+                "file": "现代UI/动画素材积累.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "动画素材积累"
             }
           }
         ]
@@ -83,8 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c751ef543f48744e",
@@ -226,8 +222,8 @@
   },
   "active": "9a97b270392e373d",
   "lastOpenFiles": [
-    "github项目/json-zig.md",
     "TODO.canvas",
+    "github项目/json-zig.md",
     "编程语言/zig/zig学习计划.md",
     "github项目/cuda learn.md",
     "分布式/Zero Stage.md",
