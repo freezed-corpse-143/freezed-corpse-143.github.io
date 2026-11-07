@@ -79,6 +79,26 @@
 			"y":760,
 			"width":260,
 			"height":120
+		},
+		{
+			"id":"30b4f6536d1b5b03",
+			"type":"text",
+			"text":"计算机的时钟同步原理",
+			"styleAttributes":{},
+			"x":-5160,
+			"y":760,
+			"width":260,
+			"height":60
+		},
+		{
+			"id":"6a162e69ebef806b",
+			"type":"text",
+			"text":"计算机的电信号纠正等纠错机制。",
+			"styleAttributes":{},
+			"x":-5080,
+			"y":860,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
