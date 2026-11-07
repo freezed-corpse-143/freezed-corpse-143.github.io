@@ -59,16 +59,6 @@
 			"y":640,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"fe4d1c0867f67556",
-			"type":"text",
-			"text":"",
-			"styleAttributes":{},
-			"x":-4860,
-			"y":650,
-			"width":260,
-			"height":130
 		}
 	],
 	"edges":[],

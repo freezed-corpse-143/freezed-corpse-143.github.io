@@ -11,12 +11,26 @@
             "id": "1c60bbea22346ab5",
             "type": "leaf",
             "state": {
+              "type": "markdown",
+              "state": {
+                "file": "计算机/光子计算机学习指引.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "光子计算机学习指引"
+            }
+          },
+          {
+            "id": "55a217994126e611",
+            "type": "leaf",
+            "state": {
               "type": "canvas",
               "state": {
                 "file": "TODO.canvas",
                 "viewState": {
-                  "x": -5050,
-                  "y": 630,
+                  "x": -5060,
+                  "y": 595,
                   "zoom": 0
                 }
               },
@@ -24,7 +38,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -223,11 +238,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "1c60bbea22346ab5",
+  "active": "55a217994126e611",
   "lastOpenFiles": [
+    "计算机/光子计算机学习指引.md",
+    "TODO.canvas",
     "人工智能/Agent 工作流优化.md",
     "人工智能/AgentHarness.md",
-    "TODO.canvas",
     "现代UI/图片分割调研.md",
     "找工作/图形推理.md",
     "找工作/流式数字推理.md",
@@ -252,8 +268,6 @@
     "经典库学习/langgraph.md",
     "报错.md",
     "人工智能/单步推理.md",
-    "人工智能/模型文件.md",
-    "算法/傅里叶变换.md",
     "人工智能/资源图-单机层级.svg",
     "人工智能/资源图-进程通道.svg",
     "images/Pasted image 20261027152204.png",
