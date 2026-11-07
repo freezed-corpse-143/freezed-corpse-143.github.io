@@ -61,26 +61,6 @@
 			"height":60
 		},
 		{
-			"id":"f2651bdcb914eabd",
-			"type":"text",
-			"text":"数字推理套路",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":720,
-			"width":260,
-			"height":60
-		},
-		{
-			"id":"3d4247266fe1d2e8",
-			"type":"text",
-			"text":"图片可编辑化。",
-			"styleAttributes":{},
-			"x":-4840,
-			"y":410,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"ab409bb4428d094a",
 			"type":"text",
 			"text":"agent 工作流的错误分类与分类任务的反向传播与次梯度理论",
@@ -99,6 +79,16 @@
 			"y":750,
 			"width":260,
 			"height":100
+		},
+		{
+			"id":"3d4247266fe1d2e8",
+			"type":"text",
+			"text":"图片可编辑化。",
+			"styleAttributes":{},
+			"x":-5180,
+			"y":720,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],
