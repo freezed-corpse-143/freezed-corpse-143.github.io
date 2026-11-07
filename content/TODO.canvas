@@ -79,16 +79,6 @@
 			"y":760,
 			"width":260,
 			"height":120
-		},
-		{
-			"id":"6a162e69ebef806b",
-			"type":"text",
-			"text":"计算机的电信号纠正等纠错机制。",
-			"styleAttributes":{},
-			"x":-5180,
-			"y":780,
-			"width":260,
-			"height":60
 		}
 	],
 	"edges":[],

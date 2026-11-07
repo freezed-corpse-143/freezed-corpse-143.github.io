@@ -11,14 +11,17 @@
             "id": "55a217994126e611",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "计算机/时钟同步.md",
-                "mode": "source",
-                "source": false
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5020,
+                  "y": 645,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "时钟同步"
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
             }
           },
           {
@@ -35,8 +38,7 @@
               "title": "时钟信号处理"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -235,11 +237,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "8d6045826f52e3cb",
+  "active": "55a217994126e611",
   "lastOpenFiles": [
-    "TODO.canvas",
-    "计算机/时钟信号处理.md",
     "计算机/时钟同步.md",
+    "计算机/时钟信号处理.md",
+    "TODO.canvas",
     "计算机/光子计算机学习指引.md",
     "人工智能/Agent 工作流优化.md",
     "人工智能/AgentHarness.md",
