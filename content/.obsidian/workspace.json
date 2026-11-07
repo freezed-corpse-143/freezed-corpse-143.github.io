@@ -25,17 +25,14 @@
             "id": "dc16156a53c12d55",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 645,
-                  "zoom": 0
-                }
+                "file": "经验之谈.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "经验之谈"
             }
           }
         ],
@@ -73,7 +70,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "zed",
+                "query": "adobe",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -240,9 +237,10 @@
   },
   "active": "dc16156a53c12d55",
   "lastOpenFiles": [
+    "编程语言.md",
+    "TODO.canvas",
     "软件工程/规模分析.md",
     "计算机/变量一致性.md",
-    "TODO.canvas",
     "软件工程/并发bug排查.md",
     "计算机/原子操作.md",
     "计算机/时钟信号处理.md",
