@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "找工作/流式数字推理.md",
+                "file": "找工作/图形推理.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "流式数字推理"
+              "title": "图形推理"
             }
           }
         ]
@@ -220,10 +220,11 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "57211db5690af61a",
+  "active": "1c60bbea22346ab5",
   "lastOpenFiles": [
-    "TODO.canvas",
     "找工作/流式数字推理.md",
+    "找工作/图形推理.md",
+    "TODO.canvas",
     "现代UI/组件动画设计思想.md",
     "现代UI/开头动画.md",
     "人工智能/通信模型.md",
