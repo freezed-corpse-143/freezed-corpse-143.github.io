@@ -79,6 +79,16 @@
 			"y":760,
 			"width":260,
 			"height":120
+		},
+		{
+			"id":"7c6fbc47b1c884f7",
+			"type":"text",
+			"text":"一致性与缓存冲突性。",
+			"styleAttributes":{},
+			"x":-5140,
+			"y":800,
+			"width":260,
+			"height":60
 		}
 	],
 	"edges":[],

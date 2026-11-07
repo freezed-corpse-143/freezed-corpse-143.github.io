@@ -34,8 +34,26 @@
               "icon": "lucide-file",
               "title": "时钟信号处理"
             }
+          },
+          {
+            "id": "50f18f3854bd4acb",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5020,
+                  "y": 645,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -234,10 +252,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "55a217994126e611",
+  "active": "50f18f3854bd4acb",
   "lastOpenFiles": [
-    "TODO.canvas",
     "软件工程/并发bug排查.md",
+    "TODO.canvas",
     "计算机/时钟同步.md",
     "计算机/时钟信号处理.md",
     "计算机/光子计算机学习指引.md",
