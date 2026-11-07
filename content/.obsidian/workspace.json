@@ -39,17 +39,14 @@
             "id": "c3a02a3ba8c58d47",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 645,
-                  "zoom": 0
-                }
+                "file": "软件工程/规模分析.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "规模分析"
             }
           }
         ],
@@ -254,9 +251,10 @@
   },
   "active": "c3a02a3ba8c58d47",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "软件工程/规模分析.md",
     "软件工程/并发bug排查.md",
     "计算机/变量一致性.md",
-    "TODO.canvas",
     "计算机/原子操作.md",
     "计算机/时钟信号处理.md",
     "计算机/时钟同步.md",
@@ -281,7 +279,6 @@
     "github项目/cuda learn.md",
     "分布式/Zero Stage.md",
     "开发日记/任务分解.md",
-    "人工智能/大模型推理加速.md",
     "人工智能/资源图-单机层级.svg",
     "人工智能/资源图-进程通道.svg",
     "images/Pasted image 20261027152204.png",
