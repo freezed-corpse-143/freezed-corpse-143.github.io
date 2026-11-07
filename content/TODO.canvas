@@ -59,16 +59,6 @@
 			"y":640,
 			"width":260,
 			"height":60
-		},
-		{
-			"id":"c36d0c68a2d705e1",
-			"type":"text",
-			"text":"规模分析与压力测试、背压、卸压、日志队列、阶梯式管理",
-			"styleAttributes":{},
-			"x":-4780,
-			"y":760,
-			"width":260,
-			"height":120
 		}
 	],
 	"edges":[],
