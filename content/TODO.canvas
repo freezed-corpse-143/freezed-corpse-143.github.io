@@ -63,12 +63,12 @@
 		{
 			"id":"fe4d1c0867f67556",
 			"type":"text",
-			"text":"光子逻辑门，光子矩阵计算、模拟计算、光子随机采样、wavedude",
+			"text":"",
 			"styleAttributes":{},
 			"x":-4860,
 			"y":650,
 			"width":260,
-			"height":100
+			"height":130
 		}
 	],
 	"edges":[],
