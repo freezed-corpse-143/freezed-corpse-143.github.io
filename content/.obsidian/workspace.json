@@ -52,7 +52,8 @@
               "title": "TODO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -251,12 +252,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "55a217994126e611",
+  "active": "8d6045826f52e3cb",
   "lastOpenFiles": [
+    "软件工程/并发bug排查.md",
     "计算机/原子操作.md",
     "计算机/时钟信号处理.md",
     "TODO.canvas",
-    "软件工程/并发bug排查.md",
     "计算机/时钟同步.md",
     "计算机/光子计算机学习指引.md",
     "人工智能/Agent 工作流优化.md",
