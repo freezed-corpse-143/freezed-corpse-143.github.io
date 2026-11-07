@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "计算机/时钟信号处理.md",
+                "file": "计算机/原子操作.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "时钟信号处理"
+              "title": "原子操作"
             }
           },
           {
@@ -52,8 +52,7 @@
               "title": "TODO"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -252,12 +251,13 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "50f18f3854bd4acb",
+  "active": "55a217994126e611",
   "lastOpenFiles": [
-    "软件工程/并发bug排查.md",
-    "TODO.canvas",
-    "计算机/时钟同步.md",
+    "计算机/原子操作.md",
     "计算机/时钟信号处理.md",
+    "TODO.canvas",
+    "软件工程/并发bug排查.md",
+    "计算机/时钟同步.md",
     "计算机/光子计算机学习指引.md",
     "人工智能/Agent 工作流优化.md",
     "人工智能/AgentHarness.md",
