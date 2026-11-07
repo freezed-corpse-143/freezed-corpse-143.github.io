@@ -20,8 +20,26 @@
               "icon": "lucide-file",
               "title": "时钟同步"
             }
+          },
+          {
+            "id": "8d6045826f52e3cb",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "TODO.canvas",
+                "viewState": {
+                  "x": -5020,
+                  "y": 675,
+                  "zoom": 0
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "TODO"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -220,10 +238,10 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "55a217994126e611",
+  "active": "8d6045826f52e3cb",
   "lastOpenFiles": [
-    "TODO.canvas",
     "计算机/时钟同步.md",
+    "TODO.canvas",
     "计算机/光子计算机学习指引.md",
     "人工智能/Agent 工作流优化.md",
     "人工智能/AgentHarness.md",
