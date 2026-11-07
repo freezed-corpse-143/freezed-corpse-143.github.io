@@ -61,16 +61,6 @@
 			"height":60
 		},
 		{
-			"id":"e93d26ea534d6675",
-			"type":"text",
-			"text":"并发排查与竞态分析。",
-			"styleAttributes":{},
-			"x":-4820,
-			"y":640,
-			"width":260,
-			"height":60
-		},
-		{
 			"id":"c36d0c68a2d705e1",
 			"type":"text",
 			"text":"规模分析与压力测试、背压、卸压、日志队列、阶梯式管理",
