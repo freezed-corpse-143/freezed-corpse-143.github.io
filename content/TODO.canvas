@@ -65,20 +65,10 @@
 			"type":"text",
 			"text":"光子逻辑门，光子矩阵计算、模拟计算、光子随机采样、wavedude",
 			"styleAttributes":{},
-			"x":-4840,
-			"y":750,
+			"x":-4860,
+			"y":650,
 			"width":260,
 			"height":100
-		},
-		{
-			"id":"ab409bb4428d094a",
-			"type":"text",
-			"text":"agent 工作流的错误分类与分类任务的反向传播与次梯度理论",
-			"styleAttributes":{},
-			"x":-4840,
-			"y":620,
-			"width":260,
-			"height":80
 		}
 	],
 	"edges":[],
