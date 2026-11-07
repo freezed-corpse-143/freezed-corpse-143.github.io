@@ -11,17 +11,14 @@
             "id": "55a217994126e611",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 645,
-                  "zoom": 0
-                }
+                "file": "软件工程/并发bug排查.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "并发bug排查"
             }
           },
           {
@@ -239,9 +236,10 @@
   },
   "active": "55a217994126e611",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "软件工程/并发bug排查.md",
     "计算机/时钟同步.md",
     "计算机/时钟信号处理.md",
-    "TODO.canvas",
     "计算机/光子计算机学习指引.md",
     "人工智能/Agent 工作流优化.md",
     "人工智能/AgentHarness.md",
@@ -266,7 +264,6 @@
     "人工智能/大模型推理加速.md",
     "软件使用.md",
     "经典库学习/PyJWT.md",
-    "经典库学习/langgraph.md",
     "人工智能/资源图-单机层级.svg",
     "人工智能/资源图-进程通道.svg",
     "images/Pasted image 20261027152204.png",
