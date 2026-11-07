@@ -11,17 +11,14 @@
             "id": "1c60bbea22346ab5",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5020,
-                  "y": 605,
-                  "zoom": 0
-                }
+                "file": "找工作/流式数字推理.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "流式数字推理"
             }
           }
         ]
@@ -223,11 +220,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "1c60bbea22346ab5",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "找工作/流式数字推理.md",
     "现代UI/组件动画设计思想.md",
     "现代UI/开头动画.md",
-    "TODO.canvas",
     "人工智能/通信模型.md",
     "人工智能/通信模型-曲线.svg",
     "人工智能/现代模型.md",
@@ -254,8 +252,6 @@
     "软件工程/缓存与并发的矛盾.md",
     "找工作/行测笔算.md",
     "软件工程/业务发展中的开发规范.md",
-    "软件工程/从业务角度理解语言特性.md",
-    "软件工程/生产级项目要求.md",
     "images/Pasted image 20261027152204.png",
     "编程语言/zig",
     "小说idea/武侠小说",
