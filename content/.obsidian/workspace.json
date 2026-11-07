@@ -11,17 +11,14 @@
             "id": "1c60bbea22346ab5",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "TODO.canvas",
-                "viewState": {
-                  "x": -5050,
-                  "y": 630,
-                  "zoom": 0
-                }
+                "file": "现代UI/图片分割调研.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "TODO"
+              "icon": "lucide-file",
+              "title": "图片分割调研"
             }
           }
         ]
@@ -223,11 +220,12 @@
       "agent-client:Open agent client": false
     }
   },
-  "active": "1c60bbea22346ab5",
+  "active": "57211db5690af61a",
   "lastOpenFiles": [
+    "TODO.canvas",
+    "现代UI/图片分割调研.md",
     "找工作/图形推理.md",
     "找工作/流式数字推理.md",
-    "TODO.canvas",
     "现代UI/组件动画设计思想.md",
     "现代UI/开头动画.md",
     "人工智能/通信模型.md",
@@ -254,8 +252,6 @@
     "人工智能/资源图-单机层级.svg",
     "人工智能/资源图-进程通道.svg",
     "软件工程/缓存与并发的矛盾.md",
-    "找工作/行测笔算.md",
-    "软件工程/业务发展中的开发规范.md",
     "images/Pasted image 20261027152204.png",
     "编程语言/zig",
     "小说idea/武侠小说",
