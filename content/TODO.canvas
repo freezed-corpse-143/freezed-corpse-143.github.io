@@ -61,16 +61,6 @@
 			"height":60
 		},
 		{
-			"id":"ab409bb4428d094a",
-			"type":"text",
-			"text":"agent 工作流的错误分类与分类任务的反向传播与次梯度理论",
-			"styleAttributes":{},
-			"x":-4840,
-			"y":640,
-			"width":260,
-			"height":80
-		},
-		{
 			"id":"fe4d1c0867f67556",
 			"type":"text",
 			"text":"光子逻辑门，光子矩阵计算、模拟计算、光子随机采样、wavedude",
@@ -81,14 +71,14 @@
 			"height":100
 		},
 		{
-			"id":"3d4247266fe1d2e8",
+			"id":"ab409bb4428d094a",
 			"type":"text",
-			"text":"图片可编辑化。",
+			"text":"agent 工作流的错误分类与分类任务的反向传播与次梯度理论",
 			"styleAttributes":{},
-			"x":-5180,
-			"y":720,
+			"x":-4840,
+			"y":620,
 			"width":260,
-			"height":60
+			"height":80
 		}
 	],
 	"edges":[],
